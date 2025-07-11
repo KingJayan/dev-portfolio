@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'wouter';
+import { particleConfigs, type ParticleConfig } from '@/lib/particleConfig';
 
 interface Particle {
   x: number;
@@ -11,12 +13,20 @@ interface Particle {
   hue: number;
 }
 
-export default function ParticleBackground() {
+interface ParticleBackgroundProps {
+  config?: ParticleConfig;
+}
+
+export default function ParticleBackground({ config }: ParticleBackgroundProps) {
+  const [location] = useLocation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const mouseTrailRef = useRef<Array<{ x: number; y: number; timestamp: number }>>([]);
+  
+  // Determine which config to use based on location
+  const activeConfig = config || (location === '/' ? particleConfigs.home : particleConfigs.other);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,7 +41,7 @@ export default function ParticleBackground() {
     };
 
     const createParticle = (): Particle => {
-      const radius = Math.random() * 2 + 1;
+      const radius = Math.random() * (activeConfig.maxRadius - activeConfig.baseRadius) + activeConfig.baseRadius;
       return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -39,14 +49,14 @@ export default function ParticleBackground() {
         vy: (Math.random() - 0.5) * 0.5,
         radius: radius,
         originalRadius: radius,
-        opacity: Math.random() * 0.5 + 0.2,
-        hue: Math.random() * 60 + 200 // Blue to purple range
+        opacity: Math.random() * (activeConfig.maxOpacity - activeConfig.baseOpacity) + activeConfig.baseOpacity,
+        hue: Math.random() * (activeConfig.colors.maxHue - activeConfig.colors.minHue) + activeConfig.colors.minHue
       };
     };
 
     const initParticles = () => {
       particlesRef.current = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 12000);
+      const particleCount = Math.min(activeConfig.particleCount, Math.floor((canvas.width * canvas.height) / 8000));
       
       for (let i = 0; i < particleCount; i++) {
         particlesRef.current.push(createParticle());
@@ -73,9 +83,9 @@ export default function ParticleBackground() {
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 150) {
-          const force = (150 - distance) / 150;
-          const attraction = force * 0.002;
+        if (distance < activeConfig.mouseInfluenceRadius) {
+          const force = (activeConfig.mouseInfluenceRadius - distance) / activeConfig.mouseInfluenceRadius;
+          const attraction = force * activeConfig.attractionStrength;
           
           // Attract particles to mouse
           particle.vx += dx * attraction;
@@ -83,35 +93,37 @@ export default function ParticleBackground() {
           
           // Increase size and brightness when close to mouse
           particle.radius = particle.originalRadius * (1 + force * 2);
-          particle.opacity = Math.min(1, particle.opacity + force * 0.5);
+          particle.opacity = Math.min(activeConfig.maxOpacity, particle.opacity + force * 0.5);
           
           // Shift color based on distance
-          particle.hue = 200 + (260 - 200) * force;
+          particle.hue = activeConfig.colors.minHue + (activeConfig.colors.maxHue - activeConfig.colors.minHue) * force;
         } else {
           // Gradually return to original state
           particle.radius = particle.originalRadius;
-          particle.opacity = Math.max(0.2, particle.opacity - 0.01);
-          particle.hue = 200 + Math.random() * 60;
+          particle.opacity = Math.max(activeConfig.baseOpacity, particle.opacity - 0.01);
+          particle.hue = activeConfig.colors.minHue + Math.random() * (activeConfig.colors.maxHue - activeConfig.colors.minHue);
         }
         
         // Mouse trail interaction
-        mouseTrailRef.current.forEach(trailPoint => {
-          const trailDx = trailPoint.x - particle.x;
-          const trailDy = trailPoint.y - particle.y;
-          const trailDistance = Math.sqrt(trailDx * trailDx + trailDy * trailDy);
-          const age = currentTime - trailPoint.timestamp;
-          
-          if (trailDistance < 100 && age < 1000) {
-            const trailForce = (100 - trailDistance) / 100 * (1 - age / 1000);
-            particle.vx += trailDx * trailForce * 0.001;
-            particle.vy += trailDy * trailForce * 0.001;
-          }
-        });
+        if (activeConfig.trail.enabled) {
+          mouseTrailRef.current.forEach(trailPoint => {
+            const trailDx = trailPoint.x - particle.x;
+            const trailDy = trailPoint.y - particle.y;
+            const trailDistance = Math.sqrt(trailDx * trailDx + trailDy * trailDy);
+            const age = currentTime - trailPoint.timestamp;
+            
+            if (trailDistance < 100 && age < activeConfig.trail.fadeTime) {
+              const trailForce = (100 - trailDistance) / 100 * (1 - age / activeConfig.trail.fadeTime);
+              particle.vx += trailDx * trailForce * 0.001;
+              particle.vy += trailDy * trailForce * 0.001;
+            }
+          });
+        }
       });
       
       // Clean up old mouse trail points
       mouseTrailRef.current = mouseTrailRef.current.filter(
-        point => currentTime - point.timestamp < 1000
+        point => currentTime - point.timestamp < activeConfig.trail.fadeTime
       );
     };
 
@@ -119,17 +131,17 @@ export default function ParticleBackground() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Draw mouse trail
-      if (mouseTrailRef.current.length > 1) {
+      if (activeConfig.trail.enabled && mouseTrailRef.current.length > 1) {
         ctx.beginPath();
         ctx.moveTo(mouseTrailRef.current[0].x, mouseTrailRef.current[0].y);
         
         for (let i = 1; i < mouseTrailRef.current.length; i++) {
           const point = mouseTrailRef.current[i];
           const age = Date.now() - point.timestamp;
-          const alpha = Math.max(0, 1 - age / 1000);
+          const alpha = Math.max(0, 1 - age / activeConfig.trail.fadeTime);
           
           ctx.lineTo(point.x, point.y);
-          ctx.strokeStyle = `hsla(220, 100%, 70%, ${alpha * 0.3})`;
+          ctx.strokeStyle = `hsla(${activeConfig.colors.minHue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${alpha * 0.3})`;
           ctx.lineWidth = 2;
           ctx.stroke();
         }
@@ -138,16 +150,20 @@ export default function ParticleBackground() {
       // Draw particles with enhanced colors
       particlesRef.current.forEach(particle => {
         // Add glow effect
-        ctx.shadowColor = `hsl(${particle.hue}, 80%, 60%)`;
-        ctx.shadowBlur = particle.radius * 3;
+        if (activeConfig.glow.enabled) {
+          ctx.shadowColor = `hsl(${particle.hue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%)`;
+          ctx.shadowBlur = particle.radius * activeConfig.glow.intensity;
+        }
         
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${particle.hue}, 80%, 60%, ${particle.opacity})`;
+        ctx.fillStyle = `hsla(${particle.hue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${particle.opacity})`;
         ctx.fill();
         
         // Reset shadow
-        ctx.shadowBlur = 0;
+        if (activeConfig.glow.enabled) {
+          ctx.shadowBlur = 0;
+        }
       });
       
       // Draw enhanced connections
@@ -158,14 +174,14 @@ export default function ParticleBackground() {
           const dy = otherParticle.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           
-          if (distance < 120) {
-            const opacity = 0.15 * (1 - distance / 120);
+          if (distance < activeConfig.connectionDistance) {
+            const opacity = 0.15 * (1 - distance / activeConfig.connectionDistance);
             const avgHue = (particle.hue + otherParticle.hue) / 2;
             
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `hsla(${avgHue}, 70%, 50%, ${opacity})`;
+            ctx.strokeStyle = `hsla(${avgHue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${opacity})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -173,15 +189,15 @@ export default function ParticleBackground() {
       });
       
       // Draw mouse cursor glow
-      if (mouseRef.current.x > 0 && mouseRef.current.y > 0) {
+      if (activeConfig.mouseGlow.enabled && mouseRef.current.x > 0 && mouseRef.current.y > 0) {
         ctx.beginPath();
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, 30, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.05)';
+        ctx.arc(mouseRef.current.x, mouseRef.current.y, activeConfig.mouseGlow.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${activeConfig.colors.minHue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${activeConfig.mouseGlow.opacity})`;
         ctx.fill();
         
         ctx.beginPath();
-        ctx.arc(mouseRef.current.x, mouseRef.current.y, 15, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(59, 130, 246, 0.1)';
+        ctx.arc(mouseRef.current.x, mouseRef.current.y, activeConfig.mouseGlow.radius / 2, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${activeConfig.colors.minHue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${activeConfig.mouseGlow.opacity * 2})`;
         ctx.fill();
       }
     };
@@ -196,16 +212,18 @@ export default function ParticleBackground() {
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
       
-      // Add to mouse trail
-      mouseTrailRef.current.push({
-        x: e.clientX,
-        y: e.clientY,
-        timestamp: Date.now()
-      });
-      
-      // Keep trail length manageable
-      if (mouseTrailRef.current.length > 10) {
-        mouseTrailRef.current.shift();
+      // Add to mouse trail if enabled
+      if (activeConfig.trail.enabled) {
+        mouseTrailRef.current.push({
+          x: e.clientX,
+          y: e.clientY,
+          timestamp: Date.now()
+        });
+        
+        // Keep trail length manageable
+        if (mouseTrailRef.current.length > activeConfig.trail.maxPoints) {
+          mouseTrailRef.current.shift();
+        }
       }
     };
 
@@ -230,7 +248,7 @@ export default function ParticleBackground() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [location, activeConfig]);
 
   return (
     <canvas

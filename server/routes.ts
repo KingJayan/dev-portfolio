@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import { sendContactEmail, isEmailConfigured } from "./emailService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -11,10 +12,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const contactData = insertContactSchema.parse(req.body);
       const contact = await storage.createContact(contactData);
       
+      // Send email notification
+      let emailSent = false;
+      if (isEmailConfigured()) {
+        emailSent = await sendContactEmail(contact);
+      }
+      
       res.json({ 
         success: true, 
         message: "Thank you for your message! I'll get back to you soon.",
-        contact 
+        contact,
+        emailSent: emailSent || !isEmailConfigured() // Consider success if no email configured
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -24,6 +32,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors 
         });
       } else {
+        console.error('Contact form error:', error);
         res.status(500).json({ 
           success: false, 
           message: "Failed to send message. Please try again." 
