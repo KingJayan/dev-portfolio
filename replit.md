@@ -116,4 +116,11 @@ Preferred communication style: Simple, everyday language.
 3. `npm run start` - Start production server
 4. `npm run db:push` - Update database schema
 
+### Vercel Deployment
+- **Configuration**: `vercel.json` configured for serverless deployment
+- **Build Script**: `deploy-to-vercel.sh` for preparation and deployment
+- **Documentation**: `VERCEL_DEPLOYMENT.md` with detailed deployment instructions
+- **Environment Variables**: DATABASE_URL, MAILJET_API_KEY, MAILJET_SECRET_KEY
+- **Database Options**: Vercel Postgres, Neon, Supabase, or Railway
+
 The application is designed to be deployed on platforms like Replit, Vercel, or similar services that support Node.js applications with PostgreSQL databases.

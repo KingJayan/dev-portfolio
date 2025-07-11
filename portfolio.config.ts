@@ -11,7 +11,7 @@ export const portfolioConfig = {
     name: "Jayan Patel",
     title: "Full Stack Developer",
     email: "jayanp0202@gmail.com",
-    phone: "+1 (555) 123-4567",
+    phone: "+1 (618) 737-2186",
     location: "Austin, TX",
     website: "https://jayanpatel.dev",
     avatar: "/api/placeholder/150/150",
@@ -22,7 +22,7 @@ export const portfolioConfig = {
     // Email where contact form submissions will be sent
     recipientEmail: "jayanp0202@gmail.com",
     // Email that appears as the sender (must be verified in Mailjet)
-    senderEmail: "noreply@jayanpatel.dev",
+    senderEmail: "jayanp0202@gmail.com",
     // Auto-reply settings
     autoReply: {
       enabled: true,
