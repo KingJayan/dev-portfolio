@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern full-stack portfolio website built for Alex Morgan, a Full Stack Developer. The application features a React frontend with TypeScript, an Express.js backend, and PostgreSQL database integration. It showcases a professional portfolio with sections for about, projects, and contact functionality.
+This is a modern full-stack portfolio website built for Jayan Patel, a Full Stack Developer. The application features a React frontend with TypeScript, an Express.js backend, and PostgreSQL database integration. It showcases a professional portfolio with sections for about, projects, and contact functionality.
 
 ## User Preferences
 

@@ -8,12 +8,12 @@
 export const portfolioConfig = {
   // Personal Information
   personal: {
-    name: "Alex Morgan",
+    name: "Jayan Patel",
     title: "Full Stack Developer",
-    email: "alex@alexmorgan.dev",
+    email: "jayanp0202@gmail.com",
     phone: "+1 (555) 123-4567",
     location: "San Francisco, CA",
-    website: "https://alexmorgan.dev",
+    website: "https://jayanpatel.dev",
     avatar: "/api/placeholder/150/150",
   },
 
@@ -22,7 +22,7 @@ export const portfolioConfig = {
     // Email where contact form submissions will be sent
     recipientEmail: "jayanp0202@gmail.com",
     // Email that appears as the sender (must be verified in Mailjet)
-    senderEmail: "noreply@alexmorgan.dev",
+    senderEmail: "noreply@jayanpatel.dev",
     // Auto-reply settings
     autoReply: {
       enabled: true,
@@ -43,7 +43,7 @@ export const portfolioConfig = {
 
   // SEO Settings
   seo: {
-    title: "Alex Morgan - Full Stack Developer",
+    title: "Jayan Patel - Full Stack Developer",
     description: "Full Stack Developer specializing in React, Node.js, and modern web technologies. Creating exceptional digital experiences with clean code and innovative solutions.",
     keywords: ["Full Stack Developer", "React", "Node.js", "Web Development", "JavaScript", "TypeScript"],
     ogImage: "/api/placeholder/1200/630",

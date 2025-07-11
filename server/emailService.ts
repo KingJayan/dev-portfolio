@@ -34,7 +34,7 @@ export async function sendContactEmail(contact: Contact): Promise<boolean> {
         Messages: [
           {
             From: {
-              Email: 'noreply@alexmorgan.dev', // This needs to be a verified sender in Mailjet
+              Email: 'noreply@jayanpatel.dev', // This needs to be a verified sender in Mailjet
               Name: 'Portfolio Website'
             },
             To: [

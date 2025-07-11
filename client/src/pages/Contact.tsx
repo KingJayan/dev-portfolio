@@ -223,7 +223,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-medium text-white dark:text-white">Email</h4>
-                  <p className="text-slate-300 dark:text-slate-300">alex@alexmorgan.dev</p>
+                  <p className="text-slate-300 dark:text-slate-300">jayanp0202@gmail.com</p>
                 </div>
               </div>
               
@@ -276,7 +276,7 @@ export default function Contact() {
                   <i className="fab fa-twitter text-slate-300 hover:text-white"></i>
                 </a>
                 <a
-                  href="mailto:alex@alexmorgan.dev"
+                  href="mailto:jayanp0202@gmail.com"
                   className="w-12 h-12 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <Mail className="text-slate-300 hover:text-white h-5 w-5" />

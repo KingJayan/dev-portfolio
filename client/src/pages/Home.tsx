@@ -33,7 +33,7 @@ export default function Home() {
         >
           Hello, I'm{' '}
           <span className="text-gradient bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-            Alex Morgan
+            Jayan Patel
           </span>
         </motion.h1>
         
