@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { typingPhrases } from '@/lib/constants';
+import { portfolioConfig } from '../../../portfolio.config';
 
 interface TypingAnimationProps {
   phrases?: string[];
@@ -7,7 +7,7 @@ interface TypingAnimationProps {
 }
 
 export default function TypingAnimation({ 
-  phrases = typingPhrases, 
+  phrases = portfolioConfig.typing.phrases, 
   className = "" 
 }: TypingAnimationProps) {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);

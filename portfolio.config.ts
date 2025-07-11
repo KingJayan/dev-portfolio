@@ -43,7 +43,7 @@ export const portfolioConfig = {
 
   // SEO Settings
   seo: {
-    title: "Jayan Patel - Full Stack Developer",
+    title: "Jayan Patel - Portfolio",
     description: "Full Stack Developer specializing in React, Node.js, and modern web technologies. Creating exceptional digital experiences with clean code and innovative solutions.",
     keywords: ["Full Stack Developer", "React", "Node.js", "Web Development", "JavaScript", "TypeScript"],
     ogImage: "/api/placeholder/1200/630",
@@ -72,8 +72,8 @@ export const portfolioConfig = {
   typing: {
     phrases: [
       "Full Stack Developer",
-      "React & Node.js Expert",
-      "UI/UX Enthusiast",
+      "HTML & JS Expert",
+      "Student",
       "Problem Solver",
       "Tech Innovator",
     ],
@@ -100,12 +100,12 @@ export const portfolioConfig = {
     yearsOfExperience: 5,
     projectsCompleted: 50,
     skills: [
-      { name: "React / Next.js", level: 90, color: "from-blue-400 to-blue-600" },
-      { name: "Node.js / Express", level: 85, color: "from-green-400 to-green-600" },
-      { name: "TypeScript", level: 80, color: "from-indigo-400 to-indigo-600" },
-      { name: "Python / Django", level: 75, color: "from-yellow-400 to-yellow-600" },
+      { name: "HTML/CSS/JS", level: 90, color: "from-blue-400 to-blue-600" },
+      { name: "SQL", level: 65, color: "from-green-400 to-green-600" },
+      { name: "TypeScript", level: 60, color: "from-indigo-400 to-indigo-600" },
+      { name: "R", level: 45, color: "from-yellow-400 to-yellow-600" },
       { name: "React Native", level: 70, color: "from-purple-400 to-purple-600" },
-      { name: "PostgreSQL", level: 80, color: "from-cyan-400 to-cyan-600" },
+      { name: "Python", level: 80, color: "from-cyan-400 to-cyan-600" },
     ],
     softSkills: [
       "Problem Solving",

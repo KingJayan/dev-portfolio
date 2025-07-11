@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { skills } from "@/lib/constants";
+import { portfolioConfig } from '../../../portfolio.config';
 
 export default function About() {
   return (
@@ -40,12 +40,7 @@ export default function About() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
-              {[
-                "Problem Solving",
-                "Team Leadership",
-                "UI/UX Design",
-                "Agile Development",
-              ].map((skill) => (
+              {portfolioConfig.about.softSkills.map((skill) => (
                 <span
                   key={skill}
                   className="px-4 py-2 bg-slate-800 dark:bg-slate-800 text-blue-400 rounded-full text-sm font-medium"
@@ -64,14 +59,14 @@ export default function About() {
           >
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-xl text-center">
-                <div className="text-3xl font-bold text-blue-400 mb-2">50+</div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">{portfolioConfig.about.projectsCompleted}+</div>
                 <div className="text-slate-300 dark:text-slate-300">
                   Projects
                 </div>
               </div>
               <div className="bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-xl text-center">
                 <div className="text-3xl font-bold text-purple-400 mb-2">
-                  5+
+                  {portfolioConfig.about.yearsOfExperience}+
                 </div>
                 <div className="text-slate-300 dark:text-slate-300">
                   Years Experience
@@ -85,7 +80,7 @@ export default function About() {
               </h3>
 
               <div className="space-y-3">
-                {skills.map((skill) => (
+                {portfolioConfig.about.skills.map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between mb-1">
                       <span className="text-sm text-slate-300 dark:text-slate-300">

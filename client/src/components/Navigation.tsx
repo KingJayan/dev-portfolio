@@ -3,18 +3,14 @@ import { Link, useLocation } from 'wouter';
 import { useTheme } from '@/hooks/use-theme';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Sun, Moon } from 'lucide-react';
+import { portfolioConfig } from '../../../portfolio.config';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [location] = useLocation();
   const { theme, toggleTheme } = useTheme();
 
-  const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Contact', href: '/contact' }
-  ];
+  const navItems = portfolioConfig.navigation.items;
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -28,7 +24,7 @@ export default function Navigation() {
           <div className="flex-shrink-0">
             <Link href="/">
               <a className="text-xl font-display font-bold text-white hover:text-blue-400 transition-colors">
-                Alex Morgan
+                {portfolioConfig.personal.name}
               </a>
             </Link>
           </div>
