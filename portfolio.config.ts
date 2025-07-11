@@ -1,6 +1,6 @@
 /**
  * Portfolio Configuration
- * 
+ *
  * This file contains all the customizable settings for your portfolio website.
  * You can modify these values to personalize your portfolio without touching the code.
  */
@@ -12,7 +12,7 @@ export const portfolioConfig = {
     title: "Full Stack Developer",
     email: "jayanp0202@gmail.com",
     phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
+    location: "Austin, TX",
     website: "https://jayanpatel.dev",
     avatar: "/api/placeholder/150/150",
   },
@@ -27,13 +27,14 @@ export const portfolioConfig = {
     autoReply: {
       enabled: true,
       subject: "Thank you for your message!",
-      message: "Hi there! Thanks for reaching out. I'll get back to you as soon as possible, usually within 24 hours.",
+      message:
+        "Hi there! Thanks for reaching out. I'll get back to you as soon as possible, usually within 24 hours.",
     },
   },
 
   // Social Media Links
   social: {
-    github: "https://github.com",
+    github: "https://github.com/KingJayan",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
     instagram: "",
@@ -44,8 +45,16 @@ export const portfolioConfig = {
   // SEO Settings
   seo: {
     title: "Jayan Patel - Portfolio",
-    description: "Full Stack Developer specializing in React, Node.js, and modern web technologies. Creating exceptional digital experiences with clean code and innovative solutions.",
-    keywords: ["Full Stack Developer", "React", "Node.js", "Web Development", "JavaScript", "TypeScript"],
+    description:
+      "Full Stack Developer specializing in React, Node.js, and modern web technologies. Creating exceptional digital experiences with clean code and innovative solutions.",
+    keywords: [
+      "Full Stack Developer",
+      "React",
+      "Node.js",
+      "Web Development",
+      "JavaScript",
+      "TypeScript",
+    ],
     ogImage: "/api/placeholder/1200/630",
   },
 
@@ -98,20 +107,24 @@ export const portfolioConfig = {
   // About Page Settings
   about: {
     yearsOfExperience: 5,
-    projectsCompleted: 50,
+    projectsCompleted: 10,
     skills: [
       { name: "HTML/CSS/JS", level: 90, color: "from-blue-400 to-blue-600" },
       { name: "SQL", level: 65, color: "from-green-400 to-green-600" },
       { name: "TypeScript", level: 60, color: "from-indigo-400 to-indigo-600" },
       { name: "R", level: 45, color: "from-yellow-400 to-yellow-600" },
-      { name: "React Native", level: 70, color: "from-purple-400 to-purple-600" },
+      {
+        name: "React Native",
+        level: 70,
+        color: "from-purple-400 to-purple-600",
+      },
       { name: "Python", level: 80, color: "from-cyan-400 to-cyan-600" },
     ],
     softSkills: [
       "Problem Solving",
-      "Team Leadership",
-      "UI/UX Design",
-      "Agile Development",
+      "Team Building",
+      "UI Design",
+      "Clean Development",
     ],
   },
 
@@ -138,8 +151,7 @@ export const portfolioConfig = {
     showCopyright: true,
     showLinks: true,
     links: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
+      { name: "Contact Me", href: "/contact" },
       { name: "Sitemap", href: "/sitemap" },
     ],
   },

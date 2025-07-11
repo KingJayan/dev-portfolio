@@ -1,23 +1,23 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useMutation } from '@tanstack/react-query';
-import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  subject: z.string().min(5, 'Subject must be at least 5 characters'),
-  message: z.string().min(10, 'Message must be at least 10 characters')
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -29,16 +29,16 @@ export default function Contact() {
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    }
+      name: "",
+      email: "",
+      subject: "",
+      message: "",
+    },
   });
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      const response = await apiRequest('POST', '/api/contact', data);
+      const response = await apiRequest("POST", "/api/contact", data);
       return response.json();
     },
     onSuccess: () => {
@@ -47,16 +47,16 @@ export default function Contact() {
       toast({
         title: "Message sent successfully!",
         description: "Thank you for your message. I'll get back to you soon.",
-        variant: "default"
+        variant: "default",
       });
     },
     onError: (error) => {
       toast({
         title: "Error sending message",
         description: "Please try again later.",
-        variant: "destructive"
+        variant: "destructive",
       });
-    }
+    },
   });
 
   const onSubmit = (data: ContactFormData) => {
@@ -77,10 +77,11 @@ export default function Contact() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto mb-6"></div>
           <p className="text-lg text-slate-300 dark:text-slate-300 max-w-2xl mx-auto">
-            I'm always excited to work on new projects and collaborate with amazing people. Let's create something awesome together!
+            I'm always excited to work on new projects and collaborate with
+            amazing people. Let's create something awesome together!
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 gap-12">
           {/* Contact Form */}
           <motion.div
@@ -106,14 +107,20 @@ export default function Contact() {
                     </p>
                   </div>
                 ) : (
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-6"
+                  >
                     <div>
-                      <Label htmlFor="name" className="text-slate-300 dark:text-slate-300">
+                      <Label
+                        htmlFor="name"
+                        className="text-slate-300 dark:text-slate-300"
+                      >
                         Full Name
                       </Label>
                       <Input
                         id="name"
-                        {...form.register('name')}
+                        {...form.register("name")}
                         className="form-input mt-1"
                         placeholder="Your full name"
                       />
@@ -123,15 +130,18 @@ export default function Contact() {
                         </p>
                       )}
                     </div>
-                    
+
                     <div>
-                      <Label htmlFor="email" className="text-slate-300 dark:text-slate-300">
+                      <Label
+                        htmlFor="email"
+                        className="text-slate-300 dark:text-slate-300"
+                      >
                         Email Address
                       </Label>
                       <Input
                         id="email"
                         type="email"
-                        {...form.register('email')}
+                        {...form.register("email")}
                         className="form-input mt-1"
                         placeholder="your@email.com"
                       />
@@ -141,14 +151,17 @@ export default function Contact() {
                         </p>
                       )}
                     </div>
-                    
+
                     <div>
-                      <Label htmlFor="subject" className="text-slate-300 dark:text-slate-300">
+                      <Label
+                        htmlFor="subject"
+                        className="text-slate-300 dark:text-slate-300"
+                      >
                         Subject
                       </Label>
                       <Input
                         id="subject"
-                        {...form.register('subject')}
+                        {...form.register("subject")}
                         className="form-input mt-1"
                         placeholder="Project inquiry"
                       />
@@ -158,14 +171,17 @@ export default function Contact() {
                         </p>
                       )}
                     </div>
-                    
+
                     <div>
-                      <Label htmlFor="message" className="text-slate-300 dark:text-slate-300">
+                      <Label
+                        htmlFor="message"
+                        className="text-slate-300 dark:text-slate-300"
+                      >
                         Message
                       </Label>
                       <Textarea
                         id="message"
-                        {...form.register('message')}
+                        {...form.register("message")}
                         rows={5}
                         className="form-input mt-1 resize-none"
                         placeholder="Tell me about your project..."
@@ -176,7 +192,7 @@ export default function Contact() {
                         </p>
                       )}
                     </div>
-                    
+
                     <Button
                       type="submit"
                       disabled={contactMutation.isPending}
@@ -199,7 +215,7 @@ export default function Contact() {
               </CardContent>
             </Card>
           </motion.div>
-          
+
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -212,44 +228,60 @@ export default function Contact() {
                 Let's Connect
               </h3>
               <p className="text-slate-300 dark:text-slate-300 mb-8">
-                Whether you have a project in mind, want to collaborate, or just want to say hello, I'd love to hear from you. Here are the best ways to reach me:
+                Whether you have a project in mind, want to collaborate, or just
+                want to say hello, I'd love to hear from you. Here are the best
+                ways to reach me:
               </p>
             </div>
-            
+
             <div className="space-y-6">
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                   <Mail className="text-blue-400 h-6 w-6" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-white dark:text-white">Email</h4>
-                  <p className="text-slate-300 dark:text-slate-300">jayanp0202@gmail.com</p>
+                  <h4 className="font-medium text-white dark:text-white">
+                    Email
+                  </h4>
+                  <p className="text-slate-300 dark:text-slate-300">
+                    jayanp0202@gmail.com
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                   <Phone className="text-purple-400 h-6 w-6" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-white dark:text-white">Phone</h4>
-                  <p className="text-slate-300 dark:text-slate-300">+1 (555) 123-4567</p>
+                  <h4 className="font-medium text-white dark:text-white">
+                    Phone
+                  </h4>
+                  <p className="text-slate-300 dark:text-slate-300">
+                    +1 (618) 737-2186
+                  </p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                   <MapPin className="text-green-400 h-6 w-6" />
                 </div>
                 <div>
-                  <h4 className="font-medium text-white dark:text-white">Location</h4>
-                  <p className="text-slate-300 dark:text-slate-300">San Francisco, CA</p>
+                  <h4 className="font-medium text-white dark:text-white">
+                    Location
+                  </h4>
+                  <p className="text-slate-300 dark:text-slate-300">
+                    Austin, TX
+                  </p>
                 </div>
               </div>
             </div>
-            
+
             <div className="pt-8 border-t border-slate-700 dark:border-slate-700">
-              <h4 className="font-medium text-white dark:text-white mb-4">Follow Me</h4>
+              <h4 className="font-medium text-white dark:text-white mb-4">
+                Follow Me
+              </h4>
               <div className="flex space-x-4">
                 <a
                   href="https://github.com"
