@@ -43,7 +43,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="h-16 mb-8"
         >
-          <div className="text-xl md:text-2xl text-muted-foreground font-medium"
+          <div className="text-xl md:text-2xl text-muted-foreground font-medium">
             <TypingAnimation />
           </div>
         </motion.div>

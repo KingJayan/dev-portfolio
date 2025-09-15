@@ -24,7 +24,7 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <p className="text-lg text-slate-300 dark:text-slate-300 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               I'm a passionate Full Stack Developer with over 5 years of
               experience creating digital experiences that combine beautiful
               design with robust functionality. I specialize in modern web
@@ -32,7 +32,7 @@ export default function About() {
               elegant solutions.
             </p>
 
-            <p className="text-lg text-slate-300 dark:text-slate-300 leading-relaxed">
+            <p className="text-lg text-muted-foreground leading-relaxed">
               When I'm not coding, you'll find me building robots, writing
               debate contentions, or playing soccer! I believe in writing clean,
               maintainable code and creating applications that users love to
@@ -43,7 +43,7 @@ export default function About() {
               {portfolioConfig.about.softSkills.map((skill) => (
                 <span
                   key={skill}
-                  className="px-4 py-2 bg-slate-800 dark:bg-slate-800 text-blue-400 rounded-full text-sm font-medium"
+                  className="px-4 py-2 bg-accent text-blue-400 rounded-full text-sm font-medium"
                 >
                   {skill}
                 </span>
@@ -58,17 +58,17 @@ export default function About() {
             className="space-y-6"
           >
             <div className="grid grid-cols-2 gap-6">
-              <div className="bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-xl text-center">
+              <div className="bg-card/50 p-6 rounded-xl text-center">
                 <div className="text-3xl font-bold text-blue-400 mb-2">{portfolioConfig.projects.items.length}+</div>
-                <div className="text-slate-300 dark:text-slate-300">
+                <div className="text-muted-foreground">
                   Projects
                 </div>
               </div>
-              <div className="bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-xl text-center">
+              <div className="bg-card/50 p-6 rounded-xl text-center">
                 <div className="text-3xl font-bold text-purple-400 mb-2">
                   {portfolioConfig.about.yearsOfExperience}+
                 </div>
-                <div className="text-slate-300 dark:text-slate-300">
+                <div className="text-muted-foreground">
                   Years Experience
                 </div>
               </div>
@@ -83,14 +83,14 @@ export default function About() {
                 {portfolioConfig.about.skills.map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between mb-1">
-                      <span className="text-sm text-slate-300 dark:text-slate-300">
+                      <span className="text-sm text-muted-foreground">
                         {skill.name}
                       </span>
-                      <span className="text-sm text-slate-400 dark:text-slate-400">
+                      <span className="text-sm text-muted-foreground/70">
                         {skill.level}%
                       </span>
                     </div>
-                    <div className="w-full bg-slate-800 dark:bg-slate-800 rounded-full h-2">
+                    <div className="w-full bg-accent rounded-full h-2">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${skill.level}%` }}

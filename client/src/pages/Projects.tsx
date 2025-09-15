@@ -22,7 +22,7 @@ export default function Projects() {
   );
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-800/30 dark:bg-slate-800/30">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background/30">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,7 +34,7 @@ export default function Projects() {
             Featured Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto mb-6"></div>
-          <p className="text-lg text-slate-300 dark:text-slate-300 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Here are some of my recent projects that showcase my skills and passion for creating exceptional digital experiences.
           </p>
         </motion.div>
@@ -54,7 +54,7 @@ export default function Projects() {
               className={`px-6 py-2 rounded-full font-medium transition-all ${
                 activeFilter === filter.key
                   ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-slate-200 border-slate-700'
+                  : 'bg-accent text-muted-foreground hover:bg-accent/80 hover:text-foreground border-border'
               }`}
             >
               {filter.label}
@@ -76,7 +76,7 @@ export default function Projects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Card className="bg-slate-800/50 dark:bg-slate-800/50 border-slate-700 dark:border-slate-700 hover:transform hover:scale-105 transition-all duration-300 hover:shadow-2xl overflow-hidden">
+              <Card className="bg-card/50 border-border hover:transform hover:scale-105 transition-all duration-300 hover:shadow-2xl overflow-hidden">
                 <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden">
                   <div className="absolute inset-0 bg-black/20"></div>
                   <div className="absolute bottom-4 left-4 right-4">
@@ -102,7 +102,7 @@ export default function Projects() {
                   <CardTitle className="text-xl font-display font-semibold text-white dark:text-white">
                     {project.title}
                   </CardTitle>
-                  <CardDescription className="text-slate-300 dark:text-slate-300">
+                  <CardDescription className="text-muted-foreground">
                     {project.description}
                   </CardDescription>
                 </CardHeader>
@@ -113,7 +113,7 @@ export default function Projects() {
                       <Badge
                         key={tech}
                         variant="secondary"
-                        className="bg-slate-700 text-blue-400 hover:bg-slate-600"
+                        className="bg-accent text-blue-400 hover:bg-accent/80"
                       >
                         {tech}
                       </Badge>
