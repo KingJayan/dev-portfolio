@@ -59,7 +59,7 @@ export default function About() {
           >
             <div className="grid grid-cols-2 gap-6">
               <div className="bg-slate-800/50 dark:bg-slate-800/50 p-6 rounded-xl text-center">
-                <div className="text-3xl font-bold text-blue-400 mb-2">{portfolioConfig.about.projectsCompleted}+</div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">{portfolioConfig.projects.items.length}+</div>
                 <div className="text-slate-300 dark:text-slate-300">
                   Projects
                 </div>

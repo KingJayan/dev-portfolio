@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, Filter } from 'lucide-react';
-import { projects } from '@/lib/constants';
+import { portfolioConfig } from '../../../portfolio.config';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -16,6 +16,7 @@ export default function Projects() {
     { key: 'api', label: 'APIs' }
   ] as const;
 
+  const projects = portfolioConfig.projects.items;
   const filteredProjects = projects.filter(
     project => activeFilter === 'all' || project.category === activeFilter
   );

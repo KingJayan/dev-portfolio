@@ -1,13 +1,25 @@
 export interface Project {
-  id: number;
+  id: string;
   title: string;
   description: string;
+  fullDescription?: string;
   image: string;
+  gallery?: string[];
   technologies: string[];
-  category: 'web' | 'mobile' | 'api' | 'all';
+  category: 'web' | 'mobile' | 'api';
   liveUrl?: string;
   githubUrl?: string;
-  featured?: boolean;
+  featured: boolean;
+  status: 'completed' | 'in-progress' | 'planned';
+  startDate: string;
+  endDate?: string;
+  challenges?: string[];
+  learnings?: string[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    role: string;
+  };
 }
 
 export interface Skill {
