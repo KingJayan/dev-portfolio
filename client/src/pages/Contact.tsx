@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { portfolioConfig } from '../../../portfolio.config';
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -244,7 +245,7 @@ export default function Contact() {
                     Email
                   </h4>
                   <p className="text-slate-300 dark:text-slate-300">
-                    jayanp0202@gmail.com
+                    {portfolioConfig.personal.email}
                   </p>
                 </div>
               </div>
@@ -258,7 +259,7 @@ export default function Contact() {
                     Phone
                   </h4>
                   <p className="text-slate-300 dark:text-slate-300">
-                    +1 (618) 737-2186
+                    {portfolioConfig.personal.phone}
                   </p>
                 </div>
               </div>
@@ -272,7 +273,7 @@ export default function Contact() {
                     Location
                   </h4>
                   <p className="text-slate-300 dark:text-slate-300">
-                    Austin, TX
+                    {portfolioConfig.personal.location}
                   </p>
                 </div>
               </div>
@@ -308,7 +309,7 @@ export default function Contact() {
                   <i className="fab fa-twitter text-slate-300 hover:text-white"></i>
                 </a>
                 <a
-                  href="mailto:jayanp0202@gmail.com"
+                  href={`mailto:${portfolioConfig.personal.email}`}
                   className="w-12 h-12 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <Mail className="text-slate-300 hover:text-white h-5 w-5" />

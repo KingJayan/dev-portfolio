@@ -23,9 +23,9 @@ export default function Navigation() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
-              <a className="text-xl font-display font-bold text-white hover:text-blue-400 transition-colors">
+              <span className="text-xl font-display font-bold text-white hover:text-blue-400 transition-colors cursor-pointer">
                 {portfolioConfig.personal.name}
-              </a>
+              </span>
             </Link>
           </div>
           
@@ -34,13 +34,13 @@ export default function Navigation() {
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
                 <Link key={item.name} href={item.href}>
-                  <a className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  <span className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
                     location === item.href
                       ? 'text-blue-400 bg-slate-800'
                       : 'text-slate-300 hover:text-blue-400 hover:bg-slate-800'
                   }`}>
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </div>
@@ -75,13 +75,13 @@ export default function Navigation() {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link key={item.name} href={item.href}>
-                <a className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                <span className={`block px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
                   location === item.href
                     ? 'text-blue-400 bg-slate-700'
                     : 'text-slate-300 hover:text-blue-400 hover:bg-slate-700'
                 }`}>
                   {item.name}
-                </a>
+                </span>
               </Link>
             ))}
           </div>

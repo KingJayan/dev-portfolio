@@ -1,5 +1,5 @@
-import Mailjet from 'node-mailjet';
-import type { Contact } from '@shared/schema';
+import Mailjet from "node-mailjet";
+import type { Contact } from "@shared/schema";
 
 let mailjetClient: Mailjet | null = null;
 
@@ -7,7 +7,7 @@ let mailjetClient: Mailjet | null = null;
 if (process.env.MAILJET_API_KEY && process.env.MAILJET_SECRET_KEY) {
   mailjetClient = new Mailjet({
     apiKey: process.env.MAILJET_API_KEY,
-    apiSecret: process.env.MAILJET_SECRET_KEY
+    apiSecret: process.env.MAILJET_SECRET_KEY,
   });
 }
 
@@ -21,30 +21,28 @@ export interface EmailParams {
 
 export async function sendContactEmail(contact: Contact): Promise<boolean> {
   if (!mailjetClient) {
-    console.warn('Mailjet not configured - email not sent');
+    console.warn("Mailjet not configured - email not sent");
     return false;
   }
 
   const { name, email, subject, message } = contact;
-  
+
   try {
-    const request = mailjetClient
-      .post('send', { version: 'v3.1' })
-      .request({
-        Messages: [
-          {
-            From: {
-              Email: 'noreply@jayanpatel.dev', // This needs to be a verified sender in Mailjet
-              Name: 'Portfolio Website'
+    const request = mailjetClient.post("send", { version: "v3.1" }).request({
+      Messages: [
+        {
+          From: {
+            Email: "jayanp0202@gmail.com", // This needs to be a verified sender in Mailjet
+            Name: "Portfolio Website",
+          },
+          To: [
+            {
+              Email: "jayanp0202@gmail.com",
+              Name: "Portfolio Owner",
             },
-            To: [
-              {
-                Email: 'jayanp0202@gmail.com',
-                Name: 'Portfolio Owner'
-              }
-            ],
-            Subject: `Portfolio Contact: ${subject}`,
-            TextPart: `
+          ],
+          Subject: `Portfolio Contact: ${subject}`,
+          TextPart: `
 New contact form submission:
 
 Name: ${name}
@@ -57,7 +55,7 @@ ${message}
 ---
 This message was sent from your portfolio website.
             `,
-            HTMLPart: `
+          HTMLPart: `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
   <h2 style="color: #3b82f6; margin-bottom: 20px;">New Contact Form Submission</h2>
   
@@ -77,16 +75,16 @@ This message was sent from your portfolio website.
     <p style="color: #9ca3af; font-size: 12px;">Sent on ${new Date().toLocaleString()}</p>
   </div>
 </div>
-            `
-          }
-        ]
-      });
+            `,
+        },
+      ],
+    });
 
     await request;
-    console.log('Contact email sent successfully via Mailjet');
+    console.log("Contact email sent successfully via Mailjet");
     return true;
   } catch (error) {
-    console.error('Mailjet email error:', error);
+    console.error("Mailjet email error:", error);
     return false;
   }
 }
