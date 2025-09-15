@@ -17,13 +17,13 @@ export default function Navigation() {
   }, [location]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-800 dark:border-slate-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/">
-              <span className="text-xl font-display font-bold text-white hover:text-blue-400 transition-colors cursor-pointer">
+              <span className="text-xl font-display font-bold text-foreground hover:text-blue-400 transition-colors cursor-pointer">
                 {portfolioConfig.personal.name}
               </span>
             </Link>
@@ -36,8 +36,8 @@ export default function Navigation() {
                 <Link key={item.name} href={item.href}>
                   <span className={`px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer ${
                     location === item.href
-                      ? 'text-blue-400 bg-slate-800'
-                      : 'text-slate-300 hover:text-blue-400 hover:bg-slate-800'
+                      ? 'text-blue-400 bg-accent'
+                      : 'text-muted-foreground hover:text-blue-400 hover:bg-accent'
                   }`}>
                     {item.name}
                   </span>
@@ -52,7 +52,7 @@ export default function Navigation() {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-slate-300 hover:text-white hover:bg-slate-800"
+              className="text-muted-foreground hover:text-foreground hover:bg-accent"
             >
               {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
@@ -60,7 +60,7 @@ export default function Navigation() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-slate-300 hover:text-white hover:bg-slate-800"
+              className="md:hidden text-muted-foreground hover:text-foreground hover:bg-accent"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -71,14 +71,14 @@ export default function Navigation() {
       
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-slate-800 dark:bg-slate-800 border-t border-slate-700">
+        <div className="md:hidden bg-card border-t border-border">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <Link key={item.name} href={item.href}>
                 <span className={`block px-3 py-2 rounded-md text-base font-medium transition-colors cursor-pointer ${
                   location === item.href
-                    ? 'text-blue-400 bg-slate-700'
-                    : 'text-slate-300 hover:text-blue-400 hover:bg-slate-700'
+                    ? 'text-blue-400 bg-accent'
+                    : 'text-muted-foreground hover:text-blue-400 hover:bg-accent'
                 }`}>
                   {item.name}
                 </span>

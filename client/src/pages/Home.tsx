@@ -29,7 +29,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-white dark:text-white"
+          className="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-foreground"
         >
           Hello, I'm{' '}
           <span className="text-gradient bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
@@ -43,7 +43,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="h-16 mb-8"
         >
-          <div className="text-xl md:text-2xl text-slate-300 dark:text-slate-300 font-medium">
+          <div className="text-xl md:text-2xl text-muted-foreground font-medium"
             <TypingAnimation />
           </div>
         </motion.div>
@@ -64,7 +64,7 @@ export default function Home() {
           <Link href="/contact">
             <Button
               variant="outline"
-              className="border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white px-8 py-3 rounded-lg font-medium transition-all transform hover:scale-105 dark:text-purple-400 dark:border-purple-400 dark:hover:bg-purple-400 dark:hover:text-white"
+              className="border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white px-8 py-3 rounded-lg font-medium transition-all transform hover:scale-105"
             >
               Get In Touch
             </Button>
@@ -83,7 +83,7 @@ export default function Home() {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-blue-400 transition-colors text-2xl hover:scale-110 transform"
+              className="text-muted-foreground hover:text-blue-400 transition-colors text-2xl hover:scale-110 transform"
             >
               <i className={`fab fa-${link.icon}`}></i>
             </a>
