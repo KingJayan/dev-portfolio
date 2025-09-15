@@ -121,23 +121,25 @@ export default function Projects() {
                   </div>
                   
                   <div className="flex space-x-4">
-                    {project.liveUrl && (
+                    {'liveUrl' in project && project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center text-blue-400 hover:text-purple-400 transition-colors"
+                        data-testid={`link-demo-${project.id}`}
                       >
                         <ExternalLink className="mr-2 h-4 w-4" />
                         Live Demo
                       </a>
                     )}
-                    {project.githubUrl && (
+                    {'githubUrl' in project && project.githubUrl && (
                       <a
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center text-blue-400 hover:text-purple-400 transition-colors"
+                        data-testid={`link-code-${project.id}`}
                       >
                         <Github className="mr-2 h-4 w-4" />
                         Code
