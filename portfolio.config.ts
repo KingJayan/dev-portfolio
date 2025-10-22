@@ -146,7 +146,7 @@ export const portfolioConfig = {
         technologies: ["React", "TypeScript", "Express.js", "PostgreSQL", "Tailwind CSS", "Framer Motion"],
         category: "web" as const,
         liveUrl: "https://jayanpatel.dev",
-        githubUrl: "https://github.com/KingJayan/portfolio",
+        githubUrl: "https://github.com/KingJayan/dev-portfolio",
         featured: true,
         status: "completed" as const,
         startDate: "2024-01",
