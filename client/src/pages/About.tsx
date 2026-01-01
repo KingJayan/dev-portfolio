@@ -25,18 +25,17 @@ export default function About() {
             className="space-y-6"
           >
             <p className="text-lg text-muted-foreground leading-relaxed">
-              I'm a passionate Full Stack Developer with over 5 years of
-              experience creating digital experiences that combine beautiful
-              design with robust functionality. I specialize in modern web
-              technologies and love turning complex problems into simple,
-              elegant solutions.
+              I’m a Full Stack Developer with 5+ years of 
+              experience building applications that balance 
+              design and functionality. I specialize in modern 
+              web technologies and enjoy turning complex problems 
+              into simple, elegant solutions.
             </p>
 
             <p className="text-lg text-muted-foreground leading-relaxed">
-              When I'm not coding, you'll find me building robots, writing
-              debate contentions, or playing soccer! I believe in writing clean,
-              maintainable code and creating applications that users love to
-              interact with.
+              Outside of programming, I build robots, craft debate arguments, and 
+              play soccer. I focus on writing clean, maintainable code and 
+              designing applications people actually enjoy using.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
