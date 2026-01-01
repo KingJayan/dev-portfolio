@@ -102,7 +102,7 @@ export const portfolioConfig = {
         level: 70,
         color: "from-purple-400 to-purple-600",
       },
-      { name: "Python", level: 80, color: "from-cyan-400 to-cyan-600" },
+      { name: "Python", level: 35, color: "from-cyan-400 to-cyan-600" },
     ],
     softSkills: [
       "Problem Solving",
