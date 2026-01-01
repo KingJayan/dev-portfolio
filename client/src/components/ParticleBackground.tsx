@@ -24,8 +24,6 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
   const particlesRef = useRef<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const mouseTrailRef = useRef<Array<{ x: number; y: number; timestamp: number }>>([]);
-  
-  // Determine which config to use based on location
   const activeConfig = config || (location === '/' ? particleConfigs.home : particleConfigs.other);
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         particle.x += particle.vx;
         particle.y += particle.vy;
         
-        // Bounce off edges
+        //bounce off
         if (particle.x < 0 || particle.x > canvas.width) {
           particle.vx = -particle.vx;
         }
@@ -78,7 +76,7 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
           particle.vy = -particle.vy;
         }
         
-        // Enhanced mouse interaction
+        //better mouse interaction
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -86,25 +84,22 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         if (distance < activeConfig.mouseInfluenceRadius) {
           const force = (activeConfig.mouseInfluenceRadius - distance) / activeConfig.mouseInfluenceRadius;
           const attraction = force * activeConfig.attractionStrength;
-          
-          // Attract particles to mouse
+          //attract particles to mouse
           particle.vx += dx * attraction;
           particle.vy += dy * attraction;
-          
-          // Increase size and brightness when close to mouse
+          //mouse halo
           particle.radius = particle.originalRadius * (1 + force * 2);
           particle.opacity = Math.min(activeConfig.maxOpacity, particle.opacity + force * 0.5);
-          
-          // Shift color based on distance
+     
           particle.hue = activeConfig.colors.minHue + (activeConfig.colors.maxHue - activeConfig.colors.minHue) * force;
         } else {
-          // Gradually return to original state
+          //gradual return
           particle.radius = particle.originalRadius;
           particle.opacity = Math.max(activeConfig.baseOpacity, particle.opacity - 0.01);
           particle.hue = activeConfig.colors.minHue + Math.random() * (activeConfig.colors.maxHue - activeConfig.colors.minHue);
         }
         
-        // Mouse trail interaction
+        //jmouse trailz
         if (activeConfig.trail.enabled) {
           mouseTrailRef.current.forEach(trailPoint => {
             const trailDx = trailPoint.x - particle.x;
@@ -121,7 +116,6 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         }
       });
       
-      // Clean up old mouse trail points
       mouseTrailRef.current = mouseTrailRef.current.filter(
         point => currentTime - point.timestamp < activeConfig.trail.fadeTime
       );
@@ -130,7 +124,6 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw mouse trail
       if (activeConfig.trail.enabled && mouseTrailRef.current.length > 1) {
         ctx.beginPath();
         ctx.moveTo(mouseTrailRef.current[0].x, mouseTrailRef.current[0].y);
@@ -147,9 +140,8 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         }
       }
       
-      // Draw particles with enhanced colors
       particlesRef.current.forEach(particle => {
-        // Add glow effect
+        // glow effect
         if (activeConfig.glow.enabled) {
           ctx.shadowColor = `hsl(${particle.hue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%)`;
           ctx.shadowBlur = particle.radius * activeConfig.glow.intensity;
@@ -160,13 +152,11 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         ctx.fillStyle = `hsla(${particle.hue}, ${activeConfig.colors.saturation}%, ${activeConfig.colors.lightness}%, ${particle.opacity})`;
         ctx.fill();
         
-        // Reset shadow
         if (activeConfig.glow.enabled) {
           ctx.shadowBlur = 0;
         }
       });
       
-      // Draw enhanced connections
       particlesRef.current.forEach((particle, i) => {
         for (let j = i + 1; j < particlesRef.current.length; j++) {
           const otherParticle = particlesRef.current[j];
@@ -188,7 +178,7 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
         }
       });
       
-      // Draw mouse cursor glow
+      // dreaw glow
       if (activeConfig.mouseGlow.enabled && mouseRef.current.x > 0 && mouseRef.current.y > 0) {
         ctx.beginPath();
         ctx.arc(mouseRef.current.x, mouseRef.current.y, activeConfig.mouseGlow.radius, 0, Math.PI * 2);
@@ -212,7 +202,7 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
       mouseRef.current.x = e.clientX;
       mouseRef.current.y = e.clientY;
       
-      // Add to mouse trail if enabled
+      // add to mouse trail if enabled
       if (activeConfig.trail.enabled) {
         mouseTrailRef.current.push({
           x: e.clientX,
@@ -220,7 +210,7 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
           timestamp: Date.now()
         });
         
-        // Keep trail length manageable
+        // trail length manageability
         if (mouseTrailRef.current.length > activeConfig.trail.maxPoints) {
           mouseTrailRef.current.shift();
         }
@@ -232,12 +222,12 @@ export default function ParticleBackground({ config }: ParticleBackgroundProps) 
       initParticles();
     };
 
-    // Initialize
+    //init
     resizeCanvas();
     initParticles();
     animate();
 
-    // Event listeners
+    //listeners
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
 
