@@ -20,7 +20,7 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/*logo */}
           <div className="flex-shrink-0">
             <Link href="/">
               <span className="text-xl font-display font-bold text-foreground hover:text-blue-400 transition-colors cursor-pointer">
@@ -29,7 +29,7 @@ export default function Navigation() {
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
+          {/*Desktop nav */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navItems.map((item) => (
@@ -46,7 +46,7 @@ export default function Navigation() {
             </div>
           </div>
           
-          {/* Theme Toggle & Mobile Menu Button */}
+          {/*thme toggle */}
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
@@ -69,7 +69,7 @@ export default function Navigation() {
         </div>
       </div>
       
-      {/* Mobile Menu */}
+      {/*mobile menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-card border-t border-border">
           <div className="px-2 pt-2 pb-3 space-y-1">
