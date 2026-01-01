@@ -1,12 +1,4 @@
-/**
- * Portfolio Configuration
- *
- * This file contains all the customizable settings for your portfolio website.
- * You can modify these values to personalize your portfolio without touching the code.
- */
-
 export const portfolioConfig = {
-  // Personal Information
   personal: {
     name: "Jayan Patel",
     title: "Full Stack Developer",
@@ -17,22 +9,19 @@ export const portfolioConfig = {
     avatar: "/api/placeholder/150/150",
   },
 
-  // Contact Settings
   contact: {
-    // Email where contact form submissions will be sent
+    // contact form submissions sent from:
     recipientEmail: "jayanp0202@gmail.com",
-    // Email that appears as the sender (must be verified in Mailjet)
+    //sender(mailjet):
     senderEmail: "jayanp0202@gmail.com",
-    // Auto-reply settings
     autoReply: {
       enabled: true,
       subject: "Thank you for your message!",
       message:
-        "Hi there! Thanks for reaching out. I'll get back to you as soon as possible, usually within 24 hours.",
+        "Hi! Thanks for reaching out. I'll get back to you as soon as possible, usually within 24 hours.",
     },
   },
 
-  // Social Media Links
   social: {
     github: "https://github.com/KingJayan",
     linkedin: "https://linkedin.com",
@@ -42,11 +31,10 @@ export const portfolioConfig = {
     discord: "",
   },
 
-  // SEO Settings
   seo: {
     title: "Jayan Patel - Portfolio",
     description:
-      "Full Stack Developer specializing in React, Node.js, and modern web technologies. Creating exceptional digital experiences with clean code and innovative solutions.",
+      "Full Stack Developer specializing in React, Node.js, and modern web technologies. I focus on writing clean code and building digital UX thats functional and engaging.",
     keywords: [
       "Full Stack Developer",
       "React",
@@ -58,7 +46,6 @@ export const portfolioConfig = {
     ogImage: "/api/placeholder/1200/630",
   },
 
-  // Theme Settings
   theme: {
     defaultTheme: "dark", // "light" | "dark" | "system"
     colors: {
@@ -77,7 +64,6 @@ export const portfolioConfig = {
     },
   },
 
-  // Typing Animation Settings
   typing: {
     phrases: [
       "Full Stack Developer",
@@ -91,7 +77,6 @@ export const portfolioConfig = {
     delayBetweenPhrases: 2000,
   },
 
-  // Navigation Settings
   navigation: {
     showLogo: true,
     showThemeToggle: true,
@@ -104,7 +89,6 @@ export const portfolioConfig = {
     ],
   },
 
-  // About Page Settings
   about: {
     yearsOfExperience: 5,
     projectsCompleted: 10,
@@ -128,7 +112,6 @@ export const portfolioConfig = {
     ],
   },
 
-  // Projects Configuration
   projects: {
     showFilter: true,
     categories: ["all", "web", "mobile", "api"],
@@ -139,7 +122,7 @@ export const portfolioConfig = {
       {
         id: "portfolio-website",
         title: "Portfolio Website",
-        description: "A modern full-stack portfolio website built with React, TypeScript, and Express.js. Features a sleek dark theme, interactive animations, and a working contact form.",
+        description: "A modern full-stack portfolio built by Jayan Patel using React, TypeScript, and Express.js, featuring a sleek dark theme, interactive animations, and a working contact form.",
         fullDescription: "This portfolio website showcases my skills as a full-stack developer. Built with modern technologies including React 18, TypeScript, Express.js, and PostgreSQL. The site features a responsive design, dark theme with gradient accents, particle animations, and a fully functional contact form with email integration.",
         image: "/api/placeholder/600/400",
         gallery: ["/api/placeholder/600/400", "/api/placeholder/600/400"],
@@ -149,10 +132,10 @@ export const portfolioConfig = {
         githubUrl: "https://github.com/KingJayan/dev-portfolio",
         featured: true,
         status: "completed" as const,
-        startDate: "2024-01",
-        endDate: "2024-02",
-        challenges: ["Implementing smooth animations while maintaining performance", "Creating a responsive design that works across all devices"],
-        learnings: ["Advanced TypeScript patterns", "Modern React development with hooks", "Full-stack application architecture"],
+        startDate: "2025-05",
+        endDate: "2025-09",
+        challenges: ["Implementing smooth animations without sacrificing performance", "Accessibility accross devices"],
+        learnings: ["Advanced TypeScript patterns", "Modern React development with hooks", "Full-stack architecture", "Framer Motion introductory"],
       },
       {
         id: "task-management-app",
@@ -204,7 +187,6 @@ export const portfolioConfig = {
     ]
   },
 
-  // Animation Settings
   animations: {
     enablePageTransitions: true,
     enableHoverEffects: true,
@@ -213,7 +195,6 @@ export const portfolioConfig = {
     staggerDelay: 100,
   },
 
-  // Footer Settings
   footer: {
     showCopyright: true,
     showLinks: true,
@@ -223,7 +204,6 @@ export const portfolioConfig = {
     ],
   },
 
-  // Performance Settings
   performance: {
     enableImageOptimization: true,
     enableLazyLoading: true,
@@ -231,14 +211,12 @@ export const portfolioConfig = {
     enableCaching: true,
   },
 
-  // Analytics Settings (optional)
   analytics: {
     googleAnalyticsId: "",
     enableTracking: false,
     enableHeatmaps: false,
   },
 
-  // Development Settings
   development: {
     showDevBanner: true,
     enableDebugMode: false,
