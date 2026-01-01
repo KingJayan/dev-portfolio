@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-slate-900/50 dark:bg-slate-900/50 border-t border-slate-800 dark:border-slate-800 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Personal Info */}
+          {/* personal info */}
           <div>
             <h3 className="text-lg font-display font-semibold text-white dark:text-white mb-4">
               {personal.name}
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Links */}
+          {/* links */}
           {footer.showLinks && (
             <div>
               <h3 className="text-lg font-display font-semibold text-white dark:text-white mb-4">
@@ -41,7 +41,7 @@ export default function Footer() {
             </div>
           )}
 
-          {/* Social Media */}
+          {/* social media */}
           <div>
             <h3 className="text-lg font-display font-semibold text-white dark:text-white mb-4">
               Connect
@@ -101,7 +101,7 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* footer */}
         {footer.showCopyright && (
           <div className="mt-8 pt-8 border-t border-slate-800 dark:border-slate-800">
             <p className="text-center text-slate-400 dark:text-slate-400 text-sm">
