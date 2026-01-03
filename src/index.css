@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode: Paper & Ink */
+    --color-paper: #fdfbf7;
+    --color-ink: #2a2a2a;
+    --color-pencil: #555555;
+    --color-pencil-light: #888888;
+    --color-highlight-yellow: rgba(255, 255, 0, 0.3);
+    --color-highlight-pink: rgba(255, 105, 180, 0.3);
+    --color-highlight-blue: rgba(0, 255, 255, 0.3);
+
+    /* Background Texture */
+    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .dark {
+    /* Dark Mode: Blackboard & Chalk */
+    --color-paper: #1a1a1a;
+    --color-ink: #f0f0f0;
+    --color-pencil: #e0e0e0;
+    --color-pencil-light: #a0a0a0;
+    /* Chalk highlights are more opaque/white-tinted */
+    --color-highlight-yellow: rgba(255, 255, 200, 0.2);
+    --color-highlight-pink: rgba(255, 200, 220, 0.2);
+    --color-highlight-blue: rgba(200, 255, 255, 0.2);
+
+    /* Blackboard Texture (Subtle dust) */
+    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15' fill='white'/%3E%3C/svg%3E");
+  }
+}
+
+@layer base {
+  * {
+    @apply border-ink;
+  }
+
+  body {
+    @apply bg-paper text-ink font-hand antialiased transition-colors duration-500;
+    background-image: var(--bg-texture);
+  }
+}
+
+@layer utilities {
+  .paper-card {
+    @apply bg-paper border-2 border-ink shadow-paper transition-all duration-300;
+  }
+
+  .paper-card:hover {
+    @apply shadow-paper-hover -translate-y-1;
+  }
+
+  .marker-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .marker-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-[0.4em] -z-10 bg-highlighter-yellow/60 -rotate-2 transform origin-bottom-left rounded-sm;
+  }
+}

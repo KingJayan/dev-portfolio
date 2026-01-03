@@ -2,87 +2,84 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      fontFamily: {
+        marker: ['"Permanent Marker"', "cursive"],
+        hand: ['"Patrick Hand"', "cursive"],
+        amatic: ['"Amatic SC"', "cursive"],
+        sans: ['"Patrick Hand"', "cursive"], // Default to hand font
       },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        card: {
-          DEFAULT: "var(--card)",
-          foreground: "var(--card-foreground)",
+        paper: "var(--color-paper)",
+        ink: "var(--color-ink)",
+        pencil: "var(--color-pencil)",
+        "pencil-light": "var(--color-pencil-light)",
+        highlighter: {
+          yellow: "var(--color-highlight-yellow)",
+          pink: "var(--color-highlight-pink)",
+          blue: "var(--color-highlight-blue)",
         },
-        popover: {
-          DEFAULT: "var(--popover)",
-          foreground: "var(--popover-foreground)",
-        },
+        border: "var(--color-ink)",
+        input: "var(--color-paper)",
+        ring: "var(--color-ink)",
+        background: "var(--color-paper)",
+        foreground: "var(--color-ink)",
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          DEFAULT: "var(--color-ink)",
+          foreground: "var(--color-paper)",
         },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
+          DEFAULT: "var(--color-pencil-light)",
+          foreground: "var(--color-paper)",
         },
         destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
+          DEFAULT: "hsl(0, 84.2%, 60.2%)",
+          foreground: "hsl(0, 0%, 98%)",
         },
-        border: "var(--border)",
-        input: "var(--input)",
-        ring: "var(--ring)",
-        chart: {
-          "1": "var(--chart-1)",
-          "2": "var(--chart-2)",
-          "3": "var(--chart-3)",
-          "4": "var(--chart-4)",
-          "5": "var(--chart-5)",
+        muted: {
+          DEFAULT: "var(--color-pencil-light)",
+          foreground: "var(--color-pencil)",
         },
-        sidebar: {
-          DEFAULT: "var(--sidebar-background)",
-          foreground: "var(--sidebar-foreground)",
-          primary: "var(--sidebar-primary)",
-          "primary-foreground": "var(--sidebar-primary-foreground)",
-          accent: "var(--sidebar-accent)",
-          "accent-foreground": "var(--sidebar-accent-foreground)",
-          border: "var(--sidebar-border)",
-          ring: "var(--sidebar-ring)",
+        accent: {
+          DEFAULT: "var(--color-ink)",
+          foreground: "var(--color-paper)",
+        },
+        popover: {
+          DEFAULT: "var(--color-paper)",
+          foreground: "var(--color-ink)",
+        },
+        card: {
+          DEFAULT: "var(--color-paper)",
+          foreground: "var(--color-ink)",
         },
       },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
+      borderRadius: {
+        lg: "0.5rem",
+        md: "calc(0.5rem - 2px)",
+        sm: "calc(0.5rem - 4px)",
+      },
+      backgroundImage: {
+        "paper-pattern": "url(\"data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")",
+      },
+      boxShadow: {
+        "paper": "4px 4px 0px 0px rgba(0,0,0,1)",
+        "paper-hover": "6px 6px 0px 0px rgba(0,0,0,1)",
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        "wiggle": "wiggle 1s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
+      },
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
     },
   },
