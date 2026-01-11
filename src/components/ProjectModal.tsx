@@ -26,10 +26,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         onClick={(e) => e.stopPropagation()}
                         className="bg-paper dark:bg-zinc-800 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl relative border-4 border-ink/10 paper-texture"
                     >
-                        {/* Top Tape */}
+
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/40 rotate-1 backdrop-blur-md border border-white/20 shadow-sm z-20" />
 
-                        {/* Close Button */}
+
                         <button
                             onClick={onClose}
                             className="absolute top-4 right-4 z-50 p-2 bg-highlighter-pink/20 rounded-full hover:bg-highlighter-pink/50 transition-colors"
@@ -38,7 +38,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         </button>
 
                         <div className="grid grid-cols-1 md:grid-cols-2">
-                            {/* Visual Side */}
+
                             <div className="p-8 bg-secondary/20 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-ink/10 relative">
                                 <div className="relative w-full aspect-video bg-gray-200 border-4 border-white shadow-lg rotate-1 transform hover:rotate-0 transition-transform duration-500 overflow-hidden">
                                     <img
@@ -46,7 +46,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                         alt={project.title}
                                         className="w-full h-full object-cover"
                                         onError={(e) => {
-                                            e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb'; // reset bg
+                                            e.currentTarget.parentElement!.style.backgroundColor = '#e5e7eb';
                                             e.currentTarget.style.display = 'none';
                                             e.currentTarget.nextElementSibling?.classList.remove('hidden');
                                         }}
@@ -69,7 +69,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                 </div>
                             </div>
 
-                            {/* Content Side */}
+
                             <div className="p-8 md:p-12 prose prose-zinc dark:prose-invert max-w-none">
                                 <h2 className="font-marker text-4xl mb-2 text-ink dark:text-gray-100">{project.title}</h2>
                                 <p className="font-hand text-xl text-pencil dark:text-gray-400 mb-6">{project.startDate} - {project.endDate || "Present"}</p>

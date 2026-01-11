@@ -7,7 +7,7 @@ import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Ma
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
 
-    // Toggle with Shift + P
+
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === "P" && e.shiftKey) {
@@ -34,7 +34,7 @@ export default function CommandMenu() {
 
     return (
         <>
-            {/* Desktop Bottom-Left Trigger */}
+
             <button
                 onClick={() => setOpen(true)}
                 className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 bg-paper border-2 border-ink shadow-paper hover:-translate-y-1 hover:shadow-paper-hover transition-all rounded-lg font-hand text-lg group"

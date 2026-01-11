@@ -120,7 +120,7 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'xcode': return <SiXcode className={className} />;
         case 'jetbrains': return <SiJetbrains className={className} />;
         case 'webassembly': return <SiWebassembly className={className} />;
-        //fallback
+
         default:
             return (
                 <svg viewBox="0 0 24 24" fill="currentColor" className={className}>

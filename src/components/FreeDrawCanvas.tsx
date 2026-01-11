@@ -25,17 +25,18 @@ export default function FreeDrawCanvas() {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const cursorRef = useRef<HTMLDivElement | null>(null);
+    const rectRef = useRef<DOMRect | null>(null);
 
-    // State
+
     const isDrawingRef = useRef(false);
     const startPosRef = useRef<{ x: number, y: number } | null>(null);
     const snapshotRef = useRef<ImageData | null>(null);
 
-    // History
+
     const historyRef = useRef<ImageData[]>([]);
     const historyStepRef = useRef<number>(-1);
 
-    // Initial Setup
+
     useEffect(() => {
         if (!isDrawingMode) return;
         const canvas = canvasRef.current;
@@ -45,10 +46,9 @@ export default function FreeDrawCanvas() {
         if (canvas.width !== window.innerWidth) {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            // Clear history on clean mount/resize if needed, but for now let's keep it simple
-            // Actually, we should probably start history with a blank state
+
             if (historyStepRef.current === -1) {
-                const ctx = canvas.getContext("2d", { willReadFrequently: true });
+                const ctx = canvas.getContext("2d");
                 if (ctx) {
                     historyRef.current = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
                     historyStepRef.current = 0;
@@ -56,32 +56,38 @@ export default function FreeDrawCanvas() {
             }
         }
 
-        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        const ctx = canvas.getContext("2d");
         if (ctx) {
             ctxRef.current = ctx;
             configureContext(ctx);
         }
 
+        // Initial rect
+        if (canvas) {
+            rectRef.current = canvas.getBoundingClientRect();
+        }
+
         const handleResize = () => {
             if (!canvas || !ctxRef.current) return;
-            // Native canvas clear on resize is annoying, ideally we'd preserve content
-            // For now, let's just re-config
+
             const imageData = ctxRef.current.getImageData(0, 0, canvas.width, canvas.height);
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            ctxRef.current.putImageData(imageData, 0, 0);
             configureContext(ctxRef.current);
+            rectRef.current = canvas.getBoundingClientRect();
         };
 
         window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
     }, [isDrawingMode]);
 
-    // Undo/Redo & Shortcuts
+
     const saveToHistory = () => {
         if (!canvasRef.current || !ctxRef.current) return;
 
-        // Remove redo steps
+
         const step = historyStepRef.current;
         const history = historyRef.current;
         if (step < history.length - 1) {
@@ -92,8 +98,8 @@ export default function FreeDrawCanvas() {
         historyRef.current.push(newState);
         historyStepRef.current += 1;
 
-        // Limit history size
-        if (historyRef.current.length > 30) {
+
+        if (historyRef.current.length > 5) {
             historyRef.current.shift();
             historyStepRef.current -= 1;
         }
@@ -143,17 +149,17 @@ export default function FreeDrawCanvas() {
     }, [isDrawingMode, handleUndo, handleRedo]);
 
 
-    // Context Config
+
     const configureContext = useCallback((ctx: CanvasRenderingContext2D) => {
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
 
         if (tool === "eraser") {
             ctx.globalCompositeOperation = "destination-out";
-            ctx.lineWidth = 40; // BIGGER ERASER
+            ctx.lineWidth = 40;
         } else {
             const isHighlighter = COLORS.find(c => c.id === color)?.isHighlighter;
-            // Determine Color roughly for fill
+
             let drawColor = color;
             if (color === 'default') {
                 drawColor = theme === "dark" ? "rgba(255, 255, 255, 0.9)" : "rgba(42, 42, 42, 0.9)";
@@ -172,21 +178,21 @@ export default function FreeDrawCanvas() {
         }
     }, [tool, theme, color, brushSize]);
 
-    // Re-config effect
+
     useEffect(() => {
         if (ctxRef.current) {
             configureContext(ctxRef.current);
         }
     }, [configureContext]);
 
-    // Interaction Logic & Cursor Tracking
+
     useEffect(() => {
         if (!isDrawingMode) return;
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const getPos = (e: MouseEvent | TouchEvent) => {
-            const rect = canvas.getBoundingClientRect();
+            const rect = rectRef.current || canvas.getBoundingClientRect();
             if ("touches" in e && e.touches.length > 0) {
                 return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
             }
@@ -198,9 +204,7 @@ export default function FreeDrawCanvas() {
             if (!cursorRef.current) return;
             const pos = getPos(e);
 
-            // Adjust for scrolling if position is weird? No, fixed canvas over window.
-            // Actually getPos gets relative to canvas, which matches fixed wrapper.
-            // But transforms might need clientX/Y directly if cursor is fixed to viewport.
+
 
             let clientX, clientY;
             if ("touches" in e && e.touches.length > 0) {
@@ -267,11 +271,11 @@ export default function FreeDrawCanvas() {
                 ctxRef.current.stroke();
 
             } else {
-                // Free Draw
+
                 ctxRef.current.lineTo(pos.x, pos.y);
                 ctxRef.current.stroke();
 
-                // Continuous path
+
                 ctxRef.current.beginPath();
                 ctxRef.current.moveTo(pos.x, pos.y);
             }
@@ -283,7 +287,7 @@ export default function FreeDrawCanvas() {
             startPosRef.current = null;
             snapshotRef.current = null;
             ctxRef.current?.beginPath();
-            // Save state!
+
             saveToHistory();
         };
 
@@ -296,7 +300,7 @@ export default function FreeDrawCanvas() {
         canvas.addEventListener("touchend", endDraw);
 
         return () => {
-            // Cleanup listeners
+
             canvas.removeEventListener("mousedown", startDraw);
             canvas.removeEventListener("mousemove", draw);
             canvas.removeEventListener("mouseup", endDraw);
@@ -307,11 +311,11 @@ export default function FreeDrawCanvas() {
         };
     }, [isDrawingMode, tool, color, brushSize]);
 
-    // HELPER: Get Current Color Value for CSS
+
     const getCssColor = () => {
         if (tool === 'eraser') return 'transparent';
         if (color === 'default') return theme === 'dark' ? '#ffffff' : '#2a2a2a';
-        // Handle rgba mappings or hex
+
         const map = COLORS.find(c => c.id === color);
         if (map?.id.startsWith('#')) return map.id;
         if (map?.id === 'rgba(255, 226, 52, 0.5)') return 'rgb(255, 226, 52)';
@@ -324,7 +328,7 @@ export default function FreeDrawCanvas() {
 
     return (
         <>
-            {/* Custom Cursor */}
+
             <div
                 ref={cursorRef}
                 className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
@@ -333,9 +337,9 @@ export default function FreeDrawCanvas() {
                     height: tool === 'eraser' ? 40 : brushSize,
                     borderRadius: '50%',
                     border: '1px solid',
-                    borderColor: tool === 'eraser' ? '#000' : 'transparent', // Eraser outline black
-                    backgroundColor: tool === 'eraser' ? 'transparent' : getCssColor(), // Ink solid
-                    boxShadow: tool === 'eraser' ? '0 0 0 1px white' : 'none', // Double border for visibility
+                    borderColor: tool === 'eraser' ? '#000' : 'transparent',
+                    backgroundColor: tool === 'eraser' ? 'transparent' : getCssColor(),
+                    boxShadow: tool === 'eraser' ? '0 0 0 1px white' : 'none',
                     transition: 'width 0.1s, height 0.1s, background-color 0.1s'
                 }}
             />
@@ -344,7 +348,7 @@ export default function FreeDrawCanvas() {
                 <canvas
                     ref={canvasRef}
                     className="w-full h-full touch-none"
-                    style={{ cursor: "none" }} // Hide system cursor
+                    style={{ cursor: "none" }}
                 />
             </div>
 
@@ -355,7 +359,7 @@ export default function FreeDrawCanvas() {
                     exit={{ y: 100, opacity: 0 }}
                     className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border-2 border-ink p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto"
                 >
-                    {/* UNDO/REDO */}
+
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
                         <button onClick={handleUndo} className="p-2 rounded-full hover:bg-black/5 active:scale-95 transition" title="Undo (Ctrl+Z)">
                             <Undo2 className="w-5 h-5" />
@@ -365,7 +369,7 @@ export default function FreeDrawCanvas() {
                         </button>
                     </div>
 
-                    {/* TOOLS */}
+
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
                         <button onClick={() => setTool("pencil")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "pencil" ? "bg-ink text-paper" : "hover:bg-black/5"}`} title="Pencil">
                             <Pencil className="w-5 h-5" />
@@ -384,7 +388,7 @@ export default function FreeDrawCanvas() {
                         </button>
                     </div>
 
-                    {/* BRUSH SIZES */}
+
                     {tool !== "eraser" && (
                         <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
                             {BRUSH_SIZES.map((b) => (
@@ -403,7 +407,7 @@ export default function FreeDrawCanvas() {
                         </div>
                     )}
 
-                    {/* COLORS */}
+
                     {tool !== "eraser" && (
                         <div className="flex items-center gap-2">
                             {COLORS.map((c) => (
@@ -418,7 +422,7 @@ export default function FreeDrawCanvas() {
                         </div>
                     )}
 
-                    {/* CLOSE */}
+
                     <div className="pl-4 border-l border-ink/20">
                         <button onClick={toggleDrawingMode} className="p-2 rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition" title="Close">
                             <X className="w-5 h-5" />

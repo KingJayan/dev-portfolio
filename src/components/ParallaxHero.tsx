@@ -5,11 +5,11 @@ import { Star, Spiral, Arrow } from "@/components/Doodles";
 import { useSmoothDamp2D } from "@/hooks/use-smooth-damp";
 
 export default function ParallaxHero() {
-    // Mouse position target values
-    const [target, setTarget] = useState({ x: 0, y: 0 });
 
-    // Smooth-damp motion for buttery feel
-    const { x: mouseX, y: mouseY } = useSmoothDamp2D(target, 0.25);
+    const targetX = useMotionValue(0);
+    const targetY = useMotionValue(0);
+
+    const { x: mouseX, y: mouseY } = useSmoothDamp2D({ x: targetX, y: targetY }, 0.25);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
@@ -17,18 +17,18 @@ export default function ParallaxHero() {
             const clientX = event.clientX;
             const clientY = event.clientY;
 
-            // Raw normalized values (-1 to 1)
             const nx = (clientX / innerWidth) * 2 - 1;
             const ny = (clientY / innerHeight) * 2 - 1;
 
-            setTarget({ x: nx, y: ny });
+            targetX.set(nx);
+            targetY.set(ny);
         };
 
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
-    // Enhanced Parallax Depth
+
     const backgroundX = useTransform(mouseX, [-1, 1], ["2%", "-2%"]);
     const backgroundY = useTransform(mouseY, [-1, 1], ["2%", "-2%"]);
 
@@ -40,7 +40,7 @@ export default function ParallaxHero() {
 
     return (
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-paper">
-            {/* Abstract Background Elements */}
+
             <motion.div style={{ x: backgroundX, y: backgroundY }} className="absolute inset-0 z-0 opacity-30 pointer-events-none">
                 <div className="absolute top-[10%] left-[10%] w-64 h-64 border-4 border-dashed border-pencil/30 rounded-full animate-wiggle" />
                 <div className="absolute bottom-[20%] right-[10%] w-96 h-96 border-2 border-highlight-pink/20 rotate-12" />
@@ -50,18 +50,18 @@ export default function ParallaxHero() {
                 </svg>
             </motion.div>
 
-            {/* Main Content Stack - No blurred duplicates, direct clean stacking */}
+
             <motion.div
                 style={{ x: midX, y: midY }}
                 className="relative z-10 flex flex-col items-center justify-center gap-2 pointer-events-none"
             >
-                {/* 1. Job Title (Top) */}
+
                 <h2 className="text-4xl md:text-5xl font-hand text-pencil transform -rotate-2 relative z-20">
                     {portfolioConfig.personal.title}
                     <div className="w-full h-3 bg-highlighter-pink/60 absolute -bottom-2 left-0 -rotate-1 rounded-sm -z-10"></div>
                 </h2>
 
-                {/* 2. Name (Middle) */}
+
                 <div className="relative inline-block z-10 py-6">
                     <h1 className="text-7xl md:text-9xl font-marker text-ink drop-shadow-xl rotate-[-3deg] relative whitespace-nowrap">
                         {portfolioConfig.personal.name}
@@ -80,7 +80,7 @@ export default function ParallaxHero() {
                     </svg>
                 </div>
 
-                {/* 3. Tagline (Bottom) */}
+
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -92,7 +92,7 @@ export default function ParallaxHero() {
                 </motion.div>
             </motion.div>
 
-            {/* Foreground Parallax Elements (Optional subtle depth) */}
+
             <motion.div style={{ x: foreX, y: foreY }} className="absolute inset-0 pointer-events-none z-30" />
         </div>
     );

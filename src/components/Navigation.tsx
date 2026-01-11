@@ -54,7 +54,7 @@ export default function Navigation() {
 
   return (
     <>
-      {/* Desktop Bookmark Nav - STICKY */}
+
       <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-4">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
@@ -77,7 +77,7 @@ export default function Navigation() {
         ))}
 
         <div className="flex gap-2 mr-4">
-          {/* Drawing Mode Toggle */}
+
           <button
             onClick={toggleDrawingMode}
             className={`p-2 rounded-full border-2 border-ink transition-colors group ${isDrawingMode ? 'bg-highlighter-pink' : 'hover:bg-highlighter-yellow'}`}
@@ -86,7 +86,7 @@ export default function Navigation() {
             <Pencil className={`w-5 h-5 ${isDrawingMode ? 'text-white' : 'text-ink'}`} />
           </button>
 
-          {/* dark mode toggle */}
+
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full border-2 border-ink hover:bg-highlighter-yellow transition-colors group"
@@ -101,7 +101,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile Nav Toggle */}
+
       <div className="md:hidden fixed top-4 right-4 z-50">
         <Button
           variant="ghost"
@@ -113,7 +113,7 @@ export default function Navigation() {
         </Button>
       </div>
 
-      {/* Mobile Menu Overlay */}
+
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div

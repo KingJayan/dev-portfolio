@@ -8,27 +8,23 @@ export default function Cursor() {
     const { theme } = useTheme();
     const { isDrawingMode, tool } = useDrawing();
 
-    // Target position
-    const [target, setTarget] = useState({ x: -100, y: -100 });
 
-    // Smooth-damp for a "weighted pencil" feel
-    const { x: springX, y: springY } = useSmoothDamp2D(target, 0.08);
+    const targetX = useMotionValue(-100);
+    const targetY = useMotionValue(-100);
 
-    // Use ref to avoid re-renders during drawing
-    const posRef = useRef({ x: -100, y: -100 });
+    const { x: springX, y: springY } = useSmoothDamp2D({ x: targetX, y: targetY }, 0.08);
 
     useEffect(() => {
         const moveCursor = (e: MouseEvent) => {
-            const newPos = { x: e.clientX, y: e.clientY };
-            posRef.current = newPos;
-            setTarget(newPos);
+            targetX.set(e.clientX);
+            targetY.set(e.clientY);
         };
 
         window.addEventListener("mousemove", moveCursor);
         return () => window.removeEventListener("mousemove", moveCursor);
     }, []);
 
-    // Hide custom cursor completely when in drawing mode (canvas has its own cursor)
+
     if (isDrawingMode) {
         return null;
     }
@@ -41,13 +37,13 @@ export default function Cursor() {
                     className="absolute top-0 left-0"
                 >
                     {theme === 'dark' ? (
-                        // CHALK STICK
+
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg -translate-x-[2px] -translate-y-[22px] rotate-[-15deg]">
                             <path d="M7 2 L19 2 L17 20 L5 20 Z" fill="#f0f0f0" stroke="rgba(255,255,255,0.5)" strokeWidth="1" />
                             <path d="M6 18 L18 18" stroke="#ccc" strokeWidth="1" strokeDasharray="2 2" />
                         </svg>
                     ) : (
-                        // PENCIL
+
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="drop-shadow-lg -translate-x-[0px] -translate-y-[22px] rotate-[-15deg]">
                             <path d="M16.5 3.5L20.5 7.5L9.5 18.5H5.5V14.5L16.5 3.5Z" fill="#FBBF24" stroke="#4B5563" strokeWidth="1.5" strokeLinejoin="round" />
                             <path d="M19 5.5L20.5 4L18.5 2L17 3.5" fill="#F87171" stroke="#4B5563" strokeWidth="1.5" strokeLinejoin="round" />
