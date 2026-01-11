@@ -143,7 +143,7 @@ export const portfolioConfig = {
       {
         id: "portfolio-website",
         title: "Portfolio Website",
-        description: "A modern full-stack portfolio built with React & TypeScript. Features a sketchbook aesthetic, 3D parallax, and Vercel serverless functions.",
+        description: "A modern full-stack portfolio built with React & TypeScript. Features a sketchbook design, 3D parallax, and Vercel serverless functions.",
         technologies: ["React", "TypeScript", "Tailwind", "Framer Motion", "Vercel"],
         liveUrl: "https://jayanpatel.dev",
         githubUrl: "https://github.com/KingJayan/dev-portfolio",
