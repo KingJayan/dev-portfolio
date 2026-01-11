@@ -46,17 +46,29 @@ export const portfolioConfig = {
     ogImage: "/api/placeholder/1200/630",
   },
 
+  hero: {
+    tagline: "Shaping the web, one component at a time.",
+    status: "Open to work",
+  },
+
   navigation: {
     showLogo: true,
     items: [
       { name: "Home", href: "#home" },
       { name: "Projects", href: "#projects" },
       { name: "About", href: "#about" },
+      { name: "Achievements", href: "#achievements" },
+      { name: "Life", href: "#outside" },
       { name: "Contact", href: "#contact" },
     ],
   },
 
   about: {
+    bio: [
+      "I'm a passionate solo dev who loves making creative and interactive web experiences.",
+      "To me, code isn't just logic, it's a form of expression, a way to bring ideas to life.",
+      "Currently based in Austin, TX, I'm always excited to collaborate and push the boundaries of what the web can do."
+    ],
     skills: [
       { name: "HTML/CSS/JS", level: 95, color: "from-blue-400 to-blue-600" },
       { name: "React & TS", level: 80, color: "from-indigo-400 to-indigo-600" },
@@ -66,6 +78,63 @@ export const portfolioConfig = {
       { name: "R", level: 40, color: "from-black-400 to-black-600" },
       { name: "Python", level: 35, color: "from-red-400 to-red-600" },
     ],
+    tools: [
+      { name: "GitHub", icon: "github" },
+      { name: "Git", icon: "git" },
+      { name: "npm", icon: "npm" },
+      { name: "Vercel", icon: "vercel" },
+      //{ name: "AWS", icon: "aws" },
+      //{ name: "Docker", icon: "docker" },
+      { name: "Firebase", icon: "firebase" },
+      { name: "WordPress", icon: "wordpress" },
+      { name: "Replit", icon: "replit" },
+      { name: "VS Code", icon: "vscode" },
+      { name: "Framer Motion", icon: "framer-motion" },
+      { name: "Tailwind", icon: "tailwind" },
+    ],
+  },
+
+  achievements: [
+    {
+      title: "VEX Robotics Region 4 Champions",
+      organization: "VEX Robotics Team 70709X",
+      date: "2024-2025",
+      description: "Winners of Skills Challenge and Excellence Awards, Texas Region 4 Champions. Also won Innovate Award for the 2024 World Championships.",
+      icon: "trophy"
+    },
+    {
+      title: "FTC Robotics Competitor",
+      organization: "WWHS FTC Team #18886 AtlAtl",
+      date: "2025-2026",
+      description: "Competed & drove in the FiT-Central GEMS League Meets.",
+      icon: "award"
+    }
+  ],
+
+  outsideProgramming: {
+    title: "When I'm not coding...",
+    hobbies: [
+      {
+        name: "School Robotics",
+        description: "High school FTC competitor and former VEX Worlds 2-time qualifier.",
+        image: "../public/images/life/1.png"
+      },
+      {
+        name: "Gaming",
+        description: "Playing video games and enjoying the challenge.",
+        image: "../public/images/life/2.png"
+      },
+      {
+        name: "Baking",
+        description: "Experimenting with new recipes in the kitchen.",
+        image: "../public/images/life/3.png"
+      },
+      {
+        name: "Debate",
+        description: "Participating in WWHS LD Novice Debate and learning new arguments.",
+        image: "../public/images/life/4.png"
+      }
+    ]
   },
 
   projects: {
@@ -79,7 +148,7 @@ export const portfolioConfig = {
         liveUrl: "https://jayanpatel.dev",
         githubUrl: "https://github.com/KingJayan/dev-portfolio",
         startDate: "2025-05",
-        endDate: "Present",
+        endDate: "2026-01",
       },
       {
         id: "task-manager",

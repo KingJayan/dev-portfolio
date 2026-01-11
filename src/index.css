@@ -41,6 +41,17 @@
   body {
     @apply bg-paper text-ink font-hand antialiased transition-colors duration-500;
     background-image: var(--bg-texture);
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
   }
 }
 

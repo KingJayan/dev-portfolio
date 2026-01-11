@@ -32,3 +32,9 @@ export interface ThemeContextType {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
+
+export interface SocialLink {
+  platform: string;
+  url: string;
+  icon: string;
+}

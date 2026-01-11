@@ -1,34 +1,32 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
+import { useSmoothDamp2D } from "@/hooks/use-smooth-damp";
 
 export default function Cursor() {
     const { theme } = useTheme();
     const { isDrawingMode, tool } = useDrawing();
-    const mouseX = useMotionValue(-100);
-    const mouseY = useMotionValue(-100);
+
+    // Target position
+    const [target, setTarget] = useState({ x: -100, y: -100 });
+
+    // Smooth-damp for a "weighted pencil" feel
+    const { x: springX, y: springY } = useSmoothDamp2D(target, 0.08);
 
     // Use ref to avoid re-renders during drawing
     const posRef = useRef({ x: -100, y: -100 });
 
-    const springConfig = { damping: 40, stiffness: 700 };
-    const springX = useSpring(mouseX, springConfig);
-    const springY = useSpring(mouseY, springConfig);
-
-    // Only track cursor position, no trail updates during drawing
     useEffect(() => {
         const moveCursor = (e: MouseEvent) => {
-            posRef.current = { x: e.clientX, y: e.clientY };
-            mouseX.set(e.clientX);
-            mouseY.set(e.clientY);
+            const newPos = { x: e.clientX, y: e.clientY };
+            posRef.current = newPos;
+            setTarget(newPos);
         };
 
         window.addEventListener("mousemove", moveCursor);
         return () => window.removeEventListener("mousemove", moveCursor);
-    }, [mouseX, mouseY]);
-
-    const showEraser = isDrawingMode && tool === 'eraser';
+    }, []);
 
     // Hide custom cursor completely when in drawing mode (canvas has its own cursor)
     if (isDrawingMode) {

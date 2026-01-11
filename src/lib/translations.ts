@@ -1,18 +1,18 @@
 export const translations = {
     en: {
-        nav: { home: "Home", projects: "Projects", about: "About", contact: "Contact" },
+        nav: { home: "Home", projects: "Projects", about: "About", achievements: "Achievements", life: "Life", contact: "Contact" },
         footer: { scroll: "Scroll Top", email: "Email Me" },
     },
     es: {
-        nav: { home: "Inicio", projects: "Proyectos", about: "Sobre Mí", contact: "Contacto" },
+        nav: { home: "Inicio", projects: "Proyectos", about: "Sobre Mí", achievements: "Logros", life: "Vida", contact: "Contacto" },
         footer: { scroll: "Volver Arriba", email: "Envíame un Correo" },
     },
     zh: {
-        nav: { home: "首页", projects: "项目", about: "关于", contact: "联系" },
+        nav: { home: "首页", projects: "项目", about: "关于", achievements: "成就", life: "生活", contact: "联系" },
         footer: { scroll: "回到顶部", email: "给我发邮件" },
     },
     fr: {
-        nav: { home: "Accueil", projects: "Projets", about: "À Propos", contact: "Contact" },
+        nav: { home: "Accueil", projects: "Projets", about: "À Propos", achievements: "Réalisations", life: "Vie", contact: "Contact" },
         footer: { scroll: "Haut de Page", email: "Envoyez-moi un Email" },
     },
 };

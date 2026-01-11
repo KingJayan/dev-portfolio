@@ -6,17 +6,23 @@ import SectionDivider from "@/components/SectionDivider";
 import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
 import FreeDrawCanvas from "@/components/FreeDrawCanvas";
+import CommandMenu from "@/components/CommandMenu";
 
 import Projects from "@/sections/Projects";
 import About from "@/sections/About";
+import Achievements from "@/sections/Achievements";
+import OutsideWork from "@/sections/OutsideWork";
 import Contact from "@/sections/Contact";
+import ScrollProgress from "@/components/ui/ScrollProgress";
 
 function App() {
   return (
     <>
       <FreeDrawCanvas />
       <Cursor />
+      <ScrollProgress />
       <Navigation />
+      <CommandMenu />
 
       <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500">
 
@@ -39,6 +45,18 @@ function App() {
 
         <section id="about" className="relative z-30 bg-paper min-h-screen flex flex-col justify-center">
           <About />
+        </section>
+
+        <SectionDivider />
+
+        <section id="achievements" className="relative z-35 bg-secondary/20 min-h-screen flex flex-col justify-center">
+          <Achievements />
+        </section>
+
+        <SectionDivider />
+
+        <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
+          <OutsideWork />
         </section>
 
         <SectionDivider />

@@ -26,7 +26,21 @@ To replace images in the portfolio, simply drop them in this folder with the cor
 
    (Supported formats: .png, .jpg, .jpeg)
 
+3. life
+   ----------------
+   Drop in project screenshots at this path:
+   /public/images/life/
 
-3. customization
+   Filename convention:
+   {number}.png
+
+   Example:
+   for the first life activity, name the image:
+   1.png, for the second, name it 2.png, and so on.
+
+   (Supported formats: .png, .jpg, .jpeg)
+
+
+4. customization
    -------------
    you can override the default images by changing 'portfolio.config.ts' directly if you prefer specific URLs.
