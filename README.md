@@ -60,7 +60,7 @@ You need `node` and `npm` installed.
 
 ## Contributing
 
-Feel free to fork this project and use it as a base for your own portfolio! (Configuration available in src/portfolio.config.ts
+Feel free to fork this project and use it as a base for your own portfolio! (Configuration available in src/portfolio.config.ts)
 
 <a href="https://github.com/KingJayan/dev-portfolio/fork" target="_blank">
   <img src="https://img.shields.io/github/forks/KingJayan/dev-portfolio?style=social" alt="Fork" />
@@ -68,10 +68,6 @@ Feel free to fork this project and use it as a base for your own portfolio! (Con
 
 ## License
 
-Open source(MIT). Use it, break it, fix it.
-
----
-
 <div align="center">
-  <sub>MIT License(</sub>
+  <sub>MIT License/sub>
 </div>
