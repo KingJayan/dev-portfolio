@@ -103,8 +103,17 @@ export default function About() {
 
           {/* funfact */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="p-6 border-4 border-dotted border-highlighter-blue/50 rotate-2 bg-paper/20 backdrop-blur-sm relative overflow-hidden group"
+            initial={{ opacity: 0, y: 30, rotate: 2 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 2 }}
+            whileHover={{
+              scale: 1.05,
+              rotate: 1,
+              y: -5,
+              transition: { type: "spring", stiffness: 400, damping: 25 }
+            }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
+            className="p-6 border-4 border-dotted border-highlighter-blue/50 bg-paper/20 backdrop-blur-sm relative overflow-hidden group shadow-sm hover:shadow-md transition-shadow"
           >
             <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-blue/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
             <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">

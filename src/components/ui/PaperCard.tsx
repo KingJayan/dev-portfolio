@@ -20,24 +20,45 @@ export default function PaperCard({
     tapeColor = "bg-highlighter-yellow/30",
     hoverScale = 1.02,
 }: PaperCardProps) {
-    return (
-        <motion.div
-            initial={{ opacity: 0, y: 30, rotate }}
-            whileInView={{ opacity: 1, y: 0, rotate }}
-            whileHover={{
-                scale: hoverScale,
-                rotate: rotate > 0 ? rotate - 1 : rotate + 1,
-                y: -5,
-                boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
-            }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{
+    const variants = {
+        hidden: {
+            opacity: 0,
+            y: 30,
+            rotate
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            rotate,
+            transition: {
                 delay,
                 type: "spring",
                 stiffness: 260,
-                damping: 20
-            }}
-            className={`paper-card p-6 bg-white relative group border-2 border-ink/5 overflow-hidden transition-shadow shadow-paper ${className}`}
+                damping: 25
+            }
+        },
+        hover: {
+            scale: hoverScale,
+            rotate: rotate > 0 ? rotate - 1 : rotate + 1,
+            y: -8,
+            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+            transition: {
+                type: "spring",
+                stiffness: 400,
+                damping: 25,
+                delay: 0
+            }
+        }
+    };
+
+    return (
+        <motion.div
+            initial="hidden"
+            whileInView="visible"
+            whileHover="hover"
+            variants={variants}
+            viewport={{ once: true, margin: "-100px" }}
+            className={`paper-card p-6 bg-white relative group border-2 border-ink/5 overflow-hidden shadow-paper ${className}`}
         >
             {showTape && (
                 <div

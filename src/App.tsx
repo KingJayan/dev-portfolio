@@ -18,6 +18,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 function App() {
   return (
     <>
+      <div className="grain-overlay" />
       <FreeDrawCanvas />
       <Cursor />
       <ScrollProgress />
