@@ -5,10 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
+import { useLocation } from "wouter";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [, setLocation] = useLocation();
   const { t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
@@ -43,11 +45,26 @@ export default function Navigation() {
     e.preventDefault();
     const targetId = href.substring(1);
     const element = document.getElementById(targetId);
+
     if (element) {
       window.scrollTo({
         top: element.offsetTop,
         behavior: "smooth",
       });
+      setIsMenuOpen(false);
+    } else {
+      // If element doesn't exist (we are likely on the 404 page)
+      setLocation("/");
+      // Let the browser handle the hash scroll after navigation
+      setTimeout(() => {
+        const newElement = document.getElementById(targetId);
+        if (newElement) {
+          window.scrollTo({
+            top: newElement.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
       setIsMenuOpen(false);
     }
   };
