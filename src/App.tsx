@@ -14,9 +14,11 @@ import Achievements from "@/sections/Achievements";
 import OutsideWork from "@/sections/OutsideWork";
 import Contact from "@/sections/Contact";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import LoadingScreen from "@/components/LoadingScreen";
 
 import { Route, Switch } from "wouter";
 import NotFound from "@/pages/NotFound";
+import { useState } from "react";
 
 function Portfolio() {
   return (
@@ -74,8 +76,18 @@ function Portfolio() {
 }
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
+      <LoadingScreen isLoading={isLoading} />
       <div className="grain-overlay" />
       <FreeDrawCanvas />
       <Cursor />

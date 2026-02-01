@@ -40,7 +40,7 @@ export default function OutsideWork() {
             {/* parallax doodles */}
             <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-20 z-0">
                 <Spiral className="absolute top-10 right-20 w-48 h-48 text-pencil/30" />
-                <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink/40" />
+                <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink" />
                 <Arrow className="absolute top-1/2 left-1/4 w-32 h-16 text-ink/10 -rotate-12" />
             </motion.div>
 
@@ -62,7 +62,7 @@ export default function OutsideWork() {
                             <PaperCard
                                 rotate={index % 2 === 0 ? -2 : 2}
                                 delay={index * 0.15}
-                                tapeColor="bg-highlighter-yellow/30"
+                                tapeColor="bg-highlighter-yellow"
                                 hoverScale={1.05}
                                 className="bg-white p-4 h-full"
                             >
@@ -82,7 +82,7 @@ export default function OutsideWork() {
                                 </p>
 
                                 {/* small decorative doodle on card */}
-                                {index === 2 && <Arrow className="absolute -bottom-10 -right-6 w-16 h-16 text-highlighter-blue/40 -rotate-45" />}
+                                {index === 2 && <Arrow className="absolute -bottom-10 -right-6 w-16 h-16 text-highlighter-blue -rotate-45" />}
                             </PaperCard>
                         </div>
                     ))}

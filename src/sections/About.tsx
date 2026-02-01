@@ -45,7 +45,7 @@ export default function About() {
 
           <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
             <p className="relative">
-              Hi! I'm <span className="bg-highlighter-pink/40 px-2 font-bold rotate-1 inline-block">{personal.name}</span>.
+              Hi! I'm <span className="bg-highlighter-pink px-2 font-bold rotate-1 inline-block">{personal.name}</span>.
               <Star className="absolute -top-4 -right-6 w-8 h-8 text-highlighter-yellow animate-pulse" />
             </p>
 
@@ -150,7 +150,7 @@ export default function About() {
                   whileTap={{ scale: 0.95 }}
                   className="flex flex-col items-center gap-2 group cursor-default"
                 >
-                  <div className="w-12 h-12 bg-paper border-2 border-ink rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/30 transition-all duration-300">
+                  <div className="w-12 h-12 bg-paper border-2 border-ink rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow transition-all duration-300">
                     <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
                   </div>
                 </motion.div>

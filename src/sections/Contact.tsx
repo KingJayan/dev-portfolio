@@ -95,9 +95,9 @@ export default function Contact() {
       {/* bg doodles layer */}
       <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-40">
         <Spiral className="absolute top-20 left-10 w-32 h-32 text-pencil/30" />
-        <Star className="absolute bottom-40 right-20 w-16 h-16 text-highlighter-yellow/50" />
+        <Star className="absolute bottom-40 right-20 w-16 h-16 text-highlighter-yellow" />
         <Arrow className="absolute top-1/2 left-20 w-48 h-24 text-ink/20 rotate-12" />
-        <div className="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-highlighter-pink/40" />
+        <div className="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-highlighter-pink" />
       </motion.div>
 
       {/* main card layer */}
