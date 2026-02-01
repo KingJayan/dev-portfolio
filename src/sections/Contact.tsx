@@ -19,6 +19,8 @@ const contactSchema = z.object({
 
 type ContactForm = z.infer<typeof contactSchema>;
 
+import ScribbleText from '@/components/ScribbleText';
+
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -105,7 +107,9 @@ export default function Contact() {
         <div className="paper-card p-8 md:p-12 rotate-1 relative">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/50 rotate-[-1deg] backdrop-blur-sm border-l border-r border-white/20 shadow-sm" />
 
-          <h2 className="text-5xl font-marker text-center mb-8">Say Hello!</h2>
+          <h2 className="text-5xl font-marker text-center mb-8">
+            <ScribbleText color="text-highlighter-yellow">Say Hello!</ScribbleText>
+          </h2>
 
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">

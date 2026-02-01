@@ -5,6 +5,8 @@ import { Underline, Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
 import { useSmoothDamp2D } from '@/hooks/use-smooth-damp';
 
+import ScribbleText from '@/components/ScribbleText';
+
 export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
 
@@ -51,9 +53,8 @@ export default function OutsideWork() {
                         whileInView={{ opacity: 1, y: 0 }}
                         className="text-5xl font-marker text-center relative z-10"
                     >
-                        {outsideProgramming.title}
+                        <ScribbleText color="text-highlighter-pink">{outsideProgramming.title}</ScribbleText>
                     </motion.h2>
-                    <Underline className="w-64 h-8 text-highlighter-pink -mt-2 opacity-60" />
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">

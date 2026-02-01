@@ -3,6 +3,7 @@ import { useState } from "react";
 import { portfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
 import { Project } from "@/lib/types";
+import ScribbleText from '@/components/ScribbleText';
 
 export default function Projects() {
   const { projects } = portfolioConfig;
@@ -19,11 +20,10 @@ export default function Projects() {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
     >
       <div className="flex flex-col items-center mb-16 relative">
-        <h2 className="text-5xl md:text-6xl font-marker text-center relative inline-block">
-          My Work
-          <svg className="absolute -bottom-4 left-0 w-full h-8 text-highlighter-pink/50" viewBox="0 0 100 10" preserveAspectRatio="none">
-            <path d="M0,5 Q50,10 100,5" fill="none" stroke="currentColor" strokeWidth="6" />
-          </svg>
+        <h2 className="text-5xl md:text-6xl font-marker text-center relative">
+          <ScribbleText color="text-highlighter-pink">
+            My Work
+          </ScribbleText>
         </h2>
 
         {/* click me hint */}

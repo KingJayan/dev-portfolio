@@ -3,6 +3,7 @@ import { portfolioConfig } from '@/portfolio.config';
 import { Star, Underline, Arrow, Spiral } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
+import ScribbleText from '@/components/ScribbleText';
 
 export default function About() {
   const { personal, about } = portfolioConfig;
@@ -39,13 +40,12 @@ export default function About() {
           </div>
 
           <h2 className="text-6xl font-marker text-center mb-8 relative">
-            Who am I?
-            <Underline className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-32 h-4 text-highlighter-pink" />
+            <ScribbleText color="text-highlighter-pink">Who am I?</ScribbleText>
           </h2>
 
           <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
             <p className="relative">
-              Hi! I'm <span className="bg-highlighter-pink px-2 font-bold rotate-1 inline-block">{personal.name}</span>.
+              Hi! I'm <ScribbleText color="text-highlighter-pink" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
               <Star className="absolute -top-4 -right-6 w-8 h-8 text-highlighter-yellow animate-pulse" />
             </p>
 
@@ -128,7 +128,7 @@ export default function About() {
         </motion.div>
       </div>
 
-      {/*vottom row: full-wdith toolkit*/}
+      {/*bottom row: full-wdith toolkit*/}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}

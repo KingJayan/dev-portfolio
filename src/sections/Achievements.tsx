@@ -12,6 +12,8 @@ const icons = {
     star: StarIcon,
 };
 
+import ScribbleText from '@/components/ScribbleText';
+
 export default function Achievements() {
     const { achievements } = portfolioConfig;
 
@@ -69,10 +71,9 @@ export default function Achievements() {
                         transition={{ duration: 0.5 }}
                         className="text-6xl font-marker text-center relative px-8"
                     >
-                        Achievements
+                        <ScribbleText color="text-highlighter-blue">Achievements</ScribbleText>
                         <Star className="absolute -top-6 -right-4 w-12 h-12 text-highlighter-yellow" />
                     </motion.h2>
-                    <Underline className="w-48 h-6 text-highlighter-blue -mt-2 opacity-50" />
 
                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/40 rotate-1 backdrop-blur-sm border-l border-r border-white/20 shadow-sm opacity-60" />
                 </div>
