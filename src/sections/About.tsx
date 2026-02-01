@@ -10,7 +10,7 @@ export default function About() {
   return (
     <section id="about" className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-6xl mx-auto flex flex-col gap-16 items-start">
 
-      {/* TOP ROW: Bio and Skills */}
+      {/*toprow: Bio and skills */}
       <div className="flex flex-col lg:flex-row gap-16 items-start w-full">
         {/* left: photo/bio */}
         <motion.div
@@ -118,7 +118,7 @@ export default function About() {
         </motion.div>
       </div>
 
-      {/* BOTTOM ROW: Toolkit spanning full width */}
+      {/*vottom row: full-wdith toolkit*/}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}

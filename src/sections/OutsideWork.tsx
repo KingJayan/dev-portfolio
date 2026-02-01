@@ -11,7 +11,7 @@ export default function OutsideWork() {
     // mouse parallax target
     const [target, setTarget] = useState({ x: 0, y: 0 });
 
-    // Smooth-damp motion
+    // smooth-damp motion effect
     const { x: mouseX, y: mouseY } = useSmoothDamp2D(target, 0.2);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ export default function OutsideWork() {
                                 hoverScale={1.05}
                                 className="bg-white p-4 h-full"
                             >
-                                {/* Polaroid image */}
+                                {/*polaroid image */}
                                 <div className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-2 border-ink relative">
                                     <img
                                         src={hobby.image}

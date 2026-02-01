@@ -32,7 +32,7 @@ export default function Achievements() {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
-    // Single Parallax Layer (Consistent with Contact/Home)
+    //consistent parallax layer
     const backX = useTransform(mouseX, [-1, 1], ["5%", "-5%"]);
     const backY = useTransform(mouseY, [-1, 1], ["5%", "-5%"]);
 
@@ -46,7 +46,7 @@ export default function Achievements() {
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden min-h-screen flex flex-col justify-center"
         >
 
-            {/* RICHER Single Parallax Layer */}
+            {/* single parallax layer */}
             <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-25 z-0">
                 <Spiral className="absolute top-[10%] left-[5%] w-48 h-48 text-pencil/30" />
                 <Star className="absolute bottom-[10%] right-[10%] w-24 h-24 text-highlighter-yellow/50" />

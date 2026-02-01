@@ -27,7 +27,7 @@ export default function Contact() {
   // mouse parallax target
   const [target, setTarget] = useState({ x: 0, y: 0 });
 
-  // Smooth-damp motion
+  //smooth-damp motion effect
   const { x: mouseX, y: mouseY } = useSmoothDamp2D(target, 0.2);
 
   useEffect(() => {

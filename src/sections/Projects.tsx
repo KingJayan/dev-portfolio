@@ -26,7 +26,7 @@ export default function Projects() {
           </svg>
         </h2>
 
-        {/* GUIDING TAG: Subtle "Click Me" Hint */}
+        {/* click me hint */}
         <motion.div
           initial={{ opacity: 0, x: 20, rotate: 5 }}
           whileInView={{ opacity: 1, x: 0, rotate: 2 }}
@@ -38,7 +38,7 @@ export default function Projects() {
           className="absolute -right-4 md:right-1/4 top-0 z-20 hidden sm:block"
         >
           <div className="bg-highlighter-yellow/80 backdrop-blur-sm p-4 shadow-paper border-l border-ink/10 rotate-2 relative">
-            {/* Pin head */}
+            {/* pin head */}
             <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-highlighter-pink shadow-inner" />
 
             <p className="font-hand text-xl text-ink leading-tight text-center">
@@ -47,7 +47,7 @@ export default function Projects() {
               for more!
             </p>
 
-            {/* Hand-drawn arrow svg */}
+            {/* arrow svg */}
             <svg className="absolute -bottom-10 -left-8 w-12 h-12 text-ink/40 -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
               <path d="M40,10 Q25,10 10,40" />
               <path d="M5,35 L10,40 L15,35" />
@@ -87,7 +87,7 @@ export default function Projects() {
                   Add preview-{project.id}.png to public/images/projects
                 </div>
 
-                {/* Hover overlay - kept but refined */}
+                {/* hover overlay */}
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-paper px-4 py-2 font-marker border border-ink transform -rotate-3 hover:scale-110 transition-transform">View Details</span>
                 </div>

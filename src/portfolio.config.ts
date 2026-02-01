@@ -6,7 +6,7 @@ export const portfolioConfig = {
     phone: "+1 (618) 737-2186",
     location: "Austin, TX",
     website: "https://jayanpatel.dev",
-    avatar: "/api/placeholder/150/150",
+    avatar: "/images/profile.png",
   },
 
   contact: {
@@ -115,22 +115,22 @@ export const portfolioConfig = {
       {
         name: "School Robotics",
         description: "High school FTC competitor and former VEX Worlds 2-time qualifier.",
-        image: "../public/images/life/1.png"
+        image: "/images/life/robotics.png"
       },
       {
         name: "Gaming",
         description: "Playing video games and enjoying the challenge.",
-        image: "../public/images/life/2.png"
+        image: "/images/life/gaming.png"
       },
       {
         name: "Baking",
         description: "Experimenting with new recipes in the kitchen.",
-        image: "../public/images/life/3.png"
+        image: "/images/life/baking.png"
       },
       {
         name: "Debate",
         description: "Participating in WWHS LD Novice Debate and learning new arguments.",
-        image: "../public/images/life/4.png"
+        image: "/images/life/debate.png"
       }
     ]
   },
@@ -153,6 +153,7 @@ export const portfolioConfig = {
         title: "Task Mgmt System",
         description: "Collaborative task tool with real-time updates and drag-and-drop organization.",
         technologies: ["Next.js", "Socket.io", "Prisma"],
+        image: "/images/projects/task-manager.png",
         githubUrl: "https://github.com/KingJayan/task-manager",
         startDate: "2023-10",
         endDate: "2023-12",
