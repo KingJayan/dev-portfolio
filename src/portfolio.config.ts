@@ -41,7 +41,7 @@ export const portfolioConfig = {
       "JavaScript",
       "TypeScript",
     ],
-    ogImage: "/api/placeholder/1200/630",
+    ogImage: "/images/og-image.png",
   },
 
   hero: {

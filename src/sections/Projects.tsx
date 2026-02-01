@@ -78,14 +78,7 @@ export default function Projects() {
                   src={`/images/projects/preview-${project.id}.png`}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                  }}
                 />
-                <div className="absolute inset-0 hidden flex items-center justify-center text-pencil/40 font-hand text-xl bg-gray-100 dark:bg-gray-800 text-center p-4">
-                  Add preview-{project.id}.png to public/images/projects
-                </div>
 
                 {/* hover overlay */}
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

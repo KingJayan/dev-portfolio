@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
 import { Star, Underline, Arrow, Spiral } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
+import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 
 export default function About() {
   const { personal, about } = portfolioConfig;
@@ -143,19 +144,17 @@ export default function About() {
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
             {tools && tools.map((tool: any, idx: number) => (
-              <motion.div
-                key={tool.name}
-                whileHover={{ scale: 1.15, rotate: (idx % 2 === 0 ? 5 : -5) }}
-                whileTap={{ scale: 0.95 }}
-                className="flex flex-col items-center gap-2 group cursor-default"
-              >
-                <div className="w-12 h-12 bg-paper border-2 border-pencil rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/30 transition-all duration-300">
-                  <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
-                </div>
-                <span className="font-hand text-sm text-pencil/70 font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                  {tool.name}
-                </span>
-              </motion.div>
+              <HandmadeTooltip key={tool.name} content={tool.name}>
+                <motion.div
+                  whileHover={{ scale: 1.15, rotate: (idx % 2 === 0 ? 5 : -5) }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex flex-col items-center gap-2 group cursor-default"
+                >
+                  <div className="w-12 h-12 bg-paper border-2 border-ink rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/30 transition-all duration-300">
+                    <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
+                  </div>
+                </motion.div>
+              </HandmadeTooltip>
             ))}
           </div>
 

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 export const Star = ({ className }: { className?: string }) => (
     <motion.svg
+        aria-hidden="true"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -20,6 +21,7 @@ export const Star = ({ className }: { className?: string }) => (
 
 export const Arrow = ({ className }: { className?: string }) => (
     <motion.svg
+        aria-hidden="true"
         viewBox="0 0 100 50"
         fill="none"
         stroke="currentColor"
@@ -39,6 +41,7 @@ export const Arrow = ({ className }: { className?: string }) => (
 
 export const Spiral = ({ className }: { className?: string }) => (
     <motion.svg
+        aria-hidden="true"
         viewBox="0 0 100 100"
         fill="none"
         stroke="currentColor"
@@ -56,6 +59,7 @@ export const Spiral = ({ className }: { className?: string }) => (
 
 export const Underline = ({ className }: { className?: string }) => (
     <motion.svg
+        aria-hidden="true"
         viewBox="0 0 200 20"
         fill="none"
         stroke="currentColor"

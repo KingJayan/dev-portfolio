@@ -59,18 +59,21 @@ export default function Navigation() {
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
-              initial={{ x: 20 }}
-              animate={{ x: activeSection === item.href.substring(1) ? -10 : 10 }}
-              whileHover={{ x: -15, transition: { type: "spring", stiffness: 300 } }}
-              className={`
-                px-8 py-3 bg-paper border-l-2 border-y-2 border-ink shadow-sm cursor-pointer
-                font-marker text-xl transition-colors rounded-l-md
-                ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow shadow-md' : 'hover:bg-muted'}
-              `}
-              style={{
-                transformOrigin: "right center",
+              initial={{ x: "100%" }}
+              animate={{
+                x: activeSection === item.href.substring(1) ? "15%" : "35%"
               }}
+              whileHover={{
+                x: "10%",
+                transition: { type: "spring", stiffness: 400, damping: 25 }
+              }}
+              className={`
+                w-64 px-6 py-3 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
+                font-marker text-2xl transition-colors rounded-l-xl flex items-center
+                ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow' : 'hover:bg-white'}
+              `}
             >
+              <span className="w-8 text-center mr-2 opacity-50 text-base font-sans">0{index + 1}</span>
               {item.name}
             </motion.div>
           </a>
@@ -82,6 +85,7 @@ export default function Navigation() {
             onClick={toggleDrawingMode}
             className={`p-2 rounded-full border-2 border-ink transition-colors group ${isDrawingMode ? 'bg-highlighter-pink' : 'hover:bg-highlighter-yellow'}`}
             title={isDrawingMode ? "Stop Drawing" : "Free Draw Mode"}
+            aria-label={isDrawingMode ? "Stop Drawing" : "Enter Free Draw Mode"}
           >
             <Pencil className={`w-5 h-5 ${isDrawingMode ? 'text-white' : 'text-ink'}`} />
           </button>
@@ -91,6 +95,7 @@ export default function Navigation() {
             onClick={toggleTheme}
             className="p-2 rounded-full border-2 border-ink hover:bg-highlighter-yellow transition-colors group"
             title={theme === 'dark' ? "Switch to Paper" : "Switch to Blackboard"}
+            aria-label={theme === 'dark' ? "Switch to Paper Mode" : "Switch to Blackboard Mode"}
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5 text-paper group-hover:text-ink" />
