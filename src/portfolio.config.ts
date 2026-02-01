@@ -10,9 +10,7 @@ export const portfolioConfig = {
   },
 
   contact: {
-    // contact form submissions sent from:
     recipientEmail: "jayanp0202@gmail.com",
-    //sender(mailjet):
     senderEmail: "jayanp0202@gmail.com",
     autoReply: {
       enabled: true,

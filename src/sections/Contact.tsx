@@ -21,6 +21,8 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 export default function Contact() {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   // mouse parallax target
   const [target, setTarget] = useState({ x: 0, y: 0 });
@@ -49,18 +51,36 @@ export default function Contact() {
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = (data: ContactForm) => {
-    const subject = `Portfolio Contact from ${data.name}`;
-    const body = `Name: ${data.name}\nEmail: ${data.email}\n\nMessage:\n${data.message}`;
+  const onSubmit = async (data: ContactForm) => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    window.location.href = `mailto:${portfolioConfig.contact.recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
-    toast({
-      title: "Opening Mail App...",
-      description: "Hit send in your email client!",
-    });
+      toast({
+        title: "Message Sent!",
+        description: "Thanks for reaching out! I'll get back to you soon.",
+      });
 
-    form.reset();
+      form.reset();
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Something went wrong. Please try again or use social media!",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -120,9 +140,10 @@ export default function Contact() {
 
             <Button
               type="submit"
-              className="w-full py-6 text-2xl font-amatic font-bold bg-ink text-paper hover:bg-pencil hover:scale-[1.02] transition-all shadow-paper hover:shadow-paper-hover"
+              disabled={isSubmitting}
+              className="w-full py-6 text-2xl font-amatic font-bold bg-ink text-paper hover:bg-pencil hover:scale-[1.02] transition-all shadow-paper hover:shadow-paper-hover disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Open in Mail App
+              {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
           </form>
         </div>

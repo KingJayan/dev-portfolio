@@ -1,12 +1,6 @@
 {
   "version": 2,
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
-  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
