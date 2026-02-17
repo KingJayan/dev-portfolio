@@ -9,6 +9,7 @@ import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
 
 import Projects from "@/sections/Projects";
+import GithubRepos from "@/sections/GithubRepos";
 import About from "@/sections/About";
 import Achievements from "@/sections/Achievements";
 import OutsideWork from "@/sections/OutsideWork";
@@ -36,6 +37,12 @@ function Portfolio() {
 
       <section id="projects" className="relative z-20 bg-secondary/30 min-h-screen flex flex-col justify-center">
         <Projects />
+      </section>
+
+      <SectionDivider />
+
+      <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
+        <GithubRepos />
       </section>
 
       <SectionDivider />
