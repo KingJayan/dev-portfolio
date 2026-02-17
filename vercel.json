@@ -13,4 +13,7 @@
       "destination": "/index.html"
     }
   ]
+  "redirects": [
+    { "source": "/discord", "destination": "https://discord.com/users/1285762174123511850" }
+  ]
 }
