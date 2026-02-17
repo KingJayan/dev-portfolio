@@ -20,14 +20,13 @@
 
 ## Features
 
-- **Sketchbook Design**: Custom doodle UI with wobbly borders, paper textures, and messy fonts.
+- **Sketchbook Design**: Custom doodle UI with animations, paper textures, and a detailed UX.
 - **Interactivity**:
     - **Free Draw Mode**: Toggle a pencil to draw anywhere on the screen.
-    - **Chalkboard Support**: Switch between "Paper" (Light) and "Blackboard" (Dark) modes.
+    - **Dark Mode**: Switch between "Paper" (Light) and "Chalkboard" (Dark) modes.
 - **3D Parallax Follow Hero**: Mouse-driven parallax effect with floating elements and physics-based animations.
-- **Responsive & Single Page**: Smooth scrolling navigation that handles mobile and desktop gracefully.
-- **Internationalization**: Built-in simple language translation support.
-- **Serverless**: Vercel Serverless Functions for handling contact form submissions.
+- **Responsive & SPA**: Smooth scrolling navigation that handles mobile and desktop gracefully.
+- **Serverless**: Mailjet for handling contact form submissions, vercel for deployment.
 
 ## Getting Started
 
@@ -58,23 +57,10 @@ You need `node` and `npm` installed.
     npm run build
     ```
 
-## Configuration
-
-Edit `src/portfolio.config.ts` to update your personal information, projects, and skills.
-
-```typescript
-export const portfolioConfig = {
-  personal: {
-    name: "Your Name",
-    // ...
-  },
-  // ...
-};
-```
 
 ## Contributing
 
-Feel free to fork this project and use it as a base for your own portfolio!
+Feel free to fork this project and use it as a base for your own portfolio! (Configuration available in src/portfolio.config.ts)
 
 <a href="https://github.com/KingJayan/dev-portfolio/fork" target="_blank">
   <img src="https://img.shields.io/github/forks/KingJayan/dev-portfolio?style=social" alt="Fork" />
@@ -82,10 +68,6 @@ Feel free to fork this project and use it as a base for your own portfolio!
 
 ## License
 
-Open source. Use it, break it, fix it.
-
----
-
 <div align="center">
-  <sub>Built with ❤️ by Jayan Patel</sub>
+  <sub>MIT License/sub>
 </div>
