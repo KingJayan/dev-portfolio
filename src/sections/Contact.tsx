@@ -1,4 +1,4 @@
-import { motion, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,7 +9,6 @@ import { useToast } from '@/hooks/use-toast';
 import { useEffect, useState } from 'react';
 import { Star, Spiral, Arrow } from '@/components/Doodles';
 import { portfolioConfig } from '@/portfolio.config';
-import { useSmoothDamp2D } from '@/hooks/use-smooth-damp';
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is too short"),
@@ -21,29 +20,27 @@ type ContactForm = z.infer<typeof contactSchema>;
 
 import ScribbleText from '@/components/ScribbleText';
 
+const springConfig = { stiffness: 50, damping: 30, mass: 1 };
+
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-
-  // mouse parallax target
-  const [target, setTarget] = useState({ x: 0, y: 0 });
-
-  //smooth-damp motion effect
-  const { x: mouseX, y: mouseY } = useSmoothDamp2D(target, 0.2);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const mouseX = useSpring(rawX, springConfig);
+  const mouseY = useSpring(rawY, springConfig);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      const nx = (event.clientX / innerWidth) * 2 - 1;
-      const ny = (event.clientY / innerHeight) * 2 - 1;
-      setTarget({ x: nx, y: ny });
+      rawX.set((event.clientX / innerWidth) * 2 - 1);
+      rawY.set((event.clientY / innerHeight) * 2 - 1);
     };
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // layers
   const backX = useTransform(mouseX, [-1, 1], ["5%", "-5%"]);
   const backY = useTransform(mouseY, [-1, 1], ["5%", "-5%"]);
   const cardX = useTransform(mouseX, [-1, 1], ["-2%", "2%"]);

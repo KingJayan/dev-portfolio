@@ -46,7 +46,7 @@ export default function About() {
           <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
             <p className="relative">
               Hi! I'm <ScribbleText color="text-highlighter-pink" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
-              <Star className="absolute -top-4 -right-6 w-8 h-8 text-highlighter-yellow animate-pulse" />
+              <Star className="absolute -top-4 -right-6 w-8 h-8 text-highlighter-yellow" />
             </p>
 
             {about.bio && about.bio.map((paragraph: string, idx: number) => (
@@ -84,18 +84,13 @@ export default function About() {
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
+                      viewport={{ once: true }}
                       transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: idx * 0.1 }}
-                      className="h-full bg-ink rounded-full relative"
+                      className="h-full bg-ink rounded-full"
                       style={{
                         background: `repeating-linear-gradient(45deg, #2a2a2a, #2a2a2a 2px, transparent 2px, transparent 6px)`
                       }}
-                    >
-                      <motion.div
-                        animate={{ opacity: [0.3, 0.6, 0.3] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        className="absolute inset-0 bg-white/10"
-                      />
-                    </motion.div>
+                    />
                   </div>
                 </div>
               ))}

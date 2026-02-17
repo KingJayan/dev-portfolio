@@ -1,30 +1,26 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { useEffect } from "react";
 import { portfolioConfig } from "@/portfolio.config";
 import { Star, Spiral, Arrow } from "@/components/Doodles";
-import { useSmoothDamp2D } from "@/hooks/use-smooth-damp";
+
+const springConfig = { stiffness: 50, damping: 30, mass: 1 };
 
 export default function ParallaxHero() {
 
-    const targetX = useMotionValue(0);
-    const targetY = useMotionValue(0);
+    const rawX = useMotionValue(0);
+    const rawY = useMotionValue(0);
 
-    const { x: mouseX, y: mouseY } = useSmoothDamp2D({ x: targetX, y: targetY }, 0.25);
+    const mouseX = useSpring(rawX, springConfig);
+    const mouseY = useSpring(rawY, springConfig);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
             const { innerWidth, innerHeight } = window;
-            const clientX = event.clientX;
-            const clientY = event.clientY;
-
-            const nx = (clientX / innerWidth) * 2 - 1;
-            const ny = (clientY / innerHeight) * 2 - 1;
-
-            targetX.set(nx);
-            targetY.set(ny);
+            rawX.set((event.clientX / innerWidth) * 2 - 1);
+            rawY.set((event.clientY / innerHeight) * 2 - 1);
         };
 
-        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 

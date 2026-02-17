@@ -1,29 +1,24 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useMotionValue } from "framer-motion";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
-import { useSmoothDamp2D } from "@/hooks/use-smooth-damp";
 
 export default function Cursor() {
     const { theme } = useTheme();
-    const { isDrawingMode, tool } = useDrawing();
+    const { isDrawingMode } = useDrawing();
 
-
-    const targetX = useMotionValue(-100);
-    const targetY = useMotionValue(-100);
-
-    const { x: springX, y: springY } = useSmoothDamp2D({ x: targetX, y: targetY }, 0.08);
+    const cursorX = useMotionValue(-100);
+    const cursorY = useMotionValue(-100);
 
     useEffect(() => {
         const moveCursor = (e: MouseEvent) => {
-            targetX.set(e.clientX);
-            targetY.set(e.clientY);
+            cursorX.set(e.clientX);
+            cursorY.set(e.clientY);
         };
 
-        window.addEventListener("mousemove", moveCursor);
+        window.addEventListener("mousemove", moveCursor, { passive: true });
         return () => window.removeEventListener("mousemove", moveCursor);
     }, []);
-
 
     if (isDrawingMode) {
         return null;
@@ -33,7 +28,7 @@ export default function Cursor() {
         <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
             {"ontouchstart" in window ? null : (
                 <motion.div
-                    style={{ x: springX, y: springY }}
+                    style={{ x: cursorX, y: cursorY, willChange: "transform" }}
                     className="absolute top-0 left-0"
                 >
                     {theme === 'dark' ? (

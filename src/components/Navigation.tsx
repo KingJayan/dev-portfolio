@@ -17,7 +17,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "projects", "about", "achievements", "outside", "contact"];
+      const sections = ["home", "projects", "github", "about", "achievements", "outside", "contact"];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -35,6 +35,7 @@ export default function Navigation() {
   const navItems = [
     { name: t.nav.home, href: "#home", id: "home" },
     { name: t.nav.projects, href: "#projects", id: "projects" },
+    { name: t.nav.github, href: "#github", id: "github" },
     { name: t.nav.about, href: "#about", id: "about" },
     { name: t.nav.achievements, href: "#achievements", id: "achievements" },
     { name: t.nav.life, href: "#outside", id: "outside" },
@@ -72,25 +73,26 @@ export default function Navigation() {
   return (
     <>
 
-      <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-4">
+      <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-3">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
-              initial={{ x: "100%" }}
+              initial={{ x: 80 }}
               animate={{
-                x: activeSection === item.href.substring(1) ? "15%" : "35%"
+                x: activeSection === item.href.substring(1) ? 0 : 40
               }}
               whileHover={{
-                x: "10%",
+                x: 0,
                 transition: { type: "spring", stiffness: 400, damping: 25 }
               }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className={`
-                w-64 px-6 py-3 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
-                font-marker text-2xl transition-colors rounded-l-xl flex items-center
+                w-56 px-5 py-2.5 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
+                font-marker text-xl transition-colors rounded-l-xl flex items-center
                 ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow' : 'hover:bg-white'}
               `}
             >
-              <span className="w-8 text-center mr-2 opacity-50 text-base font-sans">0{index + 1}</span>
+              <span className="w-7 text-center mr-2 opacity-50 text-sm font-sans">0{index + 1}</span>
               {item.name}
             </motion.div>
           </a>

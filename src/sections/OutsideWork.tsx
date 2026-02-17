@@ -1,29 +1,28 @@
-import { motion, useTransform } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { useEffect } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
 import { Underline, Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
-import { useSmoothDamp2D } from '@/hooks/use-smooth-damp';
 
 import ScribbleText from '@/components/ScribbleText';
+
+const springConfig = { stiffness: 50, damping: 30, mass: 1 };
 
 export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
 
-    // mouse parallax target
-    const [target, setTarget] = useState({ x: 0, y: 0 });
-
-    // smooth-damp motion effect
-    const { x: mouseX, y: mouseY } = useSmoothDamp2D(target, 0.2);
+    const rawX = useMotionValue(0);
+    const rawY = useMotionValue(0);
+    const mouseX = useSpring(rawX, springConfig);
+    const mouseY = useSpring(rawY, springConfig);
 
     useEffect(() => {
         const handleMouseMove = (event: MouseEvent) => {
             const { innerWidth, innerHeight } = window;
-            const nx = (event.clientX / innerWidth) * 2 - 1;
-            const ny = (event.clientY / innerHeight) * 2 - 1;
-            setTarget({ x: nx, y: ny });
+            rawX.set((event.clientX / innerWidth) * 2 - 1);
+            rawY.set((event.clientY / innerHeight) * 2 - 1);
         };
-        window.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
 
