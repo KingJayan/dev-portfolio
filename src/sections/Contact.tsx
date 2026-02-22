@@ -149,7 +149,7 @@ export default function Contact() {
         </div>
 
         <div className="mt-12 text-center font-hand text-pencil">
-          <p>Or find me on social media!</p>
+          <p>Or find me on social media</p>
         </div>
       </motion.div>
     </motion.div>
