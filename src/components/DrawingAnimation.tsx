@@ -2,13 +2,13 @@ import { motion } from "framer-motion";
 
 export default function DrawingAnimation() {
     return (
-        <div className="flex justify-center items-center h-24">
+        <div className="flex justify-center items-center h-24 text-ink">
 
             <svg width="200" height="100" viewBox="0 0 200 100">
                 <motion.path
                     d="M10,50 Q50,10 90,50 T190,50"
                     fill="none"
-                    stroke="#2a2a2a"
+                    stroke="currentColor"
                     strokeWidth="4"
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}

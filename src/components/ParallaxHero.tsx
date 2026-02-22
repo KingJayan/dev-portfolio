@@ -2,6 +2,7 @@ import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useEffect } from "react";
 import { portfolioConfig } from "@/portfolio.config";
 import { Star, Spiral, Arrow } from "@/components/Doodles";
+import { Paperclip } from "lucide-react";
 
 const springConfig = { stiffness: 50, damping: 30, mass: 1 };
 
@@ -62,11 +63,11 @@ export default function ParallaxHero() {
                     <h1 className="text-7xl md:text-9xl font-marker text-ink drop-shadow-xl rotate-[-3deg] relative whitespace-nowrap">
                         {portfolioConfig.personal.name}
                     </h1>
-                    <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0" viewBox="0 0 300 30">
+                    <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0 text-ink" viewBox="0 0 300 30">
                         <motion.path
                             d="M10,15 Q150,30 290,10"
                             fill="none"
-                            stroke="#2a2a2a"
+                            stroke="currentColor"
                             strokeWidth="5"
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
@@ -83,7 +84,7 @@ export default function ParallaxHero() {
                     transition={{ delay: 0.5 }}
                     className="text-2xl font-hand text-ink max-w-lg mx-auto bg-paper p-6 border-2 border-ink shadow-paper rotate-2 relative mt-4"
                 >
-                    <span className="absolute -top-3 -left-3 text-4xl text-highlighter-yellow">📌</span>
+                    <Paperclip className="absolute -top-4 -left-4 w-8 h-8 text-pencil/70" />
                     {portfolioConfig.hero.tagline}
                 </motion.div>
             </motion.div>

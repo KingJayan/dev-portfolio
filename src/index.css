@@ -4,27 +4,27 @@
 
 @layer base {
   :root {
-    /*light mode */
-    --color-paper: #fdfbf7;
-    --color-ink: #2a2a2a;
-    --color-pencil: #555555;
-    --color-pencil-light: #888888;
-    --color-highlight-yellow: rgba(255, 255, 0, 0.3);
-    --color-highlight-pink: rgba(255, 105, 180, 0.3);
-    --color-highlight-blue: rgba(0, 255, 255, 0.3);
+    /*light*/
+    --color-paper: #f6f3ec;
+    --color-ink: #25221f;
+    --color-pencil: #544f49;
+    --color-pencil-light: #7d756b;
+    --color-highlight-yellow: rgba(224, 196, 112, 0.36);
+    --color-highlight-pink: rgba(189, 141, 162, 0.3);
+    --color-highlight-blue: rgba(128, 155, 175, 0.27);
 
     --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
   }
 
   .dark {
-    /*dark mode */
-    --color-paper: #1a1a1a;
-    --color-ink: #f0f0f0;
-    --color-pencil: #e0e0e0;
-    --color-pencil-light: #a0a0a0;
-    --color-highlight-yellow: rgba(255, 255, 200, 0.2);
-    --color-highlight-pink: rgba(255, 200, 220, 0.2);
-    --color-highlight-blue: rgba(200, 255, 255, 0.2);
+    /*dark*/
+    --color-paper: #1d1a17;
+    --color-ink: #eee7dd;
+    --color-pencil: #cbc3b6;
+    --color-pencil-light: #a2998d;
+    --color-highlight-yellow: rgba(210, 180, 101, 0.24);
+    --color-highlight-pink: rgba(162, 116, 138, 0.22);
+    --color-highlight-blue: rgba(102, 129, 150, 0.22);
     --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15' fill='white'/%3E%3C/svg%3E");
   }
 }
@@ -41,15 +41,12 @@
     background-image: var(--bg-texture);
     cursor: none !important;
 
-    /* hdie default scrollbar */
+    /*hide scrollbar*/
     &::-webkit-scrollbar {
       display: none;
     }
-
     -ms-overflow-style: none;
-    /* IE and Edge */
     scrollbar-width: none;
-    /* Firefox */
   }
 
   ::selection {
@@ -59,11 +56,40 @@
 }
 
 @layer utilities {
+  .masking-tape {
+    @apply border shadow-sm;
+    border-color: rgba(37, 34, 31, 0.14);
+    background-color: rgba(224, 196, 112, 0.34);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.28),
+      rgba(255, 255, 255, 0.08)
+    );
+  }
+
+  .dark .masking-tape {
+    border-color: rgba(238, 231, 221, 0.2);
+    background-color: rgba(210, 180, 101, 0.24);
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.12),
+      rgba(0, 0, 0, 0.06)
+    );
+  }
+
+  .dark .shadow-paper {
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.55);
+  }
+
+  .dark .shadow-paper-hover {
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.6);
+  }
+
   .paper-card {
     @apply bg-paper border-2 border-ink shadow-paper;
   }
 
-  /* Grain overlay for tactile feel */
+  /*grain texture*/
   .grain-overlay {
     @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.06] mix-blend-multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");

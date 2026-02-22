@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { portfolioConfig } from "./src/portfolio.config";
 
 export default {
   darkMode: ["class"],
@@ -6,10 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        marker: ['"Permanent Marker"', "cursive"],
-        hand: ['"Patrick Hand"', "cursive"],
-        amatic: ['"Amatic SC"', "cursive"],
-        sans: ['"Patrick Hand"', "cursive"], // Default to hand font
+        marker: [portfolioConfig.fonts.marker],
+        hand: [portfolioConfig.fonts.hand],
+        amatic: [portfolioConfig.fonts.amatic],
+        sans: [portfolioConfig.fonts.hand], // Default to hand font
       },
       colors: {
         paper: "var(--color-paper)",

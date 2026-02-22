@@ -54,9 +54,9 @@ export default function Navigation() {
       });
       setIsMenuOpen(false);
     } else {
-      // If element doesn't exist (we are likely on the 404 page)
+      // prolly on 404
       setLocation("/");
-      // Let the browser handle the hash scroll after navigation
+      // browser handles scroll
       setTimeout(() => {
         const newElement = document.getElementById(targetId);
         if (newElement) {
@@ -89,7 +89,7 @@ export default function Navigation() {
               className={`
                 w-56 px-5 py-2.5 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
                 font-marker text-xl transition-colors rounded-l-xl flex items-center
-                ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow' : 'hover:bg-white'}
+                ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow' : 'hover:bg-paper/80'}
               `}
             >
               <span className="w-7 text-center mr-2 opacity-50 text-sm font-sans">0{index + 1}</span>

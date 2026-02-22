@@ -58,11 +58,11 @@ export default function PaperCard({
             whileHover="hover"
             variants={variants}
             viewport={{ once: true, margin: "-100px" }}
-            className={`paper-card p-6 bg-white relative group border-2 border-ink/5 overflow-hidden shadow-paper ${className}`}
+            className={`paper-card p-6 relative group border-2 border-ink/5 overflow-hidden shadow-paper ${className}`}
         >
             {showTape && (
                 <div
-                    className={`absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-7 ${tapeColor} backdrop-blur-[1px] border-l border-r border-white/20 shadow-sm z-20 transition-transform group-hover:scale-110`}
+                    className={`absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-7 ${tapeColor} masking-tape z-20 transition-transform group-hover:scale-110`}
                 />
             )}
 

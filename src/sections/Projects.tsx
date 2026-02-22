@@ -25,35 +25,6 @@ export default function Projects() {
             My Work
           </ScribbleText>
         </h2>
-
-        {/* click me hint */}
-        <motion.div
-          initial={{ opacity: 0, x: 20, rotate: 5 }}
-          whileInView={{ opacity: 1, x: 0, rotate: 2 }}
-          animate={{ y: [0, -10, 0] }}
-          transition={{
-            opacity: { duration: 0.5 },
-            y: { repeat: Infinity, duration: 3, ease: "easeInOut" }
-          }}
-          className="absolute -right-4 md:right-1/4 top-0 z-20 hidden sm:block"
-        >
-          <div className="bg-highlighter-yellow/80 backdrop-blur-sm p-4 shadow-paper border-l border-ink/10 rotate-2 relative">
-            {/* pin head */}
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-highlighter-pink shadow-inner" />
-
-            <p className="font-hand text-xl text-ink leading-tight text-center">
-              Psst...<br />
-              <span className="font-bold underline decoration-ink/30">Tap the cards</span><br />
-              for more!
-            </p>
-
-            {/* arrow svg */}
-            <svg className="absolute -bottom-10 -left-8 w-12 h-12 text-ink/40 -rotate-12" viewBox="0 0 50 50" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
-              <path d="M40,10 Q25,10 10,40" />
-              <path d="M5,35 L10,40 L15,35" />
-            </svg>
-          </div>
-        </motion.div>
       </div>
 
       <div className="flex flex-wrap justify-center gap-12">
@@ -70,29 +41,29 @@ export default function Projects() {
                 ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'}
               `}
             >
-              {/* tape logic */}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/40 rotate-1 backdrop-blur-sm border-l border-r border-white/20 shadow-sm z-10" />
+              {/*tape*/}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rotate-1 masking-tape z-10" />
 
-              <div className="w-full aspect-video bg-gray-100 dark:bg-gray-800 mb-4 border-2 border-pencil/20 overflow-hidden relative">
+              <div className="w-full aspect-video bg-paper/60 mb-4 border-2 border-pencil/20 overflow-hidden relative">
                 <img
                   src={`/images/projects/preview-${project.id}.png`}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
-                {/* hover overlay */}
+                {/*overlay*/}
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-paper px-4 py-2 font-marker border border-ink transform -rotate-3 hover:scale-110 transition-transform">View Details</span>
                 </div>
               </div>
 
-              <h3 className="text-3xl font-amatic font-bold text-ink dark:text-gray-100 mb-1">{project.title}</h3>
+              <h3 className="text-3xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
 
-              <div className="text-sm font-hand text-pencil/60 dark:text-gray-400 mb-2">
+              <div className="text-sm font-hand text-pencil/60 mb-2">
                 {project.startDate} - {project.endDate || "Present"}
               </div>
 
-              <p className="text-center font-hand text-pencil dark:text-gray-300 mb-4 text-lg leading-tight line-clamp-3">
+              <p className="text-center font-hand text-pencil mb-4 text-lg leading-tight line-clamp-3">
                 {project.description}
               </p>
 

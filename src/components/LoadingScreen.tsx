@@ -42,7 +42,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         <p className="font-hand text-xl text-pencil">Sharpening the pencils and prepping the paper.</p>
                     </motion.div>
 
-                    {/* fake progress bar*/}
+                    {/*progress*/}
                     <div className="mt-12 w-64 h-2 bg-paper border-2 border-ink relative overflow-hidden">
                         <motion.div
                             initial={{ x: "-100%" }}

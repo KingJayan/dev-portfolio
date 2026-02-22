@@ -24,7 +24,7 @@ export default function ScrollProgress() {
                 style={{ scaleY }}
             >
 
-                <div className="absolute top-1/4 right-0.5 w-0.5 h-1/2 bg-white/20 rounded-full" />
+                <div className="absolute top-1/4 right-0.5 w-0.5 h-1/2 bg-paper/30 rounded-full" />
             </motion.div>
 
 

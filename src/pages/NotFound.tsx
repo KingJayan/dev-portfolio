@@ -16,34 +16,23 @@ export default function NotFound() {
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 className="paper-card max-w-lg w-full p-12 text-center relative z-10"
             >
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-white/40 px-8 py-2 border-l border-r border-white/20 shadow-sm backdrop-blur-sm">
-                    <span className="font-hand text-pencil">Opps!</span>
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-8 py-2 masking-tape">
+                    <span className="font-hand text-pencil">404</span>
                 </div>
 
                 <h1 className="text-8xl font-marker mb-4 text-ink">404</h1>
                 <h2 className="text-4xl font-amatic font-bold mb-6">Page Not Found</h2>
 
                 <p className="font-hand text-xl text-pencil mb-8 leading-relaxed">
-                    It looks like this page was ripped out or never sketched in the first place.
-                    Don't get lost in the margins!
+                    The page you requested could not be found.
+                    Please return to the homepage and continue browsing.
                 </p>
 
                 <Link href="/">
                     <button className="bg-ink text-paper px-8 py-4 font-marker text-xl hover:bg-pencil hover:scale-105 transition-all shadow-paper">
-                        Back to Safety
+                        Return Home
                     </button>
                 </Link>
-
-                <div className="mt-8 flex justify-center gap-4">
-                    {[1, 2, 3].map((i) => (
-                        <motion.div
-                            key={i}
-                            animate={{ y: [0, -5, 0] }}
-                            transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
-                            className="w-8 h-1 bg-ink/20 rounded-full"
-                        />
-                    ))}
-                </div>
             </motion.div>
         </div>
     );

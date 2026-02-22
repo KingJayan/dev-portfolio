@@ -6,10 +6,10 @@ import { Eraser, Pencil, X, Palette, Highlighter, Minus, Square, Circle, Undo2, 
 
 const COLORS = [
     { id: 'default', color: 'bg-ink', label: 'Ink' },
-    { id: '#ff4d4d', color: 'bg-red-500', label: 'Grading Red' },
-    { id: 'rgba(255, 226, 52, 0.5)', color: 'bg-highlighter-yellow', label: 'Highlighter Yellow', isHighlighter: true },
-    { id: 'rgba(255, 105, 180, 0.4)', color: 'bg-highlighter-pink', label: 'Highlighter Pink', isHighlighter: true },
-    { id: 'rgba(52, 211, 153, 0.4)', color: 'bg-highlighter-blue', label: 'Highlighter Blue', isHighlighter: true },
+    { id: '#b56565', color: 'bg-red-400', label: 'Markup Red' },
+    { id: 'rgba(232, 206, 126, 0.42)', color: 'bg-highlighter-yellow', label: 'Highlighter Yellow', isHighlighter: true },
+    { id: 'rgba(202, 158, 176, 0.36)', color: 'bg-highlighter-pink', label: 'Highlighter Pink', isHighlighter: true },
+    { id: 'rgba(143, 169, 188, 0.32)', color: 'bg-highlighter-blue', label: 'Highlighter Blue', isHighlighter: true },
 ];
 
 const BRUSH_SIZES = [
@@ -42,7 +42,6 @@ export default function FreeDrawCanvas() {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
-        // Set dimensions
         if (canvas.width !== window.innerWidth) {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -62,7 +61,6 @@ export default function FreeDrawCanvas() {
             configureContext(ctx);
         }
 
-        // Initial rect
         if (canvas) {
             rectRef.current = canvas.getBoundingClientRect();
         }
@@ -318,9 +316,9 @@ export default function FreeDrawCanvas() {
 
         const map = COLORS.find(c => c.id === color);
         if (map?.id.startsWith('#')) return map.id;
-        if (map?.id === 'rgba(255, 226, 52, 0.5)') return 'rgb(255, 226, 52)';
-        if (map?.id === 'rgba(255, 105, 180, 0.4)') return 'rgb(255, 105, 180)';
-        if (map?.id === 'rgba(52, 211, 153, 0.4)') return 'rgb(52, 211, 153)';
+        if (map?.id === 'rgba(232, 206, 126, 0.42)') return 'rgb(232, 206, 126)';
+        if (map?.id === 'rgba(202, 158, 176, 0.36)') return 'rgb(202, 158, 176)';
+        if (map?.id === 'rgba(143, 169, 188, 0.32)') return 'rgb(143, 169, 188)';
         return 'black';
     };
 
@@ -344,10 +342,10 @@ export default function FreeDrawCanvas() {
                 }}
             />
 
-            <div className="fixed inset-0 z-[9990]" style={{ cursor: "none" }}>
+            <div className="fixed inset-0 z-[9990] pointer-events-none" style={{ cursor: "none" }}>
                 <canvas
                     ref={canvasRef}
-                    className="w-full h-full touch-none"
+                    className="w-full h-full touch-none pointer-events-auto"
                     style={{ cursor: "none" }}
                 />
             </div>
@@ -357,33 +355,33 @@ export default function FreeDrawCanvas() {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 100, opacity: 0 }}
-                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border-2 border-ink p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto"
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border-2 border-ink p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto pointer-events-auto"
                 >
 
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
-                        <button onClick={handleUndo} className="p-2 rounded-full hover:bg-black/5 active:scale-95 transition" title="Undo (Ctrl+Z)">
+                        <button onClick={handleUndo} className="p-2 rounded-full hover:bg-ink/5 active:scale-95 transition" title="Undo (Ctrl+Z)">
                             <Undo2 className="w-5 h-5" />
                         </button>
-                        <button onClick={handleRedo} className="p-2 rounded-full hover:bg-black/5 active:scale-95 transition" title="Redo (Ctrl+Y)">
+                        <button onClick={handleRedo} className="p-2 rounded-full hover:bg-ink/5 active:scale-95 transition" title="Redo (Ctrl+Y)">
                             <Redo2 className="w-5 h-5" />
                         </button>
                     </div>
 
 
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
-                        <button onClick={() => setTool("pencil")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "pencil" ? "bg-ink text-paper" : "hover:bg-black/5"}`} title="Pencil">
+                        <button onClick={() => setTool("pencil")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "pencil" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Pencil">
                             <Pencil className="w-5 h-5" />
                         </button>
-                        <button onClick={() => setTool("line")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "line" ? "bg-ink text-paper" : "hover:bg-black/5"}`} title="Line">
+                        <button onClick={() => setTool("line")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "line" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Line">
                             <Minus className="w-5 h-5 rotate-45" />
                         </button>
-                        <button onClick={() => setTool("rectangle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "rectangle" ? "bg-ink text-paper" : "hover:bg-black/5"}`} title="Rectangle">
+                        <button onClick={() => setTool("rectangle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "rectangle" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Rectangle">
                             <Square className="w-5 h-5" />
                         </button>
-                        <button onClick={() => setTool("circle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "circle" ? "bg-ink text-paper" : "hover:bg-black/5"}`} title="Circle">
+                        <button onClick={() => setTool("circle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "circle" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Circle">
                             <Circle className="w-5 h-5" />
                         </button>
-                        <button onClick={() => setTool("eraser")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "eraser" ? "bg-highlighter-blue text-ink" : "hover:bg-black/5"}`} title="Eraser">
+                        <button onClick={() => setTool("eraser")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "eraser" ? "bg-highlighter-blue text-ink" : "hover:bg-ink/5"}`} title="Eraser">
                             <Eraser className="w-5 h-5" />
                         </button>
                     </div>
@@ -395,7 +393,7 @@ export default function FreeDrawCanvas() {
                                 <button
                                     key={b.label}
                                     onClick={() => setBrushSize(b.size)}
-                                    className={`relative p-2 rounded-full transition-all ${brushSize === b.size ? "bg-black/10 scale-110 ring-2 ring-ink/20" : "hover:bg-black/5"}`}
+                                    className={`relative p-2 rounded-full transition-all ${brushSize === b.size ? "bg-ink/10 scale-110 ring-2 ring-ink/20" : "hover:bg-ink/5"}`}
                                     title={b.label}
                                 >
                                     <div
@@ -424,7 +422,7 @@ export default function FreeDrawCanvas() {
 
 
                     <div className="pl-4 border-l border-ink/20">
-                        <button onClick={toggleDrawingMode} className="p-2 rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition" title="Close">
+                        <button onClick={toggleDrawingMode} className="p-2 rounded-full bg-highlighter-pink/30 text-ink hover:bg-highlighter-pink/50 transition" title="Close">
                             <X className="w-5 h-5" />
                         </button>
                     </div>

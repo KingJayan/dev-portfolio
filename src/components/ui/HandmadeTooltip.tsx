@@ -27,13 +27,13 @@ export default function HandmadeTooltip({ children, content }: HandmadeTooltipPr
                     >
                         <div className="bg-highlighter-yellow/90 px-3 py-1 border-2 border-ink shadow-sm relative preserve-3d">
                             {/*tape*/}
-                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-4 bg-white/40 border-l border-r border-white/20 -rotate-2" />
+                            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-4 -rotate-2 masking-tape" />
 
                             <span className="font-hand text-ink text-sm font-bold whitespace-nowrap">
                                 {content}
                             </span>
 
-                            {/*folded corner effect */}
+                            {/*corner*/}
                             <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-ink/10 border-t border-l border-ink/20" />
                         </div>
                     </motion.div>

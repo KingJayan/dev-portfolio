@@ -104,7 +104,7 @@ function App() {
 
       <Switch>
         <Route path="/" component={Portfolio} />
-        {/* Fallback route for 404 */}
+        {/*404*/}
         <Route component={NotFound} />
       </Switch>
 

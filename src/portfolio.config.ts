@@ -16,7 +16,7 @@ export const portfolioConfig = {
       enabled: true,
       subject: "Thank you for your message!",
       message:
-        "Hi! Thanks for reaching out. I'll get back to you as soon as possible, usually within 24 hours.",
+        "Hi! Thanks for reaching out. I'll get back to you as soon as possible, usually within 48 hours.",
     },
   },
 
@@ -44,6 +44,12 @@ export const portfolioConfig = {
     ogImage: "/images/og-image.png",
   },
 
+  fonts: {
+    marker: '"Permanent Marker", cursive',
+    hand: '"Kalam", cursive',
+    amatic: '"Caveat", cursive',
+  },
+
   hero: {
     tagline: "Shaping the web, one component at a time.",
     status: "Open to work",
@@ -55,7 +61,7 @@ export const portfolioConfig = {
       { name: "Home", href: "#home" },
       { name: "Projects", href: "#projects" },
       { name: "About", href: "#about" },
-      { name: "Achievements", href: "#achievements" },
+      { name: "Extras", href: "#achievements" },
       { name: "Life", href: "#outside" },
       { name: "Contact", href: "#contact" },
     ],
@@ -94,18 +100,95 @@ export const portfolioConfig = {
 
   achievements: [
     {
-      title: "VEX Robotics Region 4 Champions",
-      organization: "VEX Robotics Team 70709X",
-      date: "2024-2025",
-      description: "Winners of Skills Challenge and Excellence Awards, Texas Region 4 Champions. Also won Innovate Award for the 2024 World Championships.",
-      icon: "trophy"
+      category: "Robotics",
+      icon: "trophy",
+      items: [
+        {
+          title: "VEX Robotics",
+          organization: "VEX Robotics Team 70709X",
+          date: "2023-2025",
+          description: "Texas Region 4 Champions(x2), Create Award for our division @ VEX Worlds",
+          icon: "trophy"
+        },
+        {
+          title: "FTC Robotics",
+          organization: "WWHS FTC Team #18886 AtlAtl",
+          date: "2025-2026",
+          description: "Competitor, Lead Software & driver in the FiT-Central GEMS League Meets",
+          icon: "award"
+        }
+      ]
     },
     {
-      title: "FTC Robotics Competitor",
-      organization: "WWHS FTC Team #18886 AtlAtl",
-      date: "2025-2026",
-      description: "Competed & drove in the FiT-Central GEMS League Meets.",
-      icon: "award"
+      category: "Debate",
+      icon: "comments",
+      items: [
+        {
+          title: "LD Novice Debate",
+          organization: "WWHS LD Novice Debate",
+          date: "2025-2026",
+          description: "Competitor in the WWHS LD Novice Debate team",
+          icon: "comments"
+        }
+      ]
+    },
+    {
+      category: "Choir",
+      icon: "music",
+      items: [
+        {
+          title: "WWHS Choir",
+          organization: "WWHS Choir",
+          date: "2024-2026",
+          description: "",
+          icon: "music"
+        },
+        {
+          title: "TMEA",
+          organization: "Texas Music Educators Association",
+          date: "2024-2025",
+          description: "TMEA All-Region Choir(2024-5), TMEA Region Qualifier(2025-6)",
+          icon: "music"
+        },
+        {
+          title: "UIL Concert & Soloist",
+          organization: "University Interscholastic League",
+          date: "2024-2025",
+          description: "UIL Concert, Solo & Ensemble 1st Division(2025, 2026)",
+          icon: "music"
+        }
+      ]
+    },
+    {
+      category: "Piano",
+      icon: "piano",
+      items: [
+        {
+          title: "Trinity College London",
+          organization: "Trinity College London",
+          date: "2019-2023",
+          description: "Distinction(x3)",
+        },
+        {
+          title: "Texas Federation of Music Clubes(All-State Festival)",
+          organization: "Texas Federation of Music Clubs",
+          date: "2023",
+          description: "Outstanding(x1)",
+        },
+        {
+          title: "National Federation of Music Clubs(Festival)",
+          organization: "National Federation of Music Clubs",
+          date: "2017-2023",
+          description: "Superior(x4)",
+        },
+        {
+          title: "Piano",
+          organization: "",
+          date: "2015-present",
+          description: "10+ years of piano lessons and performances",
+          icon: "piano"
+        }
+      ]
     }
   ],
 

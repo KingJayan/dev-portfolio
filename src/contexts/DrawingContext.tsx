@@ -17,12 +17,12 @@ export function DrawingProvider({ children }: { children: ReactNode }) {
     const [isDrawingMode, setIsDrawingMode] = useState(false);
     const [tool, setTool] = useState<'pencil' | 'eraser' | 'line' | 'rectangle' | 'circle'>('pencil');
 
-    const [color, setColor] = useState<string>('default'); // 'default' changes with theme
-    const [brushSize, setBrushSize] = useState<number>(3); //default to "pen" size
+    const [color, setColor] = useState<string>('default'); // theme-based
+    const [brushSize, setBrushSize] = useState<number>(3); // pen size
 
     const toggleDrawingMode = () => {
         setIsDrawingMode((prev) => !prev);
-        // reset tool to pencil when closing/opening
+        // reset to pencil
         if (isDrawingMode) {
             setTool('pencil');
             setColor('default');

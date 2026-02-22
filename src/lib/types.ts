@@ -33,6 +33,20 @@ export interface ThemeContextType {
   toggleTheme: () => void;
 }
 
+export interface AchievementItem {
+  title: string;
+  organization: string;
+  date: string;
+  description: string;
+  icon: string;
+}
+
+export interface AchievementCategory {
+  category: string;
+  icon: string;
+  items: AchievementItem[];
+}
+
 export interface SocialLink {
   platform: string;
   url: string;

@@ -38,7 +38,7 @@ export default function OutsideWork() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden"
         >
-            {/* parallax doodles */}
+            {/*doodles*/}
             <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-20 z-0">
                 <Spiral className="absolute top-10 right-20 w-48 h-48 text-pencil/30" />
                 <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink" />
@@ -64,9 +64,9 @@ export default function OutsideWork() {
                                 delay={index * 0.15}
                                 tapeColor="bg-highlighter-yellow"
                                 hoverScale={1.05}
-                                className="bg-white p-4 h-full"
+                                className="bg-paper p-4 h-full"
                             >
-                                {/*polaroid image */}
+                                {/*img*/}
                                 <div className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-2 border-ink relative">
                                     <img
                                         src={hobby.image}
@@ -81,8 +81,8 @@ export default function OutsideWork() {
                                     {hobby.description}
                                 </p>
 
-                                {/* small decorative doodle on card */}
-                                {index === 2 && <Arrow className="absolute -bottom-10 -right-6 w-16 h-16 text-highlighter-blue -rotate-45" />}
+                                {/*doodle*/}
+                                {index === 2 && <Arrow className="absolute -bottom-10 -right-6 w-16 h-16 text-highlighter-pink -rotate-45" />}
                             </PaperCard>
                         </div>
                     ))}

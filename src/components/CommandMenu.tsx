@@ -39,7 +39,7 @@ export default function CommandMenu() {
                 onClick={() => setOpen(true)}
                 className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 bg-paper border-2 border-ink shadow-paper hover:-translate-y-1 hover:shadow-paper-hover transition-all rounded-lg font-hand text-lg group"
             >
-                <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-blue transition-colors" />
+                <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
                 <span className="text-ink/80 group-hover:text-ink">Menu</span>
                 <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">Shift + P</span>
             </button>
@@ -47,7 +47,7 @@ export default function CommandMenu() {
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
                 <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl">
-                    <div className="paper-card p-1 relative w-full bg-[#fdfbf7] border-2 border-ink rounded-xl shadow-2xl overflow-hidden">
+                    <div className="paper-card p-1 relative w-full bg-paper border-2 border-ink rounded-xl shadow-2xl overflow-hidden">
                         <Command className="w-full bg-transparent">
                             <div className="flex items-center border-b-2 border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
                                 <Search className="mr-2 h-5 w-5 shrink-0 opacity-50 text-ink" />
@@ -102,7 +102,7 @@ export default function CommandMenu() {
                                                 else if (p.githubUrl) window.open(p.githubUrl, "_blank");
                                             }}
                                         >
-                                            <ArrowUpRight className="mr-2 h-4 w-4 text-highlighter-blue" />
+                                            <ArrowUpRight className="mr-2 h-4 w-4 text-highlighter-pink" />
                                             <span>{project.title}</span>
                                             <span className="ml-auto text-xs text-ink/40 font-sans">{project.technologies[0]}</span>
                                         </CommandItem>

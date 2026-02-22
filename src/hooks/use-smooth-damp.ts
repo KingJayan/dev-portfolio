@@ -1,14 +1,14 @@
 import { useRef, useEffect } from 'react';
 import { useMotionValue, useAnimationFrame, MotionValue } from 'framer-motion';
 
-// custom hook for smooth-damp motion (critically damped spring)
+// smooth damp hook
 export function useSmoothDamp(targetValue: number | MotionValue<number>, smoothTime: number = 0.15) {
     const initialValue = typeof targetValue === 'number' ? targetValue : targetValue.get();
     const motionValue = useMotionValue(initialValue);
     const velocityRef = useRef(0);
     const targetRef = useRef(initialValue);
 
-    //track if primitive num
+    // track if num
     useEffect(() => {
         if (typeof targetValue === 'number') {
             targetRef.current = targetValue;
@@ -16,7 +16,7 @@ export function useSmoothDamp(targetValue: number | MotionValue<number>, smoothT
     }, [targetValue]);
 
     useAnimationFrame((time, delta) => {
-        const deltaTime = delta / 1000; // convert to seconds
+        const deltaTime = delta / 1000; // to seconds
         if (deltaTime <= 0) return;
 
         const omega = 2 / smoothTime;
@@ -37,7 +37,7 @@ export function useSmoothDamp(targetValue: number | MotionValue<number>, smoothT
     return motionValue;
 }
 
-// hook for 2d smooth-damp motion
+// 2d smooth damp
 export function useSmoothDamp2D(target: { x: number | MotionValue<number>, y: number | MotionValue<number> }, smoothTime: number = 0.15) {
     const x = useSmoothDamp(target.x, smoothTime);
     const y = useSmoothDamp(target.y, smoothTime);

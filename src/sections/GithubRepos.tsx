@@ -50,7 +50,7 @@ export default function GithubRepos() {
       });
   }, []);
 
-  /*loading skelly*/
+  /*loading*/
   if (loading) {
     return (
       <motion.div
@@ -79,7 +79,7 @@ export default function GithubRepos() {
     );
   }
 
-  /*error state*/
+  /*error*/
   if (error) {
     return (
       <motion.div
@@ -96,7 +96,7 @@ export default function GithubRepos() {
         </div>
         <PaperCard rotate={-1} className="max-w-md mx-auto text-center">
           <p className="font-hand text-xl text-ink/70">
-            Oops — couldn't load repos right now.
+            Unable to load repositories at the moment.
           </p>
           <p className="font-hand text-lg text-pencil mt-2">{error}</p>
         </PaperCard>
@@ -104,7 +104,6 @@ export default function GithubRepos() {
     );
   }
 
-  /*repo grid*/
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -113,7 +112,6 @@ export default function GithubRepos() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative"
     >
-      {/* Section heading */}
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-blue">GitHub</ScribbleText>
@@ -123,7 +121,6 @@ export default function GithubRepos() {
         </p>
       </div>
 
-      {/* Cards */}
       <div className="flex flex-wrap justify-center gap-10">
         {repos.map((repo, index) => (
           <a
@@ -145,7 +142,6 @@ export default function GithubRepos() {
               }
               className="h-full cursor-pointer"
             >
-              {/* name */}
               <div className="flex items-start justify-between gap-2 mb-3">
                 <h3 className="font-marker text-xl text-ink leading-tight truncate">
                   {repo.name}
@@ -153,14 +149,11 @@ export default function GithubRepos() {
                 <ExternalLink className="w-4 h-4 text-pencil shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
-              {/* desc */}
               <p className="font-hand text-lg text-pencil leading-snug line-clamp-3 min-h-[4rem]">
                 {repo.description || 'No description provided.'}
               </p>
 
-              {/* meta row */}
               <div className="flex items-center gap-4 mt-4 pt-3 border-t border-ink/10 font-hand text-base text-pencil">
-                {/* lang dot */}
                 {repo.language && (
                   <span className="flex items-center gap-1.5">
                     <span
@@ -172,13 +165,11 @@ export default function GithubRepos() {
                   </span>
                 )}
 
-                {/* stars */}
                 <span className="flex items-center gap-1">
                   <Star className="w-4 h-4" />
                   {repo.stargazers_count}
                 </span>
 
-                {/* forks */}
                 {repo.forks_count > 0 && (
                   <span className="flex items-center gap-1">
                     <GitFork className="w-4 h-4" />

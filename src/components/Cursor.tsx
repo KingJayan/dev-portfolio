@@ -25,7 +25,7 @@ export default function Cursor() {
     }
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-[9999] overflow-hidden">
+        <div className="pointer-events-none fixed inset-0 z-[999999] overflow-hidden">
             {"ontouchstart" in window ? null : (
                 <motion.div
                     style={{ x: cursorX, y: cursorY, willChange: "transform" }}

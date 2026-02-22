@@ -32,7 +32,7 @@ export default function Footer() {
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="hover:text-highlighter-blue transition-colors hover:underline decoration-dashed"
+                      className="hover:text-highlighter-pink transition-colors hover:underline decoration-dashed"
                     >
                       {link.name}
                     </a>
@@ -84,9 +84,9 @@ export default function Footer() {
 
 
         {footer.showCopyright && (
-          <div className="mt-12 pt-8 border-t border-paper/20 text-center font-hand text-paper/50">
+          <div className="mt-12 pt-8 border-t border-paper/20 text-center font-hand text-paper/65">
             <p>
-              © {new Date().getFullYear()} {personal.name}. Hand-coded with <span className="text-red-400">❤</span> and lots of Cheez-its.
+              © {new Date().getFullYear()} {personal.name}. Hand-coded with <span className="text-highlighter-pink">❤</span> and lots of Cheez-its.
             </p>
           </div>
         )}

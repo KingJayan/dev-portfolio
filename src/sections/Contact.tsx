@@ -66,8 +66,8 @@ export default function Contact() {
       }
 
       toast({
-        title: "Message Sent!",
-        description: "Thanks for reaching out! I'll get back to you soon.",
+        title: "Message Sent",
+        description: "Thank you for reaching out. I will respond as soon as possible.",
       });
 
       form.reset();
@@ -75,7 +75,7 @@ export default function Contact() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Something went wrong. Please try again or use social media!",
+        description: "Something went wrong. Please try again or contact me through social links.",
       });
     } finally {
       setIsSubmitting(false);
@@ -91,7 +91,7 @@ export default function Contact() {
       className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden flex items-center justify-center"
     >
 
-      {/* bg doodles layer */}
+      {/*doodles bg*/}
       <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-40">
         <Spiral className="absolute top-20 left-10 w-32 h-32 text-pencil/30" />
         <Star className="absolute bottom-40 right-20 w-16 h-16 text-highlighter-yellow" />
@@ -99,10 +99,9 @@ export default function Contact() {
         <div className="absolute top-1/3 right-1/4 w-4 h-4 rounded-full bg-highlighter-pink" />
       </motion.div>
 
-      {/* main card layer */}
       <motion.div style={{ x: cardX, y: cardY }} className="w-full max-w-2xl relative z-10">
         <div className="paper-card p-8 md:p-12 rotate-1 relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 bg-white/50 rotate-[-1deg] backdrop-blur-sm border-l border-r border-white/20 shadow-sm" />
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-[-1deg] masking-tape" />
 
           <h2 className="text-5xl font-marker text-center mb-8">
             <ScribbleText color="text-highlighter-yellow">Say Hello!</ScribbleText>
