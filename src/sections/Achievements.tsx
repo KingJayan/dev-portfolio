@@ -76,28 +76,36 @@ export default function Achievements() {
                     whileHover={{ scale: 1.05, rotate: -1 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsFolioOpen(true)}
-                    className="cursor-pointer relative mt-8 group inline-block"
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setIsFolioOpen(true);
+                        }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-label="Open personal records folder"
+                    className="cursor-pointer relative mt-8 group inline-block focus:outline-none focus:ring-4 focus:ring-highlighter-pink/50 rounded-xl"
                 >
                     <div className="absolute -inset-4 bg-highlighter-yellow/10 rounded-xl blur-2xl group-hover:bg-highlighter-yellow/20 transition-all" />
                     <PaperCard
-                        rotate={-2}
+                        rotate={0}
                         showTape={false}
                         className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-8 border-t-highlighter-yellow/40 bg-highlighter-yellow/10 shadow-xl overflow-hidden"
                     >
-                        <div className="absolute top-0 right-0 w-12 h-12 bg-highlighter-yellow/30 -rotate-45 translate-x-1/2 -translate-y-1/2" />
-                        
+
                         <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-pink transition-colors" />
                         <h3 className="font-marker text-2xl text-ink/60 underline decoration-pencil/20 underline-offset-4">My Records</h3>
-                        <div className="mt-4 px-3 py-1 bg-highlighter-pink/20 -rotate-2">
-                                <span className="font-hand text-sm font-bold text-ink/70 tracking-widest uppercase">View Details</span>
+                        <div className="mt-4 px-3 py-1 bg-highlighter-pink/20">
+                            <span className="font-hand text-sm font-bold text-ink/70 tracking-widest uppercase">View Details</span>
                         </div>
-                        
+
                         <div className="absolute bottom-4 left-4 right-4 flex justify-between opacity-30">
                             <Spiral className="w-8 h-8" />
                             <Star className="w-6 h-6" />
                         </div>
                     </PaperCard>
-                    
+
                     <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-pencil font-hand text-sm uppercase tracking-wider">
                         Open
                     </div>
@@ -124,7 +132,7 @@ export default function Achievements() {
                                 {/*header*/}
                                 <div className="p-8 pb-4 border-b-2 border-dashed border-pencil/10 relative shrink-0">
                                     <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-1 masking-tape z-20" />
-                                    
+
                                     <button
                                         onClick={() => setIsFolioOpen(false)}
                                         className="absolute top-4 right-4 z-50 p-2 hover:bg-highlighter-pink/20 rounded-full transition-colors"
@@ -143,7 +151,7 @@ export default function Achievements() {
                                     <div className="flex flex-col gap-10">
                                         {achievements.map((group, index) => {
                                             const IconComponent = icons[group.icon as keyof typeof icons] || Award;
-                                            
+
                                             return (
                                                 <div key={index} className="relative">
                                                     <div className="flex items-center gap-4 mb-6">
@@ -182,7 +190,7 @@ export default function Achievements() {
                                             );
                                         })}
                                     </div>
-                                    
+
                                     <div className="mt-20 flex flex-col items-center opacity-20 pointer-events-none">
                                         <Underline className="w-40 h-4 text-pencil" />
                                         <p className="mt-4 font-hand text-sm">Additional records will be added over time.</p>

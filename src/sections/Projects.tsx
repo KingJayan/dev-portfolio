@@ -35,19 +35,26 @@ export default function Projects() {
           >
             <div
               onClick={() => setSelectedProject(project)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setSelectedProject(project);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`View details for ${project.title}`}
               className={`
-                cursor-pointer bg-paper p-4 pb-8 shadow-paper hover:shadow-paper-hover transition-all duration-300 transform hover:-translate-y-2 hover:rotate-1
-                border border-ink relative group h-full
-                ${index % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'}
+                cursor-pointer bg-paper p-4 pb-8 shadow-paper transition-all duration-300 transform hover:-translate-y-1
+                border border-ink relative group h-full focus:outline-none focus:ring-4 focus:ring-ink/20
               `}
             >
-              {/*tape*/}
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 rotate-1 masking-tape z-10" />
 
               <div className="w-full aspect-video bg-paper/60 mb-4 border-2 border-pencil/20 overflow-hidden relative">
                 <img
                   src={`/images/projects/preview-${project.id}.png`}
                   alt={project.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 

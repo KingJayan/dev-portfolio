@@ -60,7 +60,7 @@ export default function OutsideWork() {
                     {outsideProgramming.hobbies.map((hobby: any, index: number) => (
                         <div key={index} className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(25%-24px)] max-w-sm">
                             <PaperCard
-                                rotate={index % 2 === 0 ? -2 : 2}
+                                rotate={0}
                                 delay={index * 0.15}
                                 tapeColor="bg-highlighter-yellow"
                                 hoverScale={1.05}
@@ -71,6 +71,7 @@ export default function OutsideWork() {
                                     <img
                                         src={hobby.image}
                                         alt={hobby.name}
+                                        loading="lazy"
                                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
                                     />
                                     <div className="absolute inset-0 bg-ink/5 pointer-events-none" />

@@ -37,7 +37,7 @@ export default function CommandMenu() {
 
             <button
                 onClick={() => setOpen(true)}
-                className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 bg-paper border-2 border-ink shadow-paper hover:-translate-y-1 hover:shadow-paper-hover transition-all rounded-lg font-hand text-lg group"
+                className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 bg-paper border-2 border-ink shadow-paper hover:-translate-y-0.5 transition-all rounded-lg font-hand text-lg group"
             >
                 <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
                 <span className="text-ink/80 group-hover:text-ink">Menu</span>

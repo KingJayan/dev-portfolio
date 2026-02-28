@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
@@ -8,18 +8,19 @@ import Cursor from "@/components/Cursor";
 import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
 
-import Projects from "@/sections/Projects";
-import GithubRepos from "@/sections/GithubRepos";
-import About from "@/sections/About";
-import Achievements from "@/sections/Achievements";
-import OutsideWork from "@/sections/OutsideWork";
-import Contact from "@/sections/Contact";
+const Projects = lazy(() => import("@/sections/Projects"));
+const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
+const About = lazy(() => import("@/sections/About"));
+const Achievements = lazy(() => import("@/sections/Achievements"));
+const OutsideWork = lazy(() => import("@/sections/OutsideWork"));
+const Contact = lazy(() => import("@/sections/Contact"));
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 
 import { Route, Switch } from "wouter";
 import NotFound from "@/pages/NotFound";
-import { useState } from "react";
+
+const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">Loading amazing things...</div>;
 
 function Portfolio() {
   return (
@@ -36,37 +37,37 @@ function Portfolio() {
       <SectionDivider />
 
       <section id="projects" className="relative z-20 bg-secondary/30 min-h-screen flex flex-col justify-center">
-        <Projects />
+        <Suspense fallback={<Fallback />}><Projects /></Suspense>
       </section>
 
       <SectionDivider />
 
       <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
-        <GithubRepos />
+        <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
       </section>
 
       <SectionDivider />
 
       <section id="about" className="relative z-30 bg-paper min-h-screen flex flex-col justify-center">
-        <About />
+        <Suspense fallback={<Fallback />}><About /></Suspense>
       </section>
 
       <SectionDivider />
 
       <section id="achievements" className="relative z-35 bg-secondary/20 min-h-screen flex flex-col justify-center">
-        <Achievements />
+        <Suspense fallback={<Fallback />}><Achievements /></Suspense>
       </section>
 
       <SectionDivider />
 
       <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
-        <OutsideWork />
+        <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
       </section>
 
       <SectionDivider />
 
       <section id="contact" className="relative z-40 bg-secondary/30 min-h-[80vh] flex flex-col justify-center">
-        <Contact />
+        <Suspense fallback={<Fallback />}><Contact /></Suspense>
       </section>
 
       <Footer />
@@ -88,7 +89,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2500);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 

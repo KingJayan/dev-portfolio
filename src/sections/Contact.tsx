@@ -100,8 +100,7 @@ export default function Contact() {
       </motion.div>
 
       <motion.div style={{ x: cardX, y: cardY }} className="w-full max-w-2xl relative z-10">
-        <div className="paper-card p-8 md:p-12 rotate-1 relative">
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-[-1deg] masking-tape" />
+        <div className="paper-card p-8 md:p-12 relative">
 
           <h2 className="text-5xl font-marker text-center mb-8">
             <ScribbleText color="text-highlighter-yellow">Say Hello!</ScribbleText>

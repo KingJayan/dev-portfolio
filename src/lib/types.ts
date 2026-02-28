@@ -31,6 +31,8 @@ export interface Skill {
 export interface ThemeContextType {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
+  isZenMode: boolean;
+  toggleZenMode: () => void;
 }
 
 export interface AchievementItem {

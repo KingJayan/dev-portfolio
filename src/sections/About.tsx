@@ -16,8 +16,8 @@ export default function About() {
       {/*bio + skills*/}
       <div className="flex flex-col lg:flex-row gap-16 items-start w-full">
         <motion.div
-          initial={{ x: -100, opacity: 0, rotate: -2 }}
-          whileInView={{ x: 0, opacity: 1, rotate: 1 }}
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
           className="flex-1 paper-card p-10 bg-paper relative group w-full"
@@ -64,7 +64,7 @@ export default function About() {
           transition={{ delay: 0.2, type: "spring", stiffness: 50 }}
           className="flex-1 space-y-12 w-full"
         >
-          <div className="paper-card p-8 -rotate-1 bg-paper relative h-full">
+          <div className="paper-card p-8 bg-paper relative h-full">
             <Arrow className="absolute -top-10 -right-4 w-20 h-20 text-ink/10 rotate-[140deg]" />
 
             <h3 className="text-4xl font-amatic font-bold mb-8 border-b-2 border-pencil pb-2 flex items-center gap-3">
@@ -97,11 +97,10 @@ export default function About() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30, rotate: 2 }}
-            whileInView={{ opacity: 1, y: 0, rotate: 2 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             whileHover={{
               scale: 1.05,
-              rotate: 1,
               y: -5,
               transition: { type: "spring", stiffness: 400, damping: 25 }
             }}
@@ -139,7 +138,7 @@ export default function About() {
             {tools && tools.map((tool: any, idx: number) => (
               <HandmadeTooltip key={tool.name} content={tool.name}>
                 <motion.div
-                  whileHover={{ scale: 1.15, rotate: (idx % 2 === 0 ? 5 : -5) }}
+                  whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.95 }}
                   className="flex flex-col items-center gap-2 group cursor-default"
                 >

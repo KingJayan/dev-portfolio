@@ -105,4 +105,22 @@
     content: '';
     @apply absolute bottom-0 left-0 w-full h-[0.4em] -z-10 bg-highlighter-yellow/60 -rotate-2 transform origin-bottom-left rounded-sm;
   }
+
+  /* Zen Mode / Read Mode overrides */
+  .zen-mode body {
+    background-image: none !important;
+  }
+  .zen-mode .grain-overlay {
+    display: none !important;
+  }
+  .zen-mode svg[aria-hidden="true"] {
+    display: none !important;
+  }
+  .zen-mode .paper-card {
+    box-shadow: none !important;
+    border-color: rgba(0,0,0,0.1) !important;
+  }
+  .zen-mode .dark .paper-card {
+    border-color: rgba(255,255,255,0.1) !important;
+  }
 }

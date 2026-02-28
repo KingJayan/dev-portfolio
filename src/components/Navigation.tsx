@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { throttle } from 'lodash';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Sun, Moon, Pencil } from 'lucide-react';
+import { Menu, X, Sun, Moon, Pencil, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/hooks/use-theme";
@@ -12,11 +13,11 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("home");
   const [, setLocation] = useLocation();
   const { t } = useLanguage();
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       const sections = ["home", "projects", "github", "about", "achievements", "outside", "contact"];
       const scrollPosition = window.scrollY + 200;
 
@@ -26,7 +27,7 @@ export default function Navigation() {
           setActiveSection(section);
         }
       }
-    };
+    }, 100);
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -77,15 +78,15 @@ export default function Navigation() {
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
-              initial={{ x: 80 }}
+              initial={{ x: 40 }}
               animate={{
-                x: activeSection === item.href.substring(1) ? 0 : 40
+                x: activeSection === item.href.substring(1) ? 0 : 20
               }}
               whileHover={{
                 x: 0,
-                transition: { type: "spring", stiffness: 400, damping: 25 }
+                transition: { type: "spring", stiffness: 200, damping: 30 }
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              transition={{ type: "spring", stiffness: 200, damping: 30 }}
               className={`
                 w-56 px-5 py-2.5 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
                 font-marker text-xl transition-colors rounded-l-xl flex items-center
@@ -121,6 +122,14 @@ export default function Navigation() {
             ) : (
               <Moon className="w-5 h-5 text-ink" />
             )}
+          </button>
+          <button
+            onClick={toggleZenMode}
+            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isZenMode ? 'bg-highlighter-blue' : 'hover:bg-highlighter-yellow'}`}
+            title={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
+            aria-label={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
+          >
+            <BookOpen className={`w-5 h-5 ${isZenMode ? 'text-white' : 'text-ink'}`} />
           </button>
         </div>
       </nav>

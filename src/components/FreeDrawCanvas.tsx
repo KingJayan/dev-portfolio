@@ -3,6 +3,8 @@ import { useDrawing } from "@/contexts/DrawingContext";
 import { useTheme } from "@/hooks/use-theme";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eraser, Pencil, X, Palette, Highlighter, Minus, Square, Circle, Undo2, Redo2 } from "lucide-react";
+import { useCanvasHistory } from "@/hooks/use-canvas-history";
+import { useCanvasContext } from "@/hooks/use-canvas-context";
 
 const COLORS = [
     { id: 'default', color: 'bg-ink', label: 'Ink' },
@@ -13,9 +15,9 @@ const COLORS = [
 ];
 
 const BRUSH_SIZES = [
-    { size: 3, label: 'Pen', icon: Pencil },
-    { size: 8, label: 'Marker', icon: Highlighter },
-    { size: 25, label: 'Chonky', icon: Palette },
+    { size: 2, label: 'Pen', icon: Pencil },
+    { size: 5, label: 'Marker', icon: Highlighter },
+    { size: 15, label: 'Chonky', icon: Palette },
 ];
 
 export default function FreeDrawCanvas() {
@@ -32,9 +34,8 @@ export default function FreeDrawCanvas() {
     const startPosRef = useRef<{ x: number, y: number } | null>(null);
     const snapshotRef = useRef<ImageData | null>(null);
 
-
-    const historyRef = useRef<ImageData[]>([]);
-    const historyStepRef = useRef<number>(-1);
+    const { initHistory, saveToHistory, handleUndo, handleRedo } = useCanvasHistory(canvasRef, ctxRef);
+    const { configureContext } = useCanvasContext(COLORS);
 
 
     useEffect(() => {
@@ -45,20 +46,13 @@ export default function FreeDrawCanvas() {
         if (canvas.width !== window.innerWidth) {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
-            if (historyStepRef.current === -1) {
-                const ctx = canvas.getContext("2d");
-                if (ctx) {
-                    historyRef.current = [ctx.getImageData(0, 0, canvas.width, canvas.height)];
-                    historyStepRef.current = 0;
-                }
-            }
+            initHistory();
         }
 
         const ctx = canvas.getContext("2d");
         if (ctx) {
             ctxRef.current = ctx;
-            configureContext(ctx);
+            configureContext(ctx, tool, color, theme, brushSize);
         }
 
         if (canvas) {
@@ -71,7 +65,7 @@ export default function FreeDrawCanvas() {
             const imageData = ctxRef.current.getImageData(0, 0, canvas.width, canvas.height);
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            configureContext(ctxRef.current);
+            configureContext(ctxRef.current, tool, color, theme, brushSize);
             rectRef.current = canvas.getBoundingClientRect();
         };
 
@@ -81,47 +75,6 @@ export default function FreeDrawCanvas() {
         };
     }, [isDrawingMode]);
 
-
-    const saveToHistory = () => {
-        if (!canvasRef.current || !ctxRef.current) return;
-
-
-        const step = historyStepRef.current;
-        const history = historyRef.current;
-        if (step < history.length - 1) {
-            historyRef.current = history.slice(0, step + 1);
-        }
-
-        const newState = ctxRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height);
-        historyRef.current.push(newState);
-        historyStepRef.current += 1;
-
-
-        if (historyRef.current.length > 5) {
-            historyRef.current.shift();
-            historyStepRef.current -= 1;
-        }
-    };
-
-    const handleUndo = useCallback(() => {
-        if (historyStepRef.current > 0) {
-            historyStepRef.current -= 1;
-            const previousState = historyRef.current[historyStepRef.current];
-            if (previousState && ctxRef.current) {
-                ctxRef.current.putImageData(previousState, 0, 0);
-            }
-        }
-    }, []);
-
-    const handleRedo = useCallback(() => {
-        if (historyStepRef.current < historyRef.current.length - 1) {
-            historyStepRef.current += 1;
-            const nextState = historyRef.current[historyStepRef.current];
-            if (nextState && ctxRef.current) {
-                ctxRef.current.putImageData(nextState, 0, 0);
-            }
-        }
-    }, []);
 
     useEffect(() => {
         if (!isDrawingMode) return;
@@ -146,42 +99,11 @@ export default function FreeDrawCanvas() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isDrawingMode, handleUndo, handleRedo]);
 
-
-
-    const configureContext = useCallback((ctx: CanvasRenderingContext2D) => {
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-
-        if (tool === "eraser") {
-            ctx.globalCompositeOperation = "destination-out";
-            ctx.lineWidth = 40;
-        } else {
-            const isHighlighter = COLORS.find(c => c.id === color)?.isHighlighter;
-
-            let drawColor = color;
-            if (color === 'default') {
-                drawColor = theme === "dark" ? "rgba(255, 255, 255, 0.9)" : "rgba(42, 42, 42, 0.9)";
-            }
-
-            if (isHighlighter) {
-                ctx.globalCompositeOperation = "multiply";
-                ctx.strokeStyle = color;
-                ctx.fillStyle = color;
-            } else {
-                ctx.globalCompositeOperation = "source-over";
-                ctx.strokeStyle = drawColor;
-                ctx.fillStyle = drawColor;
-            }
-            ctx.lineWidth = brushSize;
-        }
-    }, [tool, theme, color, brushSize]);
-
-
     useEffect(() => {
         if (ctxRef.current) {
-            configureContext(ctxRef.current);
+            configureContext(ctxRef.current, tool, color, theme, brushSize);
         }
-    }, [configureContext]);
+    }, [configureContext, tool, color, theme, brushSize]);
 
 
     useEffect(() => {
@@ -196,25 +118,6 @@ export default function FreeDrawCanvas() {
             }
             const mouseEvent = e as MouseEvent;
             return { x: mouseEvent.clientX - rect.left, y: mouseEvent.clientY - rect.top };
-        };
-
-        const updateCursor = (e: MouseEvent | TouchEvent) => {
-            if (!cursorRef.current) return;
-            const pos = getPos(e);
-
-
-
-            let clientX, clientY;
-            if ("touches" in e && e.touches.length > 0) {
-                clientX = e.touches[0].clientX;
-                clientY = e.touches[0].clientY;
-            } else {
-                const me = e as MouseEvent;
-                clientX = me.clientX;
-                clientY = me.clientY;
-            }
-
-            cursorRef.current.style.transform = `translate(${clientX}px, ${clientY}px)`;
         };
 
         const startDraw = (e: MouseEvent | TouchEvent) => {
@@ -234,8 +137,6 @@ export default function FreeDrawCanvas() {
         };
 
         const draw = (e: MouseEvent | TouchEvent) => {
-            updateCursor(e);
-
             if (!isDrawingRef.current || !ctxRef.current) return;
             e.preventDefault();
 
@@ -269,10 +170,8 @@ export default function FreeDrawCanvas() {
                 ctxRef.current.stroke();
 
             } else {
-
                 ctxRef.current.lineTo(pos.x, pos.y);
                 ctxRef.current.stroke();
-
 
                 ctxRef.current.beginPath();
                 ctxRef.current.moveTo(pos.x, pos.y);
@@ -298,7 +197,6 @@ export default function FreeDrawCanvas() {
         canvas.addEventListener("touchend", endDraw);
 
         return () => {
-
             canvas.removeEventListener("mousedown", startDraw);
             canvas.removeEventListener("mousemove", draw);
             canvas.removeEventListener("mouseup", endDraw);
@@ -308,6 +206,18 @@ export default function FreeDrawCanvas() {
             canvas.removeEventListener("touchend", endDraw);
         };
     }, [isDrawingMode, tool, color, brushSize]);
+
+    // Global cursor tracking to prevent skipping over elements
+    useEffect(() => {
+        if (!isDrawingMode) return;
+        const pointerMove = (e: PointerEvent) => {
+            if (cursorRef.current) {
+                cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            }
+        };
+        window.addEventListener('pointermove', pointerMove);
+        return () => window.removeEventListener('pointermove', pointerMove);
+    }, [isDrawingMode]);
 
 
     const getCssColor = () => {
@@ -329,16 +239,16 @@ export default function FreeDrawCanvas() {
 
             <div
                 ref={cursorRef}
-                className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+                className="fixed top-0 left-0 pointer-events-none z-[10000]"
                 style={{
-                    width: tool === 'eraser' ? 40 : brushSize,
-                    height: tool === 'eraser' ? 40 : brushSize,
+                    width: tool === 'eraser' ? 40 : brushSize * 1.5,
+                    height: tool === 'eraser' ? 40 : brushSize * 1.5,
                     borderRadius: '50%',
-                    border: '1px solid',
-                    borderColor: tool === 'eraser' ? '#000' : 'transparent',
+                    border: '2px solid white',
                     backgroundColor: tool === 'eraser' ? 'transparent' : getCssColor(),
-                    boxShadow: tool === 'eraser' ? '0 0 0 1px white' : 'none',
-                    transition: 'width 0.1s, height 0.1s, background-color 0.1s'
+                    boxShadow: '0 0 0 1px rgba(0,0,0,0.5)',
+                    transition: 'width 0.1s, height 0.1s, background-color 0.1s',
+                    willChange: 'transform'
                 }}
             />
 
