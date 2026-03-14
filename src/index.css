@@ -213,4 +213,94 @@
   .zen-mode.dark .paper-card {
     border-color: rgba(255,255,255,0.1) !important;
   }
+
+  /* Terminal Mode easter egg */
+  .terminal-mode {
+    --color-paper: #0d1117;
+    --color-ink: #39ff14;
+    --color-pencil: #00cc00;
+    --color-pencil-light: #009900;
+    --color-highlight-yellow: rgba(57, 255, 20, 0.15);
+    --color-highlight-pink: rgba(57, 255, 20, 0.1);
+  }
+
+  .terminal-mode body {
+    background-image: none !important;
+    background-color: var(--color-paper) !important;
+    font-family: 'Courier New', Courier, monospace !important;
+  }
+
+  .terminal-mode .grain-overlay,
+  .terminal-mode .masking-tape,
+  .terminal-mode svg[aria-hidden="true"] {
+    display: none !important;
+  }
+
+  .terminal-mode * {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-family: 'Courier New', Courier, monospace !important;
+  }
+
+  .terminal-mode .paper-card {
+    border-color: rgba(57, 255, 20, 0.3) !important;
+    background: rgba(13, 17, 23, 0.95) !important;
+  }
+
+  .terminal-mode section {
+    background: transparent !important;
+  }
+}
+
+/* ── Arcade & Game Animations ── */
+
+/* game overlay scale-in */
+.game-overlay {
+  animation: game-overlay-in 0.2s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  will-change: transform, opacity;
+}
+@keyframes game-overlay-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* arcade card stagger */
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+.card-in { animation: card-in 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) both; }
+
+/* wordle tile flip on submit */
+@keyframes tile-flip {
+  0%   { transform: scaleY(1); }
+  45%  { transform: scaleY(0); }
+  55%  { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+.tile-flip-0 { animation: tile-flip 0.32s ease-in-out 0ms   both; }
+.tile-flip-1 { animation: tile-flip 0.32s ease-in-out 70ms  both; }
+.tile-flip-2 { animation: tile-flip 0.32s ease-in-out 140ms both; }
+.tile-flip-3 { animation: tile-flip 0.32s ease-in-out 210ms both; }
+.tile-flip-4 { animation: tile-flip 0.32s ease-in-out 280ms both; }
+
+/* minesweeper cell reveal pop */
+@keyframes cell-pop {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1);   }
+}
+.cell-pop { animation: cell-pop 0.15s cubic-bezier(0.34, 1.5, 0.64, 1) both; }
+
+/* glitch-flash easter egg */
+.glitch-flash {
+  animation: glitch 0.6s steps(1) forwards;
+}
+
+@keyframes glitch {
+  0%   { filter: invert(1) hue-rotate(90deg); }
+  20%  { filter: invert(0); }
+  40%  { filter: invert(1) hue-rotate(180deg); }
+  60%  { filter: invert(0); }
+  80%  { filter: invert(1) hue-rotate(270deg); }
+  100% { filter: none; }
 }

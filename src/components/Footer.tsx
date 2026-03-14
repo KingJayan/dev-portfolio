@@ -1,11 +1,11 @@
 import { portfolioConfig } from '@/portfolio.config';
+import { Github, Linkedin, Twitter } from 'lucide-react';
 
 export default function Footer() {
   const { footer, personal, social } = portfolioConfig;
 
   return (
     <footer className="bg-ink text-paper py-12 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-repeat"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
@@ -49,33 +49,18 @@ export default function Footer() {
             </h3>
             <div className="flex justify-center md:justify-start space-x-6">
               {social.github && (
-                <a
-                  href={social.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-paper/70 hover:text-white hover:scale-110 transition-transform"
-                >
-                  <i className="fab fa-github text-3xl"></i>
+                <a href={social.github} target="_blank" rel="noopener noreferrer" className="text-paper/70 hover:text-white hover:scale-110 transition-transform">
+                  <Github className="w-7 h-7" />
                 </a>
               )}
               {social.linkedin && (
-                <a
-                  href={social.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-paper/70 hover:text-white hover:scale-110 transition-transform"
-                >
-                  <i className="fab fa-linkedin text-3xl"></i>
+                <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="text-paper/70 hover:text-white hover:scale-110 transition-transform">
+                  <Linkedin className="w-7 h-7" />
                 </a>
               )}
               {social.twitter && (
-                <a
-                  href={social.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-paper/70 hover:text-white hover:scale-110 transition-transform"
-                >
-                  <i className="fab fa-twitter text-3xl"></i>
+                <a href={social.twitter} target="_blank" rel="noopener noreferrer" className="text-paper/70 hover:text-white hover:scale-110 transition-transform">
+                  <Twitter className="w-7 h-7" />
                 </a>
               )}
             </div>

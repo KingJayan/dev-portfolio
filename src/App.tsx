@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, lazy, Suspense, useCallback } from "react";
 import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
@@ -9,6 +9,9 @@ import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
+import { useKonami } from "@/hooks/use-konami";
+import { toast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 
 const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
@@ -16,6 +19,7 @@ const About = lazy(() => import("@/sections/About"));
 const Achievements = lazy(() => import("@/sections/Achievements"));
 const OutsideWork = lazy(() => import("@/sections/OutsideWork"));
 const Contact = lazy(() => import("@/sections/Contact"));
+const Arcade = lazy(() => import("@/pages/Arcade"));
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 
@@ -93,7 +97,8 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { isZenMode } = useTheme();
+  const [, setLocation] = useLocation();
+  const { isZenMode, isTerminalMode, toggleTerminalMode } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -102,18 +107,43 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isTypingTarget = !!target && (
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable
+      );
+      if (isTypingTarget || e.repeat) return;
+      if (e.ctrlKey && e.key === '`') { e.preventDefault(); toggleTerminalMode(); }
+      if (e.ctrlKey && e.key === 'g') { e.preventDefault(); setLocation('/arcade'); }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, [toggleTerminalMode, setLocation]);
+
+  const triggerGlitch = useCallback(() => {
+    document.documentElement.classList.add("glitch-flash");
+    toast({ description: "you found it :)" });
+    setTimeout(() => document.documentElement.classList.remove("glitch-flash"), 600);
+  }, []);
+
+  useKonami(triggerGlitch);
+
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
       {!isZenMode && <div className="grain-overlay" />}
-      {!isZenMode && <FreeDrawCanvas />}
-      {!isZenMode && <Cursor />}
+      {!isZenMode && !isTerminalMode && <FreeDrawCanvas />}
+      {!isZenMode && !isTerminalMode && <Cursor />}
       {!isZenMode && <ScrollProgress />}
       <Navigation />
       {!isZenMode && <CommandMenu />}
 
       <Switch>
         <Route path="/">{() => <Portfolio isZenMode={isZenMode} />}</Route>
+        <Route path="/arcade">{() => <Suspense fallback={<Fallback />}><Arcade /></Suspense>}</Route>
         {/*404*/}
         <Route component={NotFound} />
       </Switch>

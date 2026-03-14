@@ -66,21 +66,21 @@ export default function Projects() {
                 </div>
               </Surface>
 
-              <h3 className="text-3xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
+              <h3 className="text-2xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
 
               <div className="text-sm font-hand text-pencil/60 mb-2">
                 {project.startDate} - {project.endDate || "Present"}
               </div>
 
-              <p className="text-center font-hand text-pencil mb-4 text-lg leading-tight line-clamp-3">
+              <p className="font-hand text-pencil mb-4 text-lg leading-tight line-clamp-3">
                 {project.description}
               </p>
 
-              <div className="flex flex-wrap justify-center gap-2 mt-auto">
+              <div className="flex flex-wrap gap-2 mt-auto">
                 {project.technologies.slice(0, 3).map((tech) => (
                   <span
                     key={tech}
-                    className="px-2 py-0.5 bg-secondary text-secondary-foreground text-xs font-bold uppercase tracking-wider rounded-sm border border-transparent hover:border-ink/20"
+                    className="px-2 py-0.5 bg-secondary text-secondary-foreground font-hand text-xs rounded-sm border border-transparent hover:border-ink/20"
                   >
                     {tech}
                   </span>

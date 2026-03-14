@@ -16,8 +16,9 @@ export default function ScribbleText({
         <motion.div
             className={`relative inline-block cursor-default ${className}`}
             initial="initial"
+            whileInView="visible"
             whileHover="hover"
-            animate="initial"
+            viewport={{ once: true }}
         >
             <span className="relative z-10">{children}</span>
             <motion.svg
@@ -30,7 +31,8 @@ export default function ScribbleText({
                 className={`absolute -bottom-2 left-0 w-full h-4 ${color} pointer-events-none opacity-60`}
                 variants={{
                     initial: { pathLength: 0, opacity: 0 },
-                    hover: { pathLength: 1, opacity: 0.6 }
+                    visible: { pathLength: 1, opacity: 0.6 },
+                    hover:   { pathLength: 1, opacity: 0.6 },
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
             >

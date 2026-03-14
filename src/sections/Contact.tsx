@@ -44,8 +44,6 @@ export default function Contact() {
 
   const backX = useTransform(mouseX, [-1, 1], ["5%", "-5%"]);
   const backY = useTransform(mouseY, [-1, 1], ["5%", "-5%"]);
-  const cardX = useTransform(mouseX, [-1, 1], ["-2%", "2%"]);
-  const cardY = useTransform(mouseY, [-1, 1], ["-2%", "2%"]);
 
   const form = useForm<ContactForm>({
     resolver: zodResolver(contactSchema),
@@ -97,7 +95,7 @@ export default function Contact() {
         <Spiral className="absolute top-20 left-10 w-32 h-32 text-pencil/30" />
       </motion.div>
 
-      <motion.div style={{ x: cardX, y: cardY }} className="w-full max-w-2xl relative z-10">
+      <div className="w-full max-w-2xl relative z-10">
         <Surface variant="elevated" className="p-8 md:p-12 relative">
 
           <h2 className="text-5xl font-marker text-center mb-8">
@@ -147,10 +145,10 @@ export default function Contact() {
           </form>
         </Surface>
 
-        <div className="mt-12 text-center font-hand text-pencil">
+        <div className="mt-12 text-center font-hand text-lg text-pencil">
           <p>or just find me elsewhere</p>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

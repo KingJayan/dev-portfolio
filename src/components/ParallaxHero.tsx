@@ -1,7 +1,6 @@
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useEffect } from "react";
 import { portfolioConfig } from "@/portfolio.config";
-import { Star, Spiral, Arrow } from "@/components/Doodles";
 import { Paperclip } from "lucide-react";
 
 const springConfig = { stiffness: 50, damping: 30, mass: 1 };
@@ -39,8 +38,6 @@ export default function ParallaxHero() {
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-paper">
 
             <motion.div style={{ x: backgroundX, y: backgroundY }} className="absolute inset-0 z-0 opacity-30 pointer-events-none">
-                <div className="absolute top-[10%] left-[10%] w-64 h-64 border-2 border-dashed border-pencil/30 rounded-full animate-wiggle" />
-                <div className="absolute bottom-[20%] right-[10%] w-96 h-96 border-2 border-highlight-pink/20 rotate-12" />
                 <div className="absolute top-[40%] right-[30%] w-32 h-32 bg-highlighter-yellow/40 rotate-45" />
                 <svg className="absolute bottom-[10%] left-[20%] w-24 h-24 text-pencil/40 -rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M10,50 Q25,25 50,50 T90,50" />
@@ -53,14 +50,14 @@ export default function ParallaxHero() {
                 className="relative z-10 flex flex-col items-center justify-center gap-2 pointer-events-none"
             >
 
-                <h2 className="text-4xl md:text-5xl font-hand text-pencil transform -rotate-2 relative z-20">
+                <h2 className="text-2xl md:text-3xl font-hand text-pencil transform -rotate-1 relative z-20">
                     {portfolioConfig.personal.title}
                     <div className="w-full h-3 bg-highlighter-pink/60 absolute -bottom-2 left-0 -rotate-1 rounded-sm -z-10"></div>
                 </h2>
 
 
                 <div className="relative inline-block z-10 py-6">
-                    <h1 className="text-7xl md:text-9xl font-marker text-ink drop-shadow-xl rotate-[-3deg] relative whitespace-nowrap">
+                    <h1 className="text-7xl md:text-9xl font-marker text-ink -rotate-1 relative whitespace-nowrap">
                         {portfolioConfig.personal.name}
                     </h1>
                     <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0 text-ink" viewBox="0 0 300 30">

@@ -6,6 +6,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [isZenMode, setIsZenMode] = useState<boolean>(false);
+  const [isTerminalMode, setIsTerminalMode] = useState<boolean>(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
@@ -15,6 +16,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedZenMode = localStorage.getItem('zenMode') === 'true';
     if (savedZenMode) {
       setIsZenMode(savedZenMode);
+    }
+    const savedTerminalMode = localStorage.getItem('terminalMode') === 'true';
+    if (savedTerminalMode) {
+      setIsTerminalMode(savedTerminalMode);
     }
   }, []);
 
@@ -35,6 +40,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('zenMode', String(isZenMode));
   }, [isZenMode]);
 
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (isTerminalMode) {
+      root.classList.add('terminal-mode');
+    } else {
+      root.classList.remove('terminal-mode');
+    }
+    localStorage.setItem('terminalMode', String(isTerminalMode));
+  }, [isTerminalMode]);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
@@ -43,8 +58,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setIsZenMode((prev) => !prev);
   };
 
+  const toggleTerminalMode = () => {
+    setIsTerminalMode((prev) => !prev);
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, isZenMode, toggleZenMode }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, isZenMode, toggleZenMode, isTerminalMode, toggleTerminalMode }}>
       {children}
     </ThemeContext.Provider>
   );

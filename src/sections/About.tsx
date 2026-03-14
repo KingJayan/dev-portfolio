@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
-import { Star, Underline, Arrow, Spiral } from '@/components/Doodles';
+import { Star } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
@@ -15,7 +15,7 @@ export default function About() {
   const { skills, tools } = about;
 
   return (
-    <section id="about" className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-6xl mx-auto flex flex-col gap-16 items-start">
+    <section id="about" className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
 
       {/*bio + skills*/}
       <div className="flex flex-col lg:flex-row gap-16 items-start w-full">
@@ -46,13 +46,13 @@ export default function About() {
             <ScribbleText color="text-highlighter-yellow">about</ScribbleText>
           </h2>
 
-          <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
+          <div className="font-hand text-lg text-ink leading-relaxed space-y-6">
             <p>
               Hi! I'm <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
             </p>
 
             {about.bio && about.bio.map((paragraph: string, idx: number) => (
-              <p key={idx} className="hover:translate-x-2 transition-transform">
+              <p key={idx}>
                 {paragraph}
               </p>
             ))}
@@ -68,9 +68,7 @@ export default function About() {
           className="flex-1 space-y-12 w-full"
         >
           <Surface variant="elevated" className="p-8 relative h-full">
-            <Arrow className="absolute -top-10 -right-4 w-20 h-20 text-ink/10 rotate-[140deg]" />
-
-            <h3 className="text-4xl font-amatic font-bold mb-8 border-b border-pencil/40 pb-2 flex items-center gap-3">
+            <h3 className="text-3xl font-amatic font-bold mb-8 border-b border-pencil/40 pb-2 flex items-center gap-3">
               <Star className="w-8 h-8 text-highlighter-yellow" />
               skills
             </h3>
@@ -80,7 +78,7 @@ export default function About() {
                 <div key={skill.name} className="relative group">
                   <div className="flex justify-between font-hand text-xl mb-2 items-center">
                     <span className="group-hover:text-ink transition-colors">{skill.name}</span>
-                    <span className="text-pencil/50 text-sm font-marker">{skill.level}%</span>
+                    <span className="text-pencil/50 text-sm font-hand">{skill.level}%</span>
                   </div>
                   <div className="h-4 w-full border border-pencil/40 rounded-full p-0.5 overflow-hidden bg-paper/50">
                     <motion.div
@@ -106,13 +104,12 @@ export default function About() {
             transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
             className="relative overflow-hidden group transition-shadow"
           >
-            <Surface variant="muted" className="p-6 border-2 border-dotted border-highlighter-yellow/50 backdrop-blur-sm relative shadow-sm">
-              <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-yellow/25" />
+            <Surface variant="muted" className="p-6 border-2 border-dotted border-highlighter-yellow/50 relative shadow-sm">
               <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
                 <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
                 fun bit
               </h4>
-              <p className="font-hand text-2xl text-ink/80 leading-snug">
+              <p className="font-hand text-lg text-ink/80 leading-snug">
                 I started learning to code during the COVID-19 pandemic.
               </p>
             </Surface>
@@ -129,7 +126,7 @@ export default function About() {
         className="w-full"
       >
         <Surface variant="elevated" className="p-10 relative">
-          <h3 className="text-5xl font-amatic font-bold mb-10 border-b border-pencil/40 pb-4 flex items-center gap-4 text-pencil justify-center">
+          <h3 className="text-3xl font-amatic font-bold mb-10 border-b border-pencil/40 pb-4 flex items-center gap-4 text-pencil justify-center">
             <Box className="w-10 h-10 text-highlighter-yellow" />
             toolkit
           </h3>

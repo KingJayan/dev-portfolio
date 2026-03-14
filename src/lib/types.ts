@@ -33,6 +33,8 @@ export interface ThemeContextType {
   toggleTheme: () => void;
   isZenMode: boolean;
   toggleZenMode: () => void;
+  isTerminalMode: boolean;
+  toggleTerminalMode: () => void;
 }
 
 export interface AchievementItem {
