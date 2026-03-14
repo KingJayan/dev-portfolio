@@ -16,13 +16,13 @@ interface Repo {
 }
 
 const LANGUAGE_COLORS: Record<string, string> = {
-  TypeScript: 'bg-blue-400',
-  JavaScript: 'bg-yellow-400',
-  Python: 'bg-green-500',
-  Java: 'bg-red-500',
-  HTML: 'bg-orange-500',
-  CSS: 'bg-purple-500',
-  R: 'bg-gray-500',
+  TypeScript: 'bg-highlighter-yellow',
+  JavaScript: 'bg-highlighter-yellow',
+  Python: 'bg-highlighter-yellow',
+  Java: 'bg-highlighter-yellow',
+  HTML: 'bg-highlighter-yellow',
+  CSS: 'bg-highlighter-yellow',
+  R: 'bg-highlighter-yellow',
 };
 
 export default function GithubRepos() {
@@ -62,7 +62,7 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-blue">GitHub</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
           </h2>
         </div>
         <div className="flex flex-wrap justify-center gap-10">
@@ -90,7 +90,7 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-blue">GitHub</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
           </h2>
         </div>
         <PaperCard rotate={-1} className="max-w-md mx-auto text-center">
@@ -113,7 +113,7 @@ export default function GithubRepos() {
     >
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
-          <ScribbleText color="text-highlighter-blue">GitHub</ScribbleText>
+          <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
         </h2>
         <p className="font-hand text-xl text-pencil mt-4">
           latest open‑source work
@@ -132,13 +132,7 @@ export default function GithubRepos() {
             <PaperCard
               rotate={0}
               delay={index * 0.1}
-              tapeColor={
-                index % 3 === 0
-                  ? 'bg-highlighter-yellow/30'
-                  : index % 3 === 1
-                    ? 'bg-highlighter-pink/30'
-                    : 'bg-highlighter-blue/30'
-              }
+              showTape={false}
               className="h-full cursor-pointer"
             >
               <div className="flex items-start justify-between gap-2 mb-3">

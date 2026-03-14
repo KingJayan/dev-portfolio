@@ -25,8 +25,6 @@ export default function About() {
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
           className="flex-1 paper-card p-10 bg-paper relative group w-full"
         >
-          <Spiral className="absolute -top-6 -left-6 w-16 h-16 text-pencil/20 rotate-12 opacity-0 group-hover:opacity-100 transition-opacity" />
-
           <div className="w-56 h-56 mx-auto mb-8 border-4 border-dashed border-ink rounded-full overflow-hidden relative bg-paper shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
             <img
               src="/images/profile.png"
@@ -43,13 +41,12 @@ export default function About() {
           </div>
 
           <h2 className="text-6xl font-marker text-center mb-8 relative">
-            <ScribbleText color="text-highlighter-pink">Who am I?</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">Who am I?</ScribbleText>
           </h2>
 
           <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
-            <p className="relative">
-              Hi! I'm <ScribbleText color="text-highlighter-pink" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
-              <Star className="absolute -top-4 -right-6 w-8 h-8 text-highlighter-yellow" />
+            <p>
+              Hi! I'm <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
             </p>
 
             {about.bio && about.bio.map((paragraph: string, idx: number) => (
@@ -79,7 +76,7 @@ export default function About() {
               {skills.map((skill: AboutSkill, idx: number) => (
                 <div key={skill.name} className="relative group">
                   <div className="flex justify-between font-hand text-xl mb-2 items-center">
-                    <span className="group-hover:text-highlighter-pink transition-colors">{skill.name}</span>
+                    <span className="group-hover:text-ink transition-colors">{skill.name}</span>
                     <span className="text-pencil/50 text-sm font-marker">{skill.level}%</span>
                   </div>
                   <div className="h-4 w-full border-2 border-pencil rounded-full p-0.5 overflow-hidden bg-paper/50">
@@ -102,16 +99,11 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{
-              scale: 1.05,
-              y: -5,
-              transition: { type: "spring", stiffness: 400, damping: 25 }
-            }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
-            className="p-6 border-4 border-dotted border-highlighter-blue/50 bg-paper/20 backdrop-blur-sm relative overflow-hidden group shadow-sm hover:shadow-md transition-shadow"
+            className="p-6 border-4 border-dotted border-highlighter-yellow/50 bg-paper/20 backdrop-blur-sm relative overflow-hidden group shadow-sm transition-shadow"
           >
-            <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-blue/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-yellow/25" />
             <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
               <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
               Fun Fact
@@ -133,7 +125,7 @@ export default function About() {
       >
         <div className="paper-card p-10 bg-paper relative">
           <h3 className="text-5xl font-amatic font-bold mb-10 border-b-2 border-pencil pb-4 flex items-center gap-4 text-pencil justify-center">
-            <Box className="w-10 h-10 text-highlighter-blue" />
+            <Box className="w-10 h-10 text-highlighter-yellow" />
             Toolkit & Ecosystem
           </h3>
 

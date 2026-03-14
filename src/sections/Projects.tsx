@@ -21,7 +21,7 @@ export default function Projects() {
     >
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
-          <ScribbleText color="text-highlighter-pink">
+          <ScribbleText color="text-highlighter-yellow">
             My Work
           </ScribbleText>
         </h2>

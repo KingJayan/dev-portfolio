@@ -78,19 +78,15 @@ export default function Navigation() {
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
-              initial={{ x: 40 }}
-              animate={{
-                x: activeSection === item.href.substring(1) ? 0 : 20
-              }}
-              whileHover={{
-                x: 0,
-                transition: { type: "spring", stiffness: 200, damping: 30 }
-              }}
-              transition={{ type: "spring", stiffness: 200, damping: 30 }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2, delay: index * 0.03 }}
               className={`
-                w-56 px-5 py-2.5 bg-paper border-l-2 border-y-2 border-ink shadow-paper cursor-pointer
-                font-marker text-xl transition-colors rounded-l-xl flex items-center
-                ${activeSection === item.href.substring(1) ? 'bg-highlighter-yellow' : 'hover:bg-paper/80'}
+                w-52 px-4 py-2 bg-paper/90 border-l-2 border-y border-ink/30 shadow-paper cursor-pointer
+                font-marker text-lg transition-colors rounded-l-lg flex items-center
+                ${activeSection === item.href.substring(1)
+                  ? 'border-l-4 border-l-highlighter-yellow text-ink'
+                  : 'text-pencil hover:text-ink hover:bg-paper'}
               `}
             >
               <span className="w-7 text-center mr-2 opacity-50 text-sm font-sans">0{index + 1}</span>
@@ -103,11 +99,11 @@ export default function Navigation() {
 
           <button
             onClick={toggleDrawingMode}
-            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isDrawingMode ? 'bg-highlighter-pink' : 'hover:bg-highlighter-yellow'}`}
+            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isDrawingMode ? 'bg-highlighter-yellow' : 'hover:bg-highlighter-yellow'}`}
             title={isDrawingMode ? "Stop Drawing" : "Free Draw Mode"}
             aria-label={isDrawingMode ? "Stop Drawing" : "Enter Free Draw Mode"}
           >
-            <Pencil className={`w-5 h-5 ${isDrawingMode ? 'text-white' : 'text-ink'}`} />
+            <Pencil className="w-5 h-5 text-ink" />
           </button>
 
 
@@ -125,11 +121,11 @@ export default function Navigation() {
           </button>
           <button
             onClick={toggleZenMode}
-            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isZenMode ? 'bg-highlighter-blue' : 'hover:bg-highlighter-yellow'}`}
+            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isZenMode ? 'bg-highlighter-yellow' : 'hover:bg-highlighter-yellow'}`}
             title={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
             aria-label={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
           >
-            <BookOpen className={`w-5 h-5 ${isZenMode ? 'text-white' : 'text-ink'}`} />
+            <BookOpen className="w-5 h-5 text-ink" />
           </button>
         </div>
       </nav>
@@ -159,7 +155,7 @@ export default function Navigation() {
               {navItems.map((item) => (
                 <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
                   <span
-                    className={`text-5xl font-marker cursor-pointer ${activeSection === item.href.substring(1) ? 'text-ink underline decoration-wavy decoration-highlighter-pink' : 'text-pencil'} hover:text-ink transition-colors`}
+                    className={`text-5xl font-marker cursor-pointer ${activeSection === item.href.substring(1) ? 'text-ink underline decoration-highlighter-yellow' : 'text-pencil'} hover:text-ink transition-colors`}
                   >
                     {item.name}
                   </span>

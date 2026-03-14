@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
-import { Star, Spiral, Underline } from '@/components/Doodles';
+import { Spiral, Underline } from '@/components/Doodles';
 import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { createPortal } from 'react-dom';
@@ -51,9 +51,6 @@ export default function Achievements() {
             {/*parallax*/}
             <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-25 z-0">
                 <Spiral className="absolute top-[10%] left-[5%] w-48 h-48 text-pencil/30" />
-                <Star className="absolute bottom-[10%] right-[10%] w-24 h-24 text-highlighter-yellow/50" />
-                <div className="absolute top-[20%] right-[15%] w-6 h-6 rounded-full bg-highlighter-pink/30" />
-                <Spiral className="absolute bottom-[20%] left-[20%] w-32 h-32 text-pencil/20 -rotate-90" />
             </motion.div>
 
             <div className="relative z-10 w-full max-w-2xl mx-auto text-center">
@@ -73,7 +70,7 @@ export default function Achievements() {
 
                 {/*folder*/}
                 <motion.div
-                    whileHover={{ scale: 1.05, rotate: -1 }}
+                    whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setIsFolioOpen(true)}
                     onKeyDown={(e) => {
@@ -85,30 +82,20 @@ export default function Achievements() {
                     tabIndex={0}
                     role="button"
                     aria-label="Open personal records folder"
-                    className="cursor-pointer relative mt-8 group inline-block focus:outline-none focus:ring-4 focus:ring-highlighter-pink/50 rounded-xl"
+                    className="cursor-pointer relative mt-8 group inline-block focus:outline-none focus:ring-4 focus:ring-highlighter-yellow/50 rounded-xl"
                 >
-                    <div className="absolute -inset-4 bg-highlighter-yellow/10 rounded-xl blur-2xl group-hover:bg-highlighter-yellow/20 transition-all" />
                     <PaperCard
                         rotate={0}
                         showTape={false}
                         className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-8 border-t-highlighter-yellow/40 bg-highlighter-yellow/10 shadow-xl overflow-hidden"
                     >
 
-                        <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-pink transition-colors" />
+                        <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors" />
                         <h3 className="font-marker text-2xl text-ink/60 underline decoration-pencil/20 underline-offset-4">My Records</h3>
-                        <div className="mt-4 px-3 py-1 bg-highlighter-pink/20">
+                        <div className="mt-4 px-3 py-1 bg-highlighter-yellow/20">
                             <span className="font-hand text-sm font-bold text-ink/70 tracking-widest uppercase">View Details</span>
                         </div>
-
-                        <div className="absolute bottom-4 left-4 right-4 flex justify-between opacity-30">
-                            <Spiral className="w-8 h-8" />
-                            <Star className="w-6 h-6" />
-                        </div>
                     </PaperCard>
-
-                    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-pencil font-hand text-sm uppercase tracking-wider">
-                        Open
-                    </div>
                 </motion.div>
             </div>
 
@@ -135,7 +122,7 @@ export default function Achievements() {
 
                                     <button
                                         onClick={() => setIsFolioOpen(false)}
-                                        className="absolute top-4 right-4 z-50 p-2 hover:bg-highlighter-pink/20 rounded-full transition-colors"
+                                        className="absolute top-4 right-4 z-50 p-2 hover:bg-highlighter-yellow/20 rounded-full transition-colors"
                                     >
                                         <X className="w-6 h-6 text-pencil" />
                                     </button>
