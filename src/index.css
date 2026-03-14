@@ -9,9 +9,9 @@
     --color-ink: #25221f;
     --color-pencil: #544f49;
     --color-pencil-light: #7d756b;
-    --color-highlight-yellow: rgba(224, 196, 112, 0.36);
-    --color-highlight-pink: rgba(189, 141, 162, 0.3);
-    --color-highlight-blue: rgba(128, 155, 175, 0.27);
+    --color-highlight-yellow: hsla(45, 64%, 66%, 0.36);
+    --color-highlight-pink:   hsla(334, 27%, 65%, 0.3);
+    --color-highlight-blue:   hsla(206, 23%, 59%, 0.27);
 
     --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
   }
@@ -22,9 +22,9 @@
     --color-ink: #e8edf3;
     --color-pencil: #b8c0cb;
     --color-pencil-light: #8b95a3;
-    --color-highlight-yellow: rgba(214, 184, 98, 0.22);
-    --color-highlight-pink: rgba(173, 132, 154, 0.2);
-    --color-highlight-blue: rgba(116, 149, 176, 0.2);
+    --color-highlight-yellow: hsla(45, 59%, 61%, 0.22);
+    --color-highlight-pink:   hsla(328, 20%, 60%, 0.2);
+    --color-highlight-blue:   hsla(207, 28%, 57%, 0.2);
     --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15' fill='white'/%3E%3C/svg%3E");
   }
 }
@@ -33,6 +33,13 @@
   * {
     @apply border-ink;
     cursor: none !important;
+  }
+
+  html {
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   html,
@@ -58,80 +65,90 @@
     background-color: var(--color-highlight-yellow);
     color: var(--color-ink);
   }
+
+  /* keyboard focus ring — visible only for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  .dark :focus-visible {
+    outline-color: var(--color-ink);
+  }
 }
 
 @layer utilities {
   .masking-tape {
     @apply border shadow-sm;
-    border-color: rgba(37, 34, 31, 0.14);
-    background-color: rgba(224, 196, 112, 0.34);
+    border-color: hsla(28, 9%, 13%, 0.14);
+    background-color: hsla(45, 64%, 66%, 0.34);
     background-image: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.28),
-      rgba(255, 255, 255, 0.08)
+      hsla(0, 0%, 100%, 0.28),
+      hsla(0, 0%, 100%, 0.08)
     );
   }
 
   .dark .masking-tape {
-    border-color: rgba(232, 237, 243, 0.18);
-    background-color: rgba(214, 184, 98, 0.2);
+    border-color: hsla(214, 31%, 93%, 0.18);
+    background-color: hsla(45, 59%, 61%, 0.2);
     background-image: linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.08),
-      rgba(0, 0, 0, 0.05)
+      hsla(0, 0%, 100%, 0.08),
+      hsla(0, 0%, 0%, 0.05)
     );
   }
 
   .dark .shadow-paper {
-    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 0px 0px hsla(0, 0%, 0%, 0.3);
   }
 
   .dark .shadow-paper-hover {
-    box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.36);
+    box-shadow: 3px 3px 0px 0px hsla(0, 0%, 0%, 0.36);
   }
 
   .dark .paper-card {
-    background: rgba(21, 24, 29, 0.92);
-    border-color: rgba(232, 237, 243, 0.16);
+    background: hsla(218, 16%, 10%, 0.92);
+    border-color: hsla(214, 31%, 93%, 0.16);
   }
 
   .paper-texture {
     background-image:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.02)),
+      linear-gradient(180deg, hsla(0, 0%, 100%, 0.03), hsla(0, 0%, 0%, 0.02)),
       var(--bg-texture);
     background-blend-mode: normal, multiply;
   }
 
   .dark .paper-texture {
     background-image:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.04)),
+      linear-gradient(180deg, hsla(0, 0%, 100%, 0.02), hsla(0, 0%, 0%, 0.04)),
       var(--bg-texture);
     background-blend-mode: normal, normal;
   }
 
   .dark input,
   .dark textarea {
-    background-color: rgba(255, 255, 255, 0.02) !important;
-    border-color: rgba(232, 237, 243, 0.18) !important;
+    background-color: hsla(0, 0%, 100%, 0.02) !important;
+    border-color: hsla(214, 31%, 93%, 0.18) !important;
     color: var(--color-ink) !important;
   }
 
   .dark input::placeholder,
   .dark textarea::placeholder {
-    color: rgba(184, 192, 203, 0.55);
+    color: hsla(215, 15%, 76%, 0.55);
   }
 
   .dark .custom-scrollbar {
-    scrollbar-color: rgba(232, 237, 243, 0.26) transparent;
+    scrollbar-color: hsla(214, 31%, 93%, 0.26) transparent;
   }
 
   .paper-card {
     @apply bg-paper border shadow-paper;
-    border-color: rgba(37, 34, 31, 0.25);
+    border-color: hsla(28, 9%, 13%, 0.25);
   }
 
   .dark .paper-card {
-    border-color: rgba(232, 237, 243, 0.2);
+    border-color: hsla(214, 31%, 93%, 0.2);
   }
 
   /*grain texture*/
@@ -150,7 +167,7 @@
     content: '';
     @apply absolute bottom-0 left-0 w-full -z-10 -rotate-2 transform origin-bottom-left rounded-sm;
     height: 0.4em;
-    background-color: rgba(224, 196, 112, 0.6);
+    background-color: hsla(45, 64%, 66%, 0.6);
   }
 
   /* Zen Mode / Read Mode overrides */
@@ -181,7 +198,7 @@
 
   .zen-mode .paper-card {
     box-shadow: none !important;
-    border-color: rgba(0,0,0,0.1) !important;
+    border-color: hsla(0, 0%, 0%, 0.1) !important;
   }
 
   .zen-mode section {
@@ -195,7 +212,7 @@
 
   .zen-mode .prose,
   .zen-mode p {
-    line-height: 1.75;
+    line-height: 1.8;
   }
 
   .zen-mode .animate-pulse,
@@ -211,7 +228,7 @@
   }
 
   .zen-mode.dark .paper-card {
-    border-color: rgba(255,255,255,0.1) !important;
+    border-color: hsla(0, 0%, 100%, 0.1) !important;
   }
 
   /* Terminal Mode easter egg */
@@ -220,8 +237,8 @@
     --color-ink: #39ff14;
     --color-pencil: #00cc00;
     --color-pencil-light: #009900;
-    --color-highlight-yellow: rgba(57, 255, 20, 0.15);
-    --color-highlight-pink: rgba(57, 255, 20, 0.1);
+    --color-highlight-yellow: hsla(111, 100%, 54%, 0.15);
+    --color-highlight-pink:   hsla(111, 100%, 54%, 0.1);
   }
 
   .terminal-mode body {
@@ -243,12 +260,24 @@
   }
 
   .terminal-mode .paper-card {
-    border-color: rgba(57, 255, 20, 0.3) !important;
-    background: rgba(13, 17, 23, 0.95) !important;
+    border-color: hsla(111, 100%, 54%, 0.3) !important;
+    background: hsla(215, 28%, 7%, 0.95) !important;
   }
 
   .terminal-mode section {
     background: transparent !important;
+  }
+}
+
+/* ── Accessibility ── */
+
+/* disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
