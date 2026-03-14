@@ -6,7 +6,6 @@ const Snake      = lazy(() => import("@/components/games/Snake"));
 const Minesweeper = lazy(() => import("@/components/games/Minesweeper"));
 const TypingTest = lazy(() => import("@/components/games/TypingTest"));
 const FlappyBird = lazy(() => import("@/components/games/FlappyBird"));
-const Wordle     = lazy(() => import("@/components/games/Wordle"));
 const Game2048   = lazy(() => import("@/components/games/Game2048"));
 const BotPong    = lazy(() => import("@/components/games/BotPong"));
 
@@ -36,12 +35,6 @@ const GAMES = [
     controls: "space / click to flap · esc exit",
   },
   {
-    id: "wordle",
-    name: "wordle",
-    desc: "guess the 5-letter word in 6 tries.",
-    controls: "type to guess · enter submit · r restart",
-  },
-  {
     id: "2048",
     name: "2048",
     desc: "slide tiles and merge to reach the 2048 tile.",
@@ -62,7 +55,6 @@ const GAME_COMPONENTS: Record<GameId, React.ComponentType<{ onClose: () => void 
   minesweeper: Minesweeper as React.ComponentType<{ onClose: () => void }>,
   typing:      TypingTest as React.ComponentType<{ onClose: () => void }>,
   flappy:      FlappyBird as React.ComponentType<{ onClose: () => void }>,
-  wordle:      Wordle as React.ComponentType<{ onClose: () => void }>,
   "2048":      Game2048 as React.ComponentType<{ onClose: () => void }>,
   pong:        BotPong as React.ComponentType<{ onClose: () => void }>,
 };

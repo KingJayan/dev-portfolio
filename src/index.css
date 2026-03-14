@@ -300,19 +300,6 @@
 }
 .card-in { animation: card-in 0.35s cubic-bezier(0.34, 1.4, 0.64, 1) both; }
 
-/* wordle tile flip on submit */
-@keyframes tile-flip {
-  0%   { transform: scaleY(1); }
-  45%  { transform: scaleY(0); }
-  55%  { transform: scaleY(0); }
-  100% { transform: scaleY(1); }
-}
-.tile-flip-0 { animation: tile-flip 0.32s ease-in-out 0ms   both; }
-.tile-flip-1 { animation: tile-flip 0.32s ease-in-out 70ms  both; }
-.tile-flip-2 { animation: tile-flip 0.32s ease-in-out 140ms both; }
-.tile-flip-3 { animation: tile-flip 0.32s ease-in-out 210ms both; }
-.tile-flip-4 { animation: tile-flip 0.32s ease-in-out 280ms both; }
-
 /* minesweeper cell reveal pop */
 @keyframes cell-pop {
   from { opacity: 0; transform: scale(0.5); }
