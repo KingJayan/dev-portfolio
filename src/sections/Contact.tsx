@@ -108,7 +108,7 @@ export default function Contact() {
               <label className="font-amatic text-2xl font-bold">Your Name</label>
               <Input
                 {...form.register('name')}
-                className="bg-transparent border-b-2 border-pencil border-t-0 border-x-0 rounded-none px-0 focus:border-ink shadow-none font-hand text-xl focus:ring-0"
+                variant="sketch"
                 placeholder="John Doe"
               />
               {form.formState.errors?.name && <p className="text-destructive font-hand">{form.formState.errors.name.message}</p>}
@@ -118,7 +118,7 @@ export default function Contact() {
               <label className="font-amatic text-2xl font-bold">Your Email</label>
               <Input
                 {...form.register('email')}
-                className="bg-transparent border-b-2 border-pencil border-t-0 border-x-0 rounded-none px-0 focus:border-ink shadow-none font-hand text-xl focus:ring-0"
+                variant="sketch"
                 placeholder="john@example.com"
               />
               {form.formState.errors?.email && <p className="text-destructive font-hand">{form.formState.errors.email.message}</p>}
@@ -128,7 +128,7 @@ export default function Contact() {
               <label className="font-amatic text-2xl font-bold">Message</label>
               <Textarea
                 {...form.register('message')}
-                className="bg-paper-pattern border-2 border-pencil rounded-lg p-4 font-hand text-xl focus:border-ink shadow-inner min-h-[150px]"
+                variant="sketch"
                 placeholder="Write something nice..."
               />
               {form.formState.errors?.message && <p className="text-destructive font-hand">{form.formState.errors.message.message}</p>}
@@ -136,8 +136,10 @@ export default function Contact() {
 
             <Button
               type="submit"
+              variant="paper"
+              size="lg"
               disabled={isSubmitting}
-              className="w-full py-6 text-2xl font-amatic font-bold bg-ink text-paper hover:bg-pencil hover:scale-[1.02] transition-all shadow-paper hover:shadow-paper-hover disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full text-2xl font-amatic font-bold hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </Button>
