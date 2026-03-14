@@ -74,72 +74,78 @@ export default function Navigation() {
   return (
     <>
 
-      <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-2.5">
+      <nav className="hidden md:flex fixed top-8 right-6 z-[10000] flex-col items-end space-y-2">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, delay: index * 0.03 }}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.18, delay: index * 0.02 }}
               className={`
-                relative w-52 px-4 py-2 bg-paper/90 border border-ink/35 cursor-pointer
-                font-marker text-lg transition-all rounded-l-lg flex items-center
+                relative w-52 px-4 py-2.5 bg-paper/80 border border-ink/20 backdrop-blur-sm cursor-pointer
+                font-marker text-lg transition-all rounded-xl flex items-center
                 ${activeSection === item.href.substring(1)
-                  ? 'text-ink bg-highlighter-yellow/20 shadow-[2px_2px_0px_rgba(37,34,31,0.35)]'
-                  : 'text-pencil hover:text-ink hover:bg-paper hover:border-ink/50 hover:shadow-[2px_2px_0px_rgba(37,34,31,0.25)]'}
+                  ? 'text-ink border-ink/35 bg-paper shadow-paper'
+                  : 'text-pencil hover:text-ink hover:bg-paper hover:border-ink/30 hover:shadow-sm'}
               `}
             >
               {activeSection === item.href.substring(1) && (
-                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1.5 rounded-r bg-highlighter-yellow" />
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-highlighter-yellow" />
               )}
-              <span className="w-7 text-center mr-2 opacity-50 text-sm font-sans">0{index + 1}</span>
+              <span className="w-7 text-center mr-2 opacity-40 text-xs font-sans">0{index + 1}</span>
               {item.name}
             </motion.div>
           </a>
         ))}
 
-        <div className="flex gap-2 mr-4">
+        <div className="flex gap-2 mt-2 mr-2">
 
-          <button
+          <Button
             onClick={toggleDrawingMode}
-            className={`p-2 rounded-full border border-ink/45 bg-paper/80 transition-colors group ${isDrawingMode ? 'bg-highlighter-yellow/35 border-ink/60' : 'hover:bg-highlighter-yellow/20 hover:border-ink/60'}`}
-            title={isDrawingMode ? "Stop Drawing" : "Free Draw Mode"}
-            aria-label={isDrawingMode ? "Stop Drawing" : "Enter Free Draw Mode"}
+            variant={isDrawingMode ? "iconSoftActive" : "iconSoft"}
+            size="icon"
+            className="h-10 w-10"
+            title={isDrawingMode ? "stop draw" : "draw"}
+            aria-label={isDrawingMode ? "stop draw mode" : "enable draw mode"}
           >
             <Pencil className="w-5 h-5 text-ink" />
-          </button>
+          </Button>
 
 
-          <button
+          <Button
             onClick={toggleTheme}
-            className="p-2 rounded-full border border-ink/45 bg-paper/80 hover:bg-highlighter-yellow/20 hover:border-ink/60 transition-colors group"
-            title={theme === 'dark' ? "Switch to Paper" : "Switch to Blackboard"}
-            aria-label={theme === 'dark' ? "Switch to Paper Mode" : "Switch to Blackboard Mode"}
+            variant="iconSoft"
+            size="icon"
+            className="h-10 w-10"
+            title={theme === 'dark' ? "light" : "dark"}
+            aria-label={theme === 'dark' ? "switch to light mode" : "switch to dark mode"}
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5 text-ink" />
             ) : (
               <Moon className="w-5 h-5 text-ink" />
             )}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={toggleZenMode}
-            className={`p-2 rounded-full border border-ink/45 bg-paper/80 transition-colors group ${isZenMode ? 'bg-highlighter-yellow/35 border-ink/60' : 'hover:bg-highlighter-yellow/20 hover:border-ink/60'}`}
-            title={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
-            aria-label={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
+            variant={isZenMode ? "iconSoftActive" : "iconSoft"}
+            size="icon"
+            className="h-10 w-10"
+            title={isZenMode ? "exit read" : "read"}
+            aria-label={isZenMode ? "disable read mode" : "enable read mode"}
           >
             <BookOpen className="w-5 h-5 text-ink" />
-          </button>
+          </Button>
         </div>
       </nav>
 
 
       <div className="md:hidden fixed top-4 right-4 z-50">
         <Button
-          variant="ghost"
+          variant="soft"
           size="icon"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="bg-paper border-2 border-ink shadow-paper hover:bg-muted"
+          className="h-11 w-11"
         >
           {isMenuOpen ? <X /> : <Menu />}
         </Button>
@@ -152,16 +158,20 @@ export default function Navigation() {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 z-40 bg-paper/95 backdrop-blur-sm flex items-center justify-center md:hidden"
+            className="fixed inset-0 z-40 bg-paper/96 backdrop-blur-md flex items-center justify-center md:hidden"
           >
-            <div className="flex flex-col space-y-8 text-center">
-              {navItems.map((item) => (
+            <div className="w-full max-w-sm px-5 flex flex-col gap-3">
+              {navItems.map((item, index) => (
                 <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
-                  <span
-                    className={`text-5xl font-marker cursor-pointer ${activeSection === item.href.substring(1) ? 'text-ink underline decoration-highlighter-yellow' : 'text-pencil'} hover:text-ink transition-colors`}
-                  >
-                    {item.name}
-                  </span>
+                  <div className={`
+                    w-full px-4 py-3 rounded-xl border font-marker text-2xl flex items-center gap-3
+                    ${activeSection === item.href.substring(1)
+                      ? 'bg-paper border-ink/40 text-ink shadow-paper'
+                      : 'bg-paper/75 border-ink/20 text-pencil'}
+                  `}>
+                    <span className="text-xs opacity-40 font-sans">0{index + 1}</span>
+                    <span>{item.name}</span>
+                  </div>
                 </a>
               ))}
             </div>

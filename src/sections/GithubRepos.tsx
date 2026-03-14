@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { Star, GitFork, ExternalLink } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
+import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 
 interface Repo {
@@ -62,14 +63,15 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
           </h2>
         </div>
         <div className="flex flex-wrap justify-center gap-10">
           {[...Array(6)].map((_, i) => (
-            <div
+            <Surface
+              variant="elevated"
               key={i}
-              className={`w-full md:w-[calc(50%-20px)] lg:w-[calc(33.333%-28px)] h-48 bg-paper border-2 border-ink/10 shadow-paper animate-pulse ${i % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'
+              className={`w-full md:w-[calc(50%-20px)] lg:w-[calc(33.333%-28px)] h-48 border-ink/15 animate-pulse ${i % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'
                 }`}
             />
           ))}
@@ -90,12 +92,12 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">github</ScribbleText>
           </h2>
         </div>
         <PaperCard rotate={-1} className="max-w-md mx-auto text-center">
           <p className="font-hand text-xl text-ink/70">
-            Unable to load repositories at the moment.
+            unable to load repos at the moment, please try again later.
           </p>
           <p className="font-hand text-lg text-pencil mt-2">{error}</p>
         </PaperCard>
@@ -113,10 +115,10 @@ export default function GithubRepos() {
     >
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
-          <ScribbleText color="text-highlighter-yellow">GitHub</ScribbleText>
+          <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
         </h2>
         <p className="font-hand text-xl text-pencil mt-4">
-          latest open‑source work
+          recent stuff
         </p>
       </div>
 

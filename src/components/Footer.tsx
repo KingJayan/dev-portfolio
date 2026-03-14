@@ -25,7 +25,7 @@ export default function Footer() {
           {footer.showLinks && (
             <div className="font-hand text-xl">
               <h3 className="text-2xl font-amatic font-bold mb-4 text-paper underline decoration-highlighter-pink/50">
-                Quick Links
+                quick links
               </h3>
               <ul className="space-y-2">
                 {footer.links.map((link) => (
@@ -45,7 +45,7 @@ export default function Footer() {
 
           <div>
             <h3 className="text-2xl font-amatic font-bold mb-4 text-paper underline decoration-highlighter-yellow/50">
-              Connect
+              connect
             </h3>
             <div className="flex justify-center md:justify-start space-x-6">
               {social.github && (
@@ -86,7 +86,7 @@ export default function Footer() {
         {footer.showCopyright && (
           <div className="mt-12 pt-8 border-t border-paper/20 text-center font-hand text-paper/65">
             <p>
-              © {new Date().getFullYear()} {personal.name}. Hand-coded with <span className="text-highlighter-pink">❤</span> and lots of Cheez-its.
+              © {new Date().getFullYear()} {personal.name}. hand-coded with <span className="text-highlighter-pink">❤</span> and lots of cheez-its.
             </p>
           </div>
         )}

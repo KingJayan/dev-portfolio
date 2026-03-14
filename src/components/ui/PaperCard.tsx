@@ -58,7 +58,7 @@ export default function PaperCard({
             whileHover="hover"
             variants={variants}
             viewport={{ once: true, margin: "-100px" }}
-            className={`paper-card p-6 relative group border-2 border-ink/5 overflow-hidden shadow-paper ${className}`}
+            className={`paper-card p-6 relative group border border-ink/20 overflow-hidden shadow-paper ${className}`}
         >
             {showTape && (
                 <div

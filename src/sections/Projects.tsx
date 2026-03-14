@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState } from "react";
 import { portfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
+import { Surface } from '@/components/ui/surface';
 import { Project } from "@/lib/types";
 import ScribbleText from '@/components/ScribbleText';
 
@@ -22,7 +23,7 @@ export default function Projects() {
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-yellow">
-            My Work
+            my work
           </ScribbleText>
         </h2>
       </div>
@@ -33,7 +34,8 @@ export default function Projects() {
             key={project.id}
             className="w-full md:w-[calc(50%-24px)] lg:w-[calc(33.333%-32px)]"
           >
-            <div
+            <Surface
+              variant="elevated"
               onClick={() => setSelectedProject(project)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -43,14 +45,14 @@ export default function Projects() {
               }}
               tabIndex={0}
               role="button"
-              aria-label={`View details for ${project.title}`}
+              aria-label={`open ${project.title}`}
               className={`
-                cursor-pointer bg-paper p-4 pb-8 shadow-paper transition-all duration-300 transform hover:-translate-y-1
-                border border-ink relative group h-full focus:outline-none focus:ring-4 focus:ring-ink/20
+                cursor-pointer p-4 pb-8 transition-all duration-300 transform hover:-translate-y-1
+                relative group h-full focus:outline-none focus:ring-4 focus:ring-ink/20
               `}
             >
 
-              <div className="w-full aspect-video bg-paper/60 mb-4 border-2 border-pencil/20 overflow-hidden relative">
+              <Surface variant="default" className="w-full aspect-video bg-paper/60 mb-4 border-pencil/25 overflow-hidden relative">
                 <img
                   src={`/images/projects/preview-${project.id}.png`}
                   alt={project.title}
@@ -60,9 +62,9 @@ export default function Projects() {
 
                 {/*overlay*/}
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="bg-paper px-4 py-2 font-marker border border-ink transform -rotate-3 hover:scale-110 transition-transform">View Details</span>
+                  <span className="bg-paper px-4 py-2 font-marker border border-ink transform -rotate-3 hover:scale-110 transition-transform">open</span>
                 </div>
-              </div>
+              </Surface>
 
               <h3 className="text-3xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
 
@@ -87,7 +89,7 @@ export default function Projects() {
                   <span className="text-xs font-hand pt-1">+{project.technologies.length - 3} more</span>
                 )}
               </div>
-            </div>
+            </Surface>
           </div>
         ))}
       </div>

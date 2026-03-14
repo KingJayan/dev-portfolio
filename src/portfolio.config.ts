@@ -1,7 +1,7 @@
 export const portfolioConfig = {
   personal: {
     name: "Jayan Patel",
-    title: "Full Stack Developer",
+    title: "full stack developer",
     email: "jayanp0202@gmail.com",
     phone: "+1 (618) 737-2186",
     location: "Austin, TX",
@@ -14,9 +14,9 @@ export const portfolioConfig = {
     senderEmail: "jayanp0202@gmail.com",
     autoReply: {
       enabled: true,
-      subject: "Thank you for your message!",
+      subject: "thank you for your message!",
       message:
-        "Hi! Thanks for reaching out. I'll get back to you as soon as possible, usually within 48 hours.",
+        "thanks for reaching out, I'll get back to you as soon as possible, usually within 48 hours",
     },
   },
 
@@ -51,27 +51,27 @@ export const portfolioConfig = {
   },
 
   hero: {
-    tagline: "Shaping the web, one component at a time.",
-    status: "Open to work",
+    tagline: "shaping the web, one component at a time.",
+    status: "open to work",
   },
 
   navigation: {
     showLogo: true,
     items: [
-      { name: "Home", href: "#home" },
-      { name: "Projects", href: "#projects" },
-      { name: "About", href: "#about" },
-      { name: "Extras", href: "#achievements" },
-      { name: "Life", href: "#outside" },
-      { name: "Contact", href: "#contact" },
+      { name: "home", href: "#home" },
+      { name: "projects", href: "#projects" },
+      { name: "about", href: "#about" },
+      { name: "extras", href: "#achievements" },
+      { name: "life", href: "#outside" },
+      { name: "contact", href: "#contact" },
     ],
   },
 
   about: {
     bio: [
-      "I'm a passionate solo dev who loves making creative and interactive web experiences.",
-      "To me, code isn't just logic, it's a form of expression, a way to bring ideas to life.",
-      "Currently based in Austin, TX, I'm always excited to collaborate and push the boundaries of what the web can do."
+      "i'm a passionate solo dev who loves making creative and interactive web experiences",
+      "to me, code isn't just logic, it's a form of expression, a way to bring ideas to life",
+      "currently based in austin, tx, i'm always excited to collaborate and push the boundaries of what the web can do"
     ],
     skills: [
       { name: "HTML/CSS/JS", level: 95, color: "from-blue-400 to-blue-600" },
@@ -105,14 +105,14 @@ export const portfolioConfig = {
           title: "VEX Robotics",
           organization: "VEX Robotics Team 70709X",
           date: "2023-2025",
-          description: "Texas Region 4 Champions(x2), Create Award for our division @ VEX Worlds",
+          description: "texas region 4 champions(x2), create award for our division @ VEX Worlds",
           icon: "trophy"
         },
         {
           title: "FTC Robotics",
           organization: "WWHS FTC Team #18886 AtlAtl",
           date: "2025-2026",
-          description: "Competitor, Lead Software & driver in the FiT-Central GEMS League Meets",
+          description: "competitor, lead software, pres team & driver in the FiT-Central GEMS League Meets",
           icon: "award"
         }
       ]
@@ -125,7 +125,7 @@ export const portfolioConfig = {
           title: "LD Novice Debate",
           organization: "WWHS LD Novice Debate",
           date: "2025-2026",
-          description: "Competitor in the WWHS LD Novice Debate team",
+          description: "competitor in the WWHS LD Novice Debate team",
           icon: "comments"
         }
       ]
@@ -152,7 +152,7 @@ export const portfolioConfig = {
           title: "UIL Concert & Soloist",
           organization: "University Interscholastic League",
           date: "2024-2025",
-          description: "UIL Concert, Solo & Ensemble 1st Division(2025, 2026)",
+          description: "UIL Concert & Sightreading 1st division(2024-26), Solo & Ensemble 1st Division(2025,26)",
           icon: "music"
         }
       ]
@@ -191,26 +191,26 @@ export const portfolioConfig = {
   ],
 
   outsideProgramming: {
-    title: "When I'm not coding...",
+    title: "when i'm not coding...",
     hobbies: [
       {
         name: "School Robotics",
-        description: "High school FTC competitor and former VEX Worlds 2-time qualifier.",
+        description: "high school FTC competitor and former VEX Worlds 2-time qualifier",
         image: "/images/life/robotics.png"
       },
       {
         name: "Gaming",
-        description: "Playing video games and enjoying the challenge.",
+        description: "playing video games and enjoying the fun",
         image: "/images/life/gaming.png"
       },
       {
         name: "Baking",
-        description: "Experimenting with new recipes in the kitchen.",
+        description: "trying new recipes in the kitchen",
         image: "/images/life/baking.png"
       },
       {
         name: "Debate",
-        description: "Participating in WWHS LD Novice Debate and learning new arguments.",
+        description: "participaating in debate club and learning new arguments",
         image: "/images/life/debate.png"
       }
     ]
@@ -226,18 +226,19 @@ export const portfolioConfig = {
         technologies: ["React", "TypeScript", "Tailwind", "Framer Motion", "Vercel"],
         liveUrl: "https://jayanpatel.dev",
         githubUrl: "https://github.com/KingJayan/dev-portfolio",
-        startDate: "2025-05",
-        endDate: "2026-01",
+        startDate: "05/25",
+        endDate: "01/26",
       },
       {
-        id: "task-manager",
-        title: "Task Mgmt System",
-        description: "Collaborative task tool with real-time updates and drag-and-drop organization.",
-        technologies: ["Next.js", "Socket.io", "Prisma"],
-        image: "/images/projects/task-manager.png",
-        githubUrl: "https://github.com/KingJayan/task-manager",
-        startDate: "2023-10",
-        endDate: "2023-12",
+        id: "snippet-manager",
+        title: "snips - code snippet manager",
+        description: "A tool for managing and organizing code snippets across different projects and languages, AI integrated",
+        technologies: ["Next.js", "Supabase", "Shadcn", "Shiki"],
+        liveUrl: "https://snips0.vercel.app",
+        image: "/images/projects/snippet-manager.png",
+        githubUrl: "https://github.com/KingJayan/code-snippet-library",
+        startDate: "01/26",
+        endDate: "03/26",
       },
       {
         id: "weather-app",
@@ -245,8 +246,8 @@ export const portfolioConfig = {
         description: "Mobile weather forecast application with beautiful visualizations.",
         technologies: ["React Native", "Weather API"],
         liveUrl: "https://play.google.com/store",
-        startDate: "2023-08",
-        endDate: "2023-09",
+        startDate: "08/23",
+        endDate: "09/23",
       },
     ],
   },
@@ -255,8 +256,8 @@ export const portfolioConfig = {
     showCopyright: true,
     showLinks: true,
     links: [
-      { name: "Scroll Top", href: "#home" },
-      { name: "Email Me", href: "mailto:jayanp0202@gmail.com" },
+      { name: "scroll top", href: "#home" },
+      { name: "email me", href: "mailto:jayanp0202@gmail.com" },
     ],
   },
 } as const;

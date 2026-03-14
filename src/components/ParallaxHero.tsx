@@ -39,7 +39,7 @@ export default function ParallaxHero() {
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-paper">
 
             <motion.div style={{ x: backgroundX, y: backgroundY }} className="absolute inset-0 z-0 opacity-30 pointer-events-none">
-                <div className="absolute top-[10%] left-[10%] w-64 h-64 border-4 border-dashed border-pencil/30 rounded-full animate-wiggle" />
+                <div className="absolute top-[10%] left-[10%] w-64 h-64 border-2 border-dashed border-pencil/30 rounded-full animate-wiggle" />
                 <div className="absolute bottom-[20%] right-[10%] w-96 h-96 border-2 border-highlight-pink/20 rotate-12" />
                 <div className="absolute top-[40%] right-[30%] w-32 h-32 bg-highlighter-yellow/40 rotate-45" />
                 <svg className="absolute bottom-[10%] left-[20%] w-24 h-24 text-pencil/40 -rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
@@ -82,7 +82,7 @@ export default function ParallaxHero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="text-2xl font-hand text-ink max-w-lg mx-auto bg-paper p-6 border-2 border-ink shadow-paper rotate-2 relative mt-4"
+                    className="text-2xl font-hand text-ink max-w-lg mx-auto bg-paper p-6 border border-ink/35 shadow-paper rotate-2 relative mt-4"
                 >
                     <Paperclip className="absolute -top-4 -left-4 w-8 h-8 text-pencil/70" />
                     {portfolioConfig.hero.tagline}

@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
 import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "@/hooks/use-theme";
 
 const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
@@ -20,51 +22,53 @@ import LoadingScreen from "@/components/LoadingScreen";
 import { Route, Switch } from "wouter";
 import NotFound from "@/pages/NotFound";
 
-const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">Loading amazing things...</div>;
+const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">loading...</div>;
 
-function Portfolio() {
+function Portfolio({ isZenMode }: { isZenMode: boolean }) {
   return (
     <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500">
       <section id="home" className="relative z-10">
         <ParallaxHero />
-        <div className="max-w-4xl mx-auto p-8 prose font-hand text-xl text-center pb-24">
+        {!isZenMode && (
+          <div className="max-w-4xl mx-auto p-8 prose font-hand text-xl text-center pb-24">
           <p className="rotate-1">
-            <span className="bg-highlighter-yellow/50 px-2">Scroll to explore</span>
+            <span className="bg-highlighter-yellow/50 px-2">scroll to explore</span>
           </p>
-        </div>
+          </div>
+        )}
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="projects" className="relative z-20 bg-secondary/30 min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Projects /></Suspense>
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="about" className="relative z-30 bg-paper min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><About /></Suspense>
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="achievements" className="relative z-35 bg-secondary/20 min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Achievements /></Suspense>
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
       </section>
 
-      <SectionDivider />
+      {!isZenMode && <SectionDivider />}
 
       <section id="contact" className="relative z-40 bg-secondary/30 min-h-[80vh] flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Contact /></Suspense>
@@ -72,19 +76,24 @@ function Portfolio() {
 
       <Footer />
 
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 z-50 p-3 bg-highlighter-yellow rounded-full shadow-paper border-2 border-ink hover:-translate-y-1 transition-transform group"
-        title="Back to Top"
-      >
-        <i className="fas fa-arrow-up text-ink text-xl group-hover:animate-bounce"></i>
-      </button>
+      {!isZenMode && (
+        <Button
+          variant="fab"
+          size="icon"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 z-50 h-12 w-12 transition-transform group"
+          title="back up"
+        >
+          <i className="fas fa-arrow-up text-ink text-xl group-hover:animate-bounce"></i>
+        </Button>
+      )}
     </div>
   );
 }
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const { isZenMode } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -96,15 +105,15 @@ function App() {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <div className="grain-overlay" />
-      <FreeDrawCanvas />
-      <Cursor />
-      <ScrollProgress />
+      {!isZenMode && <div className="grain-overlay" />}
+      {!isZenMode && <FreeDrawCanvas />}
+      {!isZenMode && <Cursor />}
+      {!isZenMode && <ScrollProgress />}
       <Navigation />
-      <CommandMenu />
+      {!isZenMode && <CommandMenu />}
 
       <Switch>
-        <Route path="/" component={Portfolio} />
+        <Route path="/">{() => <Portfolio isZenMode={isZenMode} />}</Route>
         {/*404*/}
         <Route component={NotFound} />
       </Switch>

@@ -38,12 +38,12 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         transition={{ delay: 0.5 }}
                         className="mt-8 text-center"
                     >
-                        <h2 className="text-4xl font-marker text-ink mb-2">Sketching...</h2>
-                        <p className="font-hand text-xl text-pencil">Sharpening the pencils and prepping the paper.</p>
+                        <h2 className="text-4xl font-marker text-ink mb-2">sketching...</h2>
+                        <p className="font-hand text-xl text-pencil">getting things ready.</p>
                     </motion.div>
 
                     {/*progress*/}
-                    <div className="mt-12 w-64 h-2 bg-paper border-2 border-ink relative overflow-hidden">
+                    <div className="mt-12 w-64 h-2 bg-paper border border-ink/35 relative overflow-hidden">
                         <motion.div
                             initial={{ x: "-100%" }}
                             animate={{ x: "0%" }}

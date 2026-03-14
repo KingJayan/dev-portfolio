@@ -10,7 +10,7 @@ const textareaVariants = cva(
       variant: {
         default: "",
         sketch:
-          "bg-paper-pattern border-2 border-pencil rounded-lg p-4 font-hand text-xl focus-visible:ring-0 focus-visible:border-ink shadow-inner min-h-[150px]",
+          "bg-paper-pattern border border-pencil/40 rounded-lg p-4 font-hand text-xl focus-visible:ring-0 focus-visible:border-ink shadow-inner min-h-[150px]",
       },
     },
     defaultVariants: {

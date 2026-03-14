@@ -25,7 +25,7 @@ export default function HandmadeTooltip({ children, content }: HandmadeTooltipPr
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
                         className="absolute z-[100] pointer-events-none"
                     >
-                        <div className="bg-highlighter-yellow/90 px-3 py-1 border-2 border-ink shadow-sm relative preserve-3d">
+                        <div className="bg-highlighter-yellow/90 px-3 py-1 border border-ink/35 shadow-sm relative preserve-3d">
                             {/*tape*/}
                             <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-4 -rotate-2 masking-tape" />
 

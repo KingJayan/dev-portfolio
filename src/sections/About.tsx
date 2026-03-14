@@ -3,6 +3,7 @@ import { portfolioConfig } from '@/portfolio.config';
 import { Star, Underline, Arrow, Spiral } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
+import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 import { Lightbulb } from 'lucide-react';
 
@@ -23,9 +24,10 @@ export default function About() {
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 50, damping: 20 }}
-          className="flex-1 paper-card p-10 bg-paper relative group w-full"
+          className="flex-1 relative group w-full"
         >
-          <div className="w-56 h-56 mx-auto mb-8 border-4 border-dashed border-ink rounded-full overflow-hidden relative bg-paper shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
+          <Surface variant="elevated" className="p-10 relative w-full">
+          <div className="w-56 h-56 mx-auto mb-8 border-2 border-dashed border-ink/60 rounded-full overflow-hidden relative bg-paper shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
             <img
               src="/images/profile.png"
               alt="Profile"
@@ -41,7 +43,7 @@ export default function About() {
           </div>
 
           <h2 className="text-6xl font-marker text-center mb-8 relative">
-            <ScribbleText color="text-highlighter-yellow">Who am I?</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">about</ScribbleText>
           </h2>
 
           <div className="font-hand text-2xl text-ink leading-relaxed space-y-6">
@@ -55,6 +57,7 @@ export default function About() {
               </p>
             ))}
           </div>
+          </Surface>
         </motion.div>
 
         <motion.div
@@ -64,12 +67,12 @@ export default function About() {
           transition={{ delay: 0.2, type: "spring", stiffness: 50 }}
           className="flex-1 space-y-12 w-full"
         >
-          <div className="paper-card p-8 bg-paper relative h-full">
+          <Surface variant="elevated" className="p-8 relative h-full">
             <Arrow className="absolute -top-10 -right-4 w-20 h-20 text-ink/10 rotate-[140deg]" />
 
-            <h3 className="text-4xl font-amatic font-bold mb-8 border-b-2 border-pencil pb-2 flex items-center gap-3">
+            <h3 className="text-4xl font-amatic font-bold mb-8 border-b border-pencil/40 pb-2 flex items-center gap-3">
               <Star className="w-8 h-8 text-highlighter-yellow" />
-              Skill Set
+              skills
             </h3>
 
             <div className="space-y-6">
@@ -79,7 +82,7 @@ export default function About() {
                     <span className="group-hover:text-ink transition-colors">{skill.name}</span>
                     <span className="text-pencil/50 text-sm font-marker">{skill.level}%</span>
                   </div>
-                  <div className="h-4 w-full border-2 border-pencil rounded-full p-0.5 overflow-hidden bg-paper/50">
+                  <div className="h-4 w-full border border-pencil/40 rounded-full p-0.5 overflow-hidden bg-paper/50">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
@@ -94,23 +97,25 @@ export default function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </Surface>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
-            className="p-6 border-4 border-dotted border-highlighter-yellow/50 bg-paper/20 backdrop-blur-sm relative overflow-hidden group shadow-sm transition-shadow"
+            className="relative overflow-hidden group transition-shadow"
           >
-            <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-yellow/25" />
-            <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
-              <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
-              Fun Fact
-            </h4>
-            <p className="font-hand text-2xl text-ink/80 leading-snug">
-              I started learning to code during the COVID-19 pandemic.
-            </p>
+            <Surface variant="muted" className="p-6 border-2 border-dotted border-highlighter-yellow/50 backdrop-blur-sm relative shadow-sm">
+              <div className="absolute top-0 left-0 w-full h-1 bg-highlighter-yellow/25" />
+              <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
+                <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
+                fun bit
+              </h4>
+              <p className="font-hand text-2xl text-ink/80 leading-snug">
+                I started learning to code during the COVID-19 pandemic.
+              </p>
+            </Surface>
           </motion.div>
         </motion.div>
       </div>
@@ -123,10 +128,10 @@ export default function About() {
         transition={{ delay: 0.4, duration: 0.6 }}
         className="w-full"
       >
-        <div className="paper-card p-10 bg-paper relative">
-          <h3 className="text-5xl font-amatic font-bold mb-10 border-b-2 border-pencil pb-4 flex items-center gap-4 text-pencil justify-center">
+        <Surface variant="elevated" className="p-10 relative">
+          <h3 className="text-5xl font-amatic font-bold mb-10 border-b border-pencil/40 pb-4 flex items-center gap-4 text-pencil justify-center">
             <Box className="w-10 h-10 text-highlighter-yellow" />
-            Toolkit & Ecosystem
+            toolkit
           </h3>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
@@ -137,9 +142,9 @@ export default function About() {
                   whileTap={{ scale: 0.95 }}
                   className="flex flex-col items-center gap-2 group cursor-default"
                 >
-                  <div className="w-12 h-12 bg-paper border-2 border-ink rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow transition-all duration-300">
+                  <Surface variant="default" className="w-12 h-12 border-ink/40 rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow transition-all duration-300">
                     <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
-                  </div>
+                  </Surface>
                 </motion.div>
               </HandmadeTooltip>
             ))}
@@ -148,7 +153,7 @@ export default function About() {
           <p className="font-hand text-sm text-pencil/40 mt-10 italic text-center">
             * Tools I use to bring ideas to life.
           </p>
-        </div>
+        </Surface>
       </motion.div>
 
     </section>

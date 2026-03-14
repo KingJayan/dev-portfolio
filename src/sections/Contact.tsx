@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Surface } from '@/components/ui/surface';
 import { Textarea } from '@/components/ui/textarea';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -67,7 +68,7 @@ export default function Contact() {
 
       toast({
         title: "Message Sent",
-        description: "Thank you for reaching out. I will respond as soon as possible.",
+        description: "Thank you for reaching out, I will respond as soon as possible.",
       });
 
       form.reset();
@@ -75,7 +76,7 @@ export default function Contact() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Something went wrong. Please try again or contact me through social links.",
+        description: "Something went wrong. Please try again or contact me through social links; " + (error as Error).message,
       });
     } finally {
       setIsSubmitting(false);
@@ -97,25 +98,25 @@ export default function Contact() {
       </motion.div>
 
       <motion.div style={{ x: cardX, y: cardY }} className="w-full max-w-2xl relative z-10">
-        <div className="paper-card p-8 md:p-12 relative">
+        <Surface variant="elevated" className="p-8 md:p-12 relative">
 
           <h2 className="text-5xl font-marker text-center mb-8">
-            <ScribbleText color="text-highlighter-yellow">Say Hello!</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">say hi</ScribbleText>
           </h2>
 
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
-              <label className="font-amatic text-2xl font-bold">Your Name</label>
+              <label className="font-amatic text-2xl font-bold">name</label>
               <Input
                 {...form.register('name')}
                 variant="sketch"
-                placeholder="John Doe"
+                placeholder="john doe"
               />
               {form.formState.errors?.name && <p className="text-destructive font-hand">{form.formState.errors.name.message}</p>}
             </div>
 
             <div className="space-y-2">
-              <label className="font-amatic text-2xl font-bold">Your Email</label>
+              <label className="font-amatic text-2xl font-bold">email</label>
               <Input
                 {...form.register('email')}
                 variant="sketch"
@@ -125,11 +126,11 @@ export default function Contact() {
             </div>
 
             <div className="space-y-2">
-              <label className="font-amatic text-2xl font-bold">Message</label>
+              <label className="font-amatic text-2xl font-bold">message</label>
               <Textarea
                 {...form.register('message')}
                 variant="sketch"
-                placeholder="Write something nice..."
+                placeholder="write something nice..."
               />
               {form.formState.errors?.message && <p className="text-destructive font-hand">{form.formState.errors.message.message}</p>}
             </div>
@@ -141,13 +142,13 @@ export default function Contact() {
               disabled={isSubmitting}
               className="w-full text-2xl font-amatic font-bold hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Sending..." : "Send Message"}
+              {isSubmitting ? "sending..." : "send"}
             </Button>
           </form>
-        </div>
+        </Surface>
 
         <div className="mt-12 text-center font-hand text-pencil">
-          <p>Or find me on social media!</p>
+          <p>or just find me elsewhere</p>
         </div>
       </motion.div>
     </motion.div>

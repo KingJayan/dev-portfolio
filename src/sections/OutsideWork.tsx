@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
 import { Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
+import { Surface } from '@/components/ui/surface';
 
 import ScribbleText from '@/components/ScribbleText';
 
@@ -68,7 +69,7 @@ export default function OutsideWork() {
                                 className="bg-paper p-4 h-full"
                             >
                                 {/*img*/}
-                                <div className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-2 border-ink relative">
+                                <Surface variant="default" className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-ink/30 relative">
                                     <img
                                         src={hobby.image}
                                         alt={hobby.name}
@@ -76,7 +77,7 @@ export default function OutsideWork() {
                                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
                                     />
                                     <div className="absolute inset-0 bg-ink/5 pointer-events-none" />
-                                </div>
+                                </Surface>
 
                                 <h3 className="text-3xl font-hand font-bold text-ink">{hobby.name}</h3>
                                 <p className="font-hand text-lg text-ink/70 mt-1 leading-tight">

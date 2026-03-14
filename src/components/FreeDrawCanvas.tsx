@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback, useState } from "react";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useTheme } from "@/hooks/use-theme";
+import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eraser, Pencil, X, Palette, Highlighter, Minus, Square, Circle, Undo2, Redo2 } from "lucide-react";
 import { useCanvasHistory } from "@/hooks/use-canvas-history";
@@ -265,52 +266,54 @@ export default function FreeDrawCanvas() {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 100, opacity: 0 }}
-                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border-2 border-ink p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto pointer-events-auto"
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border border-ink/35 p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto pointer-events-auto"
                 >
 
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
-                        <button onClick={handleUndo} className="p-2 rounded-full hover:bg-ink/5 active:scale-95 transition" title="Undo (Ctrl+Z)">
+                        <Button variant="iconSoft" size="icon" onClick={handleUndo} className="h-9 w-9 active:scale-95" title="Undo (Ctrl+Z)">
                             <Undo2 className="w-5 h-5" />
-                        </button>
-                        <button onClick={handleRedo} className="p-2 rounded-full hover:bg-ink/5 active:scale-95 transition" title="Redo (Ctrl+Y)">
+                        </Button>
+                        <Button variant="iconSoft" size="icon" onClick={handleRedo} className="h-9 w-9 active:scale-95" title="Redo (Ctrl+Y)">
                             <Redo2 className="w-5 h-5" />
-                        </button>
+                        </Button>
                     </div>
 
 
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
-                        <button onClick={() => setTool("pencil")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "pencil" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Pencil">
+                        <Button variant={tool === "pencil" ? "iconSoftActive" : "iconSoft"} size="icon" onClick={() => setTool("pencil")} className="h-9 w-9 hover:scale-110" title="Pencil">
                             <Pencil className="w-5 h-5" />
-                        </button>
-                        <button onClick={() => setTool("line")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "line" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Line">
+                        </Button>
+                        <Button variant={tool === "line" ? "iconSoftActive" : "iconSoft"} size="icon" onClick={() => setTool("line")} className="h-9 w-9 hover:scale-110" title="Line">
                             <Minus className="w-5 h-5 rotate-45" />
-                        </button>
-                        <button onClick={() => setTool("rectangle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "rectangle" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Rectangle">
+                        </Button>
+                        <Button variant={tool === "rectangle" ? "iconSoftActive" : "iconSoft"} size="icon" onClick={() => setTool("rectangle")} className="h-9 w-9 hover:scale-110" title="Rectangle">
                             <Square className="w-5 h-5" />
-                        </button>
-                        <button onClick={() => setTool("circle")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "circle" ? "bg-ink text-paper" : "hover:bg-ink/5"}`} title="Circle">
+                        </Button>
+                        <Button variant={tool === "circle" ? "iconSoftActive" : "iconSoft"} size="icon" onClick={() => setTool("circle")} className="h-9 w-9 hover:scale-110" title="Circle">
                             <Circle className="w-5 h-5" />
-                        </button>
-                        <button onClick={() => setTool("eraser")} className={`p-2 rounded-full hover:scale-110 transition ${tool === "eraser" ? "bg-highlighter-blue text-ink" : "hover:bg-ink/5"}`} title="Eraser">
+                        </Button>
+                        <Button variant={tool === "eraser" ? "iconSoftActive" : "iconSoft"} size="icon" onClick={() => setTool("eraser")} className="h-9 w-9 hover:scale-110" title="Eraser">
                             <Eraser className="w-5 h-5" />
-                        </button>
+                        </Button>
                     </div>
 
 
                     {tool !== "eraser" && (
                         <div className="flex items-center gap-2 pr-4 border-r border-ink/20">
                             {BRUSH_SIZES.map((b) => (
-                                <button
+                                <Button
                                     key={b.label}
+                                    variant="ghost"
+                                    size="icon"
                                     onClick={() => setBrushSize(b.size)}
-                                    className={`relative p-2 rounded-full transition-all ${brushSize === b.size ? "bg-ink/10 scale-110 ring-2 ring-ink/20" : "hover:bg-ink/5"}`}
+                                    className={`relative h-9 w-9 rounded-full transition-all ${brushSize === b.size ? "bg-ink/10 scale-110 ring-2 ring-ink/20" : "hover:bg-ink/5"}`}
                                     title={b.label}
                                 >
                                     <div
                                         className={`rounded-full bg-ink ${brushSize === b.size ? 'opacity-100' : 'opacity-60'}`}
                                         style={{ width: Math.min(b.size + 4, 18), height: Math.min(b.size + 4, 18) }}
                                     />
-                                </button>
+                                </Button>
                             ))}
                         </div>
                     )}
@@ -319,10 +322,12 @@ export default function FreeDrawCanvas() {
                     {tool !== "eraser" && (
                         <div className="flex items-center gap-2">
                             {COLORS.map((c) => (
-                                <button
+                                <Button
                                     key={c.id}
+                                    variant="ghost"
+                                    size="icon"
                                     onClick={() => setColor(c.id)}
-                                    className={`w-8 h-8 rounded-full border-2 transition-transform hover:scale-110 ${c.color} ${color === c.id ? "scale-110 border-ink shadow-sm ring-2 ring-offset-1 ring-ink/20" : "border-transparent opacity-80 hover:opacity-100"
+                                    className={`h-8 w-8 rounded-full border transition-transform hover:scale-110 ${c.color} ${color === c.id ? "scale-110 border-ink/45 shadow-sm ring-2 ring-offset-1 ring-ink/20" : "border-transparent opacity-80 hover:opacity-100"
                                         }`}
                                     title={c.label}
                                 />
@@ -332,9 +337,9 @@ export default function FreeDrawCanvas() {
 
 
                     <div className="pl-4 border-l border-ink/20">
-                        <button onClick={toggleDrawingMode} className="p-2 rounded-full bg-highlighter-pink/30 text-ink hover:bg-highlighter-pink/50 transition" title="Close">
+                        <Button variant="iconSoft" size="icon" onClick={toggleDrawingMode} className="h-9 w-9 bg-highlighter-pink/30 hover:bg-highlighter-pink/50" title="Close">
                             <X className="w-5 h-5" />
-                        </button>
+                        </Button>
                     </div>
                 </motion.div>
             </AnimatePresence>

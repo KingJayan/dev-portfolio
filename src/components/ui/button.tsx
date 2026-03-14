@@ -11,7 +11,15 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         paper:
-          "bg-ink text-paper border-2 border-ink shadow-paper hover:bg-pencil hover:shadow-paper-hover",
+          "bg-ink text-paper border border-ink/35 shadow-paper hover:bg-pencil hover:shadow-paper-hover",
+        soft:
+          "bg-paper/85 text-ink border border-ink/35 shadow-paper hover:bg-paper hover:border-ink/50",
+        iconSoft:
+          "rounded-full border border-ink/45 bg-paper/80 text-ink hover:bg-highlighter-yellow/20 hover:border-ink/60",
+        iconSoftActive:
+          "rounded-full border border-ink/60 bg-highlighter-yellow/35 text-ink",
+        fab:
+          "rounded-full border border-ink/35 bg-highlighter-yellow text-ink shadow-paper hover:-translate-y-1",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

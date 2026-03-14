@@ -10,7 +10,7 @@ const inputVariants = cva(
       variant: {
         default: "",
         sketch:
-          "bg-transparent border-b-2 border-pencil border-t-0 border-x-0 rounded-none px-0 shadow-none font-hand text-xl focus-visible:ring-0 focus-visible:border-ink",
+          "bg-transparent border-b border-pencil border-t-0 border-x-0 rounded-none px-0 shadow-none font-hand text-xl focus-visible:ring-0 focus-visible:border-ink",
       },
     },
     defaultVariants: {

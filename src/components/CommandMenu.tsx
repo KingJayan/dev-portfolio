@@ -1,6 +1,7 @@
 import { Command } from "cmdk";
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
 import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight } from "lucide-react";
 
@@ -10,7 +11,18 @@ export default function CommandMenu() {
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
-            if (e.key === "P" && e.shiftKey) {
+            const target = e.target as HTMLElement | null;
+            const isTypingTarget = !!target && (
+                target.tagName === "INPUT" ||
+                target.tagName === "TEXTAREA" ||
+                target.tagName === "SELECT" ||
+                target.isContentEditable ||
+                target.getAttribute("role") === "textbox"
+            );
+
+            if (isTypingTarget || e.repeat) return;
+
+            if (e.shiftKey && e.key.toLowerCase() === "p") {
                 e.preventDefault();
                 setOpen((open) => !open);
             }
@@ -35,64 +47,65 @@ export default function CommandMenu() {
     return (
         <>
 
-            <button
+            <Button
                 onClick={() => setOpen(true)}
-                className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 bg-paper border-2 border-ink shadow-paper hover:-translate-y-0.5 transition-all rounded-lg font-hand text-lg group"
+                variant="soft"
+                className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group hover:-translate-y-0.5"
             >
                 <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
-                <span className="text-ink/80 group-hover:text-ink">Menu</span>
-                <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">Shift + P</span>
-            </button>
+                <span className="text-ink/80 group-hover:text-ink">menu</span>
+                <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift + p</span>
+            </Button>
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
                 <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl">
-                    <div className="paper-card p-1 relative w-full bg-paper border-2 border-ink rounded-xl shadow-2xl overflow-hidden">
+                    <div className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-2xl overflow-hidden">
                         <Command className="w-full bg-transparent">
-                            <div className="flex items-center border-b-2 border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
+                            <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
                                 <Search className="mr-2 h-5 w-5 shrink-0 opacity-50 text-ink" />
                                 <Command.Input
                                     className="flex h-14 w-full rounded-md bg-transparent py-3 text-2xl outline-none placeholder:text-ink/30 font-hand text-ink"
-                                    placeholder="Where to next?"
+                                    placeholder="go to..."
                                     autoFocus
                                 />
                             </div>
 
                             <Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden p-2">
                                 <Command.Empty className="py-6 text-center text-sm text-ink/50 font-hand text-xl">
-                                    No results found. Try "Projects" or "About".
+                                    nothing here. try "projects" or "about".
                                 </Command.Empty>
 
-                                <Command.Group heading="Navigation" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
+                                <Command.Group heading="go" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
                                     <CommandItem onSelect={() => scrollToSection("home")}>
                                         <Home className="mr-2 h-4 w-4" />
-                                        <span>Home</span>
+                                        <span>home</span>
                                     </CommandItem>
                                     <CommandItem onSelect={() => scrollToSection("projects")}>
                                         <FileCode className="mr-2 h-4 w-4" />
-                                        <span>Projects</span>
+                                        <span>projects</span>
                                     </CommandItem>
                                     <CommandItem onSelect={() => scrollToSection("about")}>
                                         <User className="mr-2 h-4 w-4" />
-                                        <span>About Me</span>
+                                        <span>about</span>
                                     </CommandItem>
                                     <CommandItem onSelect={() => scrollToSection("achievements")}>
                                         <Trophy className="mr-2 h-4 w-4" />
-                                        <span>Achievements</span>
+                                        <span>extras</span>
                                     </CommandItem>
                                     <CommandItem onSelect={() => scrollToSection("outside")}>
                                         <Smile className="mr-2 h-4 w-4" />
-                                        <span>Life Outside Code</span>
+                                        <span>life</span>
                                     </CommandItem>
                                     <CommandItem onSelect={() => scrollToSection("contact")}>
                                         <Mail className="mr-2 h-4 w-4" />
-                                        <span>Contact</span>
+                                        <span>contact</span>
                                     </CommandItem>
                                 </Command.Group>
 
                                 <Command.Separator className="h-px bg-pencil/10 my-2" />
 
-                                <Command.Group heading="Projects" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
+                                <Command.Group heading="work" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
                                     {portfolioConfig.projects.items.map((project) => (
                                         <CommandItem
                                             key={project.id}

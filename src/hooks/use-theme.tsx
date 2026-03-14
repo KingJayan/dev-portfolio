@@ -36,11 +36,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, [isZenMode]);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   const toggleZenMode = () => {
-    setIsZenMode(!isZenMode);
+    setIsZenMode((prev) => !prev);
   };
 
   return (

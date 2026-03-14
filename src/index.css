@@ -126,7 +126,12 @@
   }
 
   .paper-card {
-    @apply bg-paper border-2 border-ink shadow-paper;
+    @apply bg-paper border shadow-paper;
+    border-color: rgba(37, 34, 31, 0.25);
+  }
+
+  .dark .paper-card {
+    border-color: rgba(232, 237, 243, 0.2);
   }
 
   /*grain texture*/
@@ -143,23 +148,68 @@
 
   .marker-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-full h-[0.4em] -z-10 bg-highlighter-yellow/60 -rotate-2 transform origin-bottom-left rounded-sm;
+    @apply absolute bottom-0 left-0 w-full -z-10 -rotate-2 transform origin-bottom-left rounded-sm;
+    height: 0.4em;
+    background-color: rgba(224, 196, 112, 0.6);
   }
 
   /* Zen Mode / Read Mode overrides */
+  .zen-mode * {
+    cursor: auto !important;
+  }
+
   .zen-mode body {
     background-image: none !important;
+    background-color: var(--color-paper) !important;
   }
+
   .zen-mode .grain-overlay {
     display: none !important;
   }
+
   .zen-mode svg[aria-hidden="true"] {
     display: none !important;
   }
+
+  .zen-mode .masking-tape {
+    display: none !important;
+  }
+
+  .zen-mode .paper-texture {
+    background-image: none !important;
+  }
+
   .zen-mode .paper-card {
     box-shadow: none !important;
     border-color: rgba(0,0,0,0.1) !important;
   }
+
+  .zen-mode section {
+    background: transparent !important;
+    min-height: auto !important;
+  }
+
+  .zen-mode .font-hand {
+    letter-spacing: 0.01em;
+  }
+
+  .zen-mode .prose,
+  .zen-mode p {
+    line-height: 1.75;
+  }
+
+  .zen-mode .animate-pulse,
+  .zen-mode .animate-wiggle,
+  .zen-mode .animate-float {
+    animation: none !important;
+  }
+
+  .zen-mode .transition-all,
+  .zen-mode .transition-colors,
+  .zen-mode .transition-transform {
+    transition: none !important;
+  }
+
   .zen-mode.dark .paper-card {
     border-color: rgba(255,255,255,0.1) !important;
   }
