@@ -97,9 +97,11 @@ export default function CommandMenu() {
                                         <CommandItem
                                             key={project.id}
                                             onSelect={() => {
-                                                const p = project as any;
-                                                if (p.liveUrl) window.open(p.liveUrl, "_blank");
-                                                else if (p.githubUrl) window.open(p.githubUrl, "_blank");
+                                                if ('liveUrl' in project && project.liveUrl) {
+                                                    window.open(project.liveUrl, "_blank");
+                                                } else if ('githubUrl' in project && project.githubUrl) {
+                                                    window.open(project.githubUrl, "_blank");
+                                                }
                                             }}
                                         >
                                             <ArrowUpRight className="mr-2 h-4 w-4 text-highlighter-pink" />

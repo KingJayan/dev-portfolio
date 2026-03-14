@@ -87,8 +87,6 @@ export const portfolioConfig = {
       { name: "Git", icon: "git" },
       { name: "npm", icon: "npm" },
       { name: "Vercel", icon: "vercel" },
-      //{ name: "AWS", icon: "aws" },
-      //{ name: "Docker", icon: "docker" },
       { name: "Firebase", icon: "firebase" },
       { name: "WordPress", icon: "wordpress" },
       { name: "Replit", icon: "replit" },

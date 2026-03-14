@@ -1,12 +1,13 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useEffect } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
-import { Underline, Arrow, Spiral, Star } from '@/components/Doodles';
+import { Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
 
 import ScribbleText from '@/components/ScribbleText';
 
 const springConfig = { stiffness: 50, damping: 30, mass: 1 };
+type Hobby = typeof portfolioConfig.outsideProgramming.hobbies[number];
 
 export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
@@ -57,7 +58,7 @@ export default function OutsideWork() {
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">
-                    {outsideProgramming.hobbies.map((hobby: any, index: number) => (
+                    {outsideProgramming.hobbies.map((hobby: Hobby, index: number) => (
                         <div key={index} className="w-full sm:w-[calc(50%-16px)] lg:w-[calc(25%-24px)] max-w-sm">
                             <PaperCard
                                 rotate={0}

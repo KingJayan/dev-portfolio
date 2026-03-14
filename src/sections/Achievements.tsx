@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
-import { Star, Spiral, Arrow, Underline } from '@/components/Doodles';
+import { Star, Spiral, Underline } from '@/components/Doodles';
 import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { createPortal } from 'react-dom';

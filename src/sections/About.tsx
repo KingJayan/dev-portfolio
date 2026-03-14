@@ -6,9 +6,12 @@ import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import ScribbleText from '@/components/ScribbleText';
 import { Lightbulb } from 'lucide-react';
 
+type AboutSkill = typeof portfolioConfig.about.skills[number];
+type AboutTool = typeof portfolioConfig.about.tools[number];
+
 export default function About() {
   const { personal, about } = portfolioConfig;
-  const { skills, tools } = about as any;
+  const { skills, tools } = about;
 
   return (
     <section id="about" className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-6xl mx-auto flex flex-col gap-16 items-start">
@@ -73,7 +76,7 @@ export default function About() {
             </h3>
 
             <div className="space-y-6">
-              {skills.map((skill: any, idx: number) => (
+              {skills.map((skill: AboutSkill, idx: number) => (
                 <div key={skill.name} className="relative group">
                   <div className="flex justify-between font-hand text-xl mb-2 items-center">
                     <span className="group-hover:text-highlighter-pink transition-colors">{skill.name}</span>
@@ -135,7 +138,7 @@ export default function About() {
           </h3>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
-            {tools && tools.map((tool: any, idx: number) => (
+            {tools.map((tool: AboutTool, idx: number) => (
               <HandmadeTooltip key={tool.name} content={tool.name}>
                 <motion.div
                   whileHover={{ scale: 1.15 }}
