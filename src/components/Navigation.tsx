@@ -74,7 +74,7 @@ export default function Navigation() {
   return (
     <>
 
-      <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-3">
+      <nav className="hidden md:flex fixed top-8 right-0 z-[10000] flex-col items-end space-y-2.5">
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div
@@ -82,13 +82,16 @@ export default function Navigation() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2, delay: index * 0.03 }}
               className={`
-                w-52 px-4 py-2 bg-paper/90 border-l-2 border-y border-ink/30 shadow-paper cursor-pointer
-                font-marker text-lg transition-colors rounded-l-lg flex items-center
+                relative w-52 px-4 py-2 bg-paper/90 border border-ink/35 cursor-pointer
+                font-marker text-lg transition-all rounded-l-lg flex items-center
                 ${activeSection === item.href.substring(1)
-                  ? 'border-l-4 border-l-highlighter-yellow text-ink'
-                  : 'text-pencil hover:text-ink hover:bg-paper'}
+                  ? 'text-ink bg-highlighter-yellow/20 shadow-[2px_2px_0px_rgba(37,34,31,0.35)]'
+                  : 'text-pencil hover:text-ink hover:bg-paper hover:border-ink/50 hover:shadow-[2px_2px_0px_rgba(37,34,31,0.25)]'}
               `}
             >
+              {activeSection === item.href.substring(1) && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1.5 rounded-r bg-highlighter-yellow" />
+              )}
               <span className="w-7 text-center mr-2 opacity-50 text-sm font-sans">0{index + 1}</span>
               {item.name}
             </motion.div>
@@ -99,7 +102,7 @@ export default function Navigation() {
 
           <button
             onClick={toggleDrawingMode}
-            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isDrawingMode ? 'bg-highlighter-yellow' : 'hover:bg-highlighter-yellow'}`}
+            className={`p-2 rounded-full border border-ink/45 bg-paper/80 transition-colors group ${isDrawingMode ? 'bg-highlighter-yellow/35 border-ink/60' : 'hover:bg-highlighter-yellow/20 hover:border-ink/60'}`}
             title={isDrawingMode ? "Stop Drawing" : "Free Draw Mode"}
             aria-label={isDrawingMode ? "Stop Drawing" : "Enter Free Draw Mode"}
           >
@@ -109,19 +112,19 @@ export default function Navigation() {
 
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full border-2 border-ink hover:bg-highlighter-yellow transition-colors group"
+            className="p-2 rounded-full border border-ink/45 bg-paper/80 hover:bg-highlighter-yellow/20 hover:border-ink/60 transition-colors group"
             title={theme === 'dark' ? "Switch to Paper" : "Switch to Blackboard"}
             aria-label={theme === 'dark' ? "Switch to Paper Mode" : "Switch to Blackboard Mode"}
           >
             {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-paper group-hover:text-ink" />
+              <Sun className="w-5 h-5 text-ink" />
             ) : (
               <Moon className="w-5 h-5 text-ink" />
             )}
           </button>
           <button
             onClick={toggleZenMode}
-            className={`p-2 rounded-full border-2 border-ink transition-colors group ${isZenMode ? 'bg-highlighter-yellow' : 'hover:bg-highlighter-yellow'}`}
+            className={`p-2 rounded-full border border-ink/45 bg-paper/80 transition-colors group ${isZenMode ? 'bg-highlighter-yellow/35 border-ink/60' : 'hover:bg-highlighter-yellow/20 hover:border-ink/60'}`}
             title={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
             aria-label={isZenMode ? "Disable Read Mode" : "Enable Read Mode"}
           >
