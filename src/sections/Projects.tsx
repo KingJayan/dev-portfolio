@@ -4,6 +4,7 @@ import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
+import { Spiral, Star } from '@/components/Doodles';
 
 type ProjectItem = PortfolioConfig["projects"]["items"][number];
 
@@ -21,6 +22,11 @@ export default function Projects() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
     >
+      <div className="absolute inset-0 pointer-events-none opacity-[0.15]">
+        <Spiral className="absolute -top-8 right-4 w-24 h-24 text-pencil/35" />
+        <Star className="absolute top-32 left-2 w-10 h-10 text-highlighter-pink/70" />
+      </div>
+
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-yellow">
@@ -63,7 +69,7 @@ export default function Projects() {
 
                 {/*overlay*/}
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <span className="bg-paper px-4 py-2 font-marker border border-ink transform -rotate-3 hover:scale-110 transition-transform">open</span>
+                  <span className="bg-paper px-4 py-2 font-marker border border-pencil/40 rounded-md transform -rotate-2 hover:scale-110 transition-transform">open</span>
                 </div>
               </Surface>
 

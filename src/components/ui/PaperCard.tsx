@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { ReactNode } from 'react';
+import { MOTION_EASE, MOTION_SPRING } from '@/lib/motion';
 
 interface PaperCardProps {
     children: ReactNode;
@@ -33,19 +34,17 @@ export default function PaperCard({
             transition: {
                 delay,
                 type: "spring",
-                stiffness: 260,
-                damping: 25
+                ...MOTION_SPRING.subtle
             }
         },
         hover: {
             scale: hoverScale,
-            rotate: rotate > 0 ? rotate - 1 : rotate + 1,
-            y: -8,
-            boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+            rotate: rotate > 0 ? rotate - 0.5 : rotate + 0.5,
+            y: -5,
+            boxShadow: "0 12px 20px -8px rgba(0, 0, 0, 0.14), 0 6px 10px -8px rgba(0, 0, 0, 0.1)",
             transition: {
                 type: "spring",
-                stiffness: 400,
-                damping: 25,
+                ...MOTION_SPRING.snappy,
                 delay: 0
             }
         }
@@ -57,8 +56,16 @@ export default function PaperCard({
             whileInView="visible"
             whileHover="hover"
             variants={variants}
+            animate={{ rotate: [rotate, rotate + 0.2, rotate] }}
+            transition={{
+                rotate: {
+                    duration: 7,
+                    repeat: Infinity,
+                    ease: MOTION_EASE.smooth
+                }
+            }}
             viewport={{ once: true, margin: "-100px" }}
-            className={`paper-card p-6 relative group border border-ink/20 overflow-hidden shadow-paper ${className}`}
+            className={`paper-card p-6 relative group border border-pencil/35 rounded-xl overflow-hidden shadow-paper ${className}`}
         >
             {showTape && (
                 <div

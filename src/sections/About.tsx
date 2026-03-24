@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
-import { Star } from '@/components/Doodles';
+import { Star, Spiral } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
@@ -15,7 +15,11 @@ export default function About() {
   const { skills, tools } = about;
 
   return (
-    <section id="about" className="min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
+    <section id="about" className="relative min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
+      <div className="absolute inset-0 pointer-events-none opacity-[0.15]">
+        <Spiral className="absolute top-16 left-8 w-28 h-28 text-pencil/30" />
+        <Star className="absolute bottom-24 right-10 w-10 h-10 text-highlighter-yellow/80" />
+      </div>
 
       {/*bio + skills*/}
       <div className="flex flex-col lg:flex-row gap-16 items-start w-full">
@@ -104,7 +108,7 @@ export default function About() {
             transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
             className="relative overflow-hidden group transition-shadow"
           >
-            <Surface variant="muted" className="p-6 border-2 border-dotted border-highlighter-yellow/50 relative shadow-sm">
+            <Surface variant="muted" className="p-6 border border-dotted border-highlighter-yellow/45 relative shadow-sm">
               <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
                 <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
                 fun bit

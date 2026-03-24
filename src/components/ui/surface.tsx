@@ -6,10 +6,10 @@ import { cn } from "@/lib/utils"
 const surfaceVariants = cva("text-ink", {
   variants: {
     variant: {
-      default: "bg-paper border border-ink/20 rounded-lg",
-      elevated: "bg-paper border border-ink/25 rounded-lg shadow-paper",
-      muted: "bg-secondary/20 border border-ink/15 rounded-lg",
-      modal: "bg-paper paper-texture border border-ink/15 rounded-sm shadow-2xl",
+      default: "bg-paper border border-pencil/30 rounded-xl paper-texture",
+      elevated: "bg-paper border border-pencil/35 rounded-xl paper-texture shadow-paper",
+      muted: "bg-secondary/15 border border-pencil/25 rounded-xl paper-texture",
+      modal: "bg-paper paper-texture border border-pencil/30 rounded-lg shadow-2xl",
     },
   },
   defaultVariants: {
