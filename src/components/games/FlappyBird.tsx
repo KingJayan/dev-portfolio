@@ -14,7 +14,7 @@ type Pipe = { x: number; top: number };
 
 export default function FlappyBird({ onClose }: { onClose: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { isTerminalMode, theme } = useTheme();
+  const { theme } = useTheme();
   const [score, setScore] = useState(0);
   const [dead, setDead] = useState(false);
 
@@ -84,15 +84,7 @@ export default function FlappyBird({ onClose }: { onClose: () => void }) {
     if (!ctx) return;
 
     const dark = theme === "dark";
-    const col = isTerminalMode ? {
-      bg:     "#0d1117",
-      bird:   "#39ff14",
-      pipe:   "#00cc00",
-      floor:  "#1a2e1a",
-      text:   "#39ff14",
-      overlay:"rgba(13,17,23,0.85)",
-      font:   "'Courier New', monospace",
-    } : {
+    const col = {
       bg:     dark ? "#15181d" : "#f6f3ec",
       bird:   dark ? "#e8edf3" : "#25221f",
       pipe:   dark ? "#5a6477" : "#8b7355",
@@ -213,15 +205,14 @@ export default function FlappyBird({ onClose }: { onClose: () => void }) {
 
     rafId.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafId.current);
-  }, [isTerminalMode, theme]);
+  }, [theme]);
 
-  const terminal = isTerminalMode;
   return (
     <div className="game-overlay fixed inset-0 z-[9500]" onClick={flap}>
       <canvas ref={canvasRef} className="block w-full h-full" />
       <button
         onClick={(e) => { e.stopPropagation(); onClose(); }}
-        className={`absolute top-3 right-5 text-2xl leading-none ${terminal ? "font-mono text-[#39ff14] opacity-70 hover:opacity-100" : "font-hand text-ink/40 hover:text-ink"}`}
+        className="absolute top-3 right-5 text-2xl leading-none font-hand text-ink/40 hover:text-ink"
       >×</button>
     </div>
   );

@@ -13,7 +13,7 @@ function rndFood(cols: number, rows: number): Pt {
 
 export default function Snake({ onClose }: { onClose: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { isTerminalMode, theme } = useTheme();
+  const { theme } = useTheme();
 
   const snakeRef   = useRef<Pt[]>([]);
   const dirRef     = useRef<Dir>({ x: 1, y: 0 });
@@ -81,16 +81,7 @@ export default function Snake({ onClose }: { onClose: () => void }) {
     if (!ctx) return;
 
     const dark = theme === "dark";
-    const col = isTerminalMode ? {
-      bg:      "#0d1117",
-      grid:    "rgba(57,255,20,0.05)",
-      snake:   "#39ff14",
-      tail:    "#39ff1499",
-      food:    "#00ff99",
-      text:    "#39ff14",
-      overlay: "rgba(13,17,23,0.88)",
-      font:    "'Courier New', monospace",
-    } : {
+    const col = {
       bg:      dark ? "#15181d" : "#f6f3ec",
       grid:    dark ? "rgba(232,237,243,0.05)" : "rgba(37,34,31,0.05)",
       snake:   dark ? "#e8edf3" : "#25221f",
@@ -164,16 +155,15 @@ export default function Snake({ onClose }: { onClose: () => void }) {
 
     const id = setInterval(tick, TICK);
     return () => clearInterval(id);
-  }, [isTerminalMode, theme]);
+  }, [theme]);
 
-  const terminal = isTerminalMode;
   return (
     <div className="game-overlay fixed inset-0 z-[9500]">
       <canvas ref={canvasRef} className="block w-full h-full" />
-      <div className={`absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1 select-none pointer-events-none ${terminal ? "font-mono text-sm text-[#39ff14]" : "font-hand text-base text-ink/50"}`}>
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1 select-none pointer-events-none font-hand text-base text-ink/50">
         score: {score} · esc to exit
       </div>
-      <button onClick={onClose} className={`absolute top-3 right-5 text-2xl leading-none ${terminal ? "font-mono text-[#39ff14] opacity-70 hover:opacity-100" : "font-hand text-ink/40 hover:text-ink"}`}>×</button>
+      <button onClick={onClose} className="absolute top-3 right-5 text-2xl leading-none font-hand text-ink/40 hover:text-ink">×</button>
     </div>
   );
 }

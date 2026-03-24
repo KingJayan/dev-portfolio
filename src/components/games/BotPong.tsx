@@ -71,7 +71,7 @@ function reflectBall(
 
 export default function BotPong({ onClose }: { onClose: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { isTerminalMode, theme } = useTheme();
+  const { theme } = useTheme();
   const stateRef  = useRef<State>(initState());
   const keysRef   = useRef<Set<string>>(new Set());
   const mouseYRef = useRef<number | null>(null);
@@ -125,16 +125,7 @@ export default function BotPong({ onClose }: { onClose: () => void }) {
     canvas.height = H;
 
     const dark = theme === "dark";
-    const col = isTerminalMode ? {
-      bg:      "#0d1117",
-      pad:     "#39ff14",
-      ball:    "#00ff99",
-      trail:   "#00ff99",
-      text:    "#39ff14",
-      divider: "rgba(57,255,20,0.2)",
-      overlay: "rgba(13,17,23,0.85)",
-      font:    "'Courier New', monospace",
-    } : {
+    const col = {
       bg:      dark ? "#15181d" : "#f6f3ec",
       pad:     dark ? "#e8edf3" : "#25221f",
       ball:    "#bd8da2",
@@ -281,9 +272,8 @@ export default function BotPong({ onClose }: { onClose: () => void }) {
 
     rafId.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(rafId.current);
-  }, [isTerminalMode, theme]);
+  }, [theme]);
 
-  const terminal = isTerminalMode;
   return (
     <div className="game-overlay fixed inset-0 z-[9500] bg-paper flex flex-col items-center justify-center">
       <canvas
@@ -291,12 +281,12 @@ export default function BotPong({ onClose }: { onClose: () => void }) {
         className="rounded-xl border border-pencil/20 shadow-paper"
         style={{ maxWidth: "min(800px, 100vw - 32px)", maxHeight: "min(500px, 100vh - 80px)", aspectRatio: "8/5", width: "100%", height: "auto" }}
       />
-      <p className={`mt-3 text-xs select-none pointer-events-none ${terminal ? "font-mono text-[#39ff14]/60" : "font-hand text-pencil/40"}`}>
+      <p className="mt-3 text-xs select-none pointer-events-none font-hand text-pencil/40">
         mouse or w/s to move · first to {WIN_SCORE} wins
       </p>
       <button
         onClick={onClose}
-        className={`absolute top-4 right-6 text-2xl leading-none ${terminal ? "font-mono text-[#39ff14] opacity-70 hover:opacity-100" : "font-hand text-ink/40 hover:text-ink"}`}
+        className="absolute top-4 right-6 text-2xl leading-none font-hand text-ink/40 hover:text-ink"
       >×</button>
     </div>
   );

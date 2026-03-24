@@ -229,42 +229,6 @@
     border-color: hsla(0, 0%, 100%, 0.1) !important;
   }
 
-  /* Terminal Mode easter egg */
-  .terminal-mode {
-    --color-paper: #0d1117;
-    --color-ink: #39ff14;
-    --color-pencil: #00cc00;
-    --color-pencil-light: #009900;
-    --color-highlight-yellow: hsla(111, 100%, 54%, 0.15);
-    --color-highlight-pink:   hsla(111, 100%, 54%, 0.1);
-  }
-
-  .terminal-mode body {
-    background-image: none !important;
-    background-color: var(--color-paper) !important;
-    font-family: 'Courier New', Courier, monospace !important;
-  }
-
-  .terminal-mode .grain-overlay,
-  .terminal-mode .masking-tape,
-  .terminal-mode svg[aria-hidden="true"] {
-    display: none !important;
-  }
-
-  .terminal-mode * {
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    font-family: 'Courier New', Courier, monospace !important;
-  }
-
-  .terminal-mode .paper-card {
-    border-color: hsla(111, 100%, 54%, 0.3) !important;
-    background: hsla(215, 28%, 7%, 0.95) !important;
-  }
-
-  .terminal-mode section {
-    background: transparent !important;
-  }
 }
 
 /* ── Accessibility ── */
@@ -305,16 +269,3 @@
 }
 .cell-pop { animation: cell-pop 0.15s cubic-bezier(0.34, 1.5, 0.64, 1) both; }
 
-/* glitch-flash easter egg */
-.glitch-flash {
-  animation: glitch 0.6s steps(1) forwards;
-}
-
-@keyframes glitch {
-  0%   { filter: invert(1) hue-rotate(90deg); }
-  20%  { filter: invert(0); }
-  40%  { filter: invert(1) hue-rotate(180deg); }
-  60%  { filter: invert(0); }
-  80%  { filter: invert(1) hue-rotate(270deg); }
-  100% { filter: none; }
-}

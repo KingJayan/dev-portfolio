@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
-import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight, Terminal } from "lucide-react";
+import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight, Sun, Moon, BookOpen, Pencil, Copy, Github, Linkedin } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
+import { useDrawing } from "@/contexts/DrawingContext";
+import { toast } from "@/hooks/use-toast";
 
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
-    const { isTerminalMode, toggleTerminalMode } = useTheme();
+    const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
+    const { isDrawingMode, toggleDrawingMode } = useDrawing();
 
 
     useEffect(() => {
@@ -43,6 +46,17 @@ export default function CommandMenu() {
         runCommand(() => {
             const el = document.getElementById(id);
             if (el) el.scrollIntoView({ behavior: 'smooth' });
+        });
+    };
+
+    const copyEmail = async () => {
+        runCommand(async () => {
+            try {
+                await navigator.clipboard.writeText(portfolioConfig.personal.email);
+                toast({ description: "email copied" });
+            } catch {
+                toast({ description: "could not copy email" });
+            }
         });
     };
 
@@ -129,10 +143,31 @@ export default function CommandMenu() {
                                 <Command.Separator className="h-px bg-pencil/10 my-2" />
 
                                 <Command.Group heading="tools" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
-                                    <CommandItem onSelect={() => runCommand(toggleTerminalMode)}>
-                                        <Terminal className="mr-2 h-4 w-4" />
-                                        <span>terminal mode</span>
-                                        <span className="ml-auto text-xs text-ink/40 font-sans">{isTerminalMode ? "on" : "off"}</span>
+                                    <CommandItem onSelect={() => runCommand(toggleTheme)}>
+                                        {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
+                                        <span>{theme === "dark" ? "switch to light" : "switch to dark"}</span>
+                                    </CommandItem>
+                                    <CommandItem onSelect={() => runCommand(toggleZenMode)}>
+                                        <BookOpen className="mr-2 h-4 w-4" />
+                                        <span>{isZenMode ? "disable zen mode" : "enable zen mode"}</span>
+                                        <span className="ml-auto text-xs text-ink/40 font-sans">{isZenMode ? "on" : "off"}</span>
+                                    </CommandItem>
+                                    <CommandItem onSelect={() => runCommand(toggleDrawingMode)}>
+                                        <Pencil className="mr-2 h-4 w-4" />
+                                        <span>{isDrawingMode ? "disable draw mode" : "enable draw mode"}</span>
+                                        <span className="ml-auto text-xs text-ink/40 font-sans">{isDrawingMode ? "on" : "off"}</span>
+                                    </CommandItem>
+                                    <CommandItem onSelect={copyEmail}>
+                                        <Copy className="mr-2 h-4 w-4" />
+                                        <span>copy email</span>
+                                    </CommandItem>
+                                    <CommandItem onSelect={() => runCommand(() => window.open(portfolioConfig.social.github, "_blank"))}>
+                                        <Github className="mr-2 h-4 w-4" />
+                                        <span>open github</span>
+                                    </CommandItem>
+                                    <CommandItem onSelect={() => runCommand(() => window.open(portfolioConfig.social.linkedin, "_blank"))}>
+                                        <Linkedin className="mr-2 h-4 w-4" />
+                                        <span>open linkedin</span>
                                     </CommandItem>
                                 </Command.Group>
                             </Command.List>

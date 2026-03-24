@@ -1,5 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
-import { useEffect, useState, lazy, Suspense, useCallback } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
@@ -8,8 +8,6 @@ import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
-import { useKonami } from "@/hooks/use-konami";
-import { toast } from "@/hooks/use-toast";
 
 const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
@@ -87,7 +85,7 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { isZenMode, isTerminalMode, toggleTerminalMode } = useTheme();
+  const { isZenMode } = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -96,34 +94,11 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement | null;
-      const isTypingTarget = !!target && (
-        target.tagName === "INPUT" ||
-        target.tagName === "TEXTAREA" ||
-        target.isContentEditable
-      );
-      if (isTypingTarget || e.repeat) return;
-      if (e.ctrlKey && e.key === '`') { e.preventDefault(); toggleTerminalMode(); }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, [toggleTerminalMode]);
-
-  const triggerGlitch = useCallback(() => {
-    document.documentElement.classList.add("glitch-flash");
-    toast({ description: "you found it :)" });
-    setTimeout(() => document.documentElement.classList.remove("glitch-flash"), 600);
-  }, []);
-
-  useKonami(triggerGlitch);
-
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
       {!isZenMode && <div className="grain-overlay" />}
-      {!isZenMode && !isTerminalMode && <FreeDrawCanvas />}
+      {!isZenMode && <FreeDrawCanvas />}
       {!isZenMode && <ScrollProgress />}
       <Navigation />
       {!isZenMode && <CommandMenu />}
