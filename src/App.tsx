@@ -4,14 +4,12 @@ import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
 import Footer from "@/components/Footer";
-import Cursor from "@/components/Cursor";
 import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
 import { useKonami } from "@/hooks/use-konami";
 import { toast } from "@/hooks/use-toast";
-import { useLocation } from "wouter";
 
 const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
@@ -19,7 +17,6 @@ const About = lazy(() => import("@/sections/About"));
 const Achievements = lazy(() => import("@/sections/Achievements"));
 const OutsideWork = lazy(() => import("@/sections/OutsideWork"));
 const Contact = lazy(() => import("@/sections/Contact"));
-const Arcade = lazy(() => import("@/pages/Arcade"));
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 
@@ -33,18 +30,11 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
     <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500">
       <section id="home" className="relative z-10">
         <ParallaxHero />
-        {!isZenMode && (
-          <div className="max-w-4xl mx-auto p-8 prose font-hand text-xl text-center pb-24">
-          <p className="rotate-1">
-            <span className="bg-highlighter-yellow/50 px-2">scroll to explore</span>
-          </p>
-          </div>
-        )}
       </section>
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="projects" className="relative z-20 bg-secondary/30 min-h-screen flex flex-col justify-center">
+      <section id="projects" className="relative z-20 bg-paper min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Projects /></Suspense>
       </section>
 
@@ -62,7 +52,7 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="achievements" className="relative z-35 bg-secondary/20 min-h-screen flex flex-col justify-center">
+      <section id="achievements" className="relative z-35 bg-paper min-h-screen flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Achievements /></Suspense>
       </section>
 
@@ -74,7 +64,7 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="contact" className="relative z-40 bg-secondary/30 min-h-[80vh] flex flex-col justify-center">
+      <section id="contact" className="relative z-40 bg-paper min-h-[80vh] flex flex-col justify-center">
         <Suspense fallback={<Fallback />}><Contact /></Suspense>
       </section>
 
@@ -97,7 +87,6 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [, setLocation] = useLocation();
   const { isZenMode, isTerminalMode, toggleTerminalMode } = useTheme();
 
   useEffect(() => {
@@ -117,11 +106,10 @@ function App() {
       );
       if (isTypingTarget || e.repeat) return;
       if (e.ctrlKey && e.key === '`') { e.preventDefault(); toggleTerminalMode(); }
-      if (e.ctrlKey && e.key === 'g') { e.preventDefault(); setLocation('/arcade'); }
     };
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [toggleTerminalMode, setLocation]);
+  }, [toggleTerminalMode]);
 
   const triggerGlitch = useCallback(() => {
     document.documentElement.classList.add("glitch-flash");
@@ -136,14 +124,12 @@ function App() {
       <LoadingScreen isLoading={isLoading} />
       {!isZenMode && <div className="grain-overlay" />}
       {!isZenMode && !isTerminalMode && <FreeDrawCanvas />}
-      {!isZenMode && !isTerminalMode && <Cursor />}
       {!isZenMode && <ScrollProgress />}
       <Navigation />
       {!isZenMode && <CommandMenu />}
 
       <Switch>
         <Route path="/">{() => <Portfolio isZenMode={isZenMode} />}</Route>
-        <Route path="/arcade">{() => <Suspense fallback={<Fallback />}><Arcade /></Suspense>}</Route>
         {/*404*/}
         <Route component={NotFound} />
       </Switch>

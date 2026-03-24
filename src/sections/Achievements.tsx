@@ -1,5 +1,5 @@
-import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
 import { Spiral, Underline } from '@/components/Doodles';
 import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
@@ -16,29 +16,9 @@ const icons = {
 
 import ScribbleText from '@/components/ScribbleText';
 
-const springConfig = { stiffness: 50, damping: 30, mass: 1 };
-
 export default function Achievements() {
     const { achievements } = portfolioConfig;
     const [isFolioOpen, setIsFolioOpen] = useState(false);
-
-    const rawX = useMotionValue(0);
-    const rawY = useMotionValue(0);
-    const mouseX = useSpring(rawX, springConfig);
-    const mouseY = useSpring(rawY, springConfig);
-
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const { innerWidth, innerHeight } = window;
-            rawX.set((event.clientX / innerWidth) * 2 - 1);
-            rawY.set((event.clientY / innerHeight) * 2 - 1);
-        };
-        window.addEventListener("mousemove", handleMouseMove, { passive: true });
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
-
-    const backX = useTransform(mouseX, [-1, 1], ["5%", "-5%"]);
-    const backY = useTransform(mouseY, [-1, 1], ["5%", "-5%"]);
 
     return (
         <motion.section
@@ -50,10 +30,10 @@ export default function Achievements() {
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden flex flex-col items-center justify-center min-h-[60vh]"
         >
 
-            {/*parallax*/}
-            <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-25 z-0">
+            {/*subtle doodle accent*/}
+            <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
                 <Spiral className="absolute top-[10%] left-[5%] w-48 h-48 text-pencil/30" />
-            </motion.div>
+            </div>
 
             <div className="relative z-10 w-full max-w-2xl mx-auto text-center">
                 <div className="flex flex-col items-center mb-8">

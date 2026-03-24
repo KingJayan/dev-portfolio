@@ -3,14 +3,12 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
-import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight, Terminal, Gamepad2 } from "lucide-react";
+import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight, Terminal } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
-import { useLocation } from "wouter";
 
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
     const { isTerminalMode, toggleTerminalMode } = useTheme();
-    const [, setLocation] = useLocation();
 
 
     useEffect(() => {
@@ -130,15 +128,11 @@ export default function CommandMenu() {
 
                                 <Command.Separator className="h-px bg-pencil/10 my-2" />
 
-                                <Command.Group heading="secret" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
+                                <Command.Group heading="tools" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
                                     <CommandItem onSelect={() => runCommand(toggleTerminalMode)}>
                                         <Terminal className="mr-2 h-4 w-4" />
                                         <span>terminal mode</span>
                                         <span className="ml-auto text-xs text-ink/40 font-sans">{isTerminalMode ? "on" : "off"}</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => runCommand(() => setLocation("/arcade"))}>
-                                        <Gamepad2 className="mr-2 h-4 w-4" />
-                                        <span>arcade</span>
                                     </CommandItem>
                                 </Command.Group>
                             </Command.List>

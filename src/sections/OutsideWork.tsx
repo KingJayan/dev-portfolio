@@ -1,5 +1,4 @@
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
 import { Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
@@ -7,29 +6,10 @@ import { Surface } from '@/components/ui/surface';
 
 import ScribbleText from '@/components/ScribbleText';
 
-const springConfig = { stiffness: 50, damping: 30, mass: 1 };
 type Hobby = typeof portfolioConfig.outsideProgramming.hobbies[number];
 
 export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
-
-    const rawX = useMotionValue(0);
-    const rawY = useMotionValue(0);
-    const mouseX = useSpring(rawX, springConfig);
-    const mouseY = useSpring(rawY, springConfig);
-
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const { innerWidth, innerHeight } = window;
-            rawX.set((event.clientX / innerWidth) * 2 - 1);
-            rawY.set((event.clientY / innerHeight) * 2 - 1);
-        };
-        window.addEventListener("mousemove", handleMouseMove, { passive: true });
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
-
-    const backX = useTransform(mouseX, [-1, 1], ["3%", "-3%"]);
-    const backY = useTransform(mouseY, [-1, 1], ["3%", "-3%"]);
 
     return (
         <motion.section
@@ -40,12 +20,11 @@ export default function OutsideWork() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden"
         >
-            {/*doodles*/}
-            <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-20 z-0">
+            {/*doodle accent*/}
+            <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
                 <Spiral className="absolute top-10 right-20 w-48 h-48 text-pencil/30" />
-                <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink" />
-                <Arrow className="absolute top-1/2 left-1/4 w-32 h-16 text-ink/10 -rotate-12" />
-            </motion.div>
+                <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink/70" />
+            </div>
 
             <div className="relative z-10 w-full">
                 <div className="flex flex-col items-center mb-16">

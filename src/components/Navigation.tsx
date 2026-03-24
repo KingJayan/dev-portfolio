@@ -131,8 +131,8 @@ export default function Navigation() {
             variant={isZenMode ? "iconSoftActive" : "iconSoft"}
             size="icon"
             className="h-10 w-10"
-            title={isZenMode ? "exit read" : "read"}
-            aria-label={isZenMode ? "disable read mode" : "enable read mode"}
+            title={isZenMode ? "exit zen mode" : "zen mode"}
+            aria-label={isZenMode ? "disable zen mode" : "enable zen mode"}
           >
             <BookOpen className="w-5 h-5 text-ink" />
           </Button>

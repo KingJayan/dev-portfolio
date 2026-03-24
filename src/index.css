@@ -13,7 +13,7 @@
     --color-highlight-pink:   hsla(334, 27%, 65%, 0.3);
     --color-highlight-blue:   hsla(206, 23%, 59%, 0.27);
 
-    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   }
 
   .dark {
@@ -25,14 +25,13 @@
     --color-highlight-yellow: hsla(45, 59%, 61%, 0.22);
     --color-highlight-pink:   hsla(328, 20%, 60%, 0.2);
     --color-highlight-blue:   hsla(207, 28%, 57%, 0.2);
-    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15' fill='white'/%3E%3C/svg%3E");
+    --bg-texture: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08' fill='white'/%3E%3C/svg%3E");
   }
 }
 
 @layer base {
   * {
     @apply border-ink;
-    cursor: none !important;
   }
 
   html {
@@ -46,7 +45,6 @@
   body {
     @apply bg-paper text-ink font-hand antialiased transition-colors duration-500;
     background-image: var(--bg-texture);
-    cursor: none !important;
 
     /*hide scrollbar*/
     &::-webkit-scrollbar {
@@ -153,7 +151,7 @@
 
   /*grain texture*/
   .grain-overlay {
-    @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.06] mix-blend-multiply;
+    @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] mix-blend-multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     background-size: 150px 150px;
   }
