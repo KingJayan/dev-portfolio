@@ -87,7 +87,7 @@ export default function CommandMenu() {
                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-2xl overflow-hidden"
+                        className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-paper-hover overflow-hidden"
                     >
                         <Command className="w-full bg-transparent">
                             <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">

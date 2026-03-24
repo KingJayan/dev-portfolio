@@ -166,7 +166,7 @@ export default function GithubRepos() {
               rotate={index % 2 === 0 ? -0.4 : 0.4}
               delay={index * 0.1}
               showTape={false}
-              className="h-full cursor-pointer border border-pencil/35 rounded-xl paper-texture shadow-[0_10px_26px_-18px_rgba(32,26,22,0.45)] hover:shadow-[0_18px_30px_-20px_rgba(32,26,22,0.5)]"
+              className="h-full cursor-pointer border border-pencil/35 rounded-xl paper-texture shadow-paper hover:shadow-paper-hover"
             >
               <div className={`relative mb-4 overflow-hidden rounded-lg border border-pencil/25 bg-gradient-to-br ${repoGradient(repo.language)} h-14 px-3 py-2 flex items-center justify-between`}>
                 <div className="absolute inset-0 opacity-25" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(0,0,0,0.12) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />

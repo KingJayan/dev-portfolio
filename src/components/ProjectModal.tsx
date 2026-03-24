@@ -32,7 +32,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         exit={{ scale: 0.96, rotate: 0.6, y: 24 }}
                         transition={{ type: "spring", ...MOTION_SPRING.subtle }}
                         onClick={(e) => e.stopPropagation()}
-                        className="bg-paper w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl relative border border-ink/15 paper-texture"
+                        className="bg-paper w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-paper-hover relative border border-ink/15 paper-texture"
                     >
 
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-1 masking-tape z-20" />

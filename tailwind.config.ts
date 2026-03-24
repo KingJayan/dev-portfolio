@@ -65,8 +65,8 @@ export default {
         "paper-pattern": "url(\"data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E\")",
       },
       boxShadow: {
-        "paper":       "4px 4px 0px 0px hsl(0, 0%, 0%)",
-        "paper-hover": "6px 6px 0px 0px hsl(0, 0%, 0%)",
+        "paper":       "0 10px 22px -18px rgba(36, 30, 25, 0.42), 0 2px 0 0 rgba(84, 79, 73, 0.2)",
+        "paper-hover": "0 16px 30px -20px rgba(36, 30, 25, 0.5), 0 2px 0 0 rgba(84, 79, 73, 0.26)",
       },
       animation: {
         "wiggle": "wiggle 1s ease-in-out infinite",
