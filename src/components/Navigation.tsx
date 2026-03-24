@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { throttle } from 'lodash';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Sun, Moon, Pencil, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -7,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
+import { Z_INDEX } from '@/lib/z-index';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,22 +15,36 @@ export default function Navigation() {
   const { t } = useLanguage();
   const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
+  const sectionIds = ["home", "projects", "github", "about", "achievements", "outside", "contact"];
 
   useEffect(() => {
-    const handleScroll = throttle(() => {
-      const sections = ["home", "projects", "github", "about", "achievements", "outside", "contact"];
-      const scrollPosition = window.scrollY + 200;
+    const observers: IntersectionObserver[] = [];
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element && element.offsetTop <= scrollPosition && (element.offsetTop + element.offsetHeight) > scrollPosition) {
-          setActiveSection(section);
+    sectionIds.forEach((id) => {
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry?.isIntersecting) {
+            setActiveSection(id);
+          }
+        },
+        {
+          root: null,
+          rootMargin: "-25% 0px -60% 0px",
+          threshold: 0,
         }
-      }
-    }, 100);
+      );
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+      observer.observe(element);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
   }, []);
 
   const navItems = [
@@ -74,7 +88,7 @@ export default function Navigation() {
   return (
     <>
 
-      <nav className="hidden md:flex fixed top-8 right-6 z-[10000] flex-col items-end space-y-2">
+      <nav className="hidden md:flex fixed top-8 right-6 flex-col items-end space-y-2" style={{ zIndex: Z_INDEX.nav }}>
         {navItems.map((item, index) => (
           <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
             <motion.div

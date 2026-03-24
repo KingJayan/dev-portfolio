@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion';
 import { useState } from "react";
-import { portfolioConfig } from "@/portfolio.config";
+import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
 import { Surface } from '@/components/ui/surface';
-import { Project } from "@/lib/types";
 import ScribbleText from '@/components/ScribbleText';
+
+type ProjectItem = PortfolioConfig["projects"]["items"][number];
 
 export default function Projects() {
   const { projects } = portfolioConfig;
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
-  const projectItems = projects.items as unknown as Project[];
+  const projectItems = projects.items;
 
   return (
     <motion.div

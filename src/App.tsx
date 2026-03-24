@@ -6,6 +6,7 @@ import SectionDivider from "@/components/SectionDivider";
 import Footer from "@/components/Footer";
 import FreeDrawCanvas from "@/components/FreeDrawCanvas";
 import CommandMenu from "@/components/CommandMenu";
+import SectionErrorBoundary from "@/components/SectionErrorBoundary";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -33,37 +34,49 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
       {!isZenMode && <SectionDivider />}
 
       <section id="projects" className="relative z-20 bg-paper min-h-screen flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><Projects /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><Projects /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       {!isZenMode && <SectionDivider />}
 
       <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       {!isZenMode && <SectionDivider />}
 
       <section id="about" className="relative z-30 bg-paper min-h-screen flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><About /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><About /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       {!isZenMode && <SectionDivider />}
 
       <section id="achievements" className="relative z-35 bg-paper min-h-screen flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><Achievements /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><Achievements /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       {!isZenMode && <SectionDivider />}
 
       <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       {!isZenMode && <SectionDivider />}
 
       <section id="contact" className="relative z-40 bg-paper min-h-[80vh] flex flex-col justify-center">
-        <Suspense fallback={<Fallback />}><Contact /></Suspense>
+        <SectionErrorBoundary>
+          <Suspense fallback={<Fallback />}><Contact /></Suspense>
+        </SectionErrorBoundary>
       </section>
 
       <Footer />
@@ -85,18 +98,41 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   const { isZenMode } = useTheme();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+    const delayedReveal = setTimeout(() => {
+      if (!cancelled) setShowLoadingScreen(true);
+    }, 120);
+
+    const finishBoot = async () => {
+      const fontsReady = typeof document !== "undefined" && "fonts" in document
+        ? (document as Document & { fonts: FontFaceSet }).fonts.ready
+        : Promise.resolve();
+
+      await Promise.race([
+        fontsReady,
+        new Promise((resolve) => setTimeout(resolve, 320)),
+      ]);
+
+      if (!cancelled) {
+        setIsLoading(false);
+      }
+    };
+
+    void finishBoot();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(delayedReveal);
+    };
   }, []);
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading} />
+      <LoadingScreen isLoading={isLoading && showLoadingScreen} />
       {!isZenMode && <div className="grain-overlay" />}
       {!isZenMode && <FreeDrawCanvas />}
       {!isZenMode && <ScrollProgress />}

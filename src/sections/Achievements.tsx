@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 import { createPortal } from 'react-dom';
+import { Z_INDEX } from '@/lib/z-index';
 
 const icons = {
     trophy: Trophy,
@@ -88,7 +89,8 @@ export default function Achievements() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+                            className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+                            style={{ zIndex: Z_INDEX.modal }}
                             onClick={() => setIsFolioOpen(false)}
                         >
                             <motion.div

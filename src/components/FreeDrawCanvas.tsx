@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Eraser, Pencil, X, Palette, Highlighter, Minus, Square, Circle, Undo2, Redo2 } from "lucide-react";
 import { useCanvasHistory } from "@/hooks/use-canvas-history";
 import { useCanvasContext } from "@/hooks/use-canvas-context";
+import { Z_INDEX } from "@/lib/z-index";
 
 const COLORS = [
     { id: 'default', color: 'bg-ink', label: 'Ink' },
@@ -240,8 +241,9 @@ export default function FreeDrawCanvas() {
 
             <div
                 ref={cursorRef}
-                className="fixed top-0 left-0 pointer-events-none z-[10000]"
+                className="fixed top-0 left-0 pointer-events-none"
                 style={{
+                    zIndex: Z_INDEX.drawingCursor,
                     width: tool === 'eraser' ? 40 : brushSize * 1.5,
                     height: tool === 'eraser' ? 40 : brushSize * 1.5,
                     borderRadius: '50%',
@@ -253,7 +255,7 @@ export default function FreeDrawCanvas() {
                 }}
             />
 
-            <div className="fixed inset-0 z-[9990] pointer-events-none" style={{ cursor: "none" }}>
+            <div className="fixed inset-0 pointer-events-none" style={{ cursor: "none", zIndex: Z_INDEX.drawingCanvas }}>
                 <canvas
                     ref={canvasRef}
                     className="w-full h-full touch-none pointer-events-auto"
@@ -266,7 +268,8 @@ export default function FreeDrawCanvas() {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 100, opacity: 0 }}
-                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border border-ink/35 p-3 rounded-2xl shadow-xl z-[9991] flex items-center gap-4 max-w-[95vw] overflow-x-auto pointer-events-auto"
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border border-ink/35 p-3 rounded-2xl shadow-xl flex items-center gap-4 max-w-[95vw] overflow-x-auto pointer-events-auto"
+                    style={{ zIndex: Z_INDEX.drawingToolbar }}
                 >
 
                     <div className="flex items-center gap-2 pr-4 border-r border-ink/20">

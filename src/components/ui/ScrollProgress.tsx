@@ -1,4 +1,5 @@
 import { motion, useScroll, useSpring } from "framer-motion";
+import { Z_INDEX } from "@/lib/z-index";
 
 export default function ScrollProgress() {
     const { scrollYProgress } = useScroll();
@@ -9,7 +10,7 @@ export default function ScrollProgress() {
     });
 
     return (
-        <div className="fixed left-4 top-1/2 -translate-y-1/2 h-64 w-4 z-[9999] pointer-events-none hidden md:block">
+        <div className="fixed left-4 top-1/2 -translate-y-1/2 h-64 w-4 pointer-events-none hidden md:block" style={{ zIndex: Z_INDEX.floating }}>
 
             <div className="absolute inset-0 border border-pencil/25 rounded-full bg-paper/30 backdrop-blur-[2px]" />
 

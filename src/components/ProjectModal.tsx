@@ -1,11 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Github, ExternalLink } from "lucide-react";
-import { Project } from "@/lib/types";
+import { type PortfolioConfig } from "@/portfolio.config";
 import { Button } from "@/components/ui/button";
 import { createPortal } from "react-dom";
+import { Z_INDEX } from "@/lib/z-index";
+
+type ProjectItem = PortfolioConfig["projects"]["items"][number];
 
 interface ProjectModalProps {
-    project: Project | null;
+    project: ProjectItem | null;
     onClose: () => void;
 }
 
@@ -18,7 +21,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     onClick={onClose}
-                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                    className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                    style={{ zIndex: Z_INDEX.modal }}
                 >
                     <motion.div
                         initial={{ scale: 0.9, rotate: -2, y: 50 }}
@@ -80,7 +84,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                 <div className="space-y-4 font-sans text-lg leading-relaxed">
                                     <p>{project.description}</p>
                                     <p>
-                                        this project explores {project.category}.
+                                        this project explores {project.category ?? "modern product engineering"}.
                                         built with <strong className="text-highlighter-blue/80 px-1">{project.technologies.join(", ")}</strong>.
                                     </p>
 

@@ -27,8 +27,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } catch (error: any) {
         console.error('Mailjet API Error:', error.response?.body || error.message || error);
         return res.status(500).json({
-            error: 'Failed to send email',
-            details: error.response?.body || error.message
+            error: 'Failed to send message. Please try again later.'
         });
     }
 }

@@ -3,14 +3,14 @@ export interface Project {
   title: string;
   description: string;
   fullDescription?: string;
-  image: string;
+  image?: string;
   gallery?: string[];
   technologies: string[];
-  category: 'web' | 'mobile' | 'api';
+  category?: 'web' | 'mobile' | 'api';
   liveUrl?: string;
   githubUrl?: string;
-  featured: boolean;
-  status: 'completed' | 'in-progress' | 'planned';
+  featured?: boolean;
+  status?: 'completed' | 'in-progress' | 'planned';
   startDate: string;
   endDate?: string;
   challenges?: string[];

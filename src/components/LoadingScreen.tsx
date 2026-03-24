@@ -1,5 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Spiral, Star } from "@/components/Doodles";
+import { MOTION_EASE, MOTION_TIMING } from "@/lib/motion";
+import { Z_INDEX } from "@/lib/z-index";
 
 export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
     return (
@@ -9,9 +11,10 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                     initial={{ opacity: 1 }}
                     exit={{
                         opacity: 0,
-                        transition: { duration: 0.8, ease: "easeInOut" }
+                        transition: { duration: MOTION_TIMING.loadingExit, ease: MOTION_EASE.smooth }
                     }}
-                    className="fixed inset-0 z-[100000] bg-paper flex flex-col items-center justify-center pointer-events-auto"
+                    className="fixed inset-0 bg-paper flex flex-col items-center justify-center pointer-events-auto"
+                    style={{ zIndex: Z_INDEX.loading }}
                 >
                     <div className="relative">
                         <Spiral className="w-48 h-48 text-ink" />
@@ -22,9 +25,9 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                                 scale: [1, 1.2, 1],
                             }}
                             transition={{
-                                duration: 4,
+                                duration: 3,
                                 repeat: Infinity,
-                                ease: "linear"
+                                ease: MOTION_EASE.linear
                             }}
                             className="absolute -top-4 -right-4"
                         >
@@ -35,7 +38,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5 }}
+                        transition={{ delay: MOTION_TIMING.normal }}
                         className="mt-8 text-center"
                     >
                         <h2 className="text-4xl font-marker text-ink mb-2">sketching...</h2>
@@ -47,7 +50,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         <motion.div
                             initial={{ x: "-100%" }}
                             animate={{ x: "0%" }}
-                            transition={{ duration: 2, ease: "easeInOut" }}
+                            transition={{ duration: 1.2, ease: MOTION_EASE.smooth }}
                             className="absolute inset-0 bg-highlighter-pink"
                         />
                     </div>

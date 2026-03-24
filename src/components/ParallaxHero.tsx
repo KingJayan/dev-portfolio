@@ -1,28 +1,10 @@
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { useEffect } from "react";
+import { motion, useTransform } from "framer-motion";
 import { portfolioConfig } from "@/portfolio.config";
 import { Paperclip } from "lucide-react";
-
-const springConfig = { stiffness: 50, damping: 30, mass: 1 };
+import { useParallaxMouse } from "@/hooks/use-parallax-mouse";
 
 export default function ParallaxHero() {
-
-    const rawX = useMotionValue(0);
-    const rawY = useMotionValue(0);
-
-    const mouseX = useSpring(rawX, springConfig);
-    const mouseY = useSpring(rawY, springConfig);
-
-    useEffect(() => {
-        const handleMouseMove = (event: MouseEvent) => {
-            const { innerWidth, innerHeight } = window;
-            rawX.set((event.clientX / innerWidth) * 2 - 1);
-            rawY.set((event.clientY / innerHeight) * 2 - 1);
-        };
-
-        window.addEventListener("mousemove", handleMouseMove, { passive: true });
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
+    const { mouseX, mouseY } = useParallaxMouse();
 
 
     const backgroundX = useTransform(mouseX, [-1, 1], ["2%", "-2%"]);
