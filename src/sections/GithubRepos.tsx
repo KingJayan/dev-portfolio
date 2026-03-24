@@ -27,16 +27,6 @@ const LANGUAGE_COLORS: Record<string, string> = {
   R: 'bg-highlighter-yellow',
 };
 
-function repoInitials(name: string) {
-  const clean = name.replace(/[-_]/g, ' ').trim();
-  if (!clean) return 'RP';
-  const words = clean.split(/\s+/).slice(0, 2);
-  if (words.length === 1) {
-    return words[0].slice(0, 2).toUpperCase();
-  }
-  return `${words[0][0] ?? ''}${words[1][0] ?? ''}`.toUpperCase();
-}
-
 function repoGradient(language: string | null) {
   switch (language) {
     case 'TypeScript':
@@ -50,6 +40,14 @@ function repoGradient(language: string | null) {
     default:
       return 'from-paper via-highlighter-blue/15 to-highlighter-yellow/20';
   }
+}
+
+function shortUpdatedAt(value: string) {
+  const date = new Date(value);
+  return date.toLocaleDateString(undefined, {
+    month: 'short',
+    year: 'numeric',
+  });
 }
 
 export default function GithubRepos() {
@@ -170,49 +168,51 @@ export default function GithubRepos() {
               showTape={false}
               className="h-full cursor-pointer border border-pencil/35 rounded-xl paper-texture shadow-[0_10px_26px_-18px_rgba(32,26,22,0.45)] hover:shadow-[0_18px_30px_-20px_rgba(32,26,22,0.5)]"
             >
-              <div className={`relative mb-4 overflow-hidden rounded-lg border border-pencil/25 bg-gradient-to-br ${repoGradient(repo.language)} h-24`}>
+              <div className={`relative mb-4 overflow-hidden rounded-lg border border-pencil/25 bg-gradient-to-br ${repoGradient(repo.language)} h-14 px-3 py-2 flex items-center justify-between`}>
                 <div className="absolute inset-0 opacity-25" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(0,0,0,0.12) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
-                <div className="absolute left-3 top-3 px-2 py-0.5 rounded-md border border-pencil/25 bg-paper/65 font-marker text-xs text-pencil/80">
-                  {repo.language ?? 'code'}
+                <div className="relative px-2 py-0.5 rounded-md border border-pencil/25 bg-paper/70 font-marker text-xs text-pencil/80 uppercase">
+                  {repo.language ?? 'repo'}
                 </div>
-                <div className="absolute right-3 bottom-2 font-marker text-3xl text-ink/70 tracking-tight">
-                  {repoInitials(repo.name)}
+                <div className="relative font-hand text-xs text-pencil/70 italic">
+                  updated {shortUpdatedAt(repo.updated_at)}
                 </div>
               </div>
 
-              <div className="flex items-start justify-between gap-2 mb-3">
-                <h3 className="font-marker text-xl text-ink leading-tight truncate">
-                  {repo.name}
-                </h3>
-                <ExternalLink className="w-4 h-4 text-pencil shrink-0 mt-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
-              </div>
+              <div className="flex h-full flex-col">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <h3 className="font-marker text-xl text-ink leading-tight truncate">
+                    {repo.name}
+                  </h3>
+                  <ExternalLink className="w-4 h-4 text-pencil shrink-0 mt-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200" />
+                </div>
 
-              <p className="font-hand text-lg text-pencil leading-snug line-clamp-3 min-h-[4rem]">
-                {repo.description || 'No description provided.'}
-              </p>
+                <p className="font-hand text-lg text-pencil leading-snug line-clamp-3 min-h-[3.2rem]">
+                  {repo.description || 'No description yet.'}
+                </p>
 
-              <div className="flex items-center gap-4 mt-4 pt-3 border-t border-pencil/20 font-hand text-base text-pencil">
-                {repo.language && (
-                  <span className="flex items-center gap-1.5">
-                    <span
-                      className={`w-3 h-3 rounded-full ${LANGUAGE_COLORS[repo.language] ?? 'bg-pencil'
-                        }`}
-                    />
-                    {repo.language}
-                  </span>
-                )}
+                <div className="flex items-center gap-4 mt-auto pt-3 border-t border-pencil/20 font-hand text-base text-pencil">
+                  {repo.language && (
+                    <span className="flex items-center gap-1.5">
+                      <span
+                        className={`w-3 h-3 rounded-full ${LANGUAGE_COLORS[repo.language] ?? 'bg-pencil'
+                          }`}
+                      />
+                      {repo.language}
+                    </span>
+                  )}
 
-                <span className="flex items-center gap-1">
-                  <Star className="w-4 h-4" />
-                  {repo.stargazers_count}
-                </span>
-
-                {repo.forks_count > 0 && (
                   <span className="flex items-center gap-1">
-                    <GitFork className="w-4 h-4" />
-                    {repo.forks_count}
+                    <Star className="w-4 h-4" />
+                    {repo.stargazers_count}
                   </span>
-                )}
+
+                  {repo.forks_count > 0 && (
+                    <span className="flex items-center gap-1">
+                      <GitFork className="w-4 h-4" />
+                      {repo.forks_count}
+                    </span>
+                  )}
+                </div>
               </div>
             </PaperCard>
           </motion.a>
