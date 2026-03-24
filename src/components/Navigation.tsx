@@ -89,74 +89,85 @@ export default function Navigation() {
   return (
     <>
 
-      <nav className="hidden md:flex fixed top-8 right-6 flex-col items-end space-y-2" style={{ zIndex: Z_INDEX.nav }}>
-        {navItems.map((item, index) => (
-          <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
-            <motion.div
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              whileHover={{ y: -2, rotate: -0.2 }}
-              transition={{ duration: MOTION_TIMING.micro, delay: index * 0.02, ease: MOTION_EASE.standard }}
-              className={`
-                relative w-52 px-4 py-2.5 bg-paper/80 border border-ink/20 backdrop-blur-sm cursor-pointer
-                font-marker text-lg transition-all rounded-xl flex items-center
-                ${activeSection === item.href.substring(1)
-                  ? 'text-ink border-ink/35 bg-paper shadow-paper'
-                  : 'text-pencil hover:text-ink hover:bg-paper hover:border-ink/30 hover:shadow-sm'}
-              `}
-            >
-              {activeSection === item.href.substring(1) && (
-                <motion.span
-                  className="absolute left-3 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-highlighter-yellow"
-                  animate={{ scale: [1, 1.12, 1] }}
-                  transition={{ duration: 1.4, repeat: Infinity, ease: MOTION_EASE.smooth }}
-                />
-              )}
-              <span className="w-7 text-center mr-2 opacity-40 text-xs font-sans">0{index + 1}</span>
-              {item.name}
-            </motion.div>
-          </a>
-        ))}
+      <nav className="hidden md:block fixed top-6 right-5" style={{ zIndex: Z_INDEX.nav }}>
+        <motion.div
+          initial={{ opacity: 0, x: 16 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
+          className="w-[250px] rounded-2xl border border-pencil/35 bg-paper/88 paper-texture backdrop-blur-sm px-3 py-3 shadow-paper"
+        >
+          <div className="space-y-2">
+            {navItems.map((item, index) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
+                  <motion.div
+                    whileHover={{ y: -1.5, rotate: -0.18 }}
+                    transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
+                    className={`relative min-h-[46px] px-4 py-2 rounded-xl border flex items-center gap-2.5 overflow-hidden transition-all ${
+                      isActive
+                        ? "bg-paper border-ink/35 text-ink shadow-paper"
+                        : "bg-paper/70 border-pencil/30 text-pencil hover:bg-paper hover:border-pencil/45"
+                    }`}
+                  >
+                    {isActive && <div className="absolute inset-y-1 left-9 right-3 rounded-md bg-highlighter-yellow/22 -rotate-[0.6deg]" />}
+                    <span className="relative z-10 w-6 text-center text-[11px] tracking-wide opacity-45 font-sans">0{index + 1}</span>
+                    <span className="relative z-10 font-marker text-xl leading-none">{item.name}</span>
+                    {isActive && (
+                      <motion.span
+                        className="relative z-10 ml-auto h-1.5 w-1.5 rounded-full bg-highlighter-yellow"
+                        animate={{ scale: [1, 1.16, 1] }}
+                        transition={{ duration: 1.4, repeat: Infinity, ease: MOTION_EASE.smooth }}
+                      />
+                    )}
+                  </motion.div>
+                </a>
+              );
+            })}
+          </div>
 
-        <div className="flex gap-2 mt-2 mr-2">
+          <div className="mt-3 pt-3 border-t border-dashed border-pencil/25">
+            <p className="px-1 mb-2 text-[10px] uppercase tracking-[0.14em] text-pencil/55 font-sans">tools</p>
+            <div className="flex items-center justify-center gap-2">
+              <Button
+                onClick={toggleDrawingMode}
+                variant={isDrawingMode ? "iconSoftActive" : "iconSoft"}
+                size="icon"
+                className="h-9 w-9"
+                title={isDrawingMode ? "stop draw" : "draw"}
+                aria-label={isDrawingMode ? "stop draw mode" : "enable draw mode"}
+              >
+                <Pencil className="w-4 h-4 text-ink" />
+              </Button>
 
-          <Button
-            onClick={toggleDrawingMode}
-            variant={isDrawingMode ? "iconSoftActive" : "iconSoft"}
-            size="icon"
-            className="h-10 w-10"
-            title={isDrawingMode ? "stop draw" : "draw"}
-            aria-label={isDrawingMode ? "stop draw mode" : "enable draw mode"}
-          >
-            <Pencil className="w-5 h-5 text-ink" />
-          </Button>
+              <Button
+                onClick={toggleTheme}
+                variant="iconSoft"
+                size="icon"
+                className="h-9 w-9"
+                title={theme === 'dark' ? "light" : "dark"}
+                aria-label={theme === 'dark' ? "switch to light mode" : "switch to dark mode"}
+              >
+                {theme === 'dark' ? (
+                  <Sun className="w-4 h-4 text-ink" />
+                ) : (
+                  <Moon className="w-4 h-4 text-ink" />
+                )}
+              </Button>
 
-
-          <Button
-            onClick={toggleTheme}
-            variant="iconSoft"
-            size="icon"
-            className="h-10 w-10"
-            title={theme === 'dark' ? "light" : "dark"}
-            aria-label={theme === 'dark' ? "switch to light mode" : "switch to dark mode"}
-          >
-            {theme === 'dark' ? (
-              <Sun className="w-5 h-5 text-ink" />
-            ) : (
-              <Moon className="w-5 h-5 text-ink" />
-            )}
-          </Button>
-          <Button
-            onClick={toggleZenMode}
-            variant={isZenMode ? "iconSoftActive" : "iconSoft"}
-            size="icon"
-            className="h-10 w-10"
-            title={isZenMode ? "exit zen mode" : "zen mode"}
-            aria-label={isZenMode ? "disable zen mode" : "enable zen mode"}
-          >
-            <BookOpen className="w-5 h-5 text-ink" />
-          </Button>
-        </div>
+              <Button
+                onClick={toggleZenMode}
+                variant={isZenMode ? "iconSoftActive" : "iconSoft"}
+                size="icon"
+                className="h-9 w-9"
+                title={isZenMode ? "exit zen mode" : "zen mode"}
+                aria-label={isZenMode ? "disable zen mode" : "enable zen mode"}
+              >
+                <BookOpen className="w-4 h-4 text-ink" />
+              </Button>
+            </div>
+          </div>
+        </motion.div>
       </nav>
 
 
@@ -175,27 +186,81 @@ export default function Navigation() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
             className="fixed inset-0 z-40 bg-paper/96 backdrop-blur-md flex items-center justify-center md:hidden"
           >
-            <div className="w-full max-w-sm px-5 flex flex-col gap-3">
-              {navItems.map((item, index) => (
-                <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
-                  <div className={`
-                    w-full px-4 py-3 rounded-xl border font-marker text-2xl flex items-center gap-3
-                    ${activeSection === item.href.substring(1)
-                      ? 'bg-paper border-ink/40 text-ink shadow-paper'
-                      : 'bg-paper/75 border-ink/20 text-pencil'}
-                  `}>
-                    <span className="text-xs opacity-40 font-sans">0{index + 1}</span>
-                    <span>{item.name}</span>
-                  </div>
-                </a>
-              ))}
-            </div>
+            <motion.div
+              initial={{ y: 24, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 24, opacity: 0, scale: 0.98 }}
+              transition={{ type: "spring", ...MOTION_SPRING.subtle }}
+              className="w-full max-w-sm mx-5 p-4 rounded-2xl border border-pencil/35 bg-paper paper-texture shadow-paper"
+            >
+              <div className="space-y-2.5">
+                {navItems.map((item, index) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <a key={item.name} href={item.href} onClick={(e) => handleScrollTo(e, item.href)}>
+                      <div className={`
+                        relative w-full px-4 py-3 rounded-xl border flex items-center gap-2 overflow-hidden
+                        ${isActive
+                          ? 'bg-paper border-ink/35 text-ink shadow-paper'
+                          : 'bg-paper/80 border-pencil/30 text-pencil'}
+                      `}>
+                        {isActive && <div className="absolute inset-y-1 left-9 right-3 rounded-md bg-highlighter-yellow/22 -rotate-[0.6deg]" />}
+                        <span className="relative z-10 text-xs opacity-40 font-sans w-6 text-center">0{index + 1}</span>
+                        <span className="relative z-10 font-marker text-2xl leading-none">{item.name}</span>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-dashed border-pencil/25">
+                <p className="px-1 mb-2 text-[10px] uppercase tracking-[0.14em] text-pencil/55 font-sans">tools</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Button
+                    onClick={toggleDrawingMode}
+                    variant={isDrawingMode ? "iconSoftActive" : "iconSoft"}
+                    size="icon"
+                    className="h-9 w-9"
+                    title={isDrawingMode ? "stop draw" : "draw"}
+                    aria-label={isDrawingMode ? "stop draw mode" : "enable draw mode"}
+                  >
+                    <Pencil className="w-4 h-4 text-ink" />
+                  </Button>
+
+                  <Button
+                    onClick={toggleTheme}
+                    variant="iconSoft"
+                    size="icon"
+                    className="h-9 w-9"
+                    title={theme === 'dark' ? "light" : "dark"}
+                    aria-label={theme === 'dark' ? "switch to light mode" : "switch to dark mode"}
+                  >
+                    {theme === 'dark' ? (
+                      <Sun className="w-4 h-4 text-ink" />
+                    ) : (
+                      <Moon className="w-4 h-4 text-ink" />
+                    )}
+                  </Button>
+
+                  <Button
+                    onClick={toggleZenMode}
+                    variant={isZenMode ? "iconSoftActive" : "iconSoft"}
+                    size="icon"
+                    className="h-9 w-9"
+                    title={isZenMode ? "exit zen mode" : "zen mode"}
+                    aria-label={isZenMode ? "disable zen mode" : "enable zen mode"}
+                  >
+                    <BookOpen className="w-4 h-4 text-ink" />
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
