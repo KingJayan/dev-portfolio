@@ -4,6 +4,7 @@ import { type PortfolioConfig } from "@/portfolio.config";
 import { Button } from "@/components/ui/button";
 import { createPortal } from "react-dom";
 import { Z_INDEX } from "@/lib/z-index";
+import { MOTION_EASE, MOTION_TIMING, MOTION_SPRING } from "@/lib/motion";
 
 type ProjectItem = PortfolioConfig["projects"]["items"][number];
 
@@ -20,14 +21,16 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
                     onClick={onClose}
                     className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
                     style={{ zIndex: Z_INDEX.modal }}
                 >
                     <motion.div
-                        initial={{ scale: 0.9, rotate: -2, y: 50 }}
+                        initial={{ scale: 0.94, rotate: -1, y: 28 }}
                         animate={{ scale: 1, rotate: 0, y: 0 }}
-                        exit={{ scale: 0.9, rotate: 2, y: 50 }}
+                        exit={{ scale: 0.96, rotate: 0.6, y: 24 }}
+                        transition={{ type: "spring", ...MOTION_SPRING.subtle }}
                         onClick={(e) => e.stopPropagation()}
                         className="bg-paper w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-2xl relative border border-ink/15 paper-texture"
                     >

@@ -10,6 +10,7 @@ export const MOTION_TIMING = {
   slow: 0.6,
   sectionEnter: 0.8,
   loadingExit: 0.45,
+  micro: 0.16,
 } as const;
 
 export const MOTION_EASE = {

@@ -7,6 +7,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
 import { Z_INDEX } from '@/lib/z-index';
+import { MOTION_EASE, MOTION_SPRING, MOTION_TIMING } from '@/lib/motion';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,7 +95,8 @@ export default function Navigation() {
             <motion.div
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.18, delay: index * 0.02 }}
+              whileHover={{ y: -2, rotate: -0.2 }}
+              transition={{ duration: MOTION_TIMING.micro, delay: index * 0.02, ease: MOTION_EASE.standard }}
               className={`
                 relative w-52 px-4 py-2.5 bg-paper/80 border border-ink/20 backdrop-blur-sm cursor-pointer
                 font-marker text-lg transition-all rounded-xl flex items-center
@@ -104,7 +106,11 @@ export default function Navigation() {
               `}
             >
               {activeSection === item.href.substring(1) && (
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-highlighter-yellow" />
+                <motion.span
+                  className="absolute left-3 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-highlighter-yellow"
+                  animate={{ scale: [1, 1.12, 1] }}
+                  transition={{ duration: 1.4, repeat: Infinity, ease: MOTION_EASE.smooth }}
+                />
               )}
               <span className="w-7 text-center mr-2 opacity-40 text-xs font-sans">0{index + 1}</span>
               {item.name}
@@ -172,6 +178,7 @@ export default function Navigation() {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
             className="fixed inset-0 z-40 bg-paper/96 backdrop-blur-md flex items-center justify-center md:hidden"
           >
             <div className="w-full max-w-sm px-5 flex flex-col gap-3">

@@ -1,5 +1,6 @@
 import { Command } from "cmdk";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
@@ -7,6 +8,7 @@ import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Ma
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
+import { MOTION_EASE, MOTION_TIMING } from "@/lib/motion";
 
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
@@ -63,20 +65,30 @@ export default function CommandMenu() {
     return (
         <>
 
-            <Button
-                onClick={() => setOpen(true)}
-                variant="soft"
-                className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group hover:-translate-y-0.5"
+            <motion.div
+                whileHover={{ y: -2, rotate: -0.2 }}
+                transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
             >
-                <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
-                <span className="text-ink/80 group-hover:text-ink">menu</span>
-                <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift + p</span>
-            </Button>
+                <Button
+                    onClick={() => setOpen(true)}
+                    variant="soft"
+                    className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group"
+                >
+                    <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
+                    <span className="text-ink/80 group-hover:text-ink">menu</span>
+                    <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift + p</span>
+                </Button>
+            </motion.div>
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
                 <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl">
-                    <div className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-2xl overflow-hidden">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
+                        className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-2xl overflow-hidden"
+                    >
                         <Command className="w-full bg-transparent">
                             <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
                                 <Search className="mr-2 h-5 w-5 shrink-0 opacity-50 text-ink" />
@@ -172,7 +184,7 @@ export default function CommandMenu() {
                                 </Command.Group>
                             </Command.List>
                         </Command>
-                    </div>
+                    </motion.div>
                 </DialogContent>
             </Dialog>
         </>
@@ -183,7 +195,7 @@ function CommandItem({ children, onSelect }: { children: React.ReactNode, onSele
     return (
         <Command.Item
             onSelect={onSelect}
-            className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-xl outline-none aria-selected:bg-ink/5 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-highlighter-yellow/20 transition-colors group"
+            className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-xl outline-none aria-selected:bg-ink/5 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-highlighter-yellow/20 transition-all duration-200 group"
         >
             {children}
         </Command.Item>
