@@ -3,13 +3,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-const surfaceVariants = cva("text-ink", {
+const surfaceVariants = cva("text-ink backdrop-blur-2xl", {
   variants: {
     variant: {
-      default: "bg-paper border border-pencil/30 rounded-xl paper-texture",
-      elevated: "bg-paper border border-pencil/35 rounded-xl paper-texture shadow-paper",
-      muted: "bg-secondary/15 border border-pencil/25 rounded-xl paper-texture",
-      modal: "bg-paper paper-texture border border-pencil/30 rounded-lg shadow-paper-hover",
+      default:  "surface-default border border-pencil/15 rounded-xl",
+      elevated: "surface-elevated border border-pencil/20 rounded-xl shadow-paper",
+      muted:    "bg-paper/25 border border-pencil/12 rounded-xl backdrop-blur-xl",
+      modal:    "surface-modal border border-pencil/20 rounded-lg shadow-paper-hover backdrop-blur-3xl",
     },
   },
   defaultVariants: {

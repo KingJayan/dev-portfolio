@@ -31,7 +31,7 @@ export default function About() {
           className="flex-1 relative group w-full"
         >
           <Surface variant="elevated" className="p-10 relative w-full">
-          <div className="w-56 h-56 mx-auto mb-8 border-2 border-dashed border-ink/60 rounded-full overflow-hidden relative bg-paper shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
+          <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
             <img
               src="/images/profile.png"
               alt="Profile"
@@ -77,27 +77,27 @@ export default function About() {
               skills
             </h3>
 
-            <div className="space-y-6">
-              {skills.map((skill: AboutSkill, idx: number) => (
-                <div key={skill.name} className="relative group">
-                  <div className="flex justify-between font-hand text-xl mb-2 items-center">
-                    <span className="group-hover:text-ink transition-colors">{skill.name}</span>
-                    <span className="text-pencil/50 text-sm font-hand">{skill.level}%</span>
-                  </div>
-                  <div className="h-4 w-full border border-pencil/40 rounded-full p-0.5 overflow-hidden bg-paper/50">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: idx * 0.1 }}
-                      className="h-full bg-ink rounded-full"
-                      style={{
-                        background: `repeating-linear-gradient(45deg, var(--color-ink), var(--color-ink) 2px, transparent 2px, transparent 6px)`
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill: AboutSkill, idx: number) => {
+                const chipColors = [
+                  "bg-amber/10 border-amber/30 hover:bg-amber/20 hover:border-amber/50",
+                  "bg-rose/10 border-rose/25 hover:bg-rose/20 hover:border-rose/45",
+                  "bg-sage/10 border-sage/25 hover:bg-sage/20 hover:border-sage/45",
+                  "bg-slate/10 border-slate/25 hover:bg-slate/20 hover:border-slate/45",
+                ];
+                const color = chipColors[idx % chipColors.length];
+                return (
+                <motion.span
+                  key={skill.name}
+                  whileHover={{ scale: 1.07, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className={`px-3 py-1.5 backdrop-blur-sm border rounded-full font-hand text-base text-ink shadow-paper hover:shadow-paper-hover transition-[border-color,background-color,box-shadow] cursor-default ${color}`}
+                >
+                  {skill.name}
+                </motion.span>
+                );
+              })}
             </div>
           </Surface>
 
@@ -108,7 +108,7 @@ export default function About() {
             transition={{ type: "spring", stiffness: 260, damping: 25, delay: 0.3 }}
             className="relative overflow-hidden group transition-shadow"
           >
-            <Surface variant="muted" className="p-6 border border-dotted border-highlighter-yellow/45 relative shadow-sm">
+            <Surface variant="muted" className="p-6 relative shadow-sm">
               <h4 className="text-3xl font-marker text-ink/70 mb-3 flex items-center gap-2">
                 <Lightbulb className="w-6 h-6 text-highlighter-yellow" />
                 fun bit
@@ -143,7 +143,7 @@ export default function About() {
                   whileTap={{ scale: 0.95 }}
                   className="flex flex-col items-center gap-2 group cursor-default"
                 >
-                  <Surface variant="default" className="w-12 h-12 border-ink/40 rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow transition-all duration-300">
+                  <Surface variant="default" className="w-12 h-12 border-ink/20 rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/40 group-hover:border-pencil/45 transition-all duration-200">
                     <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
                   </Surface>
                 </motion.div>

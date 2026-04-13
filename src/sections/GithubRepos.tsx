@@ -4,7 +4,6 @@ import { Star, GitFork, ExternalLink } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
-import { Spiral, Arrow } from '@/components/Doodles';
 
 interface Repo {
   id: number;
@@ -18,37 +17,25 @@ interface Repo {
 }
 
 const LANGUAGE_COLORS: Record<string, string> = {
-  TypeScript: 'bg-highlighter-yellow',
+  TypeScript: 'bg-highlighter-blue',
   JavaScript: 'bg-highlighter-yellow',
-  Python: 'bg-highlighter-yellow',
-  Java: 'bg-highlighter-yellow',
-  HTML: 'bg-highlighter-yellow',
-  CSS: 'bg-highlighter-yellow',
-  R: 'bg-highlighter-yellow',
+  Python: 'bg-[#4b8bbe]',
+  Java: 'bg-highlighter-pink',
+  HTML: 'bg-[#e44d26]',
+  CSS: 'bg-[#264de4]',
+  R: 'bg-[#198ce7]',
 };
 
-function repoGradient(language: string | null) {
-  switch (language) {
-    case 'TypeScript':
-      return 'from-highlighter-blue/45 via-paper to-highlighter-yellow/30';
-    case 'JavaScript':
-      return 'from-highlighter-yellow/45 via-paper to-highlighter-pink/20';
-    case 'Python':
-      return 'from-highlighter-blue/35 via-paper to-highlighter-yellow/25';
-    case 'Java':
-      return 'from-highlighter-pink/35 via-paper to-highlighter-yellow/25';
-    default:
-      return 'from-paper via-highlighter-blue/15 to-highlighter-yellow/20';
-  }
-}
+const LANGUAGE_BORDER: Record<string, string> = {
+  TypeScript: 'border-t-[3px] border-t-[#3178c6]',
+  JavaScript: 'border-t-[3px] border-t-[#f1e05a]',
+  Python: 'border-t-[3px] border-t-[#4b8bbe]',
+  Java: 'border-t-[3px] border-t-[#b07219]',
+  HTML: 'border-t-[3px] border-t-[#e44d26]',
+  CSS: 'border-t-[3px] border-t-[#264de4]',
+  R: 'border-t-[3px] border-t-[#198ce7]',
+};
 
-function shortUpdatedAt(value: string) {
-  const date = new Date(value);
-  return date.toLocaleDateString(undefined, {
-    month: 'short',
-    year: 'numeric',
-  });
-}
 
 export default function GithubRepos() {
   const [repos, setRepos] = useState<Repo[]>([]);
@@ -137,12 +124,7 @@ export default function GithubRepos() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative overflow-hidden"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.16]">
-        <Spiral className="absolute -top-8 right-8 w-28 h-28 text-pencil/40" />
-        <Arrow className="absolute top-44 left-8 w-28 h-14 text-pencil/30 -rotate-6" />
-      </div>
-
-      <div className="flex flex-col items-center mb-16 relative">
+<div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
         </h2>
@@ -166,18 +148,8 @@ export default function GithubRepos() {
               rotate={index % 2 === 0 ? -0.4 : 0.4}
               delay={index * 0.1}
               showTape={false}
-              className="h-full cursor-pointer border border-pencil/35 rounded-xl paper-texture shadow-paper hover:shadow-paper-hover"
+              className={`h-full cursor-pointer bg-paper/85 backdrop-blur-sm border border-pencil/25 rounded-xl shadow-paper hover:shadow-paper-hover ${repo.language ? (LANGUAGE_BORDER[repo.language] ?? '') : ''}`}
             >
-              <div className={`relative mb-4 overflow-hidden rounded-lg border border-pencil/25 bg-gradient-to-br ${repoGradient(repo.language)} h-14 px-3 py-2 flex items-center justify-between`}>
-                <div className="absolute inset-0 opacity-25" style={{ backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(0,0,0,0.12) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
-                <div className="relative px-2 py-0.5 rounded-md border border-pencil/25 bg-paper/70 font-marker text-xs text-pencil/80 uppercase">
-                  {repo.language ?? 'repo'}
-                </div>
-                <div className="relative font-hand text-xs text-pencil/70 italic">
-                  updated {shortUpdatedAt(repo.updated_at)}
-                </div>
-              </div>
-
               <div className="flex h-full flex-col">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="font-marker text-xl text-ink leading-tight truncate">
@@ -212,6 +184,10 @@ export default function GithubRepos() {
                       {repo.forks_count}
                     </span>
                   )}
+
+                  <span className="ml-auto font-hand text-xs text-pencil/50 italic">
+                    {new Date(repo.updated_at).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}
+                  </span>
                 </div>
               </div>
             </PaperCard>

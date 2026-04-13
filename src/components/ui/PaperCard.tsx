@@ -41,7 +41,6 @@ export default function PaperCard({
             scale: hoverScale,
             rotate: rotate > 0 ? rotate - 0.5 : rotate + 0.5,
             y: -5,
-            boxShadow: "0 12px 20px -8px rgba(0, 0, 0, 0.14), 0 6px 10px -8px rgba(0, 0, 0, 0.1)",
             transition: {
                 type: "spring",
                 ...MOTION_SPRING.snappy,
@@ -65,7 +64,7 @@ export default function PaperCard({
                 }
             }}
             viewport={{ once: true, margin: "-100px" }}
-            className={`paper-card p-6 relative group border border-pencil/35 rounded-xl overflow-hidden shadow-paper ${className}`}
+            className={`bg-paper/48 backdrop-blur-xl p-6 relative group border border-pencil/20 rounded-xl overflow-hidden shadow-paper hover:shadow-paper-hover transition-shadow [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_2px_20px_-4px_rgba(36,30,25,0.10)] ${className}`}
         >
             {showTape && (
                 <div

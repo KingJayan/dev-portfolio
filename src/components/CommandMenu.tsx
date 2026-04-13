@@ -87,7 +87,7 @@ export default function CommandMenu() {
                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="paper-card p-1 relative w-full bg-paper border border-ink/35 rounded-xl shadow-paper-hover overflow-hidden"
+                        className="p-1 relative w-full bg-paper/60 backdrop-blur-2xl border border-pencil/20 rounded-xl shadow-paper-hover overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.60),0_8px_32px_-4px_rgba(36,30,25,0.14)]"
                     >
                         <Command className="w-full bg-transparent">
                             <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
@@ -138,10 +138,11 @@ export default function CommandMenu() {
                                         <CommandItem
                                             key={project.id}
                                             onSelect={() => {
-                                                if ('liveUrl' in project && project.liveUrl) {
-                                                    window.open(project.liveUrl, "_blank");
-                                                } else if ('githubUrl' in project && project.githubUrl) {
-                                                    window.open(project.githubUrl, "_blank");
+                                                const p = project as Record<string, unknown>;
+                                                if (p['liveUrl']) {
+                                                    window.open(p['liveUrl'] as string, "_blank");
+                                                } else if (p['githubUrl']) {
+                                                    window.open(p['githubUrl'] as string, "_blank");
                                                 }
                                             }}
                                         >
@@ -195,7 +196,7 @@ function CommandItem({ children, onSelect }: { children: React.ReactNode, onSele
     return (
         <Command.Item
             onSelect={onSelect}
-            className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-xl outline-none aria-selected:bg-ink/5 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-highlighter-yellow/20 transition-all duration-200 group"
+            className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-xl outline-none aria-selected:bg-paper/60 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-paper/60 hover:backdrop-blur-sm hover:shadow-paper transition-all duration-150 group"
         >
             {children}
         </Command.Item>

@@ -94,7 +94,7 @@ export default function Navigation() {
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-          className="w-[272px] rounded-3xl border-2 border-pencil/34 bg-paper/88 paper-texture backdrop-blur-sm px-4 py-4 shadow-paper"
+          className="w-[272px] rounded-3xl border border-pencil/20 bg-paper/48 backdrop-blur-2xl px-4 py-4 shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.12)]"
         >
           <div className="flex flex-col gap-3.5">
             {navItems.map((item, index) => {
@@ -104,10 +104,10 @@ export default function Navigation() {
                   <motion.div
                     whileHover={{ y: -2.2, rotate: -0.24, scale: 1.008 }}
                     transition={{ duration: 0.12, ease: MOTION_EASE.standard }}
-                    className={`group relative min-h-[52px] px-4 py-2.5 rounded-2xl border-[1.5px] flex items-center gap-2.5 overflow-hidden transition-all ${
+                    className={`group relative min-h-[52px] px-4 py-2.5 rounded-2xl border flex items-center gap-2.5 overflow-hidden transition-all backdrop-blur-sm ${
                       isActive
-                        ? "bg-paper border-ink/40 text-ink shadow-paper"
-                        : "bg-paper/72 border-pencil/40 text-pencil hover:bg-paper hover:border-pencil/55 hover:shadow-paper"
+                        ? "bg-paper/60 border-pencil/35 text-ink shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.6)]"
+                        : "bg-paper/28 border-pencil/15 text-pencil hover:bg-paper/44 hover:border-pencil/28 hover:shadow-paper"
                     }`}
                   >
                     {!isActive && (
@@ -196,14 +196,14 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-            className="fixed inset-0 z-40 bg-paper/96 backdrop-blur-md flex items-center justify-center md:hidden"
+            className="fixed inset-0 z-40 bg-paper/60 backdrop-blur-2xl flex items-center justify-center md:hidden"
           >
             <motion.div
               initial={{ y: 24, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 24, opacity: 0, scale: 0.98 }}
               transition={{ type: "spring", ...MOTION_SPRING.subtle }}
-              className="w-full max-w-sm mx-5 p-4 rounded-2xl border-2 border-pencil/30 bg-paper paper-texture shadow-paper"
+              className="w-full max-w-sm mx-5 p-4 rounded-2xl border border-pencil/20 bg-paper/52 backdrop-blur-2xl shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.12)]"
             >
               <div className="flex flex-col gap-2.5">
                 {navItems.map((item, index) => {
@@ -213,8 +213,8 @@ export default function Navigation() {
                       <div className={`
                         relative w-full px-4 py-3 rounded-xl border flex items-center gap-2 overflow-hidden
                         ${isActive
-                          ? 'bg-paper border-ink/35 text-ink shadow-paper'
-                          : 'bg-paper/80 border-pencil/30 text-pencil'}
+                          ? 'bg-paper/58 border-pencil/30 text-ink shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.6)]'
+                          : 'bg-paper/25 border-pencil/15 text-pencil hover:bg-paper/42'}
                       `}>
                         {isActive && <div className="absolute inset-y-1 left-9 right-3 rounded-md bg-highlighter-yellow/22 -rotate-[0.6deg]" />}
                         <span className="relative z-10 text-xs opacity-40 font-sans w-6 text-center">0{index + 1}</span>

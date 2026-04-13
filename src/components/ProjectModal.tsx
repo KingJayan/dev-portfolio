@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { X, Github, ExternalLink } from "lucide-react";
 import { type PortfolioConfig } from "@/portfolio.config";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,23 @@ interface ProjectModalProps {
     onClose: () => void;
 }
 
+function PreviewImage({ project }: { project: ProjectItem }) {
+    const [failed, setFailed] = useState(false);
+    if (failed) return null;
+    return (
+        <div className="p-8 bg-secondary/20 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-ink/10">
+            <div className="relative w-full aspect-video bg-paper/60 border border-paper/80 shadow-lg rotate-1 hover:rotate-0 transition-transform duration-500 overflow-hidden">
+                <img
+                    src={`/images/projects/preview-${project.id}.png`}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    onError={() => setFailed(true)}
+                />
+            </div>
+        </div>
+    );
+}
+
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return createPortal(
         <AnimatePresence>
@@ -23,7 +41,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
                     onClick={onClose}
-                    className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+                    className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
                     style={{ zIndex: Z_INDEX.modal }}
                 >
                     <motion.div
@@ -32,11 +50,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         exit={{ scale: 0.96, rotate: 0.6, y: 24 }}
                         transition={{ type: "spring", ...MOTION_SPRING.subtle }}
                         onClick={(e) => e.stopPropagation()}
-                        className="bg-paper w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-sm shadow-paper-hover relative border border-ink/15 paper-texture"
+                        className="surface-modal backdrop-blur-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl shadow-paper-hover relative border border-pencil/20 [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.65),0_8px_40px_-4px_rgba(36,30,25,0.18)]"
                     >
-
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-1 masking-tape z-20" />
-
 
                         <Button
                             variant="iconSoft"
@@ -48,64 +64,38 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         </Button>
 
                         <div className="grid grid-cols-1 md:grid-cols-2">
+                            <PreviewImage project={project} />
 
-                            <div className="p-8 bg-secondary/20 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-ink/10 relative">
-                                <div className="relative w-full aspect-video bg-paper/60 border border-paper/80 shadow-lg rotate-1 transform hover:rotate-0 transition-transform duration-500 overflow-hidden">
-                                    <img
-                                        src={`/images/projects/preview-${project.id}.png`}
-                                        alt={project.title}
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                            e.currentTarget.parentElement!.style.backgroundColor = 'var(--color-paper)';
-                                            e.currentTarget.style.display = 'none';
-                                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                                        }}
-                                    />
-                                    <div className="absolute inset-0 hidden flex items-center justify-center text-pencil/60 font-marker text-2xl bg-paper text-center p-4">
-                                        no preview image
-                                    </div>
-                                </div>
-                                <div className="mt-8 flex gap-4">
-                                    {project.githubUrl && (
-                                        <a href={project.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-pink transition-colors">
-                                            <Github className="w-5 h-5" /> source
-                                        </a>
-                                    )}
-                                    {project.liveUrl && (
-                                        <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-yellow transition-colors">
-                                            <ExternalLink className="w-5 h-5" /> live
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-
-
-                            <div className="p-8 md:p-12 prose prose-zinc dark:prose-invert max-w-none">
-                                <h2 className="font-marker text-4xl mb-2 text-ink">{project.title}</h2>
-                                <p className="font-hand text-xl text-pencil mb-6">{project.startDate} - {project.endDate || "Present"}</p>
-
-                                <div className="space-y-4 font-sans text-lg leading-relaxed">
-                                    <p>{project.description}</p>
-                                    <p>
-                                        this project explores {project.category ?? "modern product engineering"}.
-                                        built with <strong className="text-highlighter-blue/80 px-1">{project.technologies.join(", ")}</strong>.
-                                    </p>
-
-                                    <h3 className="font-marker text-2xl mt-8">challenge</h3>
-                                    <p>
-                                        every project has tradeoffs. for {project.title}, the focus was smooth ux and solid performance.
-                                    </p>
+                            <div className="p-8 md:p-12 flex flex-col gap-6">
+                                <div>
+                                    <h2 className="font-marker text-4xl text-ink">{project.title}</h2>
+                                    <p className="font-hand text-base text-pencil/60 mt-1">{project.startDate} — {project.endDate || "Present"}</p>
                                 </div>
 
-                                <div className="mt-8 pt-8 border-t border-dashed border-ink/10">
+                                <p className="font-hand text-lg text-ink/80 leading-relaxed">{project.description}</p>
+
+                                <div className="pt-6 border-t border-dashed border-ink/10">
                                     <span className="font-hand text-sm text-pencil/60 uppercase tracking-widest">stack</span>
                                     <div className="flex flex-wrap gap-2 mt-3">
                                         {project.technologies.map(tech => (
-                                            <span key={tech} className="px-3 py-1 bg-paper border border-ink/20 rounded-full text-sm font-bold shadow-sm">
+                                            <span key={tech} className="px-3 py-1 bg-paper border border-ink/20 rounded-full font-hand text-sm shadow-sm">
                                                 {tech}
                                             </span>
                                         ))}
                                     </div>
+                                </div>
+
+                                <div className="flex gap-4 mt-auto">
+                                    {"githubUrl" in project && project.githubUrl && (
+                                        <a href={project.githubUrl as string} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-pink transition-colors">
+                                            <Github className="w-5 h-5" /> source
+                                        </a>
+                                    )}
+                                    {"liveUrl" in project && project.liveUrl && (
+                                        <a href={project.liveUrl as string} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-yellow transition-colors">
+                                            <ExternalLink className="w-5 h-5" /> live
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
-import { Spiral, Underline } from '@/components/Doodles';
+import { Underline } from '@/components/Doodles';
 import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PaperCard from '@/components/ui/PaperCard';
@@ -31,12 +31,7 @@ export default function Achievements() {
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden flex flex-col items-center justify-center min-h-[60vh]"
         >
 
-            {/*subtle doodle accent*/}
-            <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
-                <Spiral className="absolute top-[10%] left-[5%] w-48 h-48 text-pencil/30" />
-            </div>
-
-            <div className="relative z-10 w-full max-w-2xl mx-auto text-center">
+<div className="relative z-10 w-full max-w-2xl mx-auto text-center">
                 <div className="flex flex-col items-center mb-8">
                     <motion.h2
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -70,13 +65,13 @@ export default function Achievements() {
                     <PaperCard
                         rotate={0}
                         showTape={false}
-                        className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-2 border-t-highlighter-yellow/40 bg-highlighter-yellow/10 shadow-xl overflow-hidden"
+                        className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-2 border-t-highlighter-yellow/50 bg-paper/70 backdrop-blur-sm shadow-paper overflow-hidden group-hover:shadow-paper-hover transition-shadow"
                     >
-
-                        <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors" />
-                        <h3 className="font-marker text-2xl text-ink/60 underline decoration-pencil/20 underline-offset-4">records</h3>
-                        <div className="mt-4 px-3 py-1 bg-highlighter-yellow/20">
-                            <span className="font-hand text-sm font-bold text-ink/70 tracking-widest uppercase">open</span>
+                        <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors duration-300" />
+                        <h3 className="font-marker text-2xl text-ink/60">records</h3>
+                        <p className="font-hand text-sm text-pencil/40 mt-1">click to browse</p>
+                        <div className="mt-4 px-3 py-1 border border-pencil/20 rounded bg-paper/50 backdrop-blur-sm group-hover:bg-highlighter-yellow/30 group-hover:border-highlighter-yellow/50 transition-all duration-300">
+                            <span className="font-hand text-sm text-ink/60">open →</span>
                         </div>
                     </PaperCard>
                 </motion.div>
@@ -141,23 +136,28 @@ export default function Achievements() {
                                                                 const itemIcon = 'icon' in item ? item.icon : undefined;
                                                                 const ItemIcon = icons[itemIcon as keyof typeof icons] || StarIcon;
                                                                 return (
-                                                                    <Surface
-                                                                        variant="default"
+                                                                    <motion.div
                                                                         key={itemIdx}
-                                                                        className="relative p-5 bg-ink/[0.02] border-ink/10 rounded-md hover:bg-highlighter-yellow/5 transition-colors group/item"
+                                                                        whileHover={{ y: -2, scale: 1.01 }}
+                                                                        whileTap={{ scale: 0.98 }}
+                                                                        transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                                                                        className="relative p-5 bg-paper/50 backdrop-blur-sm border border-pencil/15 rounded-xl shadow-paper hover:shadow-paper-hover hover:bg-paper/75 hover:border-pencil/30 transition-[background-color,border-color,box-shadow] group/item"
                                                                     >
                                                                         <div className="flex items-start gap-3">
-                                                                            <ItemIcon className="w-4 h-4 mt-1 text-pencil group-hover/item:scale-125 transition-transform" />
+                                                                            <ItemIcon className="w-4 h-4 mt-1 text-pencil group-hover/item:scale-125 transition-transform shrink-0" />
                                                                             <div>
-                                                                                <span className="text-[10px] font-marker text-pencil/40 uppercase tracking-widest">{item.date}</span>
-                                                                                <h5 className="text-xl font-amatic font-bold text-ink leading-tight">{item.title}</h5>
-                                                                                <p className="font-hand text-xs text-pencil/60 mt-0.5">{item.organization}</p>
-                                                                                <p className="font-hand text-sm text-ink/80 mt-2 leading-relaxed italic">
-                                                                                    {item.description}
+                                                                                <h5 className="font-marker text-lg text-ink leading-tight">{item.title}</h5>
+                                                                                <p className="font-hand text-sm text-pencil/60 mt-0.5">
+                                                                                    {item.organization}{item.organization && item.date ? ' · ' : ''}{item.date}
                                                                                 </p>
+                                                                                {item.description && (
+                                                                                    <p className="font-hand text-sm text-ink/70 mt-1.5 leading-relaxed">
+                                                                                        {item.description}
+                                                                                    </p>
+                                                                                )}
                                                                             </div>
                                                                         </div>
-                                                                    </Surface>
+                                                                    </motion.div>
                                                                 );
                                                             })}
                                                         </div>
