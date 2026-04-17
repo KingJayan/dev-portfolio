@@ -1,7 +1,7 @@
 <div align="center">
   <h2><code>KingJayan/dev-portfolio</code></h1>
+  <p>A single-page developer portfolio with a unique hand-drawn style</p>
 </div>
-A single-page developer portfolio with a unique hand-drawn style
 
 <div align="center">
   <a href="https://jayanpatel.vercel.app" target="_blank">
