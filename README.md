@@ -1,72 +1,61 @@
-
 <div align="center">
-  <h1 align="center">Sketchbook Portfolio</h1>
-  <p align="center">A creative, single-page developer portfolio with a unique hand-drawn aesthetic.</p>
+  <h2><code>KingJayan/dev-portfolio</code></h1>
 </div>
+A single-page developer portfolio with a unique hand-drawn style
 
 <div align="center">
   <a href="https://jayanpatel.vercel.app" target="_blank">
-    <img src="https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge" alt="Live Demo" />
+    <img src="https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge" alt="demo" />
   </a>
-  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="TailwindCSS" />
-  <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
-  <img src="https://img.shields.io/badge/framer-%230055FF.svg?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
-  <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="react" />
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="ts" />
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="tailwindcss" />
+  <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="vite" />
+  <img src="https://img.shields.io/badge/framer-%230055FF.svg?style=for-the-badge&logo=framer&logoColor=white" alt="framer motion" />
+  <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" alt="vercel" />
 </div>
 
 <br/>
 
-## Features
+## features
 
-- **Sketchbook Design**: Custom doodle UI with animations, paper textures, and a detailed UX.
-- **Interactivity**:
-    - **Free Draw Mode**: Toggle a pencil to draw anywhere on the screen.
-    - **Dark Mode**: Switch between "Paper" (Light) and "Chalkboard" (Dark) modes.
-- **3D Parallax Follow Hero**: Mouse-driven parallax effect with floating elements and physics-based animations.
-- **Responsive & SPA**: Smooth scrolling navigation that handles mobile and desktop gracefully.
-- **Serverless**: Mailjet for handling contact form submissions, vercel for deployment.
+- **drawn design**: custom doodle ui with animations and a detailed UX
+- **interactivity**:
+    - **canvas mode**: toggle a art mode to draw anywhere on the screen
+- **3d parallax follow hero**: mouse-driven parallax effect with physics-based animations
+- **SPA**: smooth scrolling nav that handles mobile and desktop gracefully
+- **serverless**: mailjet for handling contact form submissions, vercel for deployment
 
-## Getting Started
+## getting started
 
-#### Prerequisites
+#### prereqs
 
-You need `node` and `npm` installed.
+you need `node` and `npm` installed
 
-#### Installation
+#### installation
 
-1.  **Clone the repo**
+1.  **clone the repo**
     ```bash
     git clone https://github.com/KingJayan/dev-portfolio.git
     cd dev-portfolio
     ```
 
-2.  **Install dependencies**
+2.  **install deps**
     ```bash
     npm install
     ```
 
-3.  **Run locally**
+3.  **run locally**
     ```bash
     npm run dev
     ```
 
-4.  **Build**
+4.  **build**
     ```bash
     npm run build
     ```
 
-
-## Contributing
-
-Feel free to fork this project and use it as a base for your own portfolio! (Configuration available in src/portfolio.config.ts)
-
-<a href="https://github.com/KingJayan/dev-portfolio/fork" target="_blank">
-  <img src="https://img.shields.io/github/forks/KingJayan/dev-portfolio?style=social" alt="Fork" />
-</a>
-
-## License
+## license
 
 <div align="center">
   <sub>MIT License/sub>
