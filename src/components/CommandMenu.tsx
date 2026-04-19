@@ -13,8 +13,9 @@ import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
 import { MOTION_EASE, MOTION_TIMING } from "@/lib/motion";
+import { cn } from "@/lib/utils";
 
-// ─── types ────────────────────────────────────────────────────────────────────
+// types
 
 type QuickAction = {
     icon: React.ReactNode;
@@ -36,7 +37,6 @@ type CommandGroup = {
     items: CommandEntry[];
 };
 
-// ─── component ────────────────────────────────────────────────────────────────
 
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
@@ -90,7 +90,7 @@ export default function CommandMenu() {
         scrollTo(id);
     }, [scrollTo]);
 
-    // ── quick actions (always-visible icon bar) ──────────────────────────────
+    // quick actions
 
     const quickActions: QuickAction[] = [
         {
@@ -122,7 +122,7 @@ export default function CommandMenu() {
         },
     ];
 
-    // ── command groups ────────────────────────────────────────────────────────
+    // command groups
 
     const groups: CommandGroup[] = [
         {
@@ -199,16 +199,15 @@ export default function CommandMenu() {
                                     key={a.label}
                                     onClick={a.onSelect}
                                     title={a.label}
-                                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-hand transition-all duration-150
-                                        ${a.active
-                                            ? "bg-ink/10 text-ink"
-                                            : "text-ink/50 hover:text-ink hover:bg-ink/5"
-                                        }`}
+                                    className={cn(
+                                        "flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-hand transition-all duration-150",
+                                        a.active ? "bg-ink/10 text-ink" : "text-ink/50 hover:text-ink hover:bg-ink/5"
+                                    )}
                                 >
                                     {a.icon}
                                     <span className="text-xs">{a.label}</span>
                                     {a.active !== undefined && (
-                                        <span className={`w-1.5 h-1.5 rounded-full ${a.active ? "bg-green-400" : "bg-ink/20"}`} />
+                                        <span className={cn("w-1.5 h-1.5 rounded-full", a.active ? "bg-green-400" : "bg-ink/20")} />
                                     )}
                                 </button>
                             ))}

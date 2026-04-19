@@ -10,6 +10,13 @@ import { Lightbulb } from 'lucide-react';
 type AboutSkill = typeof portfolioConfig.about.skills[number];
 type AboutTool = typeof portfolioConfig.about.tools[number];
 
+const CHIP_COLORS = [
+  "bg-amber/10 border-amber/30 hover:bg-amber/20 hover:border-amber/50",
+  "bg-rose/10 border-rose/25 hover:bg-rose/20 hover:border-rose/45",
+  "bg-sage/10 border-sage/25 hover:bg-sage/20 hover:border-sage/45",
+  "bg-slate/10 border-slate/25 hover:bg-slate/20 hover:border-slate/45",
+];
+
 export default function About() {
   const { personal, about } = portfolioConfig;
   const { skills, tools } = about;
@@ -21,7 +28,7 @@ export default function About() {
         <Star className="absolute bottom-24 right-10 w-10 h-10 text-highlighter-yellow/80" />
       </div>
 
-      {/*bio + skills*/}
+      {/* bio + skills */}
       <div className="flex flex-col lg:flex-row gap-16 items-start w-full">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
@@ -31,36 +38,28 @@ export default function About() {
           className="flex-1 relative group w-full"
         >
           <Surface variant="elevated" className="p-10 relative w-full">
-          <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
-            <img
-              src="/images/profile.png"
-              alt="Profile"
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextElementSibling?.classList.remove('hidden');
-              }}
-            />
-            <div className="absolute inset-0 hidden flex items-center justify-center font-marker text-2xl text-ink/40 text-center p-4">
-              Add profile.png
+            <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
+              <img
+                src="/images/profile.png" alt="Profile"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4">
+                Add profile.png
+              </div>
             </div>
-          </div>
 
-          <h2 className="text-6xl font-marker text-center mb-8 relative">
-            <ScribbleText color="text-highlighter-yellow">about</ScribbleText>
-          </h2>
+            <h2 className="text-6xl font-marker text-center mb-8 relative">
+              <ScribbleText color="text-highlighter-yellow">about</ScribbleText>
+            </h2>
 
-          <div className="font-hand text-lg text-ink leading-relaxed space-y-6">
-            <p>
-              Hi! I'm <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.
-            </p>
-
-            {about.bio && about.bio.map((paragraph: string, idx: number) => (
-              <p key={idx}>
-                {paragraph}
-              </p>
-            ))}
-          </div>
+            <div className="font-hand text-lg text-ink leading-relaxed space-y-6">
+              <p>Hi! I'm <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.</p>
+              {about.bio?.map((paragraph: string, idx: number) => <p key={idx}>{paragraph}</p>)}
+            </div>
           </Surface>
         </motion.div>
 
@@ -76,28 +75,18 @@ export default function About() {
               <Star className="w-8 h-8 text-highlighter-yellow" />
               skills
             </h3>
-
             <div className="flex flex-wrap gap-2">
-              {skills.map((skill: AboutSkill, idx: number) => {
-                const chipColors = [
-                  "bg-amber/10 border-amber/30 hover:bg-amber/20 hover:border-amber/50",
-                  "bg-rose/10 border-rose/25 hover:bg-rose/20 hover:border-rose/45",
-                  "bg-sage/10 border-sage/25 hover:bg-sage/20 hover:border-sage/45",
-                  "bg-slate/10 border-slate/25 hover:bg-slate/20 hover:border-slate/45",
-                ];
-                const color = chipColors[idx % chipColors.length];
-                return (
+              {skills.map((skill: AboutSkill, idx: number) => (
                 <motion.span
                   key={skill.name}
                   whileHover={{ scale: 1.07, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className={`px-3 py-1.5 backdrop-blur-sm border rounded-full font-hand text-base text-ink shadow-paper hover:shadow-paper-hover transition-[border-color,background-color,box-shadow] cursor-default ${color}`}
+                  className={`px-3 py-1.5 backdrop-blur-sm border rounded-full font-hand text-base text-ink shadow-paper hover:shadow-paper-hover transition-[border-color,background-color,box-shadow] cursor-default ${CHIP_COLORS[idx % CHIP_COLORS.length]}`}
                 >
                   {skill.name}
                 </motion.span>
-                );
-              })}
+              ))}
             </div>
           </Surface>
 
@@ -121,7 +110,7 @@ export default function About() {
         </motion.div>
       </div>
 
-      {/*toolkit*/}
+      {/* toolkit */}
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -134,15 +123,10 @@ export default function About() {
             <Box className="w-10 h-10 text-highlighter-yellow" />
             toolkit
           </h3>
-
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
-            {tools.map((tool: AboutTool, idx: number) => (
+            {tools.map((tool: AboutTool) => (
               <HandmadeTooltip key={tool.name} content={tool.name}>
-                <motion.div
-                  whileHover={{ scale: 1.15 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex flex-col items-center gap-2 group cursor-default"
-                >
+                <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }} className="flex flex-col items-center gap-2 group cursor-default">
                   <Surface variant="default" className="w-12 h-12 border-ink/20 rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/40 group-hover:border-pencil/45 transition-all duration-200">
                     <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
                   </Surface>
@@ -150,18 +134,15 @@ export default function About() {
               </HandmadeTooltip>
             ))}
           </div>
-
           <p className="font-hand text-sm text-pencil/40 mt-10 italic text-center">
             * Tools I use to bring ideas to life.
           </p>
         </Surface>
       </motion.div>
-
     </section>
   );
 }
 
-// box icon
 function Box({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
