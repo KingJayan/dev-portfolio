@@ -121,13 +121,16 @@ function App() {
             )
           : true;
 
-      await new Promise<void>((resolve) => {
-        if (fontsLoaded()) { resolve(); return; }
-        const deadline = setTimeout(resolve, FONT_TIMEOUT);
-        const poll = setInterval(() => {
-          if (fontsLoaded()) { clearInterval(poll); clearTimeout(deadline); resolve(); }
-        }, 80);
-      });
+      await Promise.all([
+        new Promise<void>((resolve) => {
+          if (fontsLoaded()) { resolve(); return; }
+          const deadline = setTimeout(resolve, FONT_TIMEOUT);
+          const poll = setInterval(() => {
+            if (fontsLoaded()) { clearInterval(poll); clearTimeout(deadline); resolve(); }
+          }, 80);
+        }),
+        new Promise<void>((resolve) => setTimeout(resolve, 200)),
+      ]);
 
       if (!cancelled) setIsLoading(false);
     };
