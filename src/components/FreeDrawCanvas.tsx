@@ -125,6 +125,7 @@ export default function FreeDrawCanvas() {
         const startDraw = (e: MouseEvent | TouchEvent) => {
             if (!ctxRef.current) return;
             if ("button" in e && e.button !== 0) return;
+            if ("touches" in e && e.touches.length > 1) return;
 
             isDrawingRef.current = true;
             const pos = getPos(e);
@@ -140,6 +141,7 @@ export default function FreeDrawCanvas() {
 
         const draw = (e: MouseEvent | TouchEvent) => {
             if (!isDrawingRef.current || !ctxRef.current) return;
+            if ("touches" in e && e.touches.length > 1) return;
             e.preventDefault();
 
             const pos = getPos(e);
@@ -197,6 +199,7 @@ export default function FreeDrawCanvas() {
         canvas.addEventListener("touchstart", startDraw, { passive: false });
         canvas.addEventListener("touchmove", draw, { passive: false });
         canvas.addEventListener("touchend", endDraw);
+        canvas.addEventListener("touchcancel", endDraw);
 
         return () => {
             canvas.removeEventListener("mousedown", startDraw);
@@ -206,6 +209,7 @@ export default function FreeDrawCanvas() {
             canvas.removeEventListener("touchstart", startDraw);
             canvas.removeEventListener("touchmove", draw);
             canvas.removeEventListener("touchend", endDraw);
+            canvas.removeEventListener("touchcancel", endDraw);
         };
     }, [isDrawingMode, tool, color, brushSize]);
 
