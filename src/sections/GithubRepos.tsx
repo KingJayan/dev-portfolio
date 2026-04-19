@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { Star, GitFork, ExternalLink } from 'lucide-react';
+import { useEffect, useState, useCallback } from 'react';
+import { Star, GitFork, ExternalLink, RefreshCw, WifiOff } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
@@ -41,8 +41,11 @@ export default function GithubRepos() {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
 
-  useEffect(() => {
+  const fetchRepos = useCallback(() => {
+    setLoading(true);
+    setError(null);
     fetch('https://api.github.com/users/KingJayan/repos?sort=updated&per_page=6')
       .then((res) => {
         if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
@@ -61,6 +64,8 @@ export default function GithubRepos() {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => { fetchRepos(); }, [retryCount]);
 
   /*loading*/
   if (loading) {
@@ -91,7 +96,6 @@ export default function GithubRepos() {
     );
   }
 
-  /*error*/
   if (error) {
     return (
       <motion.div
@@ -103,15 +107,40 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-yellow">github</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
           </h2>
         </div>
-        <PaperCard rotate={-1} className="max-w-md mx-auto text-center">
-          <p className="font-hand text-xl text-ink/70">
-            unable to load repos at the moment, please try again later.
-          </p>
-          <p className="font-hand text-lg text-pencil mt-2">{error}</p>
-        </PaperCard>
+        <div className="relative flex flex-wrap justify-center gap-10">
+          {[...Array(6)].map((_, i) => (
+            <Surface
+              variant="elevated"
+              key={i}
+              className={`w-full md:w-[calc(50%-20px)] lg:w-[calc(33.333%-28px)] h-48 border-ink/10 opacity-30 ${i % 2 === 0 ? 'rotate-[-1deg]' : 'rotate-[1deg]'}`}
+            />
+          ))}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 20 }}
+            >
+              <PaperCard rotate={-1.5} className="text-center px-8 py-6 shadow-paper-hover">
+                <WifiOff className="w-8 h-8 text-pencil/60 mx-auto mb-3" />
+                <p className="font-marker text-2xl text-ink mb-1">couldn't reach github</p>
+                <p className="font-hand text-base text-pencil/70 mb-4 max-w-[22ch]">
+                  looks like the api is taking a nap — try again?
+                </p>
+                <button
+                  onClick={() => setRetryCount(c => c + 1)}
+                  className="inline-flex items-center gap-2 font-hand text-base text-ink bg-highlighter-yellow/40 hover:bg-highlighter-yellow/70 border border-ink/20 rounded-lg px-4 py-1.5 transition-colors active:scale-95"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                  retry
+                </button>
+              </PaperCard>
+            </motion.div>
+          </div>
+        </div>
       </motion.div>
     );
   }
