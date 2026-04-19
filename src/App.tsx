@@ -98,41 +98,48 @@ function Portfolio({ isZenMode }: { isZenMode: boolean }) {
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   const { isZenMode } = useTheme();
 
   useEffect(() => {
     let cancelled = false;
-    const delayedReveal = setTimeout(() => {
-      if (!cancelled) setShowLoadingScreen(true);
-    }, 120);
 
     const finishBoot = async () => {
-      const fontsReady = typeof document !== "undefined" && "fonts" in document
-        ? (document as Document & { fonts: FontFaceSet }).fonts.ready
-        : Promise.resolve();
+      // fonts.ready only resolves once @font-face rules are parsed, not once
+      // the network fetches complete. To catch actual Google Fonts load we poll
+      // document.fonts.check() for the specific families we rely on.
+      const FONT_FAMILIES = [
+        '"Permanent Marker"',
+        '"Kalam"',
+        '"Caveat"',
+      ];
+      const FONT_TIMEOUT = 2500; // ms — generous for slow connections
 
-      await Promise.race([
-        fontsReady,
-        new Promise((resolve) => setTimeout(resolve, 320)),
-      ]);
+      const fontsLoaded = () =>
+        typeof document !== "undefined" && "fonts" in document
+          ? FONT_FAMILIES.every((f) =>
+              (document as Document & { fonts: FontFaceSet }).fonts.check(`16px ${f}`)
+            )
+          : true;
 
-      if (!cancelled) {
-        setIsLoading(false);
-      }
+      await new Promise<void>((resolve) => {
+        if (fontsLoaded()) { resolve(); return; }
+        const deadline = setTimeout(resolve, FONT_TIMEOUT);
+        const poll = setInterval(() => {
+          if (fontsLoaded()) { clearInterval(poll); clearTimeout(deadline); resolve(); }
+        }, 80);
+      });
+
+      if (!cancelled) setIsLoading(false);
     };
 
     void finishBoot();
 
-    return () => {
-      cancelled = true;
-      clearTimeout(delayedReveal);
-    };
+    return () => { cancelled = true; };
   }, []);
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading && showLoadingScreen} />
+      <LoadingScreen isLoading={isLoading} />
       {!isZenMode && <div className="grain-overlay" />}
       {!isZenMode && <FreeDrawCanvas />}
       {!isZenMode && <ScrollProgress />}
