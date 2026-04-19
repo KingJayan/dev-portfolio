@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { MOTION_EASE } from "@/lib/motion";
 
 interface ScribbleTextProps {
     children: React.ReactNode;
@@ -14,7 +13,7 @@ export default function ScribbleText({
     color = "text-highlighter-pink"
 }: ScribbleTextProps) {
     return (
-        <motion.div
+        <motion.span
             className={`relative inline-block cursor-default ${className}`}
             initial="initial"
             whileInView="visible"
@@ -37,22 +36,8 @@ export default function ScribbleText({
                 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
             >
-                <motion.path
-                    d="M5,10 Q50,15 100,5 T195,10"
-                    animate={{
-                        d: [
-                            "M5,10 Q50,15 100,5 T195,10",
-                            "M5,11 Q50,13 100,7 T195,9",
-                            "M5,10 Q50,15 100,5 T195,10"
-                        ]
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: MOTION_EASE.smooth
-                    }}
-                />
+                <motion.path d="M5,10 Q50,15 100,5 T195,10" />
             </motion.svg>
-        </motion.div>
+        </motion.span>
     );
 }

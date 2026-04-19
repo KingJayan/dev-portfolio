@@ -1,70 +1,173 @@
 import { Command } from "cmdk";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
-import { Search, Command as CommandIcon, FileCode, User, Home, Trophy, Smile, Mail, ArrowUpRight, Sun, Moon, BookOpen, Pencil, Copy, Github, Linkedin } from "lucide-react";
+import {
+    Search, Command as CommandIcon, FileCode, User, Home, Trophy,
+    Smile, Mail, ArrowUpRight, Sun, Moon, BookOpen, Pencil, Copy,
+    Shuffle, Share2, ArrowUp,
+} from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
 import { MOTION_EASE, MOTION_TIMING } from "@/lib/motion";
+
+// ─── types ────────────────────────────────────────────────────────────────────
+
+type QuickAction = {
+    icon: React.ReactNode;
+    label: string;
+    active?: boolean;
+    onSelect: () => void;
+};
+
+type CommandEntry = {
+    id: string;
+    label: string;
+    icon: React.ReactNode;
+    badge?: string;
+    onSelect: () => void;
+};
+
+type CommandGroup = {
+    heading: string;
+    items: CommandEntry[];
+};
+
+// ─── component ────────────────────────────────────────────────────────────────
 
 export default function CommandMenu() {
     const [open, setOpen] = useState(false);
     const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
     const { isDrawingMode, toggleDrawingMode } = useDrawing();
 
+    const run = useCallback((fn: () => void) => { fn(); }, []);
 
+    // keyboard trigger
     useEffect(() => {
-        const down = (e: KeyboardEvent) => {
-            const target = e.target as HTMLElement | null;
-            const isTypingTarget = !!target && (
-                target.tagName === "INPUT" ||
-                target.tagName === "TEXTAREA" ||
-                target.tagName === "SELECT" ||
-                target.isContentEditable ||
-                target.getAttribute("role") === "textbox"
-            );
-
-            if (isTypingTarget || e.repeat) return;
-
-            if (e.shiftKey && e.key.toLowerCase() === "p") {
+        const handler = (e: KeyboardEvent) => {
+            if (e.repeat) return;
+            const t = e.target as HTMLElement;
+            const typing = t.tagName === "INPUT" || t.tagName === "TEXTAREA" ||
+                t.tagName === "SELECT" || t.isContentEditable || t.getAttribute("role") === "textbox";
+            if (!typing && e.shiftKey && e.key.toLowerCase() === "p") {
                 e.preventDefault();
-                setOpen((open) => !open);
+                setOpen(o => !o);
             }
         };
-
-        document.addEventListener("keydown", down);
-        return () => document.removeEventListener("keydown", down);
+        document.addEventListener("keydown", handler);
+        return () => document.removeEventListener("keydown", handler);
     }, []);
 
-    const runCommand = (command: () => void) => {
-        setOpen(false);
-        command();
-    };
+    const scrollTo = useCallback((id: string) => run(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }), [run]);
 
-    const scrollToSection = (id: string) => {
-        runCommand(() => {
-            const el = document.getElementById(id);
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-        });
-    };
+    const copyEmail = useCallback(() => run(async () => {
+        try {
+            await navigator.clipboard.writeText(portfolioConfig.personal.email);
+            toast({ description: "email copied" });
+        } catch {
+            toast({ description: "could not copy" });
+        }
+    }), [run]);
 
-    const copyEmail = async () => {
-        runCommand(async () => {
-            try {
-                await navigator.clipboard.writeText(portfolioConfig.personal.email);
-                toast({ description: "email copied" });
-            } catch {
-                toast({ description: "could not copy email" });
-            }
-        });
-    };
+    const shareSite = useCallback(() => run(async () => {
+        const url = portfolioConfig.personal.website;
+        if (navigator.share) {
+            await navigator.share({ title: portfolioConfig.personal.name, url }).catch(() => null);
+        } else {
+            await navigator.clipboard.writeText(url).catch(() => null);
+            toast({ description: "link copied" });
+        }
+    }), [run]);
+
+    const surpriseMe = useCallback(() => {
+        const sections = ["home", "projects", "about", "achievements", "outside", "contact"];
+        const id = sections[Math.floor(Math.random() * sections.length)];
+        scrollTo(id);
+    }, [scrollTo]);
+
+    // ── quick actions (always-visible icon bar) ──────────────────────────────
+
+    const quickActions: QuickAction[] = [
+        {
+            icon: theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />,
+            label: theme === "dark" ? "light" : "dark",
+            onSelect: () => run(toggleTheme),
+        },
+        {
+            icon: <BookOpen className="w-4 h-4" />,
+            label: "zen",
+            active: isZenMode,
+            onSelect: () => run(toggleZenMode),
+        },
+        {
+            icon: <Pencil className="w-4 h-4" />,
+            label: "draw",
+            active: isDrawingMode,
+            onSelect: () => run(toggleDrawingMode),
+        },
+        {
+            icon: <Copy className="w-4 h-4" />,
+            label: "email",
+            onSelect: copyEmail,
+        },
+        {
+            icon: <Share2 className="w-4 h-4" />,
+            label: "share",
+            onSelect: shareSite,
+        },
+    ];
+
+    // ── command groups ────────────────────────────────────────────────────────
+
+    const groups: CommandGroup[] = [
+        {
+            heading: "go",
+            items: [
+                { id: "home", label: "home", icon: <Home className="w-4 h-4" />, onSelect: () => scrollTo("home") },
+                { id: "projects", label: "projects", icon: <FileCode className="w-4 h-4" />, onSelect: () => scrollTo("projects") },
+                { id: "about", label: "about", icon: <User className="w-4 h-4" />, onSelect: () => scrollTo("about") },
+                { id: "achievements", label: "extras", icon: <Trophy className="w-4 h-4" />, onSelect: () => scrollTo("achievements") },
+                { id: "outside", label: "life", icon: <Smile className="w-4 h-4" />, onSelect: () => scrollTo("outside") },
+                { id: "contact", label: "contact", icon: <Mail className="w-4 h-4" />, onSelect: () => scrollTo("contact") },
+            ],
+        },
+        {
+            heading: "work",
+            items: portfolioConfig.projects.items.map(p => ({
+                id: p.id,
+                label: p.title,
+                icon: <ArrowUpRight className="w-4 h-4 text-highlighter-pink" />,
+                badge: p.technologies[0],
+                onSelect: () => run(() => {
+                    const url = (p as Record<string, unknown>)["liveUrl"] ?? (p as Record<string, unknown>)["githubUrl"];
+                    if (url) window.open(url as string, "_blank");
+                }),
+            })),
+        },
+        {
+            heading: "power",
+            items: [
+                { id: "surprise", label: "surprise me", icon: <Shuffle className="w-4 h-4" />, onSelect: surpriseMe },
+                { id: "top", label: "scroll to top", icon: <ArrowUp className="w-4 h-4" />, onSelect: () => scrollTo("home") },
+                { id: "share", label: "share this site", icon: <Share2 className="w-4 h-4" />, onSelect: shareSite },
+            ],
+        },
+        {
+            heading: "connect",
+            items: [
+                { id: "github", label: "github", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.github, "_blank")) },
+                { id: "linkedin", label: "linkedin", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.linkedin, "_blank")) },
+            ],
+        },
+    ];
 
     return (
         <>
-
             <motion.div
                 whileHover={{ y: -2, rotate: -0.2 }}
                 transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
@@ -76,129 +179,91 @@ export default function CommandMenu() {
                 >
                     <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
                     <span className="text-ink/80 group-hover:text-ink">menu</span>
-                    <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift + p</span>
+                    <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift+p</span>
                 </Button>
             </motion.div>
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
-                <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl">
+                <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-xl">
                     <motion.div
                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="p-1 relative w-full bg-paper/60 backdrop-blur-2xl border border-pencil/20 rounded-xl shadow-paper-hover overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.60),0_8px_32px_-4px_rgba(36,30,25,0.14)]"
+                        className="relative w-full bg-paper/70 backdrop-blur-2xl border border-pencil/20 rounded-xl shadow-paper overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.35),0_4px_16px_-4px_rgba(36,30,25,0.10)]"
                     >
+                        {/* quick actions bar */}
+                        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-dashed border-pencil/15">
+                            {quickActions.map((a) => (
+                                <button
+                                    key={a.label}
+                                    onClick={a.onSelect}
+                                    title={a.label}
+                                    className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-hand transition-all duration-150
+                                        ${a.active
+                                            ? "bg-ink/10 text-ink"
+                                            : "text-ink/50 hover:text-ink hover:bg-ink/5"
+                                        }`}
+                                >
+                                    {a.icon}
+                                    <span className="text-xs">{a.label}</span>
+                                    {a.active !== undefined && (
+                                        <span className={`w-1.5 h-1.5 rounded-full ${a.active ? "bg-green-400" : "bg-ink/20"}`} />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* search + list */}
                         <Command className="w-full bg-transparent">
-                            <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
-                                <Search className="mr-2 h-5 w-5 shrink-0 opacity-50 text-ink" />
+                            <div className="flex items-center border-b border-dashed border-pencil/15 px-3" cmdk-input-wrapper="">
+                                <Search className="mr-2 h-4 w-4 shrink-0 opacity-40 text-ink" />
                                 <Command.Input
-                                    className="flex h-14 w-full rounded-md bg-transparent py-3 text-2xl outline-none placeholder:text-ink/30 font-hand text-ink"
-                                    placeholder="go to..."
+                                    className="flex h-12 w-full bg-transparent py-3 text-xl outline-none placeholder:text-ink/30 font-hand text-ink"
+                                    placeholder="type a command..."
                                     autoFocus
                                 />
                             </div>
 
-                            <Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden p-2">
-                                <Command.Empty className="py-6 text-center text-sm text-ink/50 font-hand text-xl">
-                                    nothing here. try "projects" or "about".
+                            <Command.List className="max-h-[320px] overflow-y-auto overflow-x-hidden p-1.5">
+                                <Command.Empty className="py-8 text-center text-ink/40 font-hand text-lg">
+                                    nothing found.
                                 </Command.Empty>
 
-                                <Command.Group heading="go" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
-                                    <CommandItem onSelect={() => scrollToSection("home")}>
-                                        <Home className="mr-2 h-4 w-4" />
-                                        <span>home</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => scrollToSection("projects")}>
-                                        <FileCode className="mr-2 h-4 w-4" />
-                                        <span>projects</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => scrollToSection("about")}>
-                                        <User className="mr-2 h-4 w-4" />
-                                        <span>about</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => scrollToSection("achievements")}>
-                                        <Trophy className="mr-2 h-4 w-4" />
-                                        <span>extras</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => scrollToSection("outside")}>
-                                        <Smile className="mr-2 h-4 w-4" />
-                                        <span>life</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => scrollToSection("contact")}>
-                                        <Mail className="mr-2 h-4 w-4" />
-                                        <span>contact</span>
-                                    </CommandItem>
-                                </Command.Group>
-
-                                <Command.Separator className="h-px bg-pencil/10 my-2" />
-
-                                <Command.Group heading="work" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
-                                    {portfolioConfig.projects.items.map((project) => (
-                                        <CommandItem
-                                            key={project.id}
-                                            onSelect={() => {
-                                                const p = project as Record<string, unknown>;
-                                                if (p['liveUrl']) {
-                                                    window.open(p['liveUrl'] as string, "_blank");
-                                                } else if (p['githubUrl']) {
-                                                    window.open(p['githubUrl'] as string, "_blank");
-                                                }
-                                            }}
+                                {groups.map((group, i) => (
+                                    <div key={group.heading}>
+                                        {i > 0 && <Command.Separator className="h-px bg-pencil/10 my-1" />}
+                                        <Command.Group
+                                            heading={group.heading}
+                                            className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-ink/35 [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:font-sans"
                                         >
-                                            <ArrowUpRight className="mr-2 h-4 w-4 text-highlighter-pink" />
-                                            <span>{project.title}</span>
-                                            <span className="ml-auto text-xs text-ink/40 font-sans">{project.technologies[0]}</span>
-                                        </CommandItem>
-                                    ))}
-                                </Command.Group>
-
-                                <Command.Separator className="h-px bg-pencil/10 my-2" />
-
-                                <Command.Group heading="tools" className="px-2 py-2 text-xs font-bold text-ink/40 uppercase tracking-widest font-sans mb-1">
-                                    <CommandItem onSelect={() => runCommand(toggleTheme)}>
-                                        {theme === "dark" ? <Sun className="mr-2 h-4 w-4" /> : <Moon className="mr-2 h-4 w-4" />}
-                                        <span>{theme === "dark" ? "switch to light" : "switch to dark"}</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => runCommand(toggleZenMode)}>
-                                        <BookOpen className="mr-2 h-4 w-4" />
-                                        <span>{isZenMode ? "disable zen mode" : "enable zen mode"}</span>
-                                        <span className="ml-auto text-xs text-ink/40 font-sans">{isZenMode ? "on" : "off"}</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => runCommand(toggleDrawingMode)}>
-                                        <Pencil className="mr-2 h-4 w-4" />
-                                        <span>{isDrawingMode ? "disable draw mode" : "enable draw mode"}</span>
-                                        <span className="ml-auto text-xs text-ink/40 font-sans">{isDrawingMode ? "on" : "off"}</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={copyEmail}>
-                                        <Copy className="mr-2 h-4 w-4" />
-                                        <span>copy email</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => runCommand(() => window.open(portfolioConfig.social.github, "_blank"))}>
-                                        <Github className="mr-2 h-4 w-4" />
-                                        <span>open github</span>
-                                    </CommandItem>
-                                    <CommandItem onSelect={() => runCommand(() => window.open(portfolioConfig.social.linkedin, "_blank"))}>
-                                        <Linkedin className="mr-2 h-4 w-4" />
-                                        <span>open linkedin</span>
-                                    </CommandItem>
-                                </Command.Group>
+                                            {group.items.map((item) => (
+                                                <Command.Item
+                                                    key={item.id}
+                                                    onSelect={item.onSelect}
+                                                    className="relative flex cursor-default select-none items-center rounded-lg px-3 py-2.5 text-lg outline-none aria-selected:bg-ink/8 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-ink/5 transition-colors duration-100 group"
+                                                >
+                                                    <span className="mr-2.5 text-ink/50 group-aria-selected:text-ink transition-colors">{item.icon}</span>
+                                                    <span>{item.label}</span>
+                                                    {item.badge && (
+                                                        <span className="ml-auto text-xs text-ink/35 font-sans">{item.badge}</span>
+                                                    )}
+                                                </Command.Item>
+                                            ))}
+                                        </Command.Group>
+                                    </div>
+                                ))}
                             </Command.List>
+
+                            {/* footer hint */}
+                            <div className="flex items-center justify-between px-3 py-2 border-t border-dashed border-pencil/15 text-[10px] text-ink/30 font-sans">
+                                <span>↑↓ navigate · enter select · esc close</span>
+                                <span>shift+p</span>
+                            </div>
                         </Command>
                     </motion.div>
                 </DialogContent>
             </Dialog>
         </>
-    );
-}
-
-function CommandItem({ children, onSelect }: { children: React.ReactNode, onSelect: () => void }) {
-    return (
-        <Command.Item
-            onSelect={onSelect}
-            className="relative flex cursor-default select-none items-center rounded-lg px-3 py-3 text-xl outline-none aria-selected:bg-paper/60 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-paper/60 hover:backdrop-blur-sm hover:shadow-paper transition-all duration-150 group"
-        >
-            {children}
-        </Command.Item>
     );
 }
