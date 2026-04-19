@@ -129,7 +129,7 @@ function App() {
             if (fontsLoaded()) { clearInterval(poll); clearTimeout(deadline); resolve(); }
           }, 80);
         }),
-        new Promise<void>((resolve) => setTimeout(resolve, 200)),
+        new Promise<void>((resolve) => setTimeout(resolve, 1000)),
       ]);
 
       if (!cancelled) setIsLoading(false);
