@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Sun, Moon, Pencil, BookOpen } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLanguage } from "@/contexts/LanguageContext";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
@@ -91,8 +90,6 @@ export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [, setLocation] = useLocation();
-  const { t } = useLanguage();
-
   const sectionIds = ['home', 'projects', 'github', 'about', 'achievements', 'outside', 'contact'];
 
   useEffect(() => {
@@ -110,13 +107,13 @@ export default function Navigation() {
   }, []);
 
   const navItems = [
-    { name: t.nav.home, href: '#home', id: 'home' },
-    { name: t.nav.projects, href: '#projects', id: 'projects' },
-    { name: t.nav.github, href: '#github', id: 'github' },
-    { name: t.nav.about, href: '#about', id: 'about' },
-    { name: t.nav.achievements, href: '#achievements', id: 'achievements' },
-    { name: t.nav.life, href: '#outside', id: 'outside' },
-    { name: t.nav.contact, href: '#contact', id: 'contact' },
+    { name: 'home', href: '#home', id: 'home' },
+    { name: 'projects', href: '#projects', id: 'projects' },
+    { name: 'github', href: '#github', id: 'github' },
+    { name: 'about', href: '#about', id: 'about' },
+    { name: 'extras', href: '#achievements', id: 'achievements' },
+    { name: 'life', href: '#outside', id: 'outside' },
+    { name: 'contact', href: '#contact', id: 'contact' },
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
