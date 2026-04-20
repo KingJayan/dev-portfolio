@@ -1,4 +1,4 @@
-import { motion, useTransform } from 'framer-motion';
+import { motion, useTransform, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Surface } from '@/components/ui/surface';
@@ -51,6 +51,7 @@ const SOCIAL_LINKS = [
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [sent, setSent] = useState(false);
   const { mouseX, mouseY } = useParallaxMouse();
   const backX = useTransform(mouseX, [-1, 1], ["5%", "-5%"]);
   const backY = useTransform(mouseY, [-1, 1], ["5%", "-5%"]);
@@ -66,10 +67,10 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error('Failed to send message');
-      toast({ title: "Message Sent", description: "Thank you for reaching out, I will respond as soon as possible." });
+      setSent(true);
       form.reset();
     } catch (error) {
-      toast({ variant: "destructive", title: "Error", description: "Something went wrong. Please try again or contact me through social links; " + (error as Error).message });
+      toast({ variant: "destructive", title: "error", description: "something went wrong. try again or reach me via the links below." });
     } finally {
       setIsSubmitting(false);
     }
@@ -93,22 +94,52 @@ export default function Contact() {
             <ScribbleText color="text-highlighter-yellow">say hi</ScribbleText>
           </h2>
 
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField label="name" error={form.formState.errors.name}>
-              <Input {...form.register('name')} variant="sketch" placeholder="john doe" />
-            </FormField>
-            <FormField label="email" error={form.formState.errors.email}>
-              <Input {...form.register('email')} variant="sketch" placeholder="john@example.com" />
-            </FormField>
-            <FormField label="message" error={form.formState.errors.message}>
-              <Textarea {...form.register('message')} variant="sketch" placeholder="write something nice..." />
-            </FormField>
+          <AnimatePresence mode="wait">
+            {sent ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col items-center gap-4 py-8 text-center"
+              >
+                <span className="text-5xl">✉️</span>
+                <p className="font-marker text-2xl text-ink">message sent!</p>
+                <p className="font-hand text-lg text-pencil/70 max-w-xs">
+                  got it. i'll get back to you within 24 hours — usually sooner.
+                </p>
+                <button onClick={() => setSent(false)}
+                  className="mt-2 font-hand text-sm text-pencil/50 underline decoration-dashed hover:text-ink transition-colors">
+                  send another?
+                </button>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onSubmit={form.handleSubmit(onSubmit)} className="space-y-6"
+              >
+                <FormField label="name" error={form.formState.errors.name}>
+                  <Input {...form.register('name')} variant="sketch" placeholder="john doe" />
+                </FormField>
+                <FormField label="email" error={form.formState.errors.email}>
+                  <Input {...form.register('email')} variant="sketch" placeholder="john@example.com" />
+                </FormField>
+                <FormField label="message" error={form.formState.errors.message}>
+                  <Textarea {...form.register('message')} variant="sketch" placeholder="write something nice..." />
+                </FormField>
 
-            <Button type="submit" variant="paper" size="lg" disabled={isSubmitting}
-              className="w-full font-hand text-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-              {isSubmitting ? "sending..." : "send"}
-            </Button>
-          </form>
+                <Button type="submit" variant="paper" size="lg" disabled={isSubmitting}
+                  className="w-full font-hand text-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                  {isSubmitting ? "sending..." : "send"}
+                </Button>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </Surface>
 
         <div className="mt-12 text-center font-hand text-lg text-pencil">

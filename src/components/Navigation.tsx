@@ -6,7 +6,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
 import { Z_INDEX } from '@/lib/z-index';
-import { MOTION_EASE, MOTION_SPRING, MOTION_TIMING } from '@/lib/motion';
+import { MOTION_EASE, MOTION_TIMING } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
 // ── sub-components ────────────────────────────────────────────────────────────
@@ -168,10 +168,10 @@ export default function Navigation() {
             className="fixed inset-0 z-40 bg-paper/60 backdrop-blur-2xl flex items-center justify-center md:hidden"
           >
             <motion.div
-              initial={{ y: 24, opacity: 0, scale: 0.98 }}
+              initial={{ y: 16, opacity: 0, scale: 0.97 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 24, opacity: 0, scale: 0.98 }}
-              transition={{ type: 'spring', ...MOTION_SPRING.subtle }}
+              exit={{ y: 10, opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: MOTION_EASE.standard }}
               className={cn('w-full max-w-sm mx-5 p-4 rounded-2xl', PANEL_CLS, 'bg-paper/52')}
             >
               <div className="flex flex-col gap-2.5">

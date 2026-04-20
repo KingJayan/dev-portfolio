@@ -24,7 +24,7 @@
     - **canvas mode**: toggle a art mode to draw anywhere on the screen
 - **3d parallax follow hero**: mouse-driven parallax effect with physics-based animations
 - **SPA**: smooth scrolling nav that handles mobile and desktop gracefully
-- **serverless**: mailjet for handling contact form submissions, vercel for deployment
+- **serverless**: gmail api + nodemailer for handling contact form submissions, vercel for deployment
 
 ## getting started
 

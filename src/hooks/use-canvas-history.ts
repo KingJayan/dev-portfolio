@@ -32,7 +32,7 @@ export function useCanvasHistory(
         historyRef.current.push(newState);
         historyStepRef.current += 1;
 
-        if (historyRef.current.length > 5) {
+        if (historyRef.current.length > 50) {
             historyRef.current.shift();
             historyStepRef.current -= 1;
         }
