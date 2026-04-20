@@ -104,31 +104,15 @@ function App() {
     let cancelled = false;
 
     const finishBoot = async () => {
-      // fonts.ready only resolves once @font-face rules are parsed, not once
-      // the network fetches complete. To catch actual Google Fonts load we poll
-      // document.fonts.check() for the specific families we rely on.
-      const FONT_FAMILIES = [
-        '"Permanent Marker"',
-        '"Kalam"',
-        '"Caveat"',
-      ];
-      const FONT_TIMEOUT = 2500; // ms — generous for slow connections
-
-      const fontsLoaded = () =>
-        typeof document !== "undefined" && "fonts" in document
-          ? FONT_FAMILIES.every((f) =>
-              (document as Document & { fonts: FontFaceSet }).fonts.check(`16px ${f}`)
-            )
-          : true;
+      const fontReady = typeof document !== "undefined" && "fonts" in document
+        ? Promise.race([
+            document.fonts.ready,
+            new Promise<void>((r) => setTimeout(r, 2500)),
+          ])
+        : Promise.resolve();
 
       await Promise.all([
-        new Promise<void>((resolve) => {
-          if (fontsLoaded()) { resolve(); return; }
-          const deadline = setTimeout(resolve, FONT_TIMEOUT);
-          const poll = setInterval(() => {
-            if (fontsLoaded()) { clearInterval(poll); clearTimeout(deadline); resolve(); }
-          }, 80);
-        }),
+        fontReady,
         new Promise<void>((resolve) => setTimeout(resolve, 1000)),
       ]);
 

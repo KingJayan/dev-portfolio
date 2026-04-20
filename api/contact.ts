@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
+import { kv } from '@vercel/kv';
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -11,20 +12,14 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 3;
-const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_WINDOW_SEC = 10 * 60;
 
-function isRateLimited(ip: string): boolean {
-    const now = Date.now();
-    const entry = rateLimitMap.get(ip);
-    if (!entry || now > entry.resetAt) {
-        rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
-        return false;
-    }
-    if (entry.count >= RATE_LIMIT) return true;
-    entry.count++;
-    return false;
+async function isRateLimited(ip: string): Promise<boolean> {
+    const key = `rl:contact:${ip}`;
+    const count = await kv.incr(key);
+    if (count === 1) await kv.expire(key, RATE_WINDOW_SEC);
+    return count > RATE_LIMIT;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'method not allowed' });
 
     const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0].trim() ?? 'unknown';
-    if (isRateLimited(ip)) return res.status(429).json({ error: 'too many requests. try again later.' });
+    if (await isRateLimited(ip)) return res.status(429).json({ error: 'too many requests. try again later.' });
 
     const { name, email, message } = req.body ?? {};
 

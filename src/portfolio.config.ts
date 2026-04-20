@@ -210,7 +210,7 @@ export const portfolioConfig = {
       },
       {
         name: "Debate",
-        description: "participaating in debate club and learning new arguments",
+        description: "participating in debate club and learning new arguments",
         image: "/images/life/debate.png"
       }
     ]

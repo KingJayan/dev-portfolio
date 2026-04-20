@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { Spiral } from '@/components/Doodles';
 import { portfolioConfig } from '@/portfolio.config';
 import { useParallaxMouse } from '@/hooks/use-parallax-mouse';
+import { Send as SendIcon } from 'lucide-react';
 import ScribbleText from '@/components/ScribbleText';
 
 const contactSchema = z.object({
@@ -104,7 +105,8 @@ export default function Contact() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center gap-4 py-8 text-center"
               >
-                <span className="text-5xl">✉️</span>
+                <span className="text-5xl"></span>
+                <SendIcon />
                 <p className="font-marker text-2xl text-ink">message sent!</p>
                 <p className="font-hand text-lg text-pencil/70 max-w-xs">
                   got it. i'll get back to you within 24 hours — usually sooner.
@@ -126,7 +128,7 @@ export default function Contact() {
                 <FormField label="name" error={form.formState.errors.name}>
                   <Input {...form.register('name')} variant="sketch" placeholder="john doe" />
                 </FormField>
-                <FormField label="email" error={form.formState.errors.email}>
+                <FormField label="email (requires being signed in to google on your browser)" error={form.formState.errors.email}>
                   <Input {...form.register('email')} variant="sketch" placeholder="john@example.com" />
                 </FormField>
                 <FormField label="message" error={form.formState.errors.message}>
