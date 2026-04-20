@@ -15,9 +15,9 @@ import { Send as SendIcon } from 'lucide-react';
 import ScribbleText from '@/components/ScribbleText';
 
 const contactSchema = z.object({
-  name: z.string().min(2, "Name is too short"),
-  email: z.string().email("Invalid email"),
-  message: z.string().min(10, "Message is too short"),
+  name: z.string().min(2, "name is too short"),
+  email: z.string().email("invalid email"),
+  message: z.string().min(10, "message is too short"),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;

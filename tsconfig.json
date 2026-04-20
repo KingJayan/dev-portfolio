@@ -6,8 +6,7 @@
   "exclude": [
     "node_modules",
     "build",
-    "dist",
-    "**/*.test.ts"
+    "dist"
   ],
   "compilerOptions": {
     "incremental": true,
@@ -29,7 +28,9 @@
     "baseUrl": ".",
     "types": [
       "node",
-      "vite/client"
+      "vite/client",
+      "vitest/globals",
+      "@testing-library/jest-dom"
     ],
     "paths": {
       "@/*": [

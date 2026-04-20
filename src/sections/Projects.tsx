@@ -62,7 +62,7 @@ export default function Projects() {
 
               <h3 className="text-2xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
               <div className="text-sm font-hand text-pencil/60 mb-2">
-                {project.startDate} - {project.endDate || "Present"}
+                {project.startDate} - {project.endDate || "present"}
               </div>
               <p className="font-hand text-pencil mb-4 text-lg leading-tight line-clamp-3">{project.description}</p>
 
