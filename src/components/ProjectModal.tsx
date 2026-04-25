@@ -11,7 +11,7 @@ import { type PortfolioConfig } from "@/portfolio.config";
 import { Button } from "@/components/ui/button";
 import { createPortal } from "react-dom";
 import { Z_INDEX } from "@/lib/z-index";
-import { MOTION_EASE, MOTION_TIMING, MOTION_SPRING } from "@/lib/motion";
+import { MOTION_EASE, MOTION_SPRING, useMotionTiming } from "@/lib/motion";
 
 type ProjectItem = PortfolioConfig["projects"]["items"][number];
 
@@ -42,6 +42,7 @@ function PreviewImage({ project }: { project: ProjectItem }) {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+    const MOTION_TIMING = useMotionTiming();
     return createPortal(
         <AnimatePresence>
             {project && (

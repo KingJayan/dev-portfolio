@@ -1,3 +1,11 @@
+import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
+
+export function useMotionTiming() {
+    const reduced = usePrefersReducedMotion();
+    if (reduced) return { fast: 0, normal: 0, slow: 0, sectionEnter: 0, loadingExit: 0, micro: 0 } as const;
+    return MOTION_TIMING;
+}
+
 export const MOTION_SPRING = {
   parallax: { stiffness: 50, damping: 30, mass: 1 },
   subtle: { stiffness: 120, damping: 20, mass: 0.8 },

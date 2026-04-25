@@ -6,10 +6,10 @@ import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
 import { Z_INDEX } from '@/lib/z-index';
-import { MOTION_EASE, MOTION_TIMING } from '@/lib/motion';
+import { MOTION_EASE, useMotionTiming } from '@/lib/motion';
 import { cn } from '@/lib/utils';
 
-// ── sub-components ────────────────────────────────────────────────────────────
+// sub-components
 
 function NavItem({ name, href, index, isActive, onClick }: {
   name: string; href: string; index: number; isActive: boolean;
@@ -27,7 +27,7 @@ function NavItem({ name, href, index, isActive, onClick }: {
             : 'bg-paper/28 border-pencil/15 text-pencil hover:bg-paper/44 hover:border-pencil/28 hover:shadow-paper'
         )}
       >
-        {/* hover shimmer + highlight (inactive only) */}
+        {/* hover shimmer + highlight*/}
         {!isActive && <>
           <div className="absolute inset-y-1 left-9 right-3 rounded-md bg-highlighter-yellow/18 opacity-0 -rotate-[0.7deg] transition-opacity duration-100 group-hover:opacity-100" />
           <div className="absolute inset-y-1 -left-20 w-24 bg-paper/45 -skew-x-12 opacity-0 transition-all duration-150 group-hover:left-[calc(100%-2rem)] group-hover:opacity-100" />
@@ -82,11 +82,12 @@ function NavTools({ compact = false }: { compact?: boolean }) {
   );
 }
 
-// ── shell styles ──────────────────────────────────────────────────────────────
+// shell styles 
 const PANEL_CLS = 'border border-pencil/20 bg-paper/48 backdrop-blur-2xl shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.12)]';
 
-// ── main ──────────────────────────────────────────────────────────────────────
+// main 
 export default function Navigation() {
+  const MOTION_TIMING = useMotionTiming();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [, setLocation] = useLocation();
@@ -123,7 +124,6 @@ export default function Navigation() {
     if (el) {
       window.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
     } else {
-      // probably on 404 page — navigate home first
       setLocation('/');
       setTimeout(() => {
         const el2 = document.getElementById(id);
@@ -135,7 +135,7 @@ export default function Navigation() {
 
   return (
     <>
-      {/* ── desktop sidebar ── */}
+      {/* desktop sidebar */}
       <nav className="hidden md:block fixed top-8 right-8" style={{ zIndex: Z_INDEX.nav }}>
         <motion.div
           initial={{ opacity: 0, x: 16 }}
@@ -152,14 +152,14 @@ export default function Navigation() {
         </motion.div>
       </nav>
 
-      {/* ── mobile hamburger ── */}
+      {/* mobile hamburger */}
       <div className="md:hidden fixed top-4 right-4 z-50">
         <Button variant="soft" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)} className="h-11 w-11">
           {isMenuOpen ? <X /> : <Menu />}
         </Button>
       </div>
 
-      {/* ── mobile overlay ── */}
+      {/* mobile overlay */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div

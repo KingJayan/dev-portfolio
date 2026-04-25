@@ -15,7 +15,7 @@ export function useCanvasContext(
 
         if (tool === "eraser") {
             ctx.globalCompositeOperation = "destination-out";
-            ctx.lineWidth = 40;
+            ctx.lineWidth = brushSize;
         } else {
             const isHighlighter = COLORS.find(c => c.id === color)?.isHighlighter;
 

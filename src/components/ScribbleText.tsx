@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useRef, useState, useLayoutEffect } from "react";
+import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface ScribbleTextProps {
     children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function ScribbleText({
     className = "",
     color = "text-highlighter-pink"
 }: ScribbleTextProps) {
+    const reduced = usePrefersReducedMotion();
     const spanRef = useRef<HTMLSpanElement>(null);
     const [width, setWidth] = useState(200);
 
@@ -46,7 +48,7 @@ export default function ScribbleText({
                     visible: { pathLength: 1, opacity: 0.6 },
                     hover:   { pathLength: 1, opacity: 0.75 },
                 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                transition={{ duration: reduced ? 0 : 0.4, ease: "easeOut" }}
             >
                 <motion.path
                     d={buildPath(width)}

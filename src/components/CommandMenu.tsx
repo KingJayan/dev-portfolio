@@ -12,7 +12,7 @@ import {
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
-import { MOTION_EASE, MOTION_TIMING } from "@/lib/motion";
+import { MOTION_EASE, useMotionTiming } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 // types
@@ -39,6 +39,7 @@ type CommandGroup = {
 
 
 export default function CommandMenu() {
+    const MOTION_TIMING = useMotionTiming();
     const [open, setOpen] = useState(false);
     const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
     const { isDrawingMode, toggleDrawingMode } = useDrawing();

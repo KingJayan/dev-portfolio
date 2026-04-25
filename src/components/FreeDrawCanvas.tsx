@@ -25,6 +25,8 @@ const BRUSH_SIZES = [
     { size: 15, label: 'Chonky', icon: Palette },
 ];
 
+const TOOLBAR_CLS = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border border-ink/35 p-3 rounded-2xl shadow-xl flex items-center gap-3 max-w-[95vw] overflow-x-auto pointer-events-auto';
+
 const DRAW_TOOLS = [
     { id: 'pencil',    icon: Pencil,  label: 'Pencil' },
     { id: 'line',      icon: Minus,   label: 'Line',      iconCls: 'rotate-45' },
@@ -254,7 +256,7 @@ export default function FreeDrawCanvas() {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0,   opacity: 1 }}
                     exit={{ y: 100,    opacity: 0 }}
-                    className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-paper/90 backdrop-blur-sm border border-ink/35 p-3 rounded-2xl shadow-xl flex items-center gap-3 max-w-[95vw] overflow-x-auto pointer-events-auto"
+                    className={TOOLBAR_CLS}
                     style={{ zIndex: Z_INDEX.drawingToolbar }}
                 >
                     {/* undo / redo */}

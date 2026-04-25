@@ -124,15 +124,15 @@ describe("useCanvasHistory", () => {
         expect(result.current.historyStepRef.current).toBe(1);
     });
 
-    it("caps history at 50 entries", () => {
+    it("caps history at 10 entries", () => {
         const { canvasRef, ctxRef } = setup();
         const { result } = renderHook(() => useCanvasHistory(canvasRef, ctxRef));
 
         act(() => {
             result.current.initHistory();
-            for (let i = 0; i < 55; i++) result.current.saveToHistory();
+            for (let i = 0; i < 15; i++) result.current.saveToHistory();
         });
 
-        expect(result.current.historyRef.current.length).toBeLessThanOrEqual(50);
+        expect(result.current.historyRef.current.length).toBeLessThanOrEqual(10);
     });
 });

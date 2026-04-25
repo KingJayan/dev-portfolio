@@ -21,13 +21,13 @@ export function DrawingProvider({ children }: { children: ReactNode }) {
     const [brushSize, setBrushSize] = useState<number>(3); // pen size
 
     const toggleDrawingMode = () => {
-        setIsDrawingMode((prev) => !prev);
-        // reset to pencil
         if (isDrawingMode) {
             setTool('pencil');
             setColor('default');
             setBrushSize(3);
         }
+        setIsDrawingMode((prev) => !prev);
+
     };
 
     return (
