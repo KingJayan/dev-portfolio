@@ -247,7 +247,13 @@ export default function FreeDrawCanvas() {
 
             {/* canvas layer */}
             <div className="fixed inset-0 pointer-events-none" style={{ cursor: "none", zIndex: Z_INDEX.drawingCanvas }}>
-                <canvas ref={canvasRef} className="w-full h-full touch-none pointer-events-auto" style={{ cursor: "none" }} />
+                <canvas
+                    ref={canvasRef}
+                    role="img"
+                    aria-label="free-draw canvas; use drawing tools in the toolbar to sketch"
+                    className="w-full h-full touch-none pointer-events-auto"
+                    style={{ cursor: "none" }}
+                />
             </div>
 
             {/* toolbar */}

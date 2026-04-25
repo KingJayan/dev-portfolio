@@ -10,7 +10,7 @@ import {
     SiJavascript,
     SiTypescript,
     SiHtml5,
-    SiCss3,
+    SiCss,
     SiVercel,
     SiFirebase,
     SiGit,
@@ -102,7 +102,7 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'typescript':
         case 'ts': return <SiTypescript className={className} />;
         case 'html': return <SiHtml5 className={className} />;
-        case 'css': return <SiCss3 className={className} />;
+        case 'css': return <SiCss className={className} />;
         case 'postgres': return <SiPostgresql className={className} />;
         case 'mysql': return <SiMysql className={className} />;
         case 'mongodb': return <SiMongodb className={className} />;

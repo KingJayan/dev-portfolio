@@ -1,5 +1,5 @@
 import { renderHook, act } from "@testing-library/react";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { useCanvasHistory } from "@/hooks/use-canvas-history";
 import type React from "react";
 
@@ -124,15 +124,15 @@ describe("useCanvasHistory", () => {
         expect(result.current.historyStepRef.current).toBe(1);
     });
 
-    it("caps history at 10 entries", () => {
+    it("caps history at 25 entries", () => {
         const { canvasRef, ctxRef } = setup();
         const { result } = renderHook(() => useCanvasHistory(canvasRef, ctxRef));
 
         act(() => {
             result.current.initHistory();
-            for (let i = 0; i < 15; i++) result.current.saveToHistory();
+            for (let i = 0; i < 30; i++) result.current.saveToHistory();
         });
 
-        expect(result.current.historyRef.current.length).toBeLessThanOrEqual(10);
+        expect(result.current.historyRef.current.length).toBeLessThanOrEqual(25);
     });
 });
