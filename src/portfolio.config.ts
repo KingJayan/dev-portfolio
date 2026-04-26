@@ -77,7 +77,7 @@ export const portfolioConfig = {
       { name: "HTML/CSS/JS", level: 95, color: "from-blue-400 to-blue-600" },
       { name: "React & TS", level: 80, color: "from-indigo-400 to-indigo-600" },
       { name: "UX/UI Design", level: 65, color: "from-orange-400 to-orange-600" },
-      { name: "SQL & Postgres", level: 60, color: "from-orange-400 to-orange-600" },
+      { name: "PostgreSQL", level: 60, color: "from-orange-400 to-orange-600" },
       { name: "Java", level: 45, color: "from-green-400 to-green-600" },
       { name: "R", level: 40, color: "from-black-400 to-black-600" },
       { name: "Python", level: 35, color: "from-red-400 to-red-600" },
