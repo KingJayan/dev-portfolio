@@ -1,42 +1,45 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { Z_INDEX } from "@/lib/z-index";
+
+const SECTIONS = ['home', 'projects', 'github', 'about', 'achievements', 'outside', 'contact'];
 
 export default function ScrollProgress() {
     const { scrollYProgress } = useScroll();
-    const scaleY = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
-        restDelta: 0.001
-    });
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 120, damping: 28, restDelta: 0.001 });
+
+    const markerY = useTransform(smoothProgress, [0, 1], ['0%', '100%']);
 
     return (
-        <div className="fixed left-4 top-1/2 -translate-y-1/2 h-64 w-4 pointer-events-none hidden md:block" style={{ zIndex: Z_INDEX.floating }}>
+        <div
+            className="fixed left-5 top-1/2 -translate-y-1/2 h-56 pointer-events-none hidden md:flex flex-col items-center"
+            style={{ zIndex: Z_INDEX.floating }}
+        >
+            {/* track */}
+            <div className="relative w-[2px] h-full bg-pencil/10 rounded-full">
+                {/* filled portion */}
+                <motion.div
+                    className="absolute top-0 left-0 w-full origin-top rounded-full bg-pencil/30"
+                    style={{ scaleY: smoothProgress }}
+                />
 
-            <div className="absolute inset-0 border border-pencil/25 rounded-full bg-paper/30 backdrop-blur-[2px]" />
+                {/* section tick marks */}
+                {SECTIONS.map((_, i) => {
+                    const pct = (i / (SECTIONS.length - 1)) * 100;
+                    return (
+                        <div
+                            key={i}
+                            className="absolute -left-[3px] w-2 h-[1px] bg-pencil/20"
+                            style={{ top: `${pct}%` }}
+                        />
+                    );
+                })}
 
-
-            <div className="absolute inset-x-0 top-2 bottom-2 flex justify-center opacity-10">
-                <div className="w-[2px] h-full border-l-2 border-dashed border-ink" />
+                {/* travelling marker — small circle that rides the track */}
+                <motion.div
+                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-highlighter-yellow border border-pencil/30 shadow-sm"
+                    style={{ top: markerY }}
+                />
             </div>
-
-
-            <motion.div
-                className="absolute top-0 left-0 right-0 h-full origin-top rounded-full bg-ink"
-                style={{ scaleY }}
-            >
-
-                <div className="absolute top-1/4 right-0.5 w-0.5 h-1/2 bg-paper/30 rounded-full" />
-            </motion.div>
-
-
-            <motion.div
-                style={{
-                    top: "100%",
-                    y: "-50%",
-                    scale: scrollYProgress
-                }}
-                className="absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-highlighter-pink shadow-sm border border-ink/20"
-            />
         </div>
     );
 }
