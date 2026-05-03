@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
+import { z } from 'zod';
 import { Redis } from '@upstash/redis';
 
 const redis = Redis.fromEnv();
@@ -27,7 +28,11 @@ async function isRateLimited(ip: string): Promise<boolean> {
     return count > RATE_LIMIT;
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const bodySchema = z.object({
+    name: z.string().trim().min(1).max(100),
+    email: z.string().email().max(254),
+    message: z.string().trim().min(1).max(2000),
+});
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'method not allowed' });
@@ -35,17 +40,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const ip = (req.headers['x-forwarded-for'] as string)?.split(',')[0].trim() ?? 'unknown';
     if (await isRateLimited(ip)) return res.status(429).json({ error: 'too many requests. try again later.' });
 
-    const { name, email, message } = req.body ?? {};
+    const parsed = bodySchema.safeParse(req.body ?? {});
+    if (!parsed.success) return res.status(400).json({ error: parsed.error.errors[0]?.message ?? 'invalid input.' });
 
-    if (!name || typeof name !== 'string' || name.trim().length < 1 || name.trim().length > 100)
-        return res.status(400).json({ error: 'invalid name.' });
-    if (!email || typeof email !== 'string' || !EMAIL_RE.test(email) || email.length > 254)
-        return res.status(400).json({ error: 'invalid email.' });
-    if (!message || typeof message !== 'string' || message.trim().length < 1 || message.trim().length > 2000)
-        return res.status(400).json({ error: 'message must be 1–2000 characters.' });
-
-    const safeName = name.trim();
-    const safeMessage = message.trim();
+    const { name: safeName, email, message: safeMessage } = parsed.data;
 
     try {
         await transporter.sendMail({
