@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useRef, useState, useLayoutEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface ScribbleTextProps {
@@ -22,9 +22,13 @@ export default function ScribbleText({
     const spanRef = useRef<HTMLSpanElement>(null);
     const [width, setWidth] = useState(200);
 
-    useLayoutEffect(() => {
-        if (spanRef.current) setWidth(spanRef.current.offsetWidth);
-    }, [children]);
+    useEffect(() => {
+        const el = spanRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(() => setWidth(el.offsetWidth));
+        ro.observe(el);
+        return () => ro.disconnect();
+    }, []);
 
     return (
         <motion.span

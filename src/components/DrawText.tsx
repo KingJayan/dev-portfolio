@@ -31,8 +31,10 @@ function loadFont(url: string): Promise<opentype.Font> {
     .then((buffer) => {
       const font = opentype.parse(buffer);
       fontCache.set(url, font);
-      fontLoadPromises.delete(url);
       return font;
+    })
+    .finally(() => {
+      fontLoadPromises.delete(url);
     });
 
   fontLoadPromises.set(url, promise);
@@ -98,6 +100,8 @@ export default function DrawText({
   const aspectRatio = viewBox.height > 0 ? viewBox.width / viewBox.height : 1;
 
   return (
+    <>
+    <span className="sr-only">{text}</span>
     <svg
       aria-hidden="true"
       viewBox={`0 0 ${viewBox.width} ${viewBox.height}`}
@@ -125,5 +129,6 @@ export default function DrawText({
         />
       ))}
     </svg>
+    </>
   );
 }
