@@ -18,6 +18,12 @@
     href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;700&family=Kalam:wght@400;700&family=Permanent+Marker&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    (function() {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
 </head>
 
 <body>
