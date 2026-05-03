@@ -4,6 +4,7 @@ import { Star, GitFork, ExternalLink, RefreshCw, WifiOff } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
+import { Arrow } from '@/components/Doodles';
 
 interface Repo {
   id: number;
@@ -191,6 +192,7 @@ export default function GithubRepos() {
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
         </h2>
+        <Arrow className="absolute -left-12 -bottom-2 w-16 h-8 text-pencil/30 -rotate-12 scale-x-[-1]" />
         <p className="font-hand text-xl text-pencil mt-4">
           recent stuff
         </p>

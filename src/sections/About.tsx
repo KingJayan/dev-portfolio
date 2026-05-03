@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
-import { Star, Spiral } from '@/components/Doodles';
+import { Star, Spiral, Underline } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
@@ -91,9 +91,10 @@ export default function About() {
           className="flex-1 w-full"
         >
           <Surface variant="elevated" className="p-8 relative h-full flex flex-col">
-            <h3 className="text-3xl font-amatic font-bold mb-8 border-b border-pencil/40 pb-2 flex items-center gap-3">
+            <h3 className="relative text-3xl font-amatic font-bold mb-8 pb-3 flex items-center gap-3">
               <Star className="w-8 h-8 text-highlighter-yellow" />
               skills
+              <Underline className="absolute bottom-0 left-0 w-full h-2 text-pencil/40" />
             </h3>
             <div className="flex flex-col gap-5 flex-1 justify-around">
               {skills.map((skill: AboutSkill, idx: number) => (
@@ -113,9 +114,10 @@ export default function About() {
         className="w-full"
       >
         <Surface variant="elevated" className="p-10 relative">
-          <h3 className="text-3xl font-amatic font-bold mb-10 border-b border-pencil/40 pb-4 flex items-center gap-4 text-pencil justify-center">
+          <h3 className="relative text-3xl font-amatic font-bold mb-10 pb-5 flex items-center gap-4 text-pencil justify-center">
             <Box className="w-10 h-10 text-highlighter-yellow" />
             toolkit
+            <Underline className="absolute bottom-0 left-0 w-full h-2 text-pencil/40" />
           </h3>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
             {tools.map((tool: AboutTool) => (
