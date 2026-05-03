@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
-import { Underline } from '@/components/Doodles';
+import { Underline, Circle } from '@/components/Doodles';
 import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PaperCard from '@/components/ui/PaperCard';
@@ -9,6 +9,7 @@ import { Surface } from '@/components/ui/surface';
 import { createPortal } from 'react-dom';
 import { Z_INDEX } from '@/lib/z-index';
 import ScribbleText from '@/components/ScribbleText';
+import DrawText from '@/components/DrawText';
 
 const ICONS = { trophy: Trophy, award: Award, star: StarIcon };
 
@@ -58,10 +59,14 @@ export default function Achievements() {
                     <motion.h2
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
-                        className="text-5xl font-marker text-center relative px-8"
+                        className="text-5xl font-marker text-center relative inline-block px-8"
                     >
-                        <ScribbleText color="text-pencil/40">extras</ScribbleText>
+                        <ScribbleText color="text-pencil/40">
+                          <DrawText text="extras" fontUrl="/fonts/PermanentMarker.woff" />
+                        </ScribbleText>
+                        <Circle className="absolute -inset-y-2 -inset-x-1 w-[calc(100%+8px)] h-[calc(100%+16px)] text-pencil/25 pointer-events-none" />
                     </motion.h2>
                     <p className="font-hand text-xl text-pencil/60 mt-4 max-w-md mx-auto">stuff i do outside code.</p>
                 </div>

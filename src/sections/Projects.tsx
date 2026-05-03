@@ -4,6 +4,8 @@ import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
+import { Arrow, Underline } from '@/components/Doodles';
+import DrawText from '@/components/DrawText';
 import { cn } from '@/lib/utils';
 
 type ProjectItem = PortfolioConfig["projects"]["items"][number];
@@ -29,8 +31,11 @@ export default function Projects() {
     >
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
-          <ScribbleText color="text-highlighter-yellow">my work</ScribbleText>
+          <ScribbleText color="text-highlighter-yellow">
+            <DrawText text="my work" fontUrl="/fonts/PermanentMarker.woff" />
+          </ScribbleText>
         </h2>
+        <Arrow className="absolute -right-12 -bottom-4 w-16 h-8 text-pencil/30 rotate-12" />
       </div>
 
       <div className="flex flex-wrap justify-center gap-12">
@@ -60,7 +65,10 @@ export default function Projects() {
                 </div>
               </Surface>
 
-              <h3 className="text-2xl font-amatic font-bold text-ink mb-1">{project.title}</h3>
+              <h3 className="text-2xl font-amatic font-bold text-ink mb-3 relative pb-2">
+                  <DrawText text={project.title} fontUrl="/fonts/AmaticSC.ttf" initialDelay={index * 0.05} />
+                  <Underline className="absolute bottom-0 left-0 w-full h-2 text-pencil/30" />
+              </h3>
               <div className="text-sm font-hand text-pencil/60 mb-2">
                 {project.startDate} - {project.endDate || "present"}
               </div>

@@ -64,10 +64,51 @@ export const Spiral = ({ className }: { className?: string }) => (
     </motion.svg>
 );
 
+export const Circle = ({ className }: { className?: string }) => (
+    <motion.svg
+        aria-hidden="true"
+        viewBox="0 0 140 70"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        className={className}
+        initial={{ pathLength: 0, opacity: 0 }}
+        whileInView={{ pathLength: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 1.4, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+    >
+        <path d="M70,4 C95,2 135,14 136,35 C137,56 103,68 70,66 C37,68 3,56 4,35 C3,14 45,2 70,4 Z" />
+    </motion.svg>
+);
+
+export const RoughRect = ({ className }: { className?: string }) => (
+    <motion.svg
+        aria-hidden="true"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+        initial={{ pathLength: 0, opacity: 0 }}
+        whileInView={{ pathLength: 1, opacity: 1 }}
+        viewport={{ once: true, margin: "-30px" }}
+        transition={{ duration: 1.2, ease: "easeInOut" }}
+        style={{ willChange: "transform" }}
+    >
+        <path d="M4,4 Q52,2 96,5 L97,50 Q99,95 96,96 Q50,98 4,97 L3,50 Q1,5 4,4 Z" />
+    </motion.svg>
+);
+
 export const Underline = ({ className }: { className?: string }) => (
     <motion.svg
         aria-hidden="true"
         viewBox="0 0 200 20"
+        preserveAspectRatio="none"
         fill="none"
         stroke="currentColor"
         strokeWidth="3"
