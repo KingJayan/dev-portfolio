@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState, lazy, Suspense } from "react";
+import { MotionConfig } from "framer-motion";
 import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
@@ -134,7 +135,10 @@ function App() {
       {!isZenMode && <CommandMenu />}
 
       <Switch>
-        <Route path="/">{() => <Portfolio isZenMode={isZenMode} />}</Route>
+        <Route path="/">{() => isZenMode
+          ? <MotionConfig reducedMotion="always"><Portfolio isZenMode={isZenMode} /></MotionConfig>
+          : <Portfolio isZenMode={isZenMode} />
+        }</Route>
         {/*404*/}
         <Route component={NotFound} />
       </Switch>

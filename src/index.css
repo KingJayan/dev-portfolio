@@ -294,6 +294,14 @@
     background-color: hsla(45, 64%, 66%, 0.6);
   }
 
+  .zen-mode *,
+  .zen-mode *::before,
+  .zen-mode *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
   .zen-mode * {
     cursor: auto !important;
   }

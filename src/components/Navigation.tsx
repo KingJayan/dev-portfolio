@@ -82,31 +82,67 @@ function NavItem({ name, href, id, isActive, onClick }: {
 function NavTools({ compact = false }: { compact?: boolean }) {
   const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
+  const [showDrawHint, setShowDrawHint] = useState(false);
   const btnCls = cn('h-9 w-9', !compact && 'border-[1.5px]');
+
+  useEffect(() => {
+    if (localStorage.getItem('draw-hint-seen')) return;
+    let hideTimer: ReturnType<typeof setTimeout>;
+    const showTimer = setTimeout(() => {
+      setShowDrawHint(true);
+      hideTimer = setTimeout(() => {
+        setShowDrawHint(false);
+        localStorage.setItem('draw-hint-seen', '1');
+      }, 5000);
+    }, 2500);
+    return () => { clearTimeout(showTimer); clearTimeout(hideTimer); };
+  }, []);
+
+  const dismissHint = useCallback(() => {
+    setShowDrawHint(false);
+    localStorage.setItem('draw-hint-seen', '1');
+  }, []);
+
+  const tools = [
+    { id: 'draw',  icon: Pencil,                        onClick: () => { toggleDrawingMode(); dismissHint(); }, active: isDrawingMode, label: 'draw' },
+    { id: 'theme', icon: theme === 'dark' ? Sun : Moon, onClick: toggleTheme,                                  active: false,         label: theme === 'dark' ? 'light' : 'dark' },
+    { id: 'focus', icon: BookOpen,                      onClick: toggleZenMode,                                active: isZenMode,     label: 'focus' },
+  ];
 
   return (
     <div className={cn('pt-3 border-t border-dashed border-pencil/30', compact ? 'mt-4 border-pencil/25' : 'mt-4')}>
       <p className={cn('px-1 mb-2.5 text-[10px] uppercase font-sans text-pencil/60', compact ? 'tracking-[0.14em] mb-2 text-pencil/55' : 'tracking-[0.18em]')}>
         tools
       </p>
-      <div className="flex items-center justify-center gap-2">
-        <Button onClick={toggleDrawingMode} variant={isDrawingMode ? 'iconSoftActive' : 'iconSoft'}
-          size="icon" className={btnCls} title={isDrawingMode ? 'stop draw' : 'draw'}
-          aria-label={isDrawingMode ? 'stop draw mode' : 'enable draw mode'}>
-          <Pencil className="w-4 h-4 text-ink" />
-        </Button>
-
-        <Button onClick={toggleTheme} variant="iconSoft" size="icon" className={btnCls}
-          title={theme === 'dark' ? 'light' : 'dark'}
-          aria-label={theme === 'dark' ? 'switch to light mode' : 'switch to dark mode'}>
-          {theme === 'dark' ? <Sun className="w-4 h-4 text-ink" /> : <Moon className="w-4 h-4 text-ink" />}
-        </Button>
-
-        <Button onClick={toggleZenMode} variant={isZenMode ? 'iconSoftActive' : 'iconSoft'}
-          size="icon" className={btnCls} title={isZenMode ? 'exit zen mode' : 'zen mode'}
-          aria-label={isZenMode ? 'disable zen mode' : 'enable zen mode'}>
-          <BookOpen className="w-4 h-4 text-ink" />
-        </Button>
+      <div className="flex items-center justify-center gap-3">
+        {tools.map(({ id, icon: Icon, onClick, active, label }) => (
+          <div key={id} className="relative flex flex-col items-center gap-1">
+            {id === 'draw' && (
+              <AnimatePresence>
+                {showDrawHint && !isDrawingMode && (
+                  <motion.div
+                    key="draw-hint"
+                    initial={{ opacity: 0, y: 4, scale: 0.92 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 4, scale: 0.92 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-highlighter-yellow border border-ink/20 rounded-lg px-2.5 py-1.5 text-[11px] font-marker text-ink shadow-sm pointer-events-none"
+                  >
+                    annotate this page
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-highlighter-yellow" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            )}
+            <Button onClick={onClick} variant={active ? 'iconSoftActive' : 'iconSoft'}
+              size="icon" className={btnCls} title={label} aria-label={label}>
+              <Icon className="w-4 h-4 text-ink" />
+            </Button>
+            {!compact && (
+              <span className="text-[9px] font-sans text-pencil/50 leading-none">{label}</span>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -186,13 +222,13 @@ export default function Navigation() {
     setIsMenuOpen(false);
   };
 
-  const { theme, toggleTheme, isZenMode: _zen, toggleZenMode } = useTheme();
+  const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
 
   const collapsedTools = [
     { icon: Pencil, onClick: toggleDrawingMode, active: isDrawingMode, label: isDrawingMode ? 'stop draw' : 'draw' },
     { icon: theme === 'dark' ? Sun : Moon, onClick: toggleTheme, active: false, label: theme === 'dark' ? 'light mode' : 'dark mode' },
-    { icon: BookOpen, onClick: toggleZenMode, active: false, label: 'zen mode' },
+    { icon: BookOpen, onClick: toggleZenMode, active: isZenMode, label: isZenMode ? 'exit focus' : 'focus mode' },
   ] as const;
 
   return (
