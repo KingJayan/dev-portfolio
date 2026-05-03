@@ -3,8 +3,9 @@ import { portfolioConfig } from "@/portfolio.config";
 import { Paperclip } from "lucide-react";
 import { useParallaxMouse } from "@/hooks/use-parallax-mouse";
 import { RoughRect } from "@/components/Doodles";
+import DrawText from "@/components/DrawText";
 
-export default function ParallaxHero() {
+export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
     const { mouseX, mouseY } = useParallaxMouse();
 
 
@@ -44,7 +45,7 @@ export default function ParallaxHero() {
                             strokeWidth="7"
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
+                            animate={{ pathLength: isLoading ? 0 : 1 }}
                             transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
                         />
                     </svg>
@@ -53,7 +54,10 @@ export default function ParallaxHero() {
 
                 <div className="relative inline-block z-10 py-6">
                     <h1 className="text-7xl md:text-9xl font-marker text-ink -rotate-1 relative whitespace-nowrap">
-                        {portfolioConfig.personal.name}
+                        {isLoading
+                            ? portfolioConfig.personal.name
+                            : <DrawText text={portfolioConfig.personal.name} fontUrl="/fonts/PermanentMarker.woff" glyphDelay={0.08} duration={0.6} />
+                        }
                     </h1>
                     <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0 text-ink" viewBox="0 0 300 30">
                         <motion.path
@@ -63,8 +67,8 @@ export default function ParallaxHero() {
                             strokeWidth="5"
                             strokeLinecap="round"
                             initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                            animate={{ pathLength: isLoading ? 0 : 1 }}
+                            transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
                         />
                     </svg>
                     <svg aria-hidden="true" viewBox="0 0 320 110" fill="none" className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] pointer-events-none text-ink/20" style={{ top: "-16px", left: "-16px" }}>
@@ -75,7 +79,7 @@ export default function ParallaxHero() {
                             strokeLinecap="round"
                             fill="none"
                             initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
+                            animate={{ pathLength: isLoading ? 0 : 1 }}
                             transition={{ duration: 1.4, delay: 1.6, ease: "easeInOut" }}
                         />
                     </svg>

@@ -5,6 +5,7 @@ import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 import { Arrow } from '@/components/Doodles';
+import DrawText from '@/components/DrawText';
 
 interface Repo {
   id: number;
@@ -83,7 +84,9 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">
+              <DrawText text="repos" fontUrl="/fonts/PermanentMarker.woff" />
+            </ScribbleText>
           </h2>
           <p className="font-hand text-xl text-pencil mt-4">recent stuff</p>
         </div>
@@ -142,7 +145,9 @@ export default function GithubRepos() {
       >
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-5xl md:text-6xl font-marker text-center">
-            <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">
+              <DrawText text="repos" fontUrl="/fonts/PermanentMarker.woff" />
+            </ScribbleText>
           </h2>
         </div>
         <div className="relative flex flex-wrap justify-center gap-10">
@@ -190,7 +195,9 @@ export default function GithubRepos() {
     >
 <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
-          <ScribbleText color="text-highlighter-yellow">repos</ScribbleText>
+          <ScribbleText color="text-highlighter-yellow">
+            <DrawText text="repos" fontUrl="/fonts/PermanentMarker.woff" />
+          </ScribbleText>
         </h2>
         <Arrow className="absolute -left-12 -bottom-2 w-16 h-8 text-pencil/30 -rotate-12 scale-x-[-1]" />
         <p className="font-hand text-xl text-pencil mt-4">

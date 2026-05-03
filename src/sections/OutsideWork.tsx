@@ -5,6 +5,7 @@ import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
 
 import ScribbleText from '@/components/ScribbleText';
+import DrawText from '@/components/DrawText';
 
 type Hobby = typeof portfolioConfig.outsideProgramming.hobbies[number];
 
@@ -33,7 +34,9 @@ export default function OutsideWork() {
                         whileInView={{ opacity: 1, y: 0 }}
                         className="text-5xl font-marker text-center relative z-10"
                     >
-                        <ScribbleText color="text-highlighter-pink">{outsideProgramming.title}</ScribbleText>
+                        <ScribbleText color="text-highlighter-pink">
+                          <DrawText text={outsideProgramming.title} fontUrl="/fonts/PermanentMarker.woff" />
+                        </ScribbleText>
                     </motion.h2>
                 </div>
 

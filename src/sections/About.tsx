@@ -5,6 +5,7 @@ import TechIcon from '@/components/TechIcon';
 import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
+import DrawText from '@/components/DrawText';
 
 type AboutSkill = typeof portfolioConfig.about.skills[number];
 type AboutTool = typeof portfolioConfig.about.tools[number];
@@ -73,7 +74,9 @@ export default function About() {
             </div>
 
             <h2 className="text-6xl font-marker text-center mb-8 relative">
-              <ScribbleText color="text-highlighter-yellow">about</ScribbleText>
+              <ScribbleText color="text-highlighter-yellow">
+                <DrawText text="about" fontUrl="/fonts/PermanentMarker.woff" />
+              </ScribbleText>
             </h2>
 
             <div className="font-hand text-lg text-ink leading-relaxed space-y-6">

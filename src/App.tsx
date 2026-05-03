@@ -25,11 +25,11 @@ import NotFound from "@/pages/NotFound";
 
 const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">loading...</div>;
 
-function Portfolio({ isZenMode }: { isZenMode: boolean }) {
+function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: boolean }) {
   return (
     <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500">
       <section id="home" className="relative z-10">
-        <ParallaxHero />
+        <ParallaxHero isLoading={isLoading} />
       </section>
 
       {!isZenMode && <SectionDivider />}
@@ -136,8 +136,8 @@ function App() {
 
       <Switch>
         <Route path="/">{() => isZenMode
-          ? <MotionConfig reducedMotion="always"><Portfolio isZenMode={isZenMode} /></MotionConfig>
-          : <Portfolio isZenMode={isZenMode} />
+          ? <MotionConfig reducedMotion="always"><Portfolio isZenMode={isZenMode} isLoading={isLoading} /></MotionConfig>
+          : <Portfolio isZenMode={isZenMode} isLoading={isLoading} />
         }</Route>
         {/*404*/}
         <Route component={NotFound} />

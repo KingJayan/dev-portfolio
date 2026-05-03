@@ -13,6 +13,7 @@ import { portfolioConfig } from '@/portfolio.config';
 import { useParallaxMouse } from '@/hooks/use-parallax-mouse';
 import { Send as SendIcon } from 'lucide-react';
 import ScribbleText from '@/components/ScribbleText';
+import DrawText from '@/components/DrawText';
 
 const contactSchema = z.object({
   name: z.string().min(2, "name is too short"),
@@ -104,7 +105,9 @@ export default function Contact() {
       <div className="w-full max-w-2xl relative z-10">
         <Surface variant="elevated" className="p-8 md:p-12 relative border-rose/20">
           <h2 className="text-5xl font-marker text-center mb-8">
-            <ScribbleText color="text-highlighter-yellow">say hi</ScribbleText>
+            <ScribbleText color="text-highlighter-yellow">
+              <DrawText text="say hi" fontUrl="/fonts/PermanentMarker.woff" />
+            </ScribbleText>
           </h2>
 
           <AnimatePresence mode="wait">
