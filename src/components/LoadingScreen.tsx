@@ -29,23 +29,14 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         filter: "blur(6px)",
                         transition: { duration: 0.55, ease: "easeInOut" },
                     }}
-                    className="fixed inset-0 flex items-center justify-center overflow-hidden"
-                    style={{
-                        zIndex: Z_INDEX.loading,
-                        background: "var(--color-paper)",
-                        backgroundImage: `
-                            radial-gradient(ellipse 65% 50% at 10% 18%, hsla(230,55%,76%,0.42) 0%, transparent 65%),
-                            radial-gradient(ellipse 55% 40% at 90% 10%, hsla(340,50%,72%,0.38) 0%, transparent 60%),
-                            radial-gradient(ellipse 50% 45% at 75% 88%, hsla(175,45%,68%,0.34) 0%, transparent 62%),
-                            radial-gradient(ellipse 45% 38% at 30% 78%, hsla(38,80%,60%,0.32)  0%, transparent 58%)
-                        `,
-                    }}
+                    className="loading-bg fixed inset-0 flex items-center justify-center overflow-hidden"
+                    style={{ zIndex: Z_INDEX.loading }}
                 >
                     {/* floating glass orbs */}
                     {ORBS.map((orb, i) => (
                         <motion.div
                             key={i}
-                            className="absolute rounded-full pointer-events-none"
+                            className="loading-orb absolute rounded-full pointer-events-none"
                             style={{
                                 width:  orb.size,
                                 height: orb.size,
@@ -74,18 +65,10 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         initial={{ opacity: 0, scale: 0.91, y: 16 }}
                         animate={{ opacity: 1, scale: 1,    y: 0  }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                        className="relative flex flex-col items-center px-14 py-12 rounded-3xl"
+                        className="loading-card relative flex flex-col items-center px-14 py-12 rounded-3xl"
                         style={{
                             backdropFilter: "blur(28px) saturate(1.4)",
                             WebkitBackdropFilter: "blur(28px) saturate(1.4)",
-                            background:
-                                "linear-gradient(135deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%)",
-                            border: "1px solid rgba(255,255,255,0.55)",
-                            boxShadow: `
-                                0 8px 48px rgba(0,0,0,0.08),
-                                0 2px 12px rgba(0,0,0,0.06),
-                                inset 0 1px 0 rgba(255,255,255,0.7)
-                            `,
                             minWidth: 320,
                         }}
                     >
@@ -105,13 +88,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                             initial={{ scale: 0.7, opacity: 0 }}
                             animate={{ scale: 1,   opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                            className="mb-6 w-16 h-16 rounded-2xl flex items-center justify-center"
-                            style={{
-                                background:
-                                    "linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 100%)",
-                                border: "1px solid rgba(255,255,255,0.6)",
-                                boxShadow: "0 4px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8)",
-                            }}
+                            className="loading-badge mb-6 w-16 h-16 rounded-2xl flex items-center justify-center"
                         >
                             <span
                                 className="text-2xl leading-none select-none"

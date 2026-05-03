@@ -232,6 +232,49 @@
     box-shadow: inset 0 1px 0 hsla(0, 0%, 100%, 0.04);
   }
 
+  .loading-bg {
+    background-color: var(--color-paper);
+    background-image:
+      radial-gradient(ellipse 65% 50% at 10% 18%, hsla(230, 55%, 76%, 0.42) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 40% at 90% 10%, hsla(340, 50%, 72%, 0.38) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 75% 88%, hsla(175, 45%, 68%, 0.34) 0%, transparent 62%),
+      radial-gradient(ellipse 45% 38% at 30% 78%, hsla(38,  80%, 60%, 0.32) 0%, transparent 58%);
+  }
+  .dark .loading-orb {
+    opacity: 0.55;
+  }
+
+  .dark .loading-bg {
+    background-color: #0e1117;
+    background-image:
+      radial-gradient(ellipse 65% 50% at 10% 18%, hsla(230, 60%, 35%, 0.45) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 40% at 90% 10%, hsla(340, 55%, 28%, 0.40) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 75% 88%, hsla(175, 50%, 24%, 0.36) 0%, transparent 62%),
+      radial-gradient(ellipse 45% 38% at 30% 78%, hsla(38,  70%, 28%, 0.32) 0%, transparent 58%);
+  }
+
+  .loading-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0.18) 100%);
+    border: 1px solid rgba(255,255,255,0.55);
+    box-shadow: 0 8px 48px rgba(0,0,0,0.08), 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.70);
+  }
+  .dark .loading-card {
+    background: hsla(222, 20%, 18%, 0.58);
+    border: 1px solid hsla(214, 31%, 93%, 0.12);
+    box-shadow: 0 8px 48px rgba(0,0,0,0.35), 0 2px 12px rgba(0,0,0,0.25), inset 0 1px 0 hsla(0,0%,100%,0.07);
+  }
+
+  .loading-badge {
+    background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 100%);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+  .dark .loading-badge {
+    background: hsla(222, 20%, 22%, 0.70);
+    border: 1px solid hsla(214, 31%, 93%, 0.14);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 hsla(0,0%,100%,0.07);
+  }
+
   /*grain texture*/
   .grain-overlay {
     @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] mix-blend-multiply;
