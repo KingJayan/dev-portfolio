@@ -70,14 +70,14 @@ export default function Achievements() {
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}
                     onClick={() => setIsFolioOpen(true)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsFolioOpen(true); } }}
-                    tabIndex={0} role="button" aria-label="open records"
+                    tabIndex={0} role="button" aria-label="open extras"
                     className="cursor-pointer relative mt-8 group inline-block focus:outline-none focus:ring-4 focus:ring-highlighter-yellow/50 rounded-xl"
                 >
                     <PaperCard rotate={0} showTape={false}
                         className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-2 border-t-highlighter-yellow/50 bg-paper/70 backdrop-blur-sm shadow-paper overflow-hidden group-hover:shadow-paper-hover transition-shadow"
                     >
                         <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors duration-300" />
-                        <h3 className="font-marker text-2xl text-ink/60">records</h3>
+                        <h3 className="font-marker text-2xl text-ink/60">extracurriculars</h3>
                         <p className="font-hand text-sm text-pencil/40 mt-1">click to browse</p>
                         <div className="mt-4 px-3 py-1 border border-pencil/20 rounded bg-paper/50 backdrop-blur-sm group-hover:bg-highlighter-yellow/30 group-hover:border-highlighter-yellow/50 transition-all duration-300">
                             <span className="font-hand text-sm text-ink/60">open →</span>
@@ -110,7 +110,7 @@ export default function Achievements() {
                                             <X className="w-6 h-6 text-pencil" />
                                         </Button>
                                         <div className="flex flex-col items-center justify-center">
-                                            <h2 className="text-4xl font-marker text-ink">records</h2>
+                                            <h2 className="text-4xl font-marker text-ink">extras</h2>
                                             <p className="font-hand text-lg text-pencil/60 italic mt-1 leading-none opacity-80">from robotics to debate.</p>
                                         </div>
                                     </div>
