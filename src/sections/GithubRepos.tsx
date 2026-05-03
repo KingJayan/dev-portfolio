@@ -47,11 +47,14 @@ export default function GithubRepos() {
     setLoading(true);
     setError(null);
     fetch('/api/github')
-      .then((res) => {
-        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-        return res.json();
+      .then(async (res) => {
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({})) as { error?: string };
+          throw Object.assign(new Error(body.error ?? `error ${res.status}`), { status: res.status });
+        }
+        return res.json() as Promise<Repo[]>;
       })
-      .then((data: Repo[]) => {
+      .then((data) => {
         const sorted = data
           .filter((r) => !r.name.includes('.github.io'))
           .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
@@ -59,8 +62,8 @@ export default function GithubRepos() {
         setRepos(sorted);
         setLoading(false);
       })
-      .catch((err) => {
-        setError(err.message);
+      .catch((err: Error & { status?: number }) => {
+        setError(JSON.stringify({ message: err.message, status: err.status ?? 0 }));
         setLoading(false);
       });
   }, []);
@@ -96,6 +99,17 @@ export default function GithubRepos() {
     );
   }
 
+  const errorInfo = (() => {
+    try { return JSON.parse(error ?? '{}') as { message: string; status: number }; }
+    catch { return { message: error ?? '', status: 0 }; }
+  })();
+  const isRateLimit = errorInfo.status === 403 || errorInfo.status === 429;
+  const errorBody = isRateLimit
+    ? "github rate limit hit — the repos will load again in a few minutes."
+    : errorInfo.status >= 500
+      ? "github is having issues on their end — worth a retry."
+      : "couldn't reach github — check your connection or try again.";
+
   if (error) {
     return (
       <motion.div
@@ -128,7 +142,7 @@ export default function GithubRepos() {
                 <WifiOff className="w-8 h-8 text-pencil/60 mx-auto mb-3" />
                 <p className="font-marker text-2xl text-ink mb-1">couldn't reach github</p>
                 <p className="font-hand text-base text-pencil/70 mb-4 max-w-[22ch]">
-                  looks like the api is taking a nap — try again?
+                  {errorBody}
                 </p>
                 <button
                   onClick={() => setRetryCount(c => c + 1)}

@@ -46,7 +46,7 @@ export const portfolioConfig = {
 
   fonts: {
     marker: '"Permanent Marker", cursive',
-    hand: '"Kalam", cursive',
+    hand: '"Patrick Hand", sans-serif',
     amatic: '"Caveat", cursive',
   },
 

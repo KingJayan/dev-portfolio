@@ -169,20 +169,21 @@ export default function CommandMenu() {
 
     return (
         <>
-            <motion.div
-                whileHover={{ y: -2, rotate: -0.2 }}
-                transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
-            >
                 <Button
                     onClick={() => setOpen(true)}
                     variant="soft"
                     className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group"
+                    asChild
                 >
-                    <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
-                    <span className="text-ink/80 group-hover:text-ink">menu</span>
-                    <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift+p</span>
+                    <motion.button
+                        whileHover={{ y: -2, rotate: -0.2 }}
+                        transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
+                    >
+                        <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
+                        <span className="text-ink/80 group-hover:text-ink">menu</span>
+                        <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift+p</span>
+                    </motion.button>
                 </Button>
-            </motion.div>
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
