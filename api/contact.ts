@@ -1,6 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -10,6 +12,9 @@ const transporter = nodemailer.createTransport({
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_APP_PASSWORD,
     },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 10_000,
 });
 
 const RATE_LIMIT = 3;
@@ -17,8 +22,8 @@ const RATE_WINDOW_SEC = 10 * 60;
 
 async function isRateLimited(ip: string): Promise<boolean> {
     const key = `rl:contact:${ip}`;
-    const count = await kv.incr(key);
-    if (count === 1) await kv.expire(key, RATE_WINDOW_SEC);
+    const count = await redis.incr(key);
+    if (count === 1) await redis.expire(key, RATE_WINDOW_SEC);
     return count > RATE_LIMIT;
 }
 
@@ -55,6 +60,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(200).json({ success: true });
     } catch (error: unknown) {
         console.error('mail error:', error);
-        return res.status(500).json({ error: 'failed to send. try again later.' });
+        const msg = error instanceof Error ? error.message : '';
+        const code = error instanceof Error && 'code' in error && (error as NodeJS.ErrnoException).code
+            ? (error as NodeJS.ErrnoException).code
+            : '';
+        if (code === 'ETIMEDOUT' || code === 'ECONNREFUSED' || code === 'ENOTFOUND') {
+            return res.status(500).json({ error: 'smtp connection timed out.', code: 'SMTP_TIMEOUT' });
+        }
+        if (msg.includes('Invalid login') || msg.includes('Username and Password')) {
+            return res.status(500).json({ error: 'smtp auth failed.', code: 'SMTP_AUTH' });
+        }
+        return res.status(500).json({ error: 'failed to send. try again later.', code: 'UNKNOWN' });
     }
 }

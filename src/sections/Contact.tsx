@@ -67,10 +67,22 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error('Failed to send message');
+      if (res.status === 429) {
+        toast({ variant: "destructive", title: "slow down", description: "too many requests — wait a few minutes and try again." });
+        return;
+      }
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        if (body?.code === 'SMTP_TIMEOUT') {
+          toast({ variant: "destructive", title: "connection failed", description: "couldn't reach the mail server — gmail may be blocking the connection from vercel's servers. try again or reach me via the links below." });
+        } else {
+          toast({ variant: "destructive", title: "error", description: "something went wrong. try again or reach me via the links below." });
+        }
+        return;
+      }
       setSent(true);
       form.reset();
-    } catch (error) {
+    } catch {
       toast({ variant: "destructive", title: "error", description: "something went wrong. try again or reach me via the links below." });
     } finally {
       setIsSubmitting(false);
@@ -128,7 +140,7 @@ export default function Contact() {
                 <FormField label="name" error={form.formState.errors.name}>
                   <Input {...form.register('name')} variant="sketch" placeholder="john doe" />
                 </FormField>
-                <FormField label="email (requires being signed in to google on your browser)" error={form.formState.errors.email}>
+                <FormField label="email" error={form.formState.errors.email}>
                   <Input {...form.register('email')} variant="sketch" placeholder="john@example.com" />
                 </FormField>
                 <FormField label="message" error={form.formState.errors.message}>
