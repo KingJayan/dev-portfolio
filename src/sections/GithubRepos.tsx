@@ -46,7 +46,7 @@ export default function GithubRepos() {
   const fetchRepos = useCallback(() => {
     setLoading(true);
     setError(null);
-    fetch('https://api.github.com/users/KingJayan/repos?sort=updated&per_page=6')
+    fetch('/api/github')
       .then((res) => {
         if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
         return res.json();
