@@ -20,8 +20,9 @@ const Contact = lazy(() => import("@/sections/Contact"));
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
 
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import NotFound from "@/pages/NotFound";
+import TerminalPage from "@/terminal/index";
 
 const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">loading...</div>;
 
@@ -100,6 +101,8 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const { isZenMode } = useTheme();
+  const [loc] = useLocation();
+  const isTerminal = loc === "/terminal";
 
   useEffect(() => {
     let cancelled = false;
@@ -127,14 +130,15 @@ function App() {
 
   return (
     <>
-      <LoadingScreen isLoading={isLoading} />
-      {!isZenMode && <div className="grain-overlay" />}
-      {!isZenMode && <FreeDrawCanvas />}
-      {!isZenMode && <ScrollProgress />}
-      <Navigation />
-      {!isZenMode && <CommandMenu />}
+      {!isTerminal && <LoadingScreen isLoading={isLoading} />}
+      {!isTerminal && !isZenMode && <div className="grain-overlay" />}
+      {!isTerminal && !isZenMode && <FreeDrawCanvas />}
+      {!isTerminal && !isZenMode && <ScrollProgress />}
+      {!isTerminal && <Navigation />}
+      {!isTerminal && !isZenMode && <CommandMenu />}
 
       <Switch>
+        <Route path="/terminal">{() => <TerminalPage />}</Route>
         <Route path="/">{() => isZenMode
           ? <MotionConfig reducedMotion="always"><Portfolio isZenMode={isZenMode} isLoading={isLoading} /></MotionConfig>
           : <Portfolio isZenMode={isZenMode} isLoading={isLoading} />

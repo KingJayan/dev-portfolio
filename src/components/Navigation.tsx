@@ -128,7 +128,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
                     transition={{ duration: 0.2 }}
                     className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-highlighter-yellow border border-ink/20 rounded-lg px-2.5 py-1.5 text-[11px] font-marker text-ink shadow-sm pointer-events-none"
                   >
-                    annotate this page
+                    check out this tool!
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-highlighter-yellow" />
                   </motion.div>
                 )}
@@ -142,6 +142,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
               <span className="text-[9px] font-sans text-pencil/50 leading-none">{label}</span>
             )}
           </div>
+          
         ))}
       </div>
     </div>
