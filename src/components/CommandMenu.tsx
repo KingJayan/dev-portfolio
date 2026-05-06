@@ -190,29 +190,34 @@ export default function CommandMenu() {
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
-                <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-xl">
+                <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl w-full">
                     <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        initial={{ opacity: 0, y: 14, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="relative w-full bg-paper/90 backdrop-blur-2xl border border-pencil/30 rounded-xl shadow-paper overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.18)]"
+                        className="relative w-full bg-paper/93 backdrop-blur-2xl border border-pencil/25 rounded-2xl overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.6),0_12px_40px_-6px_rgba(36,30,25,0.22),0_2px_8px_-2px_rgba(36,30,25,0.10)]"
                     >
+                        {/* top accent strip */}
+                        <div className="h-[2px] w-full bg-gradient-to-r from-highlighter-pink/70 via-pencil/30 to-transparent" />
+
                         {/* quick actions bar */}
-                        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-dashed border-pencil/20">
+                        <div className="flex items-center gap-2 px-4 py-3 border-b border-pencil/12">
                             {quickActions.map((a) => (
                                 <button
                                     key={a.label}
                                     onClick={a.onSelect}
                                     title={a.label}
                                     className={cn(
-                                        "flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-hand transition-all duration-150",
-                                        a.active ? "bg-ink/10 text-ink" : "text-ink/50 hover:text-ink hover:bg-ink/5"
+                                        "flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-hand transition-all duration-150 border",
+                                        a.active
+                                            ? "bg-ink/10 text-ink border-ink/18"
+                                            : "text-ink/50 hover:text-ink hover:bg-ink/6 border-transparent hover:border-pencil/20"
                                     )}
                                 >
                                     {a.icon}
-                                    <span className="text-xs">{a.label}</span>
+                                    <span className="text-[13px]">{a.label}</span>
                                     {a.active !== undefined && (
-                                        <span className={cn("w-1.5 h-1.5 rounded-full", a.active ? "bg-green-400" : "bg-ink/20")} />
+                                        <span className={cn("w-1.5 h-1.5 rounded-full", a.active ? "bg-green-400" : "bg-ink/15")} />
                                     )}
                                 </button>
                             ))}
@@ -220,49 +225,71 @@ export default function CommandMenu() {
 
                         {/* search + list */}
                         <Command className="w-full bg-transparent">
-                            <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
-                                <Search className="mr-2 h-4 w-4 shrink-0 opacity-40 text-ink" />
+                            <div className="flex items-center px-5 border-b border-pencil/12" cmdk-input-wrapper="">
+                                <Search className="mr-3 h-5 w-5 shrink-0 opacity-30 text-ink" />
                                 <Command.Input
-                                    className="flex h-12 w-full bg-transparent py-3 text-xl outline-none placeholder:text-ink/30 font-hand text-ink"
+                                    className="flex h-16 w-full bg-transparent text-[22px] outline-none placeholder:text-ink/25 font-hand text-ink"
                                     placeholder="type a command..."
                                     autoFocus
                                 />
                             </div>
 
-                            <Command.List className="max-h-[320px] overflow-y-auto overflow-x-hidden p-1.5">
-                                <Command.Empty className="py-8 text-center text-ink/40 font-hand text-lg">
+                            <Command.List className="max-h-[400px] overflow-y-auto overflow-x-hidden px-2 py-2">
+                                <Command.Empty className="py-12 text-center text-ink/35 font-hand text-xl">
                                     nothing found.
                                 </Command.Empty>
 
                                 {groups.map((group, i) => (
                                     <div key={group.heading}>
-                                        {i > 0 && <Command.Separator className="h-px bg-pencil/10 my-1" />}
+                                        {i > 0 && <Command.Separator className="h-px bg-pencil/10 my-1.5 mx-2" />}
                                         <Command.Group
                                             heading={group.heading}
-                                            className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-ink/35 [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:font-sans"
+                                            className="[&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:pt-2.5 [&_[cmdk-group-heading]]:pb-1 [&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-bold [&_[cmdk-group-heading]]:text-ink/40 [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-widest [&_[cmdk-group-heading]]:font-sans"
                                         >
-                                            {group.items.map((item) => (
-                                                <Command.Item
-                                                    key={item.id}
-                                                    onSelect={item.onSelect}
-                                                    className="relative flex cursor-default select-none items-center rounded-lg px-3 py-2.5 text-lg outline-none aria-selected:bg-ink/8 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-ink/5 transition-colors duration-100 group"
-                                                >
-                                                    <span className="mr-2.5 text-ink/50 group-aria-selected:text-ink transition-colors">{item.icon}</span>
-                                                    <span>{item.label}</span>
-                                                    {item.badge && (
-                                                        <span className="ml-auto text-xs text-ink/35 font-sans">{item.badge}</span>
-                                                    )}
-                                                </Command.Item>
-                                            ))}
+                                            {group.heading === "go" ? (
+                                                <div className="grid grid-cols-3 gap-1 px-1 pb-1">
+                                                    {group.items.map((item) => (
+                                                        <Command.Item
+                                                            key={item.id}
+                                                            onSelect={item.onSelect}
+                                                            className="flex cursor-default select-none items-center gap-2.5 rounded-xl px-3 py-3 outline-none aria-selected:bg-ink/8 aria-selected:text-ink font-hand hover:bg-ink/5 transition-colors duration-100 group"
+                                                        >
+                                                            <span className="text-ink/45 group-aria-selected:text-ink transition-colors shrink-0">{item.icon}</span>
+                                                            <span className="text-[15px]">{item.label}</span>
+                                                        </Command.Item>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                group.items.map((item) => (
+                                                    <Command.Item
+                                                        key={item.id}
+                                                        onSelect={item.onSelect}
+                                                        className="relative flex cursor-default select-none items-center rounded-xl px-3 py-3 outline-none aria-selected:bg-ink/8 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-ink/5 transition-colors duration-100 group"
+                                                    >
+                                                        <span className="mr-3 text-ink/45 group-aria-selected:text-ink transition-colors shrink-0">{item.icon}</span>
+                                                        <span className="text-[15px]">{item.label}</span>
+                                                        {item.badge && (
+                                                            <span className="ml-auto text-[11px] text-ink/30 font-sans bg-ink/6 px-2 py-0.5 rounded-full">{item.badge}</span>
+                                                        )}
+                                                    </Command.Item>
+                                                ))
+                                            )}
                                         </Command.Group>
                                     </div>
                                 ))}
                             </Command.List>
 
-                            {/* footer hint */}
-                            <div className="flex items-center justify-between px-3 py-2 border-t border-dashed border-pencil/20 text-[10px] text-ink/40 font-sans">
-                                <span>↑↓ navigate · enter select · esc close</span>
-                                <span>shift+p</span>
+                            {/* footer */}
+                            <div className="flex items-center justify-between px-4 py-2.5 border-t border-pencil/12 bg-ink/[0.018]">
+                                <div className="flex items-center gap-3 text-[10px] text-ink/35 font-sans">
+                                    {[["↑↓", "navigate"], ["↵", "select"], ["esc", "close"]].map(([key, label]) => (
+                                        <span key={key} className="flex items-center gap-1.5">
+                                            <kbd className="px-1.5 py-0.5 rounded-md bg-ink/8 text-[9px] font-sans">{key}</kbd>
+                                            {label}
+                                        </span>
+                                    ))}
+                                </div>
+                                <span className="text-[10px] text-ink/25 font-sans tracking-wide">shift+p</span>
                             </div>
                         </Command>
                     </motion.div>

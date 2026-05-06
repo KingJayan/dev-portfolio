@@ -164,7 +164,7 @@ const COMMANDS: Command[] = [
           t("rm: removing memories...", "red"),
           t("rm: removing dreams...", "red"),
           t(""),
-          t("(phew) permission denied: you cannot delete what was never yours", "amber"),
+          t("permission denied: you cannot delete what was never yours", "amber"),
         ];
         return ok(lines);
       }
@@ -178,12 +178,12 @@ const COMMANDS: Command[] = [
     run() {
       const cfg = portfolioConfig;
       return ok([
-        t("  ___        _  __       _    _         _  ", "accent"),
-        t(" |_  |      | |/ /      | |  | |       | | ", "accent"),
-        t("   | | __ _ | ' / _   _ | |  | | _ __  | | ", "accent"),
-        t("   | |/ _` ||  < | | | || |/\\| || '_ \\ | | ", "accent"),
-        t("/\\__/ / (_| || . \\| |_| |\\  /\\  /| | | ||_| ", "accent"),
-        t("\\____/ \\__,_||_|\\_\\\\__,_| \\/  \\/ |_| |_|(_) ", "accent"),
+        t("     ██╗ █████╗ ██╗   ██╗ █████╗ ███╗   ██╗", "accent"),
+        t("     ██║██╔══██╗╚██╗ ██╔╝██╔══██╗████╗  ██║", "accent"),
+        t("     ██║███████║ ╚████╔╝ ███████║██╔██╗ ██║", "accent"),
+        t("██   ██║██╔══██║  ╚██╔╝  ██╔══██║██║╚██╗██║", "accent"),
+        t("╚█████╔╝██║  ██║   ██║   ██║  ██║██║ ╚████║", "accent"),
+        t(" ╚════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝", "accent"),
         t(""),
         { type: "table", headers: ["key", "value"], rows: [
           ["os",       "Portfolio OS v1.0"],
@@ -234,7 +234,7 @@ const COMMANDS: Command[] = [
         "overriding root permissions...",
         "access granted to mainframe...",
         "",
-        "just kidding. access denied. nice try though.",
+        "jk lol. access denied.",
       ];
       return ok(lines.map((l, i) => t(l, i === lines.length - 1 ? "amber" : "green")));
     },
