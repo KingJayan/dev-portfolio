@@ -7,13 +7,14 @@ import { portfolioConfig } from "@/portfolio.config";
 import {
     Search, Command as CommandIcon, FileCode, User, Home, Trophy,
     Smile, Mail, ArrowUpRight, Sun, Moon, BookOpen, Pencil, Copy,
-    Shuffle, Share2, ArrowUp,
+    Shuffle, Share2, ArrowUp, Terminal,
 } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
 import { MOTION_EASE, useMotionTiming } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { useLocation } from "wouter";
 
 // types
 
@@ -41,6 +42,7 @@ type CommandGroup = {
 export default function CommandMenu() {
     const MOTION_TIMING = useMotionTiming();
     const [open, setOpen] = useState(false);
+    const [, navigate] = useLocation();
     const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
     const { isDrawingMode, toggleDrawingMode } = useDrawing();
 
@@ -156,6 +158,7 @@ export default function CommandMenu() {
                 { id: "surprise", label: "surprise me", icon: <Shuffle className="w-4 h-4" />, onSelect: surpriseMe },
                 { id: "top", label: "scroll to top", icon: <ArrowUp className="w-4 h-4" />, onSelect: () => scrollTo("home") },
                 { id: "share", label: "share this site", icon: <Share2 className="w-4 h-4" />, onSelect: shareSite },
+                { id: "terminal", label: "> open terminal", icon: <Terminal className="w-4 h-4" />, onSelect: () => { setOpen(false); navigate("/terminal"); } },
             ],
         },
         {
@@ -192,10 +195,10 @@ export default function CommandMenu() {
                         initial={{ opacity: 0, y: 10, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="relative w-full bg-paper/70 backdrop-blur-2xl border border-pencil/20 rounded-xl shadow-paper overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.35),0_4px_16px_-4px_rgba(36,30,25,0.10)]"
+                        className="relative w-full bg-paper/90 backdrop-blur-2xl border border-pencil/30 rounded-xl shadow-paper overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.18)]"
                     >
                         {/* quick actions bar */}
-                        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-dashed border-pencil/15">
+                        <div className="flex items-center gap-1.5 px-3 py-2.5 border-b border-dashed border-pencil/20">
                             {quickActions.map((a) => (
                                 <button
                                     key={a.label}
@@ -217,7 +220,7 @@ export default function CommandMenu() {
 
                         {/* search + list */}
                         <Command className="w-full bg-transparent">
-                            <div className="flex items-center border-b border-dashed border-pencil/15 px-3" cmdk-input-wrapper="">
+                            <div className="flex items-center border-b border-dashed border-pencil/20 px-3" cmdk-input-wrapper="">
                                 <Search className="mr-2 h-4 w-4 shrink-0 opacity-40 text-ink" />
                                 <Command.Input
                                     className="flex h-12 w-full bg-transparent py-3 text-xl outline-none placeholder:text-ink/30 font-hand text-ink"
@@ -257,7 +260,7 @@ export default function CommandMenu() {
                             </Command.List>
 
                             {/* footer hint */}
-                            <div className="flex items-center justify-between px-3 py-2 border-t border-dashed border-pencil/15 text-[10px] text-ink/30 font-sans">
+                            <div className="flex items-center justify-between px-3 py-2 border-t border-dashed border-pencil/20 text-[10px] text-ink/40 font-sans">
                                 <span>↑↓ navigate · enter select · esc close</span>
                                 <span>shift+p</span>
                             </div>
