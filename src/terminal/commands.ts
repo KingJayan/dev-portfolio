@@ -39,7 +39,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "ls",
-    aliases: ["dir"],
+    aliases: ["dir", "Get-ChildItem", "gci"],
     description: "list directory contents",
     run({ args, state }) {
       const path = args[0] ? resolveAbsPath(state.cwd, args[0]) : state.cwd;
@@ -53,6 +53,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "cd",
+    aliases: ["chdir", "Set-Location"],
     description: "change directory",
     run({ args, state }) {
       const target = args[0] ?? "/";
@@ -72,6 +73,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "cat",
+    aliases: ["type", "Get-Content"],
     description: "read file contents  [--pretty for card view]",
     run({ args, flags, state }) {
       if (args.length === 0) return ok([err("cat: missing operand")]);
@@ -102,6 +104,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "clear",
+    aliases: ["cls"],
     description: "clear the terminal",
     run() {
       return ok([], null, "clear");
@@ -125,6 +128,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "open",
+    aliases: ["start"],
     description: "open a project in the browser",
     run({ args }) {
       if (!args[0]) return ok([err("open: usage: open <project-id>")]);
@@ -136,6 +140,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "exit",
+    aliases: ["quit"],
     description: "return to portfolio",
     run() {
       return ok([t("goodbye.", "dim")], null, "exit");
@@ -153,6 +158,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "rm",
+    aliases: ["del", "Remove-Item"],
     hidden: true,
     description: "",
     run({ args }) {
@@ -173,6 +179,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "neofetch",
+    aliases: ["fetch", "sysinfo"],
     hidden: true,
     description: "",
     run() {
@@ -200,6 +207,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "cowsay",
+    aliases: ["cowthink"],
     hidden: true,
     description: "",
     run({ args }) {
@@ -222,6 +230,7 @@ const COMMANDS: Command[] = [
   },
   {
     name: "hack",
+    aliases: ["breach", "pwn"],
     hidden: true,
     description: "",
     run() {
