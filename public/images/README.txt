@@ -1,46 +1,26 @@
 image docs
 ==========================
 
-To replace images in the portfolio, simply drop them in this folder with the correct filenames.
-
-1. profile picture
+1. pfp
    ----------------
-   Drop in your profile picture at this path:
-   /public/images/profile.png
-
-   (Supported formats: .png, .jpg, .jpeg)
-   *Note: If multiple extensions exist, PNG takes priority in the code logic.*
+path: public/images/profile.png
+formats: .png, .jpg, .jpeg (png priority)
 
 
-2. project previews
+2. project preview ss
    ----------------
-   Drop in project screenshots at this path:
-   /public/images/projects/
+path: public/images/projects/
+convention: preview-{id}.png, id set in portfolio.config.ts
 
-   Filename convention:
-   preview-{id}.png
-
-   Example:
-   If your project ID in 'portfolio.config.ts' is 'task-manager', name the image:
-   preview-task-manager.png
-
-   (Supported formats: .png, .jpg, .jpeg)
+same supported formats
 
 3. life
    ----------------
-   Drop in project screenshots at this path:
-   /public/images/life/
+path: public/images/life/
 
-   Filename convention:
-   {number}.png
-
-   Example:
-   for the first life activity, name the image:
-   1.png, for the second, name it 2.png, and so on.
-
-   (Supported formats: .png, .jpg, .jpeg)
+convention: {id}.png, id set in portfolio.config.ts
 
 
 4. customization
    -------------
-   you can override the default images by changing 'portfolio.config.ts' directly if you prefer specific URLs.
+   override default paths directly in portfolio.config.ts
