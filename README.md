@@ -1,6 +1,6 @@
 <div align="center">
   <h2><code>KingJayan/dev-portfolio</code></h2>
-  <p>A single-page developer portfolio with a hand-drawn aesthetic</p>
+  <p>my developer portfolio, 'doodly' design</p>
 </div>
 
 <div align="center">
@@ -20,12 +20,12 @@
 
 ## features
 
-- **hand-drawn design**: doodle UI with custom paper/ink theme, hand-drawn fonts, and scribble text animations
-- **svg path animations**: decorative elements and headings animate on scroll using opentype.js for TTF-to-SVG rendering
+- **hand-drawn design**: doodly UI with custom paper/ink theme and scribble text anims
+- **svg path animations**: decorative elements and heading text animate on scroll using opentype.js for TTF-to-SVG rendering
 - **3d parallax hero**: mouse-driven parallax with physics-based spring animations
 - **canvas mode**: toggle a free-draw overlay to sketch anywhere on the screen
-- **command menu**: keyboard-driven navigation and quick actions
-- **github integration**: live repo cards with skeleton loading states
+- **command menu**: keyboard-driven nav and quick actions
+- **github integration**: live repo cards with recent activity
 - **contact form**: gmail api + nodemailer via vercel serverless functions
 - **SPA**: smooth scroll nav with mobile and desktop support
 
@@ -61,5 +61,5 @@ you need `node` and `npm` installed
 ## license
 
 <div align="center">
-  <sub>MIT License</sub>
+  <sub>custom <a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">MIT license</a></sub>
 </div>
