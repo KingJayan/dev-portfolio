@@ -61,5 +61,5 @@ you need `node` and `npm` installed
 ## license
 
 <div align="center">
-  <sub>custom <a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">MIT license</a></sub>
+  <sub><a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">BSD 3-Clause License</a></sub>
 </div>
