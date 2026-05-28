@@ -33,7 +33,7 @@
 
 #### prereqs
 
-you need `node` and `npm` installed
+you need `node`, `pnpm`, and `bun` installed
 
 #### installation
 
@@ -45,7 +45,7 @@ you need `node` and `npm` installed
 
 2.  **install deps**
     ```bash
-    npm install
+  pnpm install
     ```
 
 3.  **run locally**

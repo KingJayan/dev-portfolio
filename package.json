@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "license": "BSD-3-Clause",
+  "packageManager": "pnpm@11.3.0",
   "scripts": {
     "dev": "bun --bun vite",
     "build": "bun --bun vite build",
