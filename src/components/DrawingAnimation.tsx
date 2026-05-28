@@ -1,11 +1,11 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function DrawingAnimation() {
     return (
         <div className="flex justify-center items-center h-24 text-ink">
 
             <svg width="200" height="100" viewBox="0 0 200 100">
-                <motion.path
+                <m.path
                     d="M10,50 Q50,10 90,50 T190,50"
                     fill="none"
                     stroke="currentColor"

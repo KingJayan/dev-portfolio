@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { PrettyCardNode } from "../types";
 
 const container = {
@@ -12,7 +12,7 @@ const item = {
 
 export default function PrettyCard({ node }: { node: PrettyCardNode }) {
   return (
-    <motion.div
+    <m.div
       variants={container}
       initial="hidden"
       animate="show"
@@ -28,21 +28,21 @@ export default function PrettyCard({ node }: { node: PrettyCardNode }) {
         fontSize: "13px",
       }}
     >
-      <motion.div variants={item} style={{ color: "#c8c8cc", fontWeight: 600, marginBottom: 6 }}>
+      <m.div variants={item} style={{ color: "#c8c8cc", fontWeight: 600, marginBottom: 6 }}>
         {node.title}
-      </motion.div>
+      </m.div>
       {node.subtitle && (
-        <motion.div variants={item} style={{ color: "#7a7a88", marginBottom: 8 }}>
+        <m.div variants={item} style={{ color: "#7a7a88", marginBottom: 8 }}>
           {node.subtitle}
-        </motion.div>
+        </m.div>
       )}
       {node.body.map((line, i) => (
-        <motion.div key={i} variants={item} style={{ color: "#c8c8cc", lineHeight: 1.6 }}>
+        <m.div key={i} variants={item} style={{ color: "#c8c8cc", lineHeight: 1.6 }}>
           {line}
-        </motion.div>
+        </m.div>
       ))}
       {node.tags && node.tags.length > 0 && (
-        <motion.div variants={item} style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <m.div variants={item} style={{ marginTop: 8, display: "flex", gap: 6, flexWrap: "wrap" }}>
           {node.tags.map((tag) => (
             <span
               key={tag}
@@ -58,8 +58,8 @@ export default function PrettyCard({ node }: { node: PrettyCardNode }) {
               {tag}
             </span>
           ))}
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

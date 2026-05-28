@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Star, Spiral, Arrow } from "@/components/Doodles";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -12,7 +12,7 @@ export default function NotFound() {
                 <Arrow className="absolute top-1/2 left-20 w-24 h-24 text-ink rotate-45" />
             </div>
 
-            <motion.div
+            <m.div
                 initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 className="paper-card max-w-lg w-full p-12 text-center relative z-10"
@@ -34,7 +34,7 @@ export default function NotFound() {
                         go home
                     </Button>
                 </Link>
-            </motion.div>
+            </m.div>
         </div>
     );
 }

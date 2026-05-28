@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
 import { Star, Spiral, Underline } from '@/components/Doodles';
 import TechIcon from '@/components/TechIcon';
@@ -6,6 +6,7 @@ import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 import DrawText from '@/components/DrawText';
+import { ImageDown } from 'lucide-react';
 
 type AboutSkill = typeof portfolioConfig.about.skills[number];
 type AboutTool = typeof portfolioConfig.about.tools[number];
@@ -26,7 +27,7 @@ function SkillBar({ skill, idx }: { skill: { name: string; level: number }; idx:
         <span className={`font-hand text-sm ${color.label} opacity-60 group-hover:opacity-100 transition-opacity`}>{skill.level}%</span>
       </div>
       <div className="h-3 w-full bg-ink/8 rounded-full overflow-hidden border border-ink/10">
-        <motion.div
+        <m.div
           className={`h-full rounded-full ${color.bar} ${color.glow}`}
           initial={{ width: 0 }}
           whileInView={{ width: `${skill.level}%` }}
@@ -53,9 +54,8 @@ export default function About() {
         <Star className="absolute bottom-24 right-10 w-10 h-10 text-highlighter-yellow/80" />
       </div>
 
-      {/* bio + skills */}
       <div className="flex flex-col lg:flex-row gap-16 items-stretch w-full">
-        <motion.div
+        <m.div
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -64,18 +64,20 @@ export default function About() {
         >
           <Surface variant="elevated" className="p-10 relative w-full h-full">
             <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
-              <img
-                src="/images/profile.png" alt="Profile"
-                className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
-                style={{ transform: `${scale(0.9)} translateY(6%)`}}
-              />
-              <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4">
-                add profile.png
-              </div>
+              <img>
+                <source type="image/avif" srcSet="/images/profile.avif" />
+                <img
+                  src="/images/profile.png" alt="Profile"
+                  width={224} height={224}
+                  className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  onError={(e) => {
+                    e.currentTarget.parentElement!.style.display = 'none';
+                    e.currentTarget.parentElement!.nextElementSibling?.classList.remove('hidden');
+                  }}
+                  style={{ transform: `${scale(0.9)} translateY(6%)`}}
+                />
+              </img>
+              <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4" />
             </div>
 
             <h2 className="text-6xl font-marker text-center mb-8 relative">
@@ -89,9 +91,9 @@ export default function About() {
               {about.bio?.map((paragraph: string, idx: number) => <p key={idx}>{paragraph}</p>)}
             </div>
           </Surface>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ x: 100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           viewport={{ once: true }}
@@ -110,11 +112,10 @@ export default function About() {
               ))}
             </div>
           </Surface>
-        </motion.div>
+        </m.div>
       </div>
 
-      {/* toolkit */}
-      <motion.div
+      <m.div
         initial={{ y: 50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -130,11 +131,11 @@ export default function About() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">
             {tools.map((tool: AboutTool) => (
               <HandmadeTooltip key={tool.name} content={tool.name}>
-                <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }} className="flex flex-col items-center gap-2 group cursor-default">
+                <m.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.95 }} className="flex flex-col items-center gap-2 group cursor-default">
                   <Surface variant="default" className="w-12 h-12 border-ink/20 rounded-xl flex items-center justify-center shadow-paper group-hover:shadow-paper-hover group-hover:bg-highlighter-yellow/40 group-hover:border-pencil/45 transition-all duration-200">
                     <TechIcon name={tool.icon} className="w-6 h-6 text-ink group-hover:scale-110 transition-transform" />
                   </Surface>
-                </motion.div>
+                </m.div>
               </HandmadeTooltip>
             ))}
           </div>
@@ -144,7 +145,7 @@ export default function About() {
           </p>
           */}
         </Surface>
-      </motion.div>
+      </m.div>
     </section>
   );
 }

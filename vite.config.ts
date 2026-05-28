@@ -15,5 +15,18 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    target: ["es2020"],
+    cssCodeSplit: true,
+    modulePreload: { polyfill: false },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules/framer-motion")) return "vendor-motion";
+          if (id.includes("node_modules/opentype.js") || id.includes("node_modules/opentype")) return "vendor-opentype";
+          if (id.includes("node_modules/@radix-ui")) return "vendor-radix";
+          if (id.includes("src/terminal/")) return "terminal";
+        },
+      },
+    },
   },
 });

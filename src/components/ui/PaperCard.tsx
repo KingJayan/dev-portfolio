@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ReactNode } from 'react';
 import { MOTION_EASE, MOTION_SPRING } from '@/lib/motion';
 
@@ -50,7 +50,7 @@ export default function PaperCard({
     };
 
     return (
-        <motion.div
+        <m.div
             initial="hidden"
             whileInView="visible"
             whileHover="hover"
@@ -75,6 +75,6 @@ export default function PaperCard({
             <div className="relative z-10 h-full">
                 {children}
             </div>
-        </motion.div>
+        </m.div>
     );
 }

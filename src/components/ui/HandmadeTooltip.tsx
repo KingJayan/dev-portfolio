@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ReactNode, useState } from "react";
 
 interface HandmadeTooltipProps {
@@ -18,7 +18,7 @@ export default function HandmadeTooltip({ children, content }: HandmadeTooltipPr
             {children}
             <AnimatePresence>
                 {isVisible && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.5, y: 10, rotate: -5 }}
                         animate={{ opacity: 1, scale: 1, y: -45, rotate: 2 }}
                         exit={{ opacity: 0, scale: 0.5, y: 10, rotate: -5 }}
@@ -36,7 +36,7 @@ export default function HandmadeTooltip({ children, content }: HandmadeTooltipPr
                             {/*corner*/}
                             <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-ink/10 border-t border-l border-ink/20" />
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </div>

@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { m, useScroll, useSpring, useTransform } from "framer-motion";
 import { Z_INDEX } from "@/lib/z-index";
 
 const SECTIONS = ['home', 'projects', 'github', 'about', 'achievements', 'outside', 'contact'];
@@ -17,7 +17,7 @@ export default function ScrollProgress() {
             {/* track */}
             <div className="relative w-[2px] h-full bg-pencil/10 rounded-full">
                 {/* filled portion */}
-                <motion.div
+                <m.div
                     className="absolute top-0 left-0 w-full origin-top rounded-full bg-pencil/30"
                     style={{ scaleY: smoothProgress }}
                 />
@@ -35,7 +35,7 @@ export default function ScrollProgress() {
                 })}
 
                 {/* travelling marker — small circle that rides the track */}
-                <motion.div
+                <m.div
                     className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-highlighter-yellow border border-pencil/30 shadow-sm"
                     style={{ top: markerY }}
                 />

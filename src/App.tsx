@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { useEffect, useState, lazy, Suspense } from "react";
-import { MotionConfig } from "framer-motion";
+import { MotionConfig, LazyMotion, domAnimation } from "framer-motion";
+import { ArrowUp } from "lucide-react";
 import ParallaxHero from "@/components/ParallaxHero";
 import Navigation from "@/components/Navigation";
 import SectionDivider from "@/components/SectionDivider";
@@ -91,7 +92,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
           className="fixed bottom-8 right-8 z-50 h-12 w-12 transition-transform group"
           title="back up"
         >
-          <i className="fas fa-arrow-up text-ink text-xl group-hover:animate-bounce"></i>
+          <ArrowUp className="text-ink w-5 h-5 group-hover:animate-bounce" />
         </Button>
       )}
     </div>
@@ -111,14 +112,11 @@ function App() {
       const fontReady = typeof document !== "undefined" && "fonts" in document
         ? Promise.race([
             document.fonts.ready,
-            new Promise<void>((r) => setTimeout(r, 2500)),
+            new Promise<void>((r) => setTimeout(r, 300)),
           ])
         : Promise.resolve();
 
-      await Promise.all([
-        fontReady,
-        new Promise<void>((resolve) => setTimeout(resolve, 1000)),
-      ]);
+      await fontReady;
 
       if (!cancelled) setIsLoading(false);
     };
@@ -129,7 +127,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <LazyMotion features={domAnimation} strict>
       {!isTerminal && <LoadingScreen isLoading={isLoading} />}
       {!isTerminal && !isZenMode && <div className="grain-overlay" />}
       {!isTerminal && !isZenMode && <FreeDrawCanvas />}
@@ -148,7 +146,7 @@ function App() {
       </Switch>
 
       <Toaster />
-    </>
+    </LazyMotion>
   );
 }
 

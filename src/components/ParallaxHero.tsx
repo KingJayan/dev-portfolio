@@ -1,4 +1,4 @@
-import { motion, useTransform } from "framer-motion";
+import { m, useTransform } from "framer-motion";
 import { portfolioConfig } from "@/portfolio.config";
 import { Paperclip } from "lucide-react";
 import { useParallaxMouse } from "@/hooks/use-parallax-mouse";
@@ -21,17 +21,17 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
     return (
         <div className="relative h-screen w-full overflow-hidden flex items-center justify-center">
 
-            <motion.div style={{ x: backgroundX, y: backgroundY }} className="absolute inset-0 z-0 opacity-40 pointer-events-none">
+            <m.div style={{ x: backgroundX, y: backgroundY }} className="absolute inset-0 z-0 opacity-40 pointer-events-none">
                 <div className="absolute top-[40%] right-[30%] w-40 h-40 bg-amber/20 backdrop-blur-sm rotate-45 rounded-sm" />
                 <div className="absolute top-[20%] left-[15%] w-24 h-24 bg-rose/15 backdrop-blur-sm -rotate-12 rounded-full" />
                 <div className="absolute bottom-[25%] right-[15%] w-20 h-20 bg-sage/15 backdrop-blur-sm rotate-6 rounded-full" />
                 <svg className="absolute bottom-[10%] left-[20%] w-24 h-24 text-pencil/40 -rotate-12" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M10,50 Q25,25 50,50 T90,50" />
                 </svg>
-            </motion.div>
+            </m.div>
 
 
-            <motion.div
+            <m.div
                 style={{ x: midX, y: midY }}
                 className="relative z-10 flex flex-col items-center justify-center gap-2 pointer-events-none"
             >
@@ -39,7 +39,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                 <h2 className="text-2xl md:text-3xl font-hand text-pencil transform -rotate-1 relative z-20">
                     {portfolioConfig.personal.title}
                     <svg aria-hidden="true" viewBox="0 0 200 10" preserveAspectRatio="none" fill="none" className="absolute -bottom-1 left-0 w-full h-3 text-highlighter-pink/60 pointer-events-none">
-                        <motion.path
+                        <m.path
                             d="M2,5 C60,9 140,2 198,5"
                             stroke="currentColor"
                             strokeWidth="7"
@@ -60,7 +60,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                         }
                     </h1>
                     <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0 text-ink" viewBox="0 0 300 30">
-                        <motion.path
+                        <m.path
                             d="M10,15 Q150,30 290,10"
                             fill="none"
                             stroke="currentColor"
@@ -72,7 +72,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                         />
                     </svg>
                     <svg aria-hidden="true" viewBox="0 0 320 110" fill="none" className="absolute -inset-4 w-[calc(100%+32px)] h-[calc(100%+32px)] pointer-events-none text-ink/20" style={{ top: "-16px", left: "-16px" }}>
-                        <motion.path
+                        <m.path
                             d="M18,55 C14,28 50,6 160,9 C270,6 306,28 306,55 C306,82 270,104 160,101 C50,104 14,82 18,55 Z"
                             stroke="currentColor"
                             strokeWidth="2.5"
@@ -86,7 +86,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                 </div>
 
 
-                <motion.div
+                <m.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     whileHover={{ rotate: 1, scale: 1.01, y: -3 }}
@@ -96,11 +96,11 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                     <RoughRect className="absolute inset-0 w-full h-full text-amber/40 pointer-events-none" />
                     <Paperclip className="absolute -top-4 -left-4 w-8 h-8 text-pencil/70" />
                     {portfolioConfig.hero.tagline}
-                </motion.div>
-            </motion.div>
+                </m.div>
+            </m.div>
 
 
-            <motion.div style={{ x: foreX, y: foreY }} className="absolute inset-0 pointer-events-none z-30" />
+            <m.div style={{ x: foreX, y: foreY }} className="absolute inset-0 pointer-events-none z-30" />
         </div>
     );
 }

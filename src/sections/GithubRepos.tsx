@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useEffect, useState, useCallback } from 'react';
+import staticRepos from '@/data/github-repos.json';
 import { Star, GitFork, ExternalLink, RefreshCw, WifiOff } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
@@ -39,13 +40,22 @@ const LANGUAGE_BORDER: Record<string, string> = {
 };
 
 
+function sortAndFilter(data: Repo[]): Repo[] {
+  return data
+    .filter((r) => !r.name.includes('.github.io'))
+    .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
+    .slice(0, 6);
+}
+
+const INITIAL_REPOS = sortAndFilter(staticRepos as Repo[]);
+
 export default function GithubRepos() {
-  const [repos, setRepos] = useState<Repo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [repos, setRepos] = useState<Repo[]>(INITIAL_REPOS);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
-  const fetchRepos = useCallback(() => {
+  const fetchRepos = useCallback((showError: boolean) => {
     setLoading(true);
     setError(null);
     fetch('/api/github')
@@ -57,25 +67,21 @@ export default function GithubRepos() {
         return res.json() as Promise<Repo[]>;
       })
       .then((data) => {
-        const sorted = data
-          .filter((r) => !r.name.includes('.github.io'))
-          .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
-          .slice(0, 6);
-        setRepos(sorted);
+        setRepos(sortAndFilter(data));
         setLoading(false);
       })
       .catch((err: Error & { status?: number }) => {
-        setError(JSON.stringify({ message: err.message, status: err.status ?? 0 }));
+        if (showError) setError(JSON.stringify({ message: err.message, status: err.status ?? 0 }));
         setLoading(false);
       });
   }, []);
 
-  useEffect(() => { fetchRepos(); }, [retryCount]);
+  useEffect(() => { fetchRepos(false); }, []);
+  useEffect(() => { if (retryCount > 0) fetchRepos(true); }, [retryCount]);
 
-  /*loading*/
-  if (loading) {
+  if (loading && repos.length === 0) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
@@ -119,7 +125,7 @@ export default function GithubRepos() {
             </div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
@@ -134,9 +140,9 @@ export default function GithubRepos() {
       ? "github is having issues on their end — worth a retry."
       : "couldn't reach github — check your connection or try again.";
 
-  if (error) {
+  if (error && repos.length === 0) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-100px' }}
@@ -159,7 +165,7 @@ export default function GithubRepos() {
             />
           ))}
           <div className="absolute inset-0 flex items-center justify-center">
-            <motion.div
+            <m.div
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, type: 'spring', stiffness: 200, damping: 20 }}
@@ -178,15 +184,15 @@ export default function GithubRepos() {
                   retry
                 </button>
               </PaperCard>
-            </motion.div>
+            </m.div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     );
   }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
@@ -207,7 +213,7 @@ export default function GithubRepos() {
 
       <div className="flex flex-wrap justify-center gap-10">
         {repos.map((repo, index) => (
-          <motion.a
+          <m.a
             key={repo.id}
             href={repo.html_url}
             target="_blank"
@@ -263,9 +269,9 @@ export default function GithubRepos() {
                 </div>
               </div>
             </PaperCard>
-          </motion.a>
+          </m.a>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

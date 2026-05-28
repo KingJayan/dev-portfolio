@@ -1,4 +1,4 @@
-import { motion, useTransform, AnimatePresence } from 'framer-motion';
+import { m, useTransform, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Surface } from '@/components/ui/surface';
@@ -91,16 +91,16 @@ export default function Contact() {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden flex items-center justify-center"
     >
-      <motion.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-40">
+      <m.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-40">
         <Spiral className="absolute top-20 left-10 w-32 h-32 text-pencil/30" />
-      </motion.div>
+      </m.div>
 
       <div className="w-full max-w-2xl relative z-10">
         <Surface variant="elevated" className="p-8 md:p-12 relative border-rose/20">
@@ -112,7 +112,7 @@ export default function Contact() {
 
           <AnimatePresence mode="wait">
             {sent ? (
-              <motion.div
+              <m.div
                 key="success"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -130,9 +130,9 @@ export default function Contact() {
                   className="mt-2 font-hand text-sm text-pencil/50 underline decoration-dashed hover:text-ink transition-colors">
                   send another?
                 </button>
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.form
+              <m.form
                 key="form"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -154,7 +154,7 @@ export default function Contact() {
                   className="w-full font-hand text-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                   {isSubmitting ? "sending..." : "send"}
                 </Button>
-              </motion.form>
+              </m.form>
             )}
           </AnimatePresence>
         </Surface>
@@ -171,6 +171,6 @@ export default function Contact() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

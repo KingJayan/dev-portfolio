@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Z_INDEX } from "@/lib/z-index";
 import { portfolioConfig } from "@/portfolio.config";
 
@@ -19,7 +19,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
     return (
         <AnimatePresence>
             {isLoading && (
-                <motion.div
+                <m.div
                     key="loading"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -34,7 +34,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                 >
                     {/* floating glass orbs */}
                     {ORBS.map((orb, i) => (
-                        <motion.div
+                        <m.div
                             key={i}
                             className="loading-orb absolute rounded-full pointer-events-none"
                             style={{
@@ -61,7 +61,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                     ))}
 
                     {/* central glass card */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, scale: 0.91, y: 16 }}
                         animate={{ opacity: 1, scale: 1,    y: 0  }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
@@ -73,7 +73,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         }}
                     >
                         {/* top shimmer line */}
-                        <motion.div
+                        <m.div
                             className="absolute top-0 left-8 right-8 h-px"
                             style={{
                                 background:
@@ -84,7 +84,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         />
 
                         {/* monogram badge */}
-                        <motion.div
+                        <m.div
                             initial={{ scale: 0.7, opacity: 0 }}
                             animate={{ scale: 1,   opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
@@ -100,11 +100,11 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                             >
                                 {firstName[0]}{lastName[0]}
                             </span>
-                        </motion.div>
+                        </m.div>
 
                         {/* name */}
                         <div className="mb-1 overflow-hidden">
-                            <motion.h1
+                            <m.h1
                                 initial={{ y: "100%", opacity: 0 }}
                                 animate={{ y: "0%",   opacity: 1 }}
                                 transition={{ delay: 0.38, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
@@ -116,12 +116,12 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                             >
                                 {firstName}{" "}
                                 <span style={{ opacity: 0.7 }}>{lastName}</span>
-                            </motion.h1>
+                            </m.h1>
                         </div>
 
                         {/* subtitle */}
                         <div className="overflow-hidden mb-10">
-                            <motion.p
+                            <m.p
                                 initial={{ y: "100%", opacity: 0 }}
                                 animate={{ y: "0%",   opacity: 1 }}
                                 transition={{ delay: 0.52, duration: 0.5, ease: "easeOut" }}
@@ -133,11 +133,11 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                                 }}
                             >
                                 {portfolioConfig.personal.title}
-                            </motion.p>
+                            </m.p>
                         </div>
 
                         {/* progress track */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, scaleX: 0.6 }}
                             animate={{ opacity: 1, scaleX: 1   }}
                             transition={{ delay: 0.6, duration: 0.4 }}
@@ -152,7 +152,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                                 }}
                             >
                                 {/* fill */}
-                                <motion.div
+                                <m.div
                                     className="h-full rounded-full"
                                     initial={{ width: "0%" }}
                                     animate={{ width: "100%" }}
@@ -166,7 +166,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                             </div>
 
                             {/* cycling label */}
-                            <motion.p
+                            <m.p
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: [0, 1, 1, 0] }}
                                 transition={{
@@ -184,18 +184,18 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                                 }}
                             >
                                 {PHRASES[0]}
-                            </motion.p>
-                        </motion.div>
+                            </m.p>
+                        </m.div>
 
                         {/* bottom shimmer line */}
-                        <motion.div
+                        <m.div
                             className="absolute bottom-0 left-8 right-8 h-px"
                             style={{
                                 background:
                                     "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
                             }}
                         />
-                    </motion.div>
+                    </m.div>
 
                     {/* subtle corner deco dots */}
                     {[
@@ -204,7 +204,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                         { top: "25%", right: "10%" },
                         { bottom: "18%", left: "8%" },
                     ].map((pos, i) => (
-                        <motion.div
+                        <m.div
                             key={i}
                             className="absolute rounded-full pointer-events-none"
                             style={{
@@ -227,7 +227,7 @@ export default function LoadingScreen({ isLoading }: { isLoading: boolean }) {
                             }}
                         />
                     ))}
-                </motion.div>
+                </m.div>
             )}
         </AnimatePresence>
     );

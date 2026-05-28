@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import React, { useRef, useState, useEffect } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 
@@ -31,7 +31,7 @@ export default function ScribbleText({
     }, []);
 
     return (
-        <motion.span
+        <m.span
             className={`relative inline-block cursor-default ${className}`}
             initial="initial"
             whileInView="visible"
@@ -39,7 +39,7 @@ export default function ScribbleText({
             viewport={{ once: true }}
         >
             <span ref={spanRef} className="relative z-10">{children}</span>
-            <motion.svg
+            <m.svg
                 aria-hidden="true"
                 viewBox={`0 0 ${width} 20`}
                 preserveAspectRatio="none"
@@ -54,12 +54,12 @@ export default function ScribbleText({
                 }}
                 transition={{ duration: reduced ? 0 : 0.4, ease: "easeOut" }}
             >
-                <motion.path
+                <m.path
                     d={buildPath(width)}
                     strokeWidth="3"
                     vectorEffect="non-scaling-stroke"
                 />
-            </motion.svg>
-        </motion.span>
+            </m.svg>
+        </m.span>
     );
 }

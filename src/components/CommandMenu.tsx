@@ -1,6 +1,6 @@
 import { Command } from "cmdk";
 import { useEffect, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { portfolioConfig } from "@/portfolio.config";
@@ -178,20 +178,20 @@ export default function CommandMenu() {
                     className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group"
                     asChild
                 >
-                    <motion.button
+                    <m.button
                         whileHover={{ y: -2, rotate: -0.2 }}
                         transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
                     >
                         <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
                         <span className="text-ink/80 group-hover:text-ink">menu</span>
                         <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift+p</span>
-                    </motion.button>
+                    </m.button>
                 </Button>
 
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Command Menu</DialogTitle>
                 <DialogContent className="p-0 overflow-hidden bg-transparent border-none shadow-none max-w-2xl w-full">
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: 14, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
@@ -292,7 +292,7 @@ export default function CommandMenu() {
                                 <span className="text-[10px] text-ink/25 font-sans tracking-wide">shift+p</span>
                             </div>
                         </Command>
-                    </motion.div>
+                    </m.div>
                 </DialogContent>
             </Dialog>
         </>

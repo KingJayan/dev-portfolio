@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export const Star = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 24 24"
         fill="none"
@@ -19,11 +19,11 @@ export const Star = ({ className }: { className?: string }) => (
         style={{ willChange: "transform" }}
     >
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-    </motion.svg>
+    </m.svg>
 );
 
 export const Arrow = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 100 50"
         fill="none"
@@ -41,11 +41,11 @@ export const Arrow = ({ className }: { className?: string }) => (
     >
         <path d="M10,25 Q50,5 90,25" />
         <path d="M70,15 L90,25 L80,35" />
-    </motion.svg>
+    </m.svg>
 );
 
 export const Spiral = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 100 100"
         fill="none"
@@ -61,11 +61,11 @@ export const Spiral = ({ className }: { className?: string }) => (
         style={{ willChange: "transform" }}
     >
         <path d="M50,50 m0,-40 a40,40 0 1,1 0,80 a40,40 0 1,1 0,-80 a30,30 0 1,0 0,60 a30,30 0 1,0 0,-60" />
-    </motion.svg>
+    </m.svg>
 );
 
 export const Circle = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 140 70"
         fill="none"
@@ -80,11 +80,11 @@ export const Circle = ({ className }: { className?: string }) => (
         style={{ willChange: "transform" }}
     >
         <path d="M70,4 C95,2 135,14 136,35 C137,56 103,68 70,66 C37,68 3,56 4,35 C3,14 45,2 70,4 Z" />
-    </motion.svg>
+    </m.svg>
 );
 
 export const RoughRect = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
@@ -101,11 +101,11 @@ export const RoughRect = ({ className }: { className?: string }) => (
         style={{ willChange: "transform" }}
     >
         <path d="M4,4 Q52,2 96,5 L97,50 Q99,95 96,96 Q50,98 4,97 L3,50 Q1,5 4,4 Z" />
-    </motion.svg>
+    </m.svg>
 );
 
 export const Underline = ({ className }: { className?: string }) => (
-    <motion.svg
+    <m.svg
         aria-hidden="true"
         viewBox="0 0 200 20"
         preserveAspectRatio="none"
@@ -122,5 +122,5 @@ export const Underline = ({ className }: { className?: string }) => (
         style={{ willChange: "transform" }}
     >
         <path d="M5,10 Q50,15 100,5 T195,10" />
-    </motion.svg>
+    </m.svg>
 );

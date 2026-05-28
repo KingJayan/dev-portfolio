@@ -1,7 +1,8 @@
 {
   "include": [
     "src/**/*",
-    "api/**/*"
+    "api/**/*",
+    "scripts/**/*"
   ],
   "exclude": [
     "node_modules",

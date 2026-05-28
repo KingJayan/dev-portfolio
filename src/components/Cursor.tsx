@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { m, useMotionValue } from "framer-motion";
 import { useDrawing } from "@/contexts/DrawingContext";
 
 export default function Cursor() {
@@ -23,7 +23,7 @@ export default function Cursor() {
     return (
         <div className="pointer-events-none fixed inset-0 z-[999999] overflow-hidden mix-blend-difference">
             {"ontouchstart" in window ? null : (
-                <motion.div
+                <m.div
                     style={{ x: cursorX, y: cursorY, willChange: "transform" }}
                     className="absolute top-0 left-0 w-4 h-4 bg-white rounded-full"
                 />

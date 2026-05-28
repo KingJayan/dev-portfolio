@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "@/components/ui/button";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Eraser, Pencil, X, Palette, Highlighter, Minus, Square, Circle, Undo2, Redo2 } from "lucide-react";
 import { useCanvasHistory } from "@/hooks/use-canvas-history";
 import { useCanvasContext } from "@/hooks/use-canvas-context";
@@ -258,7 +258,7 @@ export default function FreeDrawCanvas() {
 
             {/* toolbar */}
             <AnimatePresence>
-                <motion.div
+                <m.div
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0,   opacity: 1 }}
                     exit={{ y: 100,    opacity: 0 }}
@@ -320,7 +320,7 @@ export default function FreeDrawCanvas() {
                         className="h-9 w-9 bg-highlighter-pink/30 hover:bg-highlighter-pink/50" title="Close">
                         <X className="w-5 h-5" />
                     </Button>
-                </motion.div>
+                </m.div>
             </AnimatePresence>
         </>
     );

@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
-import * as opentype from "opentype.js";
+import type { Font } from "opentype.js";
+import { PRECOMPUTED_GLYPHS } from "@/data/glyph-paths";
 
 interface GlyphPath {
   d: string;
@@ -22,17 +23,17 @@ interface DrawTextProps {
   initialDelay?: number;
 }
 
-// module-level cache — avoids re-fetching
-const fontCache = new Map<string, opentype.Font>();
-const fontLoadPromises = new Map<string, Promise<opentype.Font>>();
+const fontCache = new Map<string, Font>();
+const fontLoadPromises = new Map<string, Promise<Font>>();
 
-function loadFont(url: string): Promise<opentype.Font> {
+function loadFont(url: string): Promise<Font> {
   if (fontCache.has(url)) return Promise.resolve(fontCache.get(url)!);
   if (fontLoadPromises.has(url)) return fontLoadPromises.get(url)!;
 
   const promise = fetch(url)
     .then((res) => res.arrayBuffer())
-    .then((buffer) => {
+    .then(async (buffer) => {
+      const opentype = await import("opentype.js");
       const font = opentype.parse(buffer);
       fontCache.set(url, font);
       return font;
@@ -45,7 +46,6 @@ function loadFont(url: string): Promise<opentype.Font> {
   return promise;
 }
 
-//sm shi from stackoverflow idk
 export default function DrawText({
   text,
   fontUrl,
@@ -57,10 +57,14 @@ export default function DrawText({
   initialDelay = 0,
 }: DrawTextProps) {
   const reduced = usePrefersReducedMotion();
-  const [glyphs, setGlyphs] = useState<GlyphPath[] | null>(null);
-  const [viewBox, setViewBox] = useState({ width: 0, height: 0 });
+
+  const precomputed = PRECOMPUTED_GLYPHS[`${fontUrl}::${text}`];
+  const [glyphs, setGlyphs] = useState<GlyphPath[] | null>(precomputed?.glyphs ?? null);
+  const [viewBox, setViewBox] = useState(precomputed?.viewBox ?? { width: 0, height: 0 });
 
   useEffect(() => {
+    if (precomputed) return;
+
     let cancelled = false;
 
     loadFont(fontUrl)
@@ -146,9 +150,9 @@ export default function DrawText({
       style={{ height: "1.3em", width: `${aspectRatio * 1.3}em` }}
     >
       {glyphs.map((g, i) => (
-        <motion.path
+        <m.path
           key={i}
-          d={g.d}
+          d={g.d || undefined}
           fill="currentColor"
           initial={{ pathLength: 0, opacity: 0, fillOpacity: 0 }}
           whileInView={{ pathLength: 1, opacity: 1, fillOpacity: 1 }}

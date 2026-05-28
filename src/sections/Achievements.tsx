@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
 import { Underline, Circle } from '@/components/Doodles';
@@ -19,7 +19,7 @@ function AchievementCard({ item }: { item: AchievementItem }) {
     const itemIcon = 'icon' in item ? item.icon : undefined;
     const Icon = ICONS[itemIcon as keyof typeof ICONS] || StarIcon;
     return (
-        <motion.div
+        <m.div
             whileHover={{ y: -2, scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: "spring", stiffness: 280, damping: 22 }}
@@ -37,7 +37,7 @@ function AchievementCard({ item }: { item: AchievementItem }) {
                     )}
                 </div>
             </div>
-        </motion.div>
+        </m.div>
     );
 }
 
@@ -46,7 +46,7 @@ export default function Achievements() {
     const [isFolioOpen, setIsFolioOpen] = useState(false);
 
     return (
-        <motion.section
+        <m.section
             id="achievements"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +56,7 @@ export default function Achievements() {
         >
             <div className="relative z-10 w-full max-w-2xl mx-auto text-center">
                 <div className="flex flex-col items-center mb-8">
-                    <motion.h2
+                    <m.h2
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
@@ -67,11 +67,11 @@ export default function Achievements() {
                           <DrawText text="extras" fontUrl="/fonts/PermanentMarker.woff" />
                         </ScribbleText>
                         <Circle className="absolute -inset-y-2 -inset-x-1 w-[calc(100%+8px)] h-[calc(100%+16px)] text-pencil/25 pointer-events-none" />
-                    </motion.h2>
+                    </m.h2>
                     <p className="font-hand text-xl text-pencil/60 mt-4 max-w-md mx-auto">stuff i do outside code.</p>
                 </div>
 
-                <motion.div
+                <m.div
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}
                     onClick={() => setIsFolioOpen(true)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsFolioOpen(true); } }}
@@ -88,19 +88,19 @@ export default function Achievements() {
                             <span className="font-hand text-sm text-ink/60">open →</span>
                         </div>
                     </PaperCard>
-                </motion.div>
+                </m.div>
             </div>
 
             {typeof document !== 'undefined' && createPortal(
                 <AnimatePresence>
                     {isFolioOpen && (
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                             className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
                             style={{ zIndex: Z_INDEX.modal }}
                             onClick={() => setIsFolioOpen(false)}
                         >
-                            <motion.div
+                            <m.div
                                 initial={{ scale: 0.9, y: 100, rotate: 2 }}
                                 animate={{ scale: 1, y: 0, rotate: 0 }}
                                 exit={{ scale: 0.9, y: 100, rotate: -2 }}
@@ -148,12 +148,12 @@ export default function Achievements() {
                                         </div>
                                     </div>
                                 </Surface>
-                            </motion.div>
-                        </motion.div>
+                            </m.div>
+                        </m.div>
                     )}
                 </AnimatePresence>,
                 document.body
             )}
-        </motion.section>
+        </m.section>
     );
 }

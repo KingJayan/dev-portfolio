@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useState } from "react";
 import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
@@ -22,7 +22,7 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -55,11 +55,15 @@ export default function Projects() {
               )}
             >
               <Surface variant="default" className="w-full aspect-video bg-paper/60 mb-4 border-pencil/25 overflow-hidden relative">
-                <img
-                  src={`/images/projects/preview-${project.id}.png`}
-                  alt={project.title} loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
+                <img>
+                  <source type="image/avif" srcSet={`/images/projects/preview-${project.id}.avif`} />
+                  <img
+                    src={`/images/projects/preview-${project.id}.png`}
+                    alt={project.title} loading="lazy"
+                    width={640} height={360}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </img>
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-paper/80 backdrop-blur-sm px-4 py-2 font-marker border border-pencil/30 rounded-md transform -rotate-2 shadow-paper transition-transform hover:scale-105">open</span>
                 </div>
@@ -90,6 +94,6 @@ export default function Projects() {
       </div>
 
       <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
-    </motion.div>
+    </m.div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Sun, Moon, Pencil, BookOpen, Home, FolderOpen, GitBranch, User, Trophy, Coffee, Mail } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { useLocation } from "wouter";
@@ -45,9 +45,9 @@ function NavItem({ name, href, id, isActive, onClick }: {
 }) {
   const Icon = SECTION_ICONS[id as keyof typeof SECTION_ICONS];
   return (
-    <motion.div variants={rowVariants}>
+    <m.div variants={rowVariants}>
       <a href={href} onClick={(e) => onClick(e, href)} className="block">
-        <motion.div
+        <m.div
           whileHover={{ y: -2.2, rotate: -0.24, scale: 1.008 }}
           transition={{ duration: 0.12, ease: MOTION_EASE.standard }}
           className={cn(
@@ -67,15 +67,15 @@ function NavItem({ name, href, id, isActive, onClick }: {
           <span className="relative z-10 font-marker text-xl leading-none">{name}</span>
 
           {isActive && (
-            <motion.span
+            <m.span
               className="relative z-10 ml-auto h-1.5 w-1.5 rounded-full bg-highlighter-yellow"
               animate={{ scale: [1, 1.16, 1] }}
               transition={{ duration: 1.4, repeat: Infinity, ease: MOTION_EASE.smooth }}
             />
           )}
-        </motion.div>
+        </m.div>
       </a>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -120,7 +120,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
             {id === 'draw' && (
               <AnimatePresence>
                 {showDrawHint && !isDrawingMode && (
-                  <motion.div
+                  <m.div
                     key="draw-hint"
                     initial={{ opacity: 0, y: 4, scale: 0.92 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -130,7 +130,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
                   >
                     check out this tool!
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-highlighter-yellow" />
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             )}
@@ -235,7 +235,7 @@ export default function Navigation() {
   return (
     <>
       <nav className="hidden md:flex items-start fixed top-8 right-8" style={{ zIndex: Z_INDEX.nav }}>
-        <motion.div
+        <m.div
           layout
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}
@@ -248,7 +248,7 @@ export default function Navigation() {
         >
           <AnimatePresence initial={false} mode="wait">
             {isCollapsed ? (
-              <motion.div
+              <m.div
                 key="collapsed"
                 variants={listVariants}
                 initial="hidden"
@@ -256,7 +256,7 @@ export default function Navigation() {
                 exit="exit"
                 className="flex flex-col items-center gap-2"
               >
-                <motion.div variants={dotVariants}>
+                <m.div variants={dotVariants}>
                   <button
                     onClick={handleToggle}
                     aria-label="expand navigation"
@@ -265,14 +265,14 @@ export default function Navigation() {
                   >
                     <span className="text-[9px] font-sans text-pencil/30 tracking-[0.18em] uppercase leading-none">nav</span>
                   </button>
-                </motion.div>
+                </m.div>
 
-                <motion.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
+                <m.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
 
                 {navItems.map((item) => {
                   const Icon = SECTION_ICONS[item.id as keyof typeof SECTION_ICONS];
                   return (
-                    <motion.div key={item.id} variants={dotVariants}>
+                    <m.div key={item.id} variants={dotVariants}>
                       <a
                         href={item.href}
                         onClick={(e) => handleScrollTo(e, item.href)}
@@ -288,14 +288,14 @@ export default function Navigation() {
                           activeSection === item.id ? 'text-highlighter-yellow' : 'text-pencil/30'
                         )} />}
                       </a>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
 
-                <motion.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
+                <m.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
 
                 {collapsedTools.map(({ icon: Icon, onClick, active, label }) => (
-                  <motion.div key={label} variants={dotVariants}>
+                  <m.div key={label} variants={dotVariants}>
                     <button
                       onClick={onClick}
                       title={label}
@@ -307,18 +307,18 @@ export default function Navigation() {
                     >
                       <Icon className={cn('w-4 h-4 transition-colors', active ? 'text-highlighter-yellow' : 'text-pencil/30')} />
                     </button>
-                  </motion.div>
+                  </m.div>
                 ))}
-              </motion.div>
+              </m.div>
             ) : (
-              <motion.div
+              <m.div
                 key="expanded"
                 variants={listVariants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
               >
-                <motion.div variants={rowVariants} className="flex items-center justify-between mb-3.5">
+                <m.div variants={rowVariants} className="flex items-center justify-between mb-3.5">
                   <span className="px-1 text-[10px] uppercase font-sans text-pencil/50 tracking-[0.18em]">nav</span>
                   <button
                     onClick={handleToggle}
@@ -328,17 +328,17 @@ export default function Navigation() {
                   >
                     &#x2715;
                   </button>
-                </motion.div>
+                </m.div>
                 <div className="flex flex-col gap-3.5">
                   {navItems.map((item) => (
                     <NavItem key={item.id} {...item} isActive={activeSection === item.id} onClick={handleScrollTo} />
                   ))}
                 </div>
                 <NavTools />
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </nav>
 
       <div className="md:hidden fixed top-4 right-4 z-50">
@@ -349,12 +349,12 @@ export default function Navigation() {
 
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
             className="fixed inset-0 z-40 bg-paper/60 backdrop-blur-2xl flex items-center justify-center md:hidden"
           >
-            <motion.div
+            <m.div
               initial={{ y: 16, opacity: 0, scale: 0.97 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 10, opacity: 0, scale: 0.98 }}
@@ -367,8 +367,8 @@ export default function Navigation() {
                 ))}
               </div>
               <NavTools compact />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

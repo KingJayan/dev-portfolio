@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
 import { Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
@@ -13,7 +13,7 @@ export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
 
     return (
-        <motion.section
+        <m.section
             id="outside"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -21,7 +21,6 @@ export default function OutsideWork() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden"
         >
-            {/*doodle accent*/}
             <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
                 <Spiral className="absolute top-10 right-20 w-48 h-48 text-pencil/30" />
                 <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink/70" />
@@ -29,7 +28,7 @@ export default function OutsideWork() {
 
             <div className="relative z-10 w-full">
                 <div className="flex flex-col items-center mb-16">
-                    <motion.h2
+                    <m.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         className="text-5xl font-marker text-center relative z-10"
@@ -37,7 +36,7 @@ export default function OutsideWork() {
                         <ScribbleText color="text-highlighter-pink">
                           <DrawText text={outsideProgramming.title} fontUrl="/fonts/PermanentMarker.woff" />
                         </ScribbleText>
-                    </motion.h2>
+                    </m.h2>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-8">
@@ -50,14 +49,17 @@ export default function OutsideWork() {
                                 hoverScale={1.05}
                                 className="bg-paper p-4 h-full"
                             >
-                                {/*img*/}
                                 <Surface variant="default" className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-ink/30 relative">
-                                    <img
-                                        src={hobby.image}
-                                        alt={hobby.name}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
-                                    />
+                                    <img>
+                                        <source type="image/avif" srcSet={hobby.image.replace(/\.\w+$/, '.avif')} />
+                                        <img
+                                            src={hobby.image}
+                                            alt={hobby.name}
+                                            loading="lazy"
+                                            width={400} height={300}
+                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                                        />
+                                    </img>
                                     <div className="absolute inset-0 bg-ink/5 pointer-events-none" />
                                 </Surface>
 
@@ -66,13 +68,12 @@ export default function OutsideWork() {
                                     {hobby.description}
                                 </p>
 
-                                {/*doodle*/}
                                 {index === 2 && <Arrow className="absolute -bottom-10 -right-6 w-16 h-16 text-highlighter-pink -rotate-45" />}
                             </PaperCard>
                         </div>
                     ))}
                 </div>
             </div>
-        </motion.section>
+        </m.section>
     );
 }

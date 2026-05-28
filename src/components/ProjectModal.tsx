@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { X, ExternalLink } from "lucide-react";
 
@@ -46,7 +46,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     return createPortal(
         <AnimatePresence>
             {project && (
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -55,7 +55,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
                     style={{ zIndex: Z_INDEX.modal }}
                 >
-                    <motion.div
+                    <m.div
                         initial={{ scale: 0.94, rotate: -1, y: 28 }}
                         animate={{ scale: 1, rotate: 0, y: 0 }}
                         exit={{ scale: 0.96, rotate: 0.6, y: 24 }}
@@ -110,8 +110,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                 </div>
                             </div>
                         </div>
-                    </motion.div>
-                </motion.div>
+                    </m.div>
+                </m.div>
             )}
         </AnimatePresence>,
         document.body
