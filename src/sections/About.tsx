@@ -66,12 +66,12 @@ export default function About() {
             <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
               <img
                 src="/images/profile.png" alt="Profile"
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling?.classList.remove('hidden');
                 }}
-                style={{ transform: scale(0.8) }}
+                style={{ transform: `${scale(0.9)} translateY(6%)`}}
               />
               <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4">
                 add profile.png
