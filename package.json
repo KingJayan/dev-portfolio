@@ -1,12 +1,12 @@
 {
-  "name": "rest-express",
+  "name": "dev-portfolio",
   "version": "1.0.0",
   "type": "module",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "start": "vite preview",
+    "dev": "bun --bun vite",
+    "build": "bun --bun vite build",
+    "start": "bun --bun vite preview",
     "check": "tsc",
     "test": "vitest run",
     "test:watch": "vitest"

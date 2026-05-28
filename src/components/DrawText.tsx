@@ -7,6 +7,10 @@ interface GlyphPath {
   d: string;
 }
 
+function hasInvalidPathData(pathData: string): boolean {
+  return /(?:\bNaN\b|\bInfinity\b|-Infinity\b)/.test(pathData);
+}
+
 interface DrawTextProps {
   text: string;
   fontUrl: string;
@@ -68,18 +72,46 @@ export default function DrawText({
         const descender = Math.abs(font.descender * scale);
         const height = ascender + descender;
 
+        if (![scale, ascender, descender, height].every(Number.isFinite)) {
+          throw new Error("[DrawText] invalid font metrics");
+        }
+
         let x = 0;
         const paths: GlyphPath[] = [];
+        let invalidPath = false;
 
         for (const char of text) {
           const glyph = font.charToGlyph(char);
           const path = glyph.getPath(x, ascender, fontSize);
           const d = path.toPathData(2);
-          if (d) paths.push({ d });
-          x += (glyph.advanceWidth ?? 0) * scale;
+          if (!d || hasInvalidPathData(d)) {
+            invalidPath = true;
+            break;
+          }
+
+          paths.push({ d });
+
+          const advanceWidth = glyph.advanceWidth ?? 0;
+          if (!Number.isFinite(advanceWidth)) {
+            invalidPath = true;
+            break;
+          }
+
+          x += advanceWidth * scale;
+
+          if (!Number.isFinite(x)) {
+            invalidPath = true;
+            break;
+          }
         }
 
         if (!cancelled) {
+          if (invalidPath || paths.length === 0 || !Number.isFinite(x)) {
+            setGlyphs(null);
+            setViewBox({ width: 0, height: 0 });
+            return;
+          }
+
           setGlyphs(paths);
           setViewBox({ width: x, height });
         }

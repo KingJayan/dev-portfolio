@@ -42,6 +42,10 @@ export default function About() {
   const { personal, about } = portfolioConfig;
   const { skills, tools } = about;
 
+  function scale(value: number) {
+    return `scale(${value})`;
+  }
+
   return (
     <section id="about" className="relative min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
       <div className="absolute inset-0 pointer-events-none opacity-[0.15]">
@@ -67,6 +71,7 @@ export default function About() {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling?.classList.remove('hidden');
                 }}
+                style={{ transform: scale(0.8) }}
               />
               <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4">
                 add profile.png
