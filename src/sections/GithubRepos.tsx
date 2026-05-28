@@ -1,6 +1,5 @@
 import { m } from 'framer-motion';
 import { useEffect, useState, useCallback } from 'react';
-import staticRepos from '@/data/github-repos.json';
 import { Star, GitFork, ExternalLink, RefreshCw, WifiOff } from 'lucide-react';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
@@ -47,10 +46,8 @@ function sortAndFilter(data: Repo[]): Repo[] {
     .slice(0, 6);
 }
 
-const INITIAL_REPOS = sortAndFilter(staticRepos as Repo[]);
-
 export default function GithubRepos() {
-  const [repos, setRepos] = useState<Repo[]>(INITIAL_REPOS);
+  const [repos, setRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [retryCount, setRetryCount] = useState(0);

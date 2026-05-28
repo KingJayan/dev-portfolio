@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "bun --bun vite",
     "precompute-glyphs": "node --import tsx/esm scripts/precompute-glyphs.ts",
-    "fetch-github": "node --import tsx/esm scripts/fetch-github.ts",
-    "build": "node --import tsx/esm scripts/fetch-github.ts && node --import tsx/esm scripts/precompute-glyphs.ts && bun --bun vite build",
+    "build": "node --import tsx/esm scripts/precompute-glyphs.ts && bun --bun vite build",
     "start": "bun --bun vite preview",
     "check": "tsc",
     "test": "vitest run",
