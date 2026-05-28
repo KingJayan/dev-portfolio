@@ -50,16 +50,13 @@ export default function OutsideWork() {
                                 className="bg-paper p-4 h-full"
                             >
                                 <Surface variant="default" className="aspect-[4/3] bg-paper overflow-hidden mb-4 border-ink/30 relative">
-                                    <img>
-                                        <source type="image/avif" srcSet={hobby.image.replace(/\.\w+$/, '.avif')} />
-                                        <img
-                                            src={hobby.image}
-                                            alt={hobby.name}
-                                            loading="lazy"
-                                            width={400} height={300}
-                                            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
-                                        />
-                                    </img>
+                                    <img
+                                        src={hobby.image.replace(/\.\w+$/, '.avif')}
+                                        alt={hobby.name}
+                                        loading="lazy"
+                                        width={400} height={300}
+                                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
+                                    />
                                     <div className="absolute inset-0 bg-ink/5 pointer-events-none" />
                                 </Surface>
 

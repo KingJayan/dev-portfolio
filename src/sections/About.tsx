@@ -6,7 +6,6 @@ import HandmadeTooltip from '@/components/ui/HandmadeTooltip';
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 import DrawText from '@/components/DrawText';
-import { ImageDown } from 'lucide-react';
 
 type AboutSkill = typeof portfolioConfig.about.skills[number];
 type AboutTool = typeof portfolioConfig.about.tools[number];
@@ -64,20 +63,12 @@ export default function About() {
         >
           <Surface variant="elevated" className="p-10 relative w-full h-full">
             <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
-              <img>
-                <source type="image/avif" srcSet="/images/profile.avif" />
-                <img
-                  src="/images/profile.png" alt="Profile"
-                  width={224} height={224}
-                  className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                  onError={(e) => {
-                    e.currentTarget.parentElement!.style.display = 'none';
-                    e.currentTarget.parentElement!.nextElementSibling?.classList.remove('hidden');
-                  }}
-                  style={{ transform: `${scale(0.9)} translateY(6%)`}}
-                />
-              </img>
-              <div className="absolute inset-0 hidden items-center justify-center font-marker text-2xl text-ink/40 text-center p-4" />
+              <img
+                src="/images/profile.avif" alt="Profile"
+                width={224} height={224}
+                className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                style={{ transform: `${scale(0.9)} translateY(6%)` }}
+              />
             </div>
 
             <h2 className="text-6xl font-marker text-center mb-8 relative">

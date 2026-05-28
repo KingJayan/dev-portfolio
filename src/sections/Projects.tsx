@@ -55,15 +55,12 @@ export default function Projects() {
               )}
             >
               <Surface variant="default" className="w-full aspect-video bg-paper/60 mb-4 border-pencil/25 overflow-hidden relative">
-                <img>
-                  <source type="image/avif" srcSet={`/images/projects/preview-${project.id}.avif`} />
-                  <img
-                    src={`/images/projects/preview-${project.id}.png`}
-                    alt={project.title} loading="lazy"
-                    width={640} height={360}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </img>
+                <img
+                  src={`/images/projects/preview-${project.id}.avif`}
+                  alt={project.title} loading="lazy"
+                  width={640} height={360}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
                 <div className="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-paper/80 backdrop-blur-sm px-4 py-2 font-marker border border-pencil/30 rounded-md transform -rotate-2 shadow-paper transition-transform hover:scale-105">open</span>
                 </div>
