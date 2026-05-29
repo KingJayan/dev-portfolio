@@ -235,7 +235,8 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
 
     const interval = setInterval(() => {
       if (indexRef.current >= grouped.length) { clearInterval(interval); return; }
-      setVisible(prev => [...prev, grouped[indexRef.current]]);
+      const next = grouped[indexRef.current];
+      if (next) setVisible(prev => [...prev, next]);
       indexRef.current++;
       setTimeout(() => {
         feedRef.current?.scrollTo({ top: feedRef.current.scrollHeight, behavior: 'smooth' });
@@ -268,7 +269,7 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
         style={{ scrollbarWidth: 'none' }}
       >
         <AnimatePresence initial={false}>
-          {visible.map((g) => {
+          {visible.filter((g): g is FeedGroup => !!g).map((g) => {
             const { text } = eventLabel(g.representative);
             return (
               <m.div
