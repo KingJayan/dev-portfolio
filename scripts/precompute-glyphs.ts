@@ -28,6 +28,7 @@ for (const project of portfolioConfig.projects.items) {
 }
 
 const seen = new Set<string>();
+
 const entries = STATIC_ENTRIES.filter(({ text, fontUrl }) => {
   const key = `${fontUrl}::${text}`;
   if (seen.has(key)) return false;
@@ -36,6 +37,7 @@ const entries = STATIC_ENTRIES.filter(({ text, fontUrl }) => {
 });
 
 const fontCache = new Map<string, Font>();
+
 function getFont(fontUrl: string): Font {
   if (fontCache.has(fontUrl)) return fontCache.get(fontUrl)!;
   const filePath = join(ROOT, "public", fontUrl);
@@ -77,6 +79,7 @@ function computeGlyphs(text: string, fontUrl: string, fontSize = 72): GlyphEntry
 }
 
 const result: Record<string, GlyphEntry> = {};
+
 for (const { text, fontUrl } of entries) {
   const key = `${fontUrl}::${text}`;
   const data = computeGlyphs(text, fontUrl);

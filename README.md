@@ -1,6 +1,6 @@
 <div align="center">
   <h2><code>KingJayan/dev-portfolio</code></h2>
-  <p>my developer portfolio, 'doodly' design</p>
+  <p>my developer portfolio, made in React</p>
 </div>
 
 <div align="center">
@@ -25,11 +25,11 @@
 - **3d parallax hero**: mouse-driven parallax with physics-based spring animations
 - **canvas mode**: toggle a free-draw overlay to sketch anywhere on the screen
 - **command menu**: keyboard-driven nav and quick actions
-- **github integration**: live repo cards with recent activity
+- **github integration**: recent activity updated live using gh api
 - **contact form**: gmail api + nodemailer via vercel serverless functions
 - **SPA**: smooth scroll nav with mobile and desktop support
 
-## getting started
+## quickstart
 
 #### prereqs
 
@@ -45,21 +45,24 @@ you need `node`, `pnpm`, and `bun` installed
 
 2.  **install deps**
     ```bash
-  pnpm install
+    pnpm install
     ```
 
 3.  **run locally**
     ```bash
-    npm run dev
+    pnpm dev
     ```
 
 4.  **build**
     ```bash
-    npm run build
+    pnpm build
     ```
 
 ## license
 
+<a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">BSD 3-Clause License</a>
+
+
 <div align="center">
-  <sub><a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">BSD 3-Clause License</a></sub>
+  <p>made with :) by jayan</p>
 </div>
