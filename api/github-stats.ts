@@ -95,8 +95,8 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
     }>;
     const interesting = ['PushEvent', 'CreateEvent', 'WatchEvent', 'ForkEvent', 'IssuesEvent', 'PullRequestEvent'];
     events = raw
-      .filter(e => interesting.includes(e.type))
-      .slice(0, 12)
+      .filter(e => interesting.includes(e.type) && e.repo?.name)
+      .slice(0, 20)
       .map(e => ({ id: e.id, type: e.type, repo: e.repo.name, payload: e.payload, createdAt: e.created_at }));
   }
 

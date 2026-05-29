@@ -63,7 +63,7 @@ function timeAgo(iso: string): string {
 }
 
 function eventLabel(e: GithubEvent): { icon: string; text: string } {
-  const repo = e.repo.replace('KingJayan/', '');
+  const repo = (e.repo ?? '').replace('KingJayan/', '');
   switch (e.type) {
     case 'PushEvent': {
       const commits = (e.payload.commits as unknown[])?.length ?? 1;
@@ -82,6 +82,31 @@ function eventLabel(e: GithubEvent): { icon: string; text: string } {
     default:
       return { icon: '·', text: `activity in ${repo}` };
   }
+}
+
+interface FeedGroup {
+  key: string;
+  representative: GithubEvent;
+  count: number;
+  icons: string[];
+}
+
+function groupEvents(events: GithubEvent[]): FeedGroup[] {
+  const groups: FeedGroup[] = [];
+  for (const e of events) {
+    const ageSec = (Date.now() - new Date(e.createdAt).getTime()) / 1000;
+    const windowSec = ageSec < 3600 ? 900 : ageSec < 86400 ? 7200 : 43200;
+    const last = groups[groups.length - 1];
+    const lastAge = last ? (Date.now() - new Date(last.representative.createdAt).getTime()) / 1000 : Infinity;
+    if (last && Math.abs(ageSec - lastAge) < windowSec) {
+      last.count++;
+      const icon = eventLabel(e).icon;
+      if (!last.icons.includes(icon)) last.icons.push(icon);
+    } else {
+      groups.push({ key: e.id, representative: e, count: 1, icons: [eventLabel(e).icon] });
+    }
+  }
+  return groups.slice(0, 8);
 }
 
 function ContribGraph({ days }: { days: ContribDay[] }) {
@@ -199,20 +224,18 @@ function StatsBar({ stats }: { stats: StatsPayload }) {
 
 function ActivityFeed({ events }: { events: GithubEvent[] }) {
   const feedRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState<GithubEvent[]>([]);
+  const grouped = groupEvents(events);
+  const [visible, setVisible] = useState<FeedGroup[]>([]);
   const indexRef = useRef(0);
 
   useEffect(() => {
-    if (!events.length) return;
-    setVisible([events[0]]);
+    if (!grouped.length) return;
+    setVisible([grouped[0]]);
     indexRef.current = 1;
 
     const interval = setInterval(() => {
-      if (indexRef.current >= events.length) {
-        clearInterval(interval);
-        return;
-      }
-      setVisible(prev => [...prev, events[indexRef.current]]);
+      if (indexRef.current >= grouped.length) { clearInterval(interval); return; }
+      setVisible(prev => [...prev, grouped[indexRef.current]]);
       indexRef.current++;
       setTimeout(() => {
         feedRef.current?.scrollTo({ top: feedRef.current.scrollHeight, behavior: 'smooth' });
@@ -222,7 +245,7 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
     return () => clearInterval(interval);
   }, [events]);
 
-  if (!events.length) return null;
+  if (!grouped.length) return null;
 
   return (
     <Surface
@@ -241,25 +264,31 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
 
       <div
         ref={feedRef}
-        className="flex-1 overflow-y-auto px-3 py-2 space-y-1.5 scrollbar-thin"
+        className="flex-1 overflow-y-auto px-3 py-2 space-y-1.5"
         style={{ scrollbarWidth: 'none' }}
       >
         <AnimatePresence initial={false}>
-          {visible.map((e) => {
-            const { icon, text } = eventLabel(e);
+          {visible.map((g) => {
+            const { text } = eventLabel(g.representative);
             return (
               <m.div
-                key={e.id}
+                key={g.key}
                 initial={{ opacity: 0, x: -12, height: 0 }}
                 animate={{ opacity: 1, x: 0, height: 'auto' }}
                 transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-                className="flex items-start gap-2.5 group"
+                className="flex items-start gap-2.5"
               >
-                <span className="font-marker text-base text-sage/80 mt-0.5 w-4 shrink-0 text-center">{icon}</span>
+                <span className="font-marker text-base text-sage/80 mt-0.5 w-4 shrink-0 text-center">
+                  {g.icons[0]}
+                </span>
                 <div className="flex-1 min-w-0">
-                  <span className="font-hand text-sm text-ink leading-snug">{text}</span>
+                  <span className="font-hand text-sm text-ink leading-snug">
+                    {g.count > 1 ? `${text} +${g.count - 1} more` : text}
+                  </span>
                 </div>
-                <span className="font-hand text-[11px] text-pencil/35 shrink-0 mt-0.5">{timeAgo(e.createdAt)}</span>
+                <span className="font-hand text-[11px] text-pencil/35 shrink-0 mt-0.5">
+                  {timeAgo(g.representative.createdAt)}
+                </span>
               </m.div>
             );
           })}
