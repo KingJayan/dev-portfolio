@@ -84,7 +84,7 @@ export default function Achievements() {
                         <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors duration-300" />
                         <h3 className="font-marker text-2xl text-ink/60">extracurriculars</h3>
                         <p className="font-hand text-sm text-pencil/40 mt-1">click to browse</p>
-                        <div className="mt-4 px-3 py-1 border border-pencil/20 rounded bg-paper/50 backdrop-blur-sm group-hover:bg-highlighter-yellow/30 group-hover:border-highlighter-yellow/50 transition-all duration-300">
+                        <div className="mt-4 px-3 py-1 glass-panel rounded group-hover:bg-highlighter-yellow/30 group-hover:border-highlighter-yellow/50 transition-all duration-300">
                             <span className="font-hand text-sm text-ink/60">open →</span>
                         </div>
                     </PaperCard>
@@ -96,7 +96,7 @@ export default function Achievements() {
                     {isFolioOpen && (
                         <m.div
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+                            className="modal-overlay"
                             style={{ zIndex: Z_INDEX.modal }}
                             onClick={() => setIsFolioOpen(false)}
                         >

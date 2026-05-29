@@ -100,7 +100,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
             </m.div>
 
 
-            <m.div style={{ x: foreX, y: foreY }} className="absolute inset-0 pointer-events-none z-30" />
+            <m.div style={{ x: foreX, y: foreY }} className="doodle-layer z-30" />
         </div>
     );
 }

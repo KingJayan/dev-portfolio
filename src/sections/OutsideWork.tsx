@@ -21,7 +21,7 @@ export default function OutsideWork() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden"
         >
-            <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
+            <div className="doodle-layer opacity-20 z-0">
                 <Spiral className="absolute top-10 right-20 w-48 h-48 text-pencil/30" />
                 <Star className="absolute bottom-20 left-10 w-24 h-24 text-highlighter-pink/70" />
             </div>

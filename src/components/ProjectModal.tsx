@@ -52,7 +52,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
                     onClick={onClose}
-                    className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-md p-4"
+                    className="modal-overlay"
                     style={{ zIndex: Z_INDEX.modal }}
                 >
                     <m.div
@@ -61,7 +61,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                         exit={{ scale: 0.96, rotate: 0.6, y: 24 }}
                         transition={{ type: "spring", ...MOTION_SPRING.subtle }}
                         onClick={(e) => e.stopPropagation()}
-                        className="surface-modal backdrop-blur-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl shadow-paper-hover relative border border-pencil/20 [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.65),0_8px_40px_-4px_rgba(36,30,25,0.18)]"
+                        className="surface-modal backdrop-blur-3xl w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl shadow-glass-md relative border border-pencil/20"
                     >
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 rotate-1 masking-tape z-20" />
 

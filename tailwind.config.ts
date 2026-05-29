@@ -72,6 +72,10 @@ export default {
       boxShadow: {
         "paper":       "0 2px 20px -4px rgba(36, 30, 25, 0.10), 0 1px 4px -2px rgba(36, 30, 25, 0.06)",
         "paper-hover": "0 4px 28px -4px rgba(36, 30, 25, 0.15), 0 1px 6px -2px rgba(36, 30, 25, 0.08)",
+        "rim":         "inset 0 1px 0 hsla(0,0%,100%,0.60)",
+        "glass-sm":    "inset 0 1px 0 hsla(0,0%,100%,0.55), 0 4px 24px -4px rgba(36,30,25,0.12)",
+        "glass-md":    "inset 0 1px 0 hsla(0,0%,100%,0.65), 0 8px 40px -4px rgba(36,30,25,0.18)",
+        "glass-lg":    "inset 0 1px 0 hsla(0,0%,100%,0.60), 0 12px 40px -6px rgba(36,30,25,0.22), 0 2px 8px -2px rgba(36,30,25,0.10)",
       },
       animation: {
         "wiggle": "wiggle 1s ease-in-out infinite",

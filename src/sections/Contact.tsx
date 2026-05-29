@@ -98,7 +98,7 @@ export default function Contact() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden flex items-center justify-center"
     >
-      <m.div style={{ x: backX, y: backY }} className="absolute inset-0 pointer-events-none opacity-40">
+      <m.div style={{ x: backX, y: backY }} className="doodle-layer opacity-40">
         <Spiral className="absolute top-20 left-10 w-32 h-32 text-pencil/30" />
       </m.div>
 

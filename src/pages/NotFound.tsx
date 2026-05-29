@@ -6,7 +6,7 @@ import { Link } from "wouter";
 export default function NotFound() {
     return (
         <div className="min-h-screen bg-paper flex items-center justify-center p-4 relative overflow-hidden">
-            <div className="absolute inset-0 pointer-events-none opacity-20">
+            <div className="doodle-layer opacity-20">
                 <Star className="absolute top-20 left-10 w-32 h-32 text-highlighter-pink" />
                 <Spiral className="absolute bottom-40 right-20 w-48 h-48 text-pencil" />
                 <Arrow className="absolute top-1/2 left-20 w-24 h-24 text-ink rotate-45" />

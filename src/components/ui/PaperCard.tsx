@@ -64,7 +64,7 @@ export default function PaperCard({
                 }
             }}
             viewport={{ once: true, margin: "-100px" }}
-            className={`bg-paper/48 backdrop-blur-xl p-6 relative group border border-pencil/20 rounded-xl overflow-hidden shadow-paper hover:shadow-paper-hover transition-shadow [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_2px_20px_-4px_rgba(36,30,25,0.10)] ${className}`}
+            className={`glass-panel shadow-glass-sm p-6 relative group rounded-xl overflow-hidden hover:shadow-paper-hover transition-shadow ${className}`}
         >
             {showTape && (
                 <div

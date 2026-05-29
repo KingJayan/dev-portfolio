@@ -53,7 +53,7 @@ function NavItem({ name, href, id, isActive, onClick }: {
           className={cn(
             'group relative min-h-[52px] px-4 py-2.5 rounded-2xl border flex items-center gap-2.5 overflow-hidden transition-all backdrop-blur-sm',
             isActive
-              ? 'bg-paper/60 border-pencil/35 text-ink shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.6)]'
+              ? 'bg-paper/60 border-pencil/35 text-ink shadow-paper shadow-rim'
               : 'bg-paper/28 border-pencil/15 text-pencil hover:bg-paper/44 hover:border-pencil/28 hover:shadow-paper'
           )}
         >
@@ -149,7 +149,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
   );
 }
 
-const PANEL_CLS = 'border border-pencil/20 bg-paper/48 backdrop-blur-2xl shadow-paper [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.55),0_4px_24px_-4px_rgba(36,30,25,0.12)]';
+const PANEL_CLS = 'glass-panel shadow-glass-sm';
 
 export default function Navigation() {
   const MOTION_TIMING = useMotionTiming();
@@ -261,7 +261,7 @@ export default function Navigation() {
                     onClick={handleToggle}
                     aria-label="expand navigation"
                     title="expand"
-                    className="flex items-center justify-center h-8 w-8 rounded-xl hover:bg-paper/40 transition-colors"
+                    className="icon-btn hover:bg-paper/40"
                   >
                     <span className="text-[9px] font-sans text-pencil/30 tracking-[0.18em] uppercase leading-none">nav</span>
                   </button>
@@ -278,10 +278,7 @@ export default function Navigation() {
                         onClick={(e) => handleScrollTo(e, item.href)}
                         title={item.name}
                         aria-label={item.name}
-                        className={cn(
-                          'flex items-center justify-center h-8 w-8 rounded-xl transition-colors',
-                          activeSection === item.id ? 'bg-paper/60' : 'hover:bg-paper/40'
-                        )}
+                        className={cn('icon-btn', activeSection === item.id ? 'bg-paper/60' : 'hover:bg-paper/40')}
                       >
                         {Icon && <Icon className={cn(
                           'w-4 h-4 transition-colors',
@@ -300,10 +297,7 @@ export default function Navigation() {
                       onClick={onClick}
                       title={label}
                       aria-label={label}
-                      className={cn(
-                        'flex items-center justify-center h-8 w-8 rounded-xl transition-colors',
-                        active ? 'bg-paper/60' : 'hover:bg-paper/40'
-                      )}
+                      className={cn('icon-btn', active ? 'bg-paper/60' : 'hover:bg-paper/40')}
                     >
                       <Icon className={cn('w-4 h-4 transition-colors', active ? 'text-highlighter-yellow' : 'text-pencil/30')} />
                     </button>
@@ -323,7 +317,7 @@ export default function Navigation() {
                   <button
                     onClick={handleToggle}
                     aria-label="collapse navigation"
-                    className="flex items-center justify-center h-6 w-6 rounded-lg hover:bg-paper/60 transition-colors text-pencil/40 hover:text-pencil/70 text-[10px] font-sans"
+                    className="icon-btn-sm hover:bg-paper/60 text-pencil/40 hover:text-pencil/70 text-[10px] font-sans"
                     title="collapse"
                   >
                     &#x2715;
@@ -352,7 +346,7 @@ export default function Navigation() {
           <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-            className="fixed inset-0 z-40 bg-paper/60 backdrop-blur-2xl flex items-center justify-center md:hidden"
+            className="fixed inset-0 z-40 glass-nav border-none flex items-center justify-center md:hidden"
           >
             <m.div
               initial={{ y: 16, opacity: 0, scale: 0.97 }}

@@ -219,7 +219,7 @@ function StatsBar({ stats }: { stats: StatsPayload }) {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.15 + i * 0.07 }}
-          className="flex items-center gap-2 px-4 py-2 bg-paper/60 border border-pencil/20 rounded-xl shadow-paper backdrop-blur-sm"
+          className="flex items-center gap-2 px-4 py-2 glass-nav rounded-xl shadow-paper"
         >
           <span className="text-pencil/60">{item.icon}</span>
           <span className="font-marker text-lg text-ink">{item.value}</span>

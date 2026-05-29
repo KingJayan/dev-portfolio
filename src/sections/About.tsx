@@ -48,7 +48,7 @@ export default function About() {
 
   return (
     <section id="about" className="relative min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
-      <div className="absolute inset-0 pointer-events-none opacity-[0.15]">
+      <div className="doodle-layer opacity-[0.15]">
         <Spiral className="absolute top-16 left-8 w-28 h-28 text-pencil/30" />
         <Star className="absolute bottom-24 right-10 w-10 h-10 text-highlighter-yellow/80" />
       </div>

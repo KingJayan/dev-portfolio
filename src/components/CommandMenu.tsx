@@ -195,7 +195,7 @@ export default function CommandMenu() {
                         initial={{ opacity: 0, y: 14, scale: 0.97 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-                        className="relative w-full bg-paper/93 backdrop-blur-2xl border border-pencil/25 rounded-2xl overflow-hidden [box-shadow:inset_0_1px_0_hsla(0,0%,100%,0.6),0_12px_40px_-6px_rgba(36,30,25,0.22),0_2px_8px_-2px_rgba(36,30,25,0.10)]"
+                        className="glass-modal relative w-full rounded-2xl overflow-hidden shadow-glass-lg"
                     >
                         {/* top accent strip */}
                         <div className="h-[2px] w-full bg-gradient-to-r from-highlighter-pink/70 via-pencil/30 to-transparent" />
@@ -252,7 +252,7 @@ export default function CommandMenu() {
                                                         <Command.Item
                                                             key={item.id}
                                                             onSelect={item.onSelect}
-                                                            className="flex cursor-default select-none items-center gap-2.5 rounded-xl px-3 py-3 outline-none aria-selected:bg-ink/8 aria-selected:text-ink font-hand hover:bg-ink/5 transition-colors duration-100 group"
+                                                            className="cmd-item gap-2.5 aria-selected:bg-ink/8 aria-selected:text-ink group"
                                                         >
                                                             <span className="text-ink/45 group-aria-selected:text-ink transition-colors shrink-0">{item.icon}</span>
                                                             <span className="text-[15px]">{item.label}</span>
@@ -264,7 +264,7 @@ export default function CommandMenu() {
                                                     <Command.Item
                                                         key={item.id}
                                                         onSelect={item.onSelect}
-                                                        className="relative flex cursor-default select-none items-center rounded-xl px-3 py-3 outline-none aria-selected:bg-ink/8 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 font-hand hover:bg-ink/5 transition-colors duration-100 group"
+                                                        className="cmd-item relative aria-selected:bg-ink/8 aria-selected:text-ink data-[disabled]:pointer-events-none data-[disabled]:opacity-50 group"
                                                     >
                                                         <span className="mr-3 text-ink/45 group-aria-selected:text-ink transition-colors shrink-0">{item.icon}</span>
                                                         <span className="text-[15px]">{item.label}</span>
