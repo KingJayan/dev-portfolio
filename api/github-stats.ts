@@ -93,10 +93,9 @@ export default async function handler(_req: VercelRequest, res: VercelResponse) 
     const raw = await eventsRes.json() as Array<{
       id: string; type: string; repo: { name: string }; payload: Record<string, unknown>; created_at: string;
     }>;
-    const interesting = ['PushEvent', 'CreateEvent', 'WatchEvent', 'ForkEvent', 'IssuesEvent', 'PullRequestEvent'];
     events = raw
-      .filter(e => interesting.includes(e.type) && e.repo?.name)
-      .slice(0, 20)
+      .filter(e => e.repo?.name)
+      .slice(0, 30)
       .map(e => ({ id: e.id, type: e.type, repo: e.repo.name, payload: e.payload, createdAt: e.created_at }));
   }
 

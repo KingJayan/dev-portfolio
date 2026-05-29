@@ -62,33 +62,12 @@ function timeAgo(iso: string): string {
   return `${Math.floor(diff / 86400)}d ago`;
 }
 
-function eventLabel(e: GithubEvent): { icon: string; text: string } {
-  const repo = (e.repo ?? '').replace('KingJayan/', '');
-  switch (e.type) {
-    case 'PushEvent': {
-      const commits = (e.payload.commits as unknown[])?.length ?? 1;
-      return { icon: '↑', text: `pushed ${commits} commit${commits > 1 ? 's' : ''} to ${repo}` };
-    }
-    case 'CreateEvent':
-      return { icon: '✦', text: `created ${e.payload.ref_type as string} in ${repo}` };
-    case 'WatchEvent':
-      return { icon: '★', text: `starred ${repo}` };
-    case 'ForkEvent':
-      return { icon: '⑂', text: `forked ${repo}` };
-    case 'IssuesEvent':
-      return { icon: '◎', text: `${e.payload.action as string} issue in ${repo}` };
-    case 'PullRequestEvent':
-      return { icon: '⤷', text: `${e.payload.action as string} PR in ${repo}` };
-    default:
-      return { icon: '·', text: `activity in ${repo}` };
-  }
-}
-
 interface FeedGroup {
   key: string;
-  representative: GithubEvent;
-  count: number;
-  icons: string[];
+  type: string;
+  repo: string;
+  events: GithubEvent[];
+  createdAt: string;
 }
 
 function groupEvents(events: GithubEvent[]): FeedGroup[] {
@@ -97,16 +76,45 @@ function groupEvents(events: GithubEvent[]): FeedGroup[] {
     const ageSec = (Date.now() - new Date(e.createdAt).getTime()) / 1000;
     const windowSec = ageSec < 3600 ? 900 : ageSec < 86400 ? 7200 : 43200;
     const last = groups[groups.length - 1];
-    const lastAge = last ? (Date.now() - new Date(last.representative.createdAt).getTime()) / 1000 : Infinity;
-    if (last && Math.abs(ageSec - lastAge) < windowSec) {
-      last.count++;
-      const icon = eventLabel(e).icon;
-      if (!last.icons.includes(icon)) last.icons.push(icon);
-    } else {
-      groups.push({ key: e.id, representative: e, count: 1, icons: [eventLabel(e).icon] });
+    if (last && last.type === e.type && last.repo === e.repo) {
+      const lastAge = (Date.now() - new Date(last.createdAt).getTime()) / 1000;
+      if (Math.abs(ageSec - lastAge) < windowSec) {
+        last.events.push(e);
+        continue;
+      }
     }
+    groups.push({ key: e.id, type: e.type, repo: e.repo, events: [e], createdAt: e.createdAt });
   }
-  return groups.slice(0, 8);
+  return groups.slice(0, 10);
+}
+
+function groupLabel(g: FeedGroup): { icon: string; text: string } {
+  const repo = (g.repo ?? '').replace('KingJayan/', '');
+  const n = g.events.length;
+  switch (g.type) {
+    case 'PushEvent': {
+      const commits = g.events.reduce((sum, e) => sum + ((e.payload.commits as unknown[])?.length ?? 1), 0);
+      return { icon: '↑', text: `pushed ${commits} commit${commits !== 1 ? 's' : ''} to ${repo}` };
+    }
+    case 'CreateEvent':
+      return { icon: '✦', text: `created ${g.events[0].payload.ref_type as string} in ${repo}${n > 1 ? ` ×${n}` : ''}` };
+    case 'WatchEvent':
+      return { icon: '★', text: `starred ${repo}${n > 1 ? ` ×${n}` : ''}` };
+    case 'ForkEvent':
+      return { icon: '⑂', text: `forked ${repo}` };
+    case 'IssuesEvent':
+      return { icon: '◎', text: `${g.events[0].payload.action as string} issue in ${repo}${n > 1 ? ` ×${n}` : ''}` };
+    case 'PullRequestEvent':
+      return { icon: '⤷', text: `${g.events[0].payload.action as string} PR in ${repo}${n > 1 ? ` ×${n}` : ''}` };
+    case 'DeleteEvent':
+      return { icon: '✕', text: `deleted ${g.events[0].payload.ref_type as string} in ${repo}` };
+    case 'ReleaseEvent':
+      return { icon: '◆', text: `released in ${repo}` };
+    case 'PublicEvent':
+      return { icon: '◉', text: `made ${repo} public` };
+    default:
+      return { icon: '·', text: `activity in ${repo}` };
+  }
 }
 
 function ContribGraph({ days }: { days: ContribDay[] }) {
@@ -161,7 +169,7 @@ function ContribGraph({ days }: { days: ContribDay[] }) {
                 <m.div
                   key={di}
                   title={day.date ? `${day.count} contributions on ${day.date}` : ''}
-                  className={`w-[11px] h-[11px] rounded-sm ${day.date ? CONTRIB_COLORS[day.level] : 'bg-transparent'} border border-ink/5`}
+                  className={`w-[10px] h-[10px] rounded-[2px] ${day.date ? CONTRIB_COLORS[day.level] : 'bg-transparent'}`}
                   initial={{ scale: 0, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
@@ -174,7 +182,7 @@ function ContribGraph({ days }: { days: ContribDay[] }) {
         <div className="flex items-center gap-1.5 mt-2 justify-end">
           <span className="font-hand text-[10px] text-pencil/40">less</span>
           {CONTRIB_COLORS.map((c, i) => (
-            <div key={i} className={`w-[10px] h-[10px] rounded-sm ${c} border border-ink/5`} />
+            <div key={i} className={`w-[10px] h-[10px] rounded-[2px] ${c}`} />
           ))}
           <span className="font-hand text-[10px] text-pencil/40">more</span>
         </div>
@@ -254,11 +262,6 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
       className="relative flex flex-col h-64 border border-pencil/20 rounded-xl overflow-hidden"
     >
       <div className="flex items-center gap-2 px-4 py-2.5 border-b border-pencil/15 bg-paper/40 shrink-0">
-        <m.div
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-2 h-2 rounded-full bg-sage"
-        />
         <span className="font-hand text-sm text-pencil/70">live activity</span>
         <Zap className="w-3 h-3 text-highlighter-yellow ml-auto" />
       </div>
@@ -270,7 +273,7 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
       >
         <AnimatePresence initial={false}>
           {visible.filter((g): g is FeedGroup => !!g).map((g) => {
-            const { text } = eventLabel(g.representative);
+            const { icon, text } = groupLabel(g);
             return (
               <m.div
                 key={g.key}
@@ -280,15 +283,13 @@ function ActivityFeed({ events }: { events: GithubEvent[] }) {
                 className="flex items-start gap-2.5"
               >
                 <span className="font-marker text-base text-sage/80 mt-0.5 w-4 shrink-0 text-center">
-                  {g.icons[0]}
+                  {icon}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <span className="font-hand text-sm text-ink leading-snug">
-                    {g.count > 1 ? `${text} +${g.count - 1} more` : text}
-                  </span>
+                  <span className="font-hand text-sm text-ink leading-snug">{text}</span>
                 </div>
                 <span className="font-hand text-[11px] text-pencil/35 shrink-0 mt-0.5">
-                  {timeAgo(g.representative.createdAt)}
+                  {timeAgo(g.createdAt)}
                 </span>
               </m.div>
             );
@@ -509,11 +510,6 @@ export default function GithubRepos() {
           {stats.contributions.length > 0 && (
             <Surface variant="elevated" className="p-5 border border-pencil/20 rounded-xl">
               <div className="flex items-center gap-2 mb-4">
-                <m.div
-                  animate={{ opacity: [1, 0.4, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="w-2 h-2 rounded-full bg-sage"
-                />
                 <span className="font-hand text-sm text-pencil/70">contribution activity</span>
                 <span className="font-hand text-xs text-pencil/40 ml-auto">past year</span>
               </div>
