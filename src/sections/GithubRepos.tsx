@@ -40,11 +40,11 @@ const LANGUAGE_BORDER: Record<string, string> = {
 };
 
 const CONTRIB_COLORS = [
-  'bg-ink/8',
-  'bg-sage/30',
-  'bg-sage/55',
-  'bg-sage/80',
-  'bg-sage',
+  'bg-ink/10',
+  'bg-[rgb(35,58,47)]',
+  'bg-[rgb(52,90,68)]',
+  'bg-[rgb(75,125,95)]',
+  'bg-[rgb(120,185,148)]',
 ];
 
 function sortAndFilter(data: Repo[]): Repo[] {
