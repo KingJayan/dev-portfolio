@@ -117,6 +117,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
       <div className="flex items-center justify-center gap-3">
         {tools.map(({ id, icon: Icon, onClick, active, label }) => (
           <div key={id} className="relative flex flex-col items-center gap-1">
+            {/*} 
             {id === 'draw' && (
               <AnimatePresence>
                 {showDrawHint && !isDrawingMode && (
@@ -134,6 +135,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
                 )}
               </AnimatePresence>
             )}
+            {*/}
             <Button onClick={onClick} variant={active ? 'iconSoftActive' : 'iconSoft'}
               size="icon" className={btnCls} title={label} aria-label={label}>
               <Icon className="w-4 h-4 text-ink" />

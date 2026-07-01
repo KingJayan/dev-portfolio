@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ThemeContextType } from "@/lib/types";
+import { toast } from "@/hooks/use-toast";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
@@ -15,6 +16,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const savedZenMode = localStorage.getItem('zenMode') === 'true';
     if (savedZenMode) {
       setIsZenMode(savedZenMode);
+      toast({
+        title: "focus mode is on",
+        description: "distractions stayed hidden from your last visit — toggle the focus icon in the nav to exit.",
+      });
     }
   }, []);
 
@@ -40,7 +45,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toggleZenMode = () => {
-    setIsZenMode((prev) => !prev);
+    setIsZenMode((prev) => {
+      const next = !prev;
+      toast({
+        title: next ? "focus mode on" : "focus mode off",
+        description: next
+          ? "distractions hidden and motion reduced — toggle the focus icon again to exit."
+          : "back to the full experience.",
+      });
+      return next;
+    });
   };
 
   return (

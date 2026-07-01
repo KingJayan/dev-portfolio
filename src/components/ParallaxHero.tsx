@@ -56,7 +56,7 @@ export default function ParallaxHero({ isLoading }: { isLoading: boolean }) {
                     <h1 className="text-7xl md:text-9xl font-marker text-ink -rotate-1 relative whitespace-nowrap">
                         {isLoading
                             ? portfolioConfig.personal.name
-                            : <DrawText text={portfolioConfig.personal.name} fontUrl="/fonts/PermanentMarker.woff" glyphDelay={0.08} duration={0.6} />
+                            : <DrawText text={portfolioConfig.personal.name} fontUrl="/fonts/PermanentMarker.woff" glyphDelay={0.08} duration={0.6} animateOnMount />
                         }
                     </h1>
                     <svg className="absolute -bottom-2 left-0 w-full h-12 pointer-events-none z-0 text-ink" viewBox="0 0 300 30">

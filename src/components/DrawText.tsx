@@ -21,6 +21,7 @@ interface DrawTextProps {
   glyphDelay?: number;
   duration?: number;
   initialDelay?: number;
+  animateOnMount?: boolean;
 }
 
 const fontCache = new Map<string, Font>();
@@ -55,6 +56,7 @@ export default function DrawText({
   glyphDelay = 0.06,
   duration = 0.5,
   initialDelay = 0,
+  animateOnMount = false,
 }: DrawTextProps) {
   const reduced = usePrefersReducedMotion();
 
@@ -146,7 +148,7 @@ export default function DrawText({
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`inline-block align-middle ${className}`}
+      className={`draw-text-svg inline-block align-middle ${className}`}
       style={{ height: "1.3em", width: `${aspectRatio * 1.3}em` }}
     >
       {glyphs.map((g, i) => (
@@ -155,8 +157,9 @@ export default function DrawText({
           d={g.d || undefined}
           fill="currentColor"
           initial={{ pathLength: 0, opacity: 0, fillOpacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1, fillOpacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
+          {...(animateOnMount
+            ? { animate: { pathLength: 1, opacity: 1, fillOpacity: 1 } }
+            : { whileInView: { pathLength: 1, opacity: 1, fillOpacity: 1 }, viewport: { once: true, margin: "-50px" } })}
           transition={{
             pathLength: { duration, delay: initialDelay + i * glyphDelay, ease: "easeInOut" },
             opacity: { duration: 0.01, delay: initialDelay + i * glyphDelay },
