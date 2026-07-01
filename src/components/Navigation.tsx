@@ -21,6 +21,18 @@ const SECTION_ICONS = {
   contact: Mail,
 } as const;
 
+const NAV_ITEMS = [
+  { name: 'home', href: '#home', id: 'home' },
+  { name: 'projects', href: '#projects', id: 'projects' },
+  { name: 'github', href: '#github', id: 'github' },
+  { name: 'about', href: '#about', id: 'about' },
+  { name: 'extras', href: '#achievements', id: 'achievements' },
+  { name: 'life', href: '#outside', id: 'outside' },
+  { name: 'contact', href: '#contact', id: 'contact' },
+] as const;
+
+const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
+
 const listVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.048, delayChildren: 0.04 } },
@@ -79,35 +91,20 @@ function NavItem({ name, href, id, isActive, onClick }: {
   );
 }
 
-function NavTools({ compact = false }: { compact?: boolean }) {
+function useNavTools() {
   const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
   const { isDrawingMode, toggleDrawingMode } = useDrawing();
-  const [showDrawHint, setShowDrawHint] = useState(false);
-  const btnCls = cn('h-9 w-9', !compact && 'border-[1.5px]');
 
-  useEffect(() => {
-    if (localStorage.getItem('draw-hint-seen')) return;
-    let hideTimer: ReturnType<typeof setTimeout>;
-    const showTimer = setTimeout(() => {
-      setShowDrawHint(true);
-      hideTimer = setTimeout(() => {
-        setShowDrawHint(false);
-        localStorage.setItem('draw-hint-seen', '1');
-      }, 5000);
-    }, 2500);
-    return () => { clearTimeout(showTimer); clearTimeout(hideTimer); };
-  }, []);
-
-  const dismissHint = useCallback(() => {
-    setShowDrawHint(false);
-    localStorage.setItem('draw-hint-seen', '1');
-  }, []);
-
-  const tools = [
-    { id: 'draw',  icon: Pencil,                        onClick: () => { toggleDrawingMode(); dismissHint(); }, active: isDrawingMode, label: 'draw' },
-    { id: 'theme', icon: theme === 'dark' ? Sun : Moon, onClick: toggleTheme,                                  active: false,         label: theme === 'dark' ? 'light' : 'dark' },
-    { id: 'focus', icon: BookOpen,                      onClick: toggleZenMode,                                active: isZenMode,     label: 'focus' },
+  return [
+    { id: 'draw',  icon: Pencil,                        onClick: toggleDrawingMode, active: isDrawingMode, label: 'draw',                             verboseLabel: isDrawingMode ? 'stop draw' : 'draw' },
+    { id: 'theme', icon: theme === 'dark' ? Sun : Moon, onClick: toggleTheme,       active: false,         label: theme === 'dark' ? 'light' : 'dark', verboseLabel: theme === 'dark' ? 'light mode' : 'dark mode' },
+    { id: 'focus', icon: BookOpen,                      onClick: toggleZenMode,     active: isZenMode,     label: 'focus',                            verboseLabel: isZenMode ? 'exit focus' : 'focus mode' },
   ];
+}
+
+function NavTools({ compact = false }: { compact?: boolean }) {
+  const tools = useNavTools();
+  const btnCls = cn('h-9 w-9', !compact && 'border-[1.5px]');
 
   return (
     <div className={cn('pt-3 border-t border-dashed border-pencil/30', compact ? 'mt-4 border-pencil/25' : 'mt-4')}>
@@ -117,25 +114,6 @@ function NavTools({ compact = false }: { compact?: boolean }) {
       <div className="flex items-center justify-center gap-3">
         {tools.map(({ id, icon: Icon, onClick, active, label }) => (
           <div key={id} className="relative flex flex-col items-center gap-1">
-            {/*} 
-            {id === 'draw' && (
-              <AnimatePresence>
-                {showDrawHint && !isDrawingMode && (
-                  <m.div
-                    key="draw-hint"
-                    initial={{ opacity: 0, y: 4, scale: 0.92 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 4, scale: 0.92 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-highlighter-yellow border border-ink/20 rounded-lg px-2.5 py-1.5 text-[11px] font-marker text-ink shadow-sm pointer-events-none"
-                  >
-                    check out this tool!
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-highlighter-yellow" />
-                  </m.div>
-                )}
-              </AnimatePresence>
-            )}
-            {*/}
             <Button onClick={onClick} variant={active ? 'iconSoftActive' : 'iconSoft'}
               size="icon" className={btnCls} title={label} aria-label={label}>
               <Icon className="w-4 h-4 text-ink" />
@@ -144,7 +122,6 @@ function NavTools({ compact = false }: { compact?: boolean }) {
               <span className="text-[9px] font-sans text-pencil/50 leading-none">{label}</span>
             )}
           </div>
-          
         ))}
       </div>
     </div>
@@ -160,7 +137,6 @@ export default function Navigation() {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const userExpandedRef = useRef(false);
   const [, setLocation] = useLocation();
-  const sectionIds = ['home', 'projects', 'github', 'about', 'achievements', 'outside', 'contact'];
 
   const handleToggle = useCallback(() => {
     setIsCollapsed((prev) => {
@@ -186,7 +162,7 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
-    const observers = sectionIds.map((id) => {
+    const observers = SECTION_IDS.map((id) => {
       const el = document.getElementById(id);
       if (!el) return null;
       const obs = new IntersectionObserver(
@@ -198,16 +174,6 @@ export default function Navigation() {
     });
     return () => observers.forEach((o) => o?.disconnect());
   }, []);
-
-  const navItems = [
-    { name: 'home', href: '#home', id: 'home' },
-    { name: 'projects', href: '#projects', id: 'projects' },
-    { name: 'github', href: '#github', id: 'github' },
-    { name: 'about', href: '#about', id: 'about' },
-    { name: 'extras', href: '#achievements', id: 'achievements' },
-    { name: 'life', href: '#outside', id: 'outside' },
-    { name: 'contact', href: '#contact', id: 'contact' },
-  ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -225,14 +191,7 @@ export default function Navigation() {
     setIsMenuOpen(false);
   };
 
-  const { theme, toggleTheme, isZenMode, toggleZenMode } = useTheme();
-  const { isDrawingMode, toggleDrawingMode } = useDrawing();
-
-  const collapsedTools = [
-    { icon: Pencil, onClick: toggleDrawingMode, active: isDrawingMode, label: isDrawingMode ? 'stop draw' : 'draw' },
-    { icon: theme === 'dark' ? Sun : Moon, onClick: toggleTheme, active: false, label: theme === 'dark' ? 'light mode' : 'dark mode' },
-    { icon: BookOpen, onClick: toggleZenMode, active: isZenMode, label: isZenMode ? 'exit focus' : 'focus mode' },
-  ] as const;
+  const navTools = useNavTools();
 
   return (
     <>
@@ -271,7 +230,7 @@ export default function Navigation() {
 
                 <m.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
 
-                {navItems.map((item) => {
+                {NAV_ITEMS.map((item) => {
                   const Icon = SECTION_ICONS[item.id as keyof typeof SECTION_ICONS];
                   return (
                     <m.div key={item.id} variants={dotVariants}>
@@ -293,12 +252,12 @@ export default function Navigation() {
 
                 <m.div variants={dotVariants} className="w-4 border-t border-dashed border-pencil/20" />
 
-                {collapsedTools.map(({ icon: Icon, onClick, active, label }) => (
-                  <m.div key={label} variants={dotVariants}>
+                {navTools.map(({ id, icon: Icon, onClick, active, verboseLabel }) => (
+                  <m.div key={id} variants={dotVariants}>
                     <button
                       onClick={onClick}
-                      title={label}
-                      aria-label={label}
+                      title={verboseLabel}
+                      aria-label={verboseLabel}
                       className={cn('icon-btn', active ? 'bg-paper/60' : 'hover:bg-paper/40')}
                     >
                       <Icon className={cn('w-4 h-4 transition-colors', active ? 'text-highlighter-yellow' : 'text-pencil/30')} />
@@ -326,7 +285,7 @@ export default function Navigation() {
                   </button>
                 </m.div>
                 <div className="flex flex-col gap-3.5">
-                  {navItems.map((item) => (
+                  {NAV_ITEMS.map((item) => (
                     <NavItem key={item.id} {...item} isActive={activeSection === item.id} onClick={handleScrollTo} />
                   ))}
                 </div>
@@ -358,7 +317,7 @@ export default function Navigation() {
               className={cn('w-full max-w-sm mx-5 p-4 rounded-2xl', PANEL_CLS, 'bg-paper/52')}
             >
               <div className="flex flex-col gap-2.5">
-                {navItems.map((item) => (
+                {NAV_ITEMS.map((item) => (
                   <NavItem key={item.id} {...item} isActive={activeSection === item.id} onClick={handleScrollTo} />
                 ))}
               </div>

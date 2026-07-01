@@ -4,18 +4,25 @@ import { toast } from "@/hooks/use-toast";
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function getInitialTheme(): 'light' | 'dark' {
+  if (typeof window === 'undefined') return 'light';
+  const stored = localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark') return stored;
+  const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+  return prefersDark ? 'dark' : 'light';
+}
+
+function getInitialZenMode(): boolean {
+  if (typeof window === 'undefined') return false;
+  return localStorage.getItem('zenMode') === 'true';
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-  const [isZenMode, setIsZenMode] = useState<boolean>(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
+  const [isZenMode, setIsZenMode] = useState<boolean>(getInitialZenMode);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark';
-    if (savedTheme) {
-      setTheme(savedTheme);
-    }
-    const savedZenMode = localStorage.getItem('zenMode') === 'true';
-    if (savedZenMode) {
-      setIsZenMode(savedZenMode);
+    if (localStorage.getItem('zenMode') === 'true') {
       toast({
         title: "focus mode is on",
         description: "distractions stayed hidden from your last visit — toggle the focus icon in the nav to exit.",
