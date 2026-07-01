@@ -1,6 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { m, useMotionValue } from "framer-motion";
 import { useDrawing } from "@/contexts/DrawingContext";
+import { Z_INDEX } from "@/lib/z-index";
 
 export default function Cursor() {
     const { isDrawingMode } = useDrawing();
@@ -21,7 +22,7 @@ export default function Cursor() {
     if (isDrawingMode) return null;
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-[999999] overflow-hidden mix-blend-difference">
+        <div className="pointer-events-none fixed inset-0 overflow-hidden mix-blend-difference" style={{ zIndex: Z_INDEX.cursor }}>
             {"ontouchstart" in window ? null : (
                 <m.div
                     style={{ x: cursorX, y: cursorY, willChange: "transform" }}

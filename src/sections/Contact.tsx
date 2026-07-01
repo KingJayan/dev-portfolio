@@ -14,6 +14,7 @@ import { useParallaxMouse } from '@/hooks/use-parallax-mouse';
 import { Send as SendIcon } from 'lucide-react';
 import ScribbleText from '@/components/ScribbleText';
 import DrawText from '@/components/DrawText';
+import { useReveal } from '@/lib/motion';
 
 const contactSchema = z.object({
   name: z.string().min(2, "name is too short"),
@@ -90,12 +91,11 @@ export default function Contact() {
     }
   };
 
+  const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
+
   return (
     <m.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      {...reveal}
       className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden flex items-center justify-center"
     >
       <m.div style={{ x: backX, y: backY }} className="doodle-layer opacity-40">
@@ -120,7 +120,6 @@ export default function Contact() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center gap-4 py-8 text-center"
               >
-                <span className="text-5xl"></span>
                 <SendIcon />
                 <p className="font-marker text-2xl text-ink">message sent!</p>
                 <p className="font-hand text-lg text-pencil/70 max-w-xs">

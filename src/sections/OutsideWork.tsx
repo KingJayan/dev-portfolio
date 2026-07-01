@@ -1,5 +1,6 @@
 import { m } from 'framer-motion';
 import { portfolioConfig } from '@/portfolio.config';
+import { useReveal } from '@/lib/motion';
 import { Arrow, Spiral, Star } from '@/components/Doodles';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
@@ -11,14 +12,12 @@ type Hobby = typeof portfolioConfig.outsideProgramming.hobbies[number];
 
 export default function OutsideWork() {
     const { outsideProgramming } = portfolioConfig;
+    const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
 
     return (
         <m.section
             id="outside"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            {...reveal}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden"
         >
             <div className="doodle-layer opacity-20 z-0">

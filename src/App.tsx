@@ -11,6 +11,7 @@ import CommandMenu from "@/components/CommandMenu";
 import SectionErrorBoundary from "@/components/SectionErrorBoundary";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/hooks/use-theme";
+import { Z_INDEX } from "@/lib/z-index";
 
 const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
@@ -44,7 +45,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="github" className="relative z-[25] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
         </SectionErrorBoundary>
@@ -60,7 +61,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="achievements" className="relative z-35 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="achievements" className="relative z-[35] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><Achievements /></Suspense>
         </SectionErrorBoundary>
@@ -68,7 +69,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="outside" className="relative z-[37] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
         </SectionErrorBoundary>
@@ -89,7 +90,8 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
           variant="fab"
           size="icon"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-8 right-8 z-50 h-12 w-12 transition-transform group"
+          className="fixed bottom-8 right-8 h-12 w-12 transition-transform group"
+          style={{ zIndex: Z_INDEX.floating }}
           title="back up"
         >
           <ArrowUp className="text-ink w-5 h-5 group-hover:animate-bounce" />
@@ -128,24 +130,23 @@ function App() {
 
   return (
     <LazyMotion features={domAnimation} strict>
-      {!isTerminal && <LoadingScreen isLoading={isLoading} />}
-      {!isTerminal && !isZenMode && <div className="grain-overlay" />}
-      {!isTerminal && !isZenMode && <FreeDrawCanvas />}
-      {!isTerminal && !isZenMode && <ScrollProgress />}
-      {!isTerminal && <Navigation />}
-      {!isTerminal && !isZenMode && <CommandMenu />}
+      <MotionConfig reducedMotion={isZenMode ? "always" : "user"}>
+        {!isTerminal && <LoadingScreen isLoading={isLoading} />}
+        {!isTerminal && !isZenMode && <div className="grain-overlay" />}
+        {!isTerminal && !isZenMode && <FreeDrawCanvas />}
+        {!isTerminal && !isZenMode && <ScrollProgress />}
+        {!isTerminal && <Navigation />}
+        {!isTerminal && !isZenMode && <CommandMenu />}
 
-      <Switch>
-        <Route path="/terminal">{() => <TerminalPage />}</Route>
-        <Route path="/">{() => isZenMode
-          ? <MotionConfig reducedMotion="always"><Portfolio isZenMode={isZenMode} isLoading={isLoading} /></MotionConfig>
-          : <Portfolio isZenMode={isZenMode} isLoading={isLoading} />
-        }</Route>
-        {/*404*/}
-        <Route component={NotFound} />
-      </Switch>
+        <Switch>
+          <Route path="/terminal">{() => <TerminalPage />}</Route>
+          <Route path="/">{() => <Portfolio isZenMode={isZenMode} isLoading={isLoading} />}</Route>
+          {/*404*/}
+          <Route component={NotFound} />
+        </Switch>
 
-      <Toaster />
+        <Toaster />
+      </MotionConfig>
     </LazyMotion>
   );
 }

@@ -3,13 +3,19 @@ import { describe, it, expect, vi } from "vitest";
 import React from "react";
 import ScribbleText from "@/components/ScribbleText";
 
-vi.mock("framer-motion", () => ({
-    motion: new Proxy({} as Record<string, React.FC>, {
+vi.mock("framer-motion", () => {
+    const proxy = new Proxy({} as Record<string, React.FC>, {
         get: (_t, tag: string) =>
             ({ children, ...props }: React.HTMLAttributes<HTMLElement> & { children?: React.ReactNode }) =>
                 React.createElement(tag as keyof JSX.IntrinsicElements, props, children),
-    }),
-}));
+    });
+    return {
+        motion: proxy,
+        m: proxy,
+        AnimatePresence: ({ children }: { children: React.ReactNode }) =>
+            React.createElement(React.Fragment, null, children),
+    };
+});
 
 vi.mock("@/hooks/use-reduced-motion", () => ({
     usePrefersReducedMotion: () => false,

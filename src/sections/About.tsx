@@ -62,11 +62,11 @@ export default function About() {
           className="flex-1 relative group w-full"
         >
           <Surface variant="elevated" className="p-10 relative w-full h-full">
-            <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 rounded-full overflow-hidden relative bg-paper/60 backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
+            <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 dark:border-white/15 ring-1 ring-ink/5 dark:ring-white/10 rounded-full overflow-hidden relative bg-paper/60 dark:bg-white/[0.04] backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
               <img
                 src="/images/profile.avif" alt="Profile"
                 width={224} height={224}
-                className="clip w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                 style={{ transform: `${scale(0.9)} translateY(6%)` }}
               />
             </div>
@@ -130,11 +130,6 @@ export default function About() {
               </HandmadeTooltip>
             ))}
           </div>
-          {/*
-          <p className="font-hand text-sm text-pencil/40 mt-10 italic text-center">
-            *tools i regularly utilize
-          </p>
-          */}
         </Surface>
       </m.div>
     </section>

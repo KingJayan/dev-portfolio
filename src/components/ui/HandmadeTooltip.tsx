@@ -1,5 +1,6 @@
 import { m, AnimatePresence } from "framer-motion";
 import { ReactNode, useState } from "react";
+import { Z_INDEX } from "@/lib/z-index";
 
 interface HandmadeTooltipProps {
     children: ReactNode;
@@ -23,7 +24,8 @@ export default function HandmadeTooltip({ children, content }: HandmadeTooltipPr
                         animate={{ opacity: 1, scale: 1, y: -45, rotate: 2 }}
                         exit={{ opacity: 0, scale: 0.5, y: 10, rotate: -5 }}
                         transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                        className="absolute z-[100] pointer-events-none"
+                        className="absolute pointer-events-none"
+                        style={{ zIndex: Z_INDEX.tooltip }}
                     >
                         <div className="bg-highlighter-yellow/90 px-3 py-1 border border-ink/35 shadow-sm relative preserve-3d">
                             {/*tape*/}

@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom';
 import { Z_INDEX } from '@/lib/z-index';
 import ScribbleText from '@/components/ScribbleText';
 import DrawText from '@/components/DrawText';
+import { useReveal } from '@/lib/motion';
 
 const ICONS = { trophy: Trophy, award: Award, star: StarIcon };
 
@@ -44,14 +45,12 @@ function AchievementCard({ item }: { item: AchievementItem }) {
 export default function Achievements() {
     const { achievements } = portfolioConfig;
     const [isFolioOpen, setIsFolioOpen] = useState(false);
+    const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
 
     return (
         <m.section
             id="achievements"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            {...reveal}
             className="py-24 px-4 md:px-8 max-w-6xl mx-auto relative overflow-hidden flex flex-col items-center justify-center min-h-[60vh]"
         >
             <div className="relative z-10 w-full max-w-2xl mx-auto text-center">
