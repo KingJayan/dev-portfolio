@@ -14,6 +14,7 @@ import { useParallaxMouse } from '@/hooks/use-parallax-mouse';
 import { Send as SendIcon } from 'lucide-react';
 import ScribbleText from '@/components/ScribbleText';
 import DrawText from '@/components/DrawText';
+import { useReveal } from '@/lib/motion';
 
 const contactSchema = z.object({
   name: z.string().min(2, "name is too short"),
@@ -90,12 +91,11 @@ export default function Contact() {
     }
   };
 
+  const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
+
   return (
     <m.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      {...reveal}
       className="min-h-screen pt-24 pb-12 px-4 relative overflow-hidden flex items-center justify-center"
     >
       <m.div style={{ x: backX, y: backY }} className="doodle-layer opacity-40">

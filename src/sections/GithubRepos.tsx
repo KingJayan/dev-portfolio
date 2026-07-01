@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import { Surface } from '@/components/ui/surface';
 import { useGithubData } from './github/useGithubData';
-import { useReveal } from './github/useReveal';
+import { useReveal } from '@/lib/motion';
 import { describeGithubError } from './github/utils';
 import { RepoSectionHeader } from './github/RepoSectionHeader';
 import { RepoGridSkeleton } from './github/RepoGridSkeleton';
@@ -15,12 +15,12 @@ const SECTION_CLASS = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24';
 
 export default function GithubRepos() {
   const { repos, stats, loading, error, refetch } = useGithubData();
-  const sectionReveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { once: true, margin: '-100px' });
+  const sectionReveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: '-100px' } });
   const activityReveal = useReveal({ opacity: 0, y: 30 }, { opacity: 1, y: 0 });
 
   if (loading && repos.length === 0) {
     return (
-      <m.div {...sectionReveal} transition={{ duration: 0.8, ease: 'easeOut' }} className={SECTION_CLASS}>
+      <m.div {...sectionReveal} className={SECTION_CLASS}>
         <RepoSectionHeader subtitle="recent stuff" />
         <RepoGridSkeleton />
       </m.div>
@@ -29,7 +29,7 @@ export default function GithubRepos() {
 
   if (error && repos.length === 0) {
     return (
-      <m.div {...sectionReveal} transition={{ duration: 0.8, ease: 'easeOut' }} className={SECTION_CLASS}>
+      <m.div {...sectionReveal} className={SECTION_CLASS}>
         <RepoSectionHeader />
         <RepoErrorState message={describeGithubError(error.status)} onRetry={refetch} />
       </m.div>
@@ -41,7 +41,6 @@ export default function GithubRepos() {
   return (
     <m.div
       {...sectionReveal}
-      transition={{ duration: 0.8, ease: 'easeOut' }}
       className={`${SECTION_CLASS} relative overflow-hidden`}
     >
       <RepoSectionHeader subtitle="recent stuff" withArrow className="mb-10" />

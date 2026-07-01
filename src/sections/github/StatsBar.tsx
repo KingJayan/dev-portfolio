@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import { Star, GitFork, Code2, BookOpen } from 'lucide-react';
 import type { StatsPayload } from '../../../api/github-stats';
-import { useReveal } from './useReveal';
+import { useReveal } from '@/lib/motion';
 
 export function StatsBar({ stats }: { stats: StatsPayload }) {
   const topLangs = Object.entries(stats.languages)

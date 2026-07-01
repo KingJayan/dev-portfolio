@@ -1,7 +1,7 @@
 import { m } from 'framer-motion';
 import type { ContribDay } from '../../../api/github-stats';
 import { CONTRIB_COLORS } from './constants';
-import { useReveal } from './useReveal';
+import { useReveal } from '@/lib/motion';
 
 function ContribCell({ day, delay }: { day: ContribDay; delay: number }) {
   const reveal = useReveal({ scale: 0, opacity: 0 }, { scale: 1, opacity: 1 });

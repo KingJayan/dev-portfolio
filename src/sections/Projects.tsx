@@ -1,5 +1,6 @@
 import { m } from 'framer-motion';
 import { useState } from "react";
+import { useReveal } from '@/lib/motion';
 import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
 import ProjectModal from "@/components/ProjectModal";
 import { Surface } from '@/components/ui/surface';
@@ -20,13 +21,11 @@ const CARD_ACCENTS = [
 export default function Projects() {
   const { projects } = portfolioConfig;
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
 
   return (
     <m.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      {...reveal}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
     >
       <div className="flex flex-col items-center mb-16 relative">

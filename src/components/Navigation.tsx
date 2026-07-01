@@ -296,7 +296,7 @@ export default function Navigation() {
         </m.div>
       </nav>
 
-      <div className="md:hidden fixed top-4 right-4 z-50">
+      <div className="md:hidden fixed top-4 right-4" style={{ zIndex: Z_INDEX.nav }}>
         <Button variant="soft" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)} className="h-11 w-11">
           {isMenuOpen ? <X /> : <Menu />}
         </Button>
@@ -307,7 +307,8 @@ export default function Navigation() {
           <m.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: MOTION_TIMING.normal, ease: MOTION_EASE.smooth }}
-            className="fixed inset-0 z-40 glass-nav border-none flex items-center justify-center md:hidden"
+            className="fixed inset-0 glass-nav border-none flex items-center justify-center md:hidden"
+            style={{ zIndex: Z_INDEX.floating }}
           >
             <m.div
               initial={{ y: 16, opacity: 0, scale: 0.97 }}

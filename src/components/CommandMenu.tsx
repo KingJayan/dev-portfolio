@@ -13,6 +13,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useDrawing } from "@/contexts/DrawingContext";
 import { toast } from "@/hooks/use-toast";
 import { MOTION_EASE, useMotionTiming } from "@/lib/motion";
+import { Z_INDEX } from "@/lib/z-index";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
 
@@ -175,7 +176,8 @@ export default function CommandMenu() {
                 <Button
                     onClick={() => setOpen(true)}
                     variant="soft"
-                    className="fixed bottom-8 left-8 z-50 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group"
+                    className="fixed bottom-8 left-8 hidden md:flex items-center gap-2 px-4 py-2 rounded-lg font-hand text-lg group"
+                    style={{ zIndex: Z_INDEX.floating }}
                     asChild
                 >
                     <m.button
