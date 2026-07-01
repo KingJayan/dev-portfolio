@@ -1,8 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
-vi.mock("@vercel/kv", () => ({
-    kv: { incr: vi.fn(), expire: vi.fn() },
+const mockIncr = vi.fn();
+const mockExpire = vi.fn();
+vi.mock("@upstash/redis", () => ({
+    Redis: { fromEnv: () => ({ incr: mockIncr, expire: mockExpire }) },
 }));
 
 const mockSendMail = vi.fn().mockResolvedValue({});
@@ -11,8 +13,6 @@ vi.mock("nodemailer", () => ({
         createTransport: vi.fn(() => ({ sendMail: mockSendMail })),
     },
 }));
-
-import { kv } from "@vercel/kv";
 
 function makeReq(overrides: Record<string, unknown> = {}, method = "POST") {
     return {
@@ -41,7 +41,8 @@ beforeEach(async () => {
     vi.resetModules();
     process.env.GMAIL_USER = "test@gmail.com";
     process.env.GMAIL_APP_PASSWORD = "secret";
-    (kv.incr as ReturnType<typeof vi.fn>).mockResolvedValue(1);
+    mockIncr.mockResolvedValue(1);
+    mockExpire.mockResolvedValue(1);
     mockSendMail.mockResolvedValue({});
     const mod = await import("../../api/contact");
     contactHandler = mod.default;
@@ -66,7 +67,7 @@ describe("contact handler", () => {
     });
 
     it("returns 429 when rate limit exceeded", async () => {
-        (kv.incr as ReturnType<typeof vi.fn>).mockResolvedValue(4);
+        mockIncr.mockResolvedValue(4);
         const res = makeRes();
         await call(makeReq(), res);
         expect(res._status).toBe(429);
@@ -112,13 +113,13 @@ describe("contact handler", () => {
     it("calls kv.expire on first request from an ip", async () => {
         const res = makeRes();
         await call(makeReq(), res);
-        expect(kv.expire).toHaveBeenCalledOnce();
+        expect(mockExpire).toHaveBeenCalledOnce();
     });
 
     it("skips kv.expire on subsequent requests", async () => {
-        (kv.incr as ReturnType<typeof vi.fn>).mockResolvedValue(2);
+        mockIncr.mockResolvedValue(2);
         const res = makeRes();
         await call(makeReq(), res);
-        expect(kv.expire).not.toHaveBeenCalled();
+        expect(mockExpire).not.toHaveBeenCalled();
     });
 });

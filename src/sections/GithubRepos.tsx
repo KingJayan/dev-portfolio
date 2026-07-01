@@ -6,7 +6,15 @@ import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
 import { Arrow } from '@/components/Doodles';
 import DrawText from '@/components/DrawText';
+import { useTheme } from '@/hooks/use-theme';
 import type { StatsPayload, ContribDay, GithubEvent } from '../../api/github-stats';
+
+function useReveal<T extends Record<string, unknown>>(hidden: T, shown: T, viewport: Record<string, unknown> = { once: true }) {
+  const { isZenMode } = useTheme();
+  return isZenMode
+    ? { initial: false as const, animate: shown }
+    : { initial: hidden, whileInView: shown, viewport };
+}
 
 interface Repo {
   id: number;
@@ -117,6 +125,18 @@ function groupLabel(g: FeedGroup): { icon: string; text: string } {
   }
 }
 
+function ContribCell({ day, delay }: { day: ContribDay; delay: number }) {
+  const reveal = useReveal({ scale: 0, opacity: 0 }, { scale: 1, opacity: 1 });
+  return (
+    <m.div
+      title={day.date ? `${day.count} contributions on ${day.date}` : ''}
+      className={`w-[10px] h-[10px] rounded-[2px] ${day.date ? CONTRIB_COLORS[day.level] : 'bg-transparent'}`}
+      {...reveal}
+      transition={{ delay, duration: 0.2 }}
+    />
+  );
+}
+
 function ContribGraph({ days }: { days: ContribDay[] }) {
   const last365 = days.slice(-365);
   const weeks: ContribDay[][] = [];
@@ -166,15 +186,7 @@ function ContribGraph({ days }: { days: ContribDay[] }) {
           {weeks.map((w, wi) => (
             <div key={wi} className="flex flex-col gap-0.5">
               {w.map((day, di) => (
-                <m.div
-                  key={di}
-                  title={day.date ? `${day.count} contributions on ${day.date}` : ''}
-                  className={`w-[10px] h-[10px] rounded-[2px] ${day.date ? CONTRIB_COLORS[day.level] : 'bg-transparent'}`}
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: wi * 0.003 + di * 0.001, duration: 0.2 }}
-                />
+                <ContribCell key={di} day={day} delay={wi * 0.003 + di * 0.001} />
               ))}
             </div>
           ))}
@@ -204,20 +216,19 @@ function StatsBar({ stats }: { stats: StatsPayload }) {
     { icon: <Code2 className="w-4 h-4" />, value: topLangs.join(' · '), label: 'top langs' },
   ];
 
+  const barReveal = useReveal({ opacity: 0, y: 20 }, { opacity: 1, y: 0 });
+  const itemReveal = useReveal({ opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1 });
+
   return (
     <m.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      {...barReveal}
       transition={{ duration: 0.5, delay: 0.1 }}
       className="flex flex-wrap justify-center gap-3 mb-10"
     >
       {items.map((item, i) => (
         <m.div
           key={item.label}
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          {...itemReveal}
           transition={{ delay: 0.15 + i * 0.07 }}
           className="flex items-center gap-2 px-4 py-2 glass-nav rounded-xl shadow-paper"
         >
@@ -306,7 +317,7 @@ export default function GithubRepos() {
   const [repos, setRepos] = useState<Repo[]>([]);
   const [stats, setStats] = useState<StatsPayload | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<{ message: string; status: number } | null>(null);
   const [retryCount, setRetryCount] = useState(0);
 
   const fetchAll = useCallback((showError: boolean) => {
@@ -326,7 +337,7 @@ export default function GithubRepos() {
         setLoading(false);
       })
       .catch((err: Error & { status?: number }) => {
-        if (showError) setError(JSON.stringify({ message: err.message, status: err.status ?? 0 }));
+        if (showError) setError({ message: err.message, status: err.status ?? 0 });
         setLoading(false);
       });
   }, []);
@@ -334,12 +345,13 @@ export default function GithubRepos() {
   useEffect(() => { fetchAll(false); }, []);
   useEffect(() => { if (retryCount > 0) fetchAll(true); }, [retryCount]);
 
+  const sectionReveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { once: true, margin: '-100px' });
+  const activityReveal = useReveal({ opacity: 0, y: 30 }, { opacity: 1, y: 0 });
+
   if (loading && repos.length === 0) {
     return (
       <m.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        {...sectionReveal}
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"
       >
@@ -375,23 +387,17 @@ export default function GithubRepos() {
     );
   }
 
-  const errorInfo = (() => {
-    try { return JSON.parse(error ?? '{}') as { message: string; status: number }; }
-    catch { return { message: error ?? '', status: 0 }; }
-  })();
-  const isRateLimit = errorInfo.status === 403 || errorInfo.status === 429;
+  const isRateLimit = error?.status === 403 || error?.status === 429;
   const errorBody = isRateLimit
     ? "github rate limit hit — the repos will load again in a few minutes."
-    : errorInfo.status >= 500
+    : (error?.status ?? 0) >= 500
       ? "github is having issues on their end — worth a retry."
       : "couldn't reach github — check your connection or try again.";
 
   if (error && repos.length === 0) {
     return (
       <m.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-100px' }}
+        {...sectionReveal}
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24"
       >
@@ -429,9 +435,7 @@ export default function GithubRepos() {
 
   return (
     <m.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
+      {...sectionReveal}
       transition={{ duration: 0.8, ease: 'easeOut' }}
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative overflow-hidden"
     >
@@ -501,9 +505,7 @@ export default function GithubRepos() {
 
       {(stats?.contributions.length || stats?.events.length) ? (
         <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...activityReveal}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6"
         >

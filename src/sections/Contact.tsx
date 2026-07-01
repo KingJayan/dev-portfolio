@@ -120,7 +120,6 @@ export default function Contact() {
                 transition={{ duration: 0.3 }}
                 className="flex flex-col items-center gap-4 py-8 text-center"
               >
-                <span className="text-5xl"></span>
                 <SendIcon />
                 <p className="font-marker text-2xl text-ink">message sent!</p>
                 <p className="font-hand text-lg text-pencil/70 max-w-xs">

@@ -44,7 +44,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="github" className="relative z-25 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="github" className="relative z-[25] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><GithubRepos /></Suspense>
         </SectionErrorBoundary>
@@ -60,7 +60,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="achievements" className="relative z-35 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="achievements" className="relative z-[35] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><Achievements /></Suspense>
         </SectionErrorBoundary>
@@ -68,7 +68,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
 
       {!isZenMode && <SectionDivider />}
 
-      <section id="outside" className="relative z-37 bg-paper min-h-screen flex flex-col justify-center">
+      <section id="outside" className="relative z-[37] bg-paper min-h-screen flex flex-col justify-center">
         <SectionErrorBoundary>
           <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
         </SectionErrorBoundary>

@@ -1,4 +1,4 @@
-import { m } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/use-reduced-motion";
 import type { Font } from "opentype.js";
@@ -58,7 +58,9 @@ export default function DrawText({
   initialDelay = 0,
   animateOnMount = false,
 }: DrawTextProps) {
-  const reduced = usePrefersReducedMotion();
+  const osReducedMotion = usePrefersReducedMotion();
+  const forcedReducedMotion = useReducedMotion();
+  const reduced = osReducedMotion || !!forcedReducedMotion;
 
   const precomputed = PRECOMPUTED_GLYPHS[`${fontUrl}::${text}`];
   const [glyphs, setGlyphs] = useState<GlyphPath[] | null>(precomputed?.glyphs ?? null);

@@ -5,14 +5,15 @@ const mockFetch = vi.fn();
 vi.stubGlobal('fetch', mockFetch);
 
 function makeRes() {
-    return {
+    const res = {
         _status: 200,
         _body: undefined as unknown,
         _headers: {} as Record<string, string>,
-        status(code: number) { this._status = code; return this; },
-        json(body: unknown) { this._body = body; return this; },
-        setHeader(key: string, val: string) { this._headers[key] = val; return this; },
-    } as unknown as VercelResponse & { _status: number; _body: unknown; _headers: Record<string, string> };
+        status(code: number) { res._status = code; return res; },
+        json(body: unknown) { res._body = body; return res; },
+        setHeader(key: string, val: string) { res._headers[key] = val; return res; },
+    };
+    return res as unknown as VercelResponse & { _status: number; _body: unknown; _headers: Record<string, string> };
 }
 
 describe('api/github', () => {
