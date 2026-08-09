@@ -16,53 +16,24 @@
   </a>
 </div>
 
-<br/>
-
-## features
-
-- **hand-drawn design**: doodly UI with custom paper/ink theme and scribble text anims
-- **svg path animations**: decorative elements and heading text animate on scroll using opentype.js for TTF-to-SVG rendering
-- **3d parallax hero**: mouse-driven parallax with physics-based spring animations
-- **canvas mode**: toggle a free-draw overlay to sketch anywhere on the screen
-- **command menu**: keyboard-driven nav and quick actions
-- **github integration**: recent activity updated live using gh api
-- **contact form**: gmail api + nodemailer via vercel serverless functions
-- **SPA**: smooth scroll nav with mobile and desktop support
-
 ## quickstart
 
-#### prereqs
+requires `node`, `pnpm`, and `bun`
 
-you need `node`, `pnpm`, and `bun` installed
+  ```bash
+  # clone the repo
+  git clone https://github.com/KingJayan/dev-portfolio.git
+  cd dev-portfolio
+  ```
 
-#### installation
-
-1.  **clone the repo**
-    ```bash
-    git clone https://github.com/KingJayan/dev-portfolio.git
-    cd dev-portfolio
-    ```
-
-2.  **install deps**
-    ```bash
-    pnpm install
-    ```
-
-3.  **run locally**
-    ```bash
-    pnpm dev
-    ```
-
-4.  **build**
-    ```bash
-    pnpm build
-    ```
-
-## license
-
-<a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">BSD 3-Clause License</a>
-
+  ```bash
+  pnpm i # install deps
+  pnpm dev # run locally
+  pnpm build # build prod bundle
+  ```
+##
 
 <div align="center">
   <p>made with :) by jayan</p>
+  <p><a href="https://github.com/KingJayan/dev-portfolio/blob/main/LICENSE">BSD 3-Clause License</a></p>
 </div>
