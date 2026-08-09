@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "installCommand": "pnpm install --frozen-lockfile",
+  "installCommand": "bun install --frozen-lockfile",
   "buildCommand": "bun --bun vite build",
   "outputDirectory": "dist",
   "rewrites": [

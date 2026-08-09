@@ -18,7 +18,7 @@
 
 ## quickstart
 
-requires `node`, `pnpm`, and `bun`
+requires `node` and `bun`
 
   ```bash
   # clone the repo
@@ -27,9 +27,9 @@ requires `node`, `pnpm`, and `bun`
   ```
 
   ```bash
-  pnpm i # install deps
-  pnpm dev # run locally
-  pnpm build # build prod bundle
+  bun i # install deps
+  bun dev # run locally
+  bun build # build prod bundle
   ```
 ##
 

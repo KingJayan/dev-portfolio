@@ -1,4 +1,0 @@
-allowBuilds:
-  bufferutil: true
-  esbuild: true
-  sharp: false
