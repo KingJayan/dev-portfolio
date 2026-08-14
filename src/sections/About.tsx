@@ -42,10 +42,6 @@ export default function About() {
   const { personal, about } = portfolioConfig;
   const { skills, tools } = about;
 
-  function scale(value: number) {
-    return `scale(${value})`;
-  }
-
   return (
     <section id="about" className="relative min-h-screen pt-24 pb-12 px-4 md:px-8 max-w-7xl mx-auto flex flex-col gap-16 items-start">
       <div className="doodle-layer opacity-[0.15]">
@@ -64,10 +60,9 @@ export default function About() {
           <Surface variant="elevated" className="p-10 relative w-full h-full">
             <div className="w-56 h-56 mx-auto mb-8 border border-ink/20 dark:border-white/15 ring-1 ring-ink/5 dark:ring-white/10 rounded-full overflow-hidden relative bg-paper/60 dark:bg-white/[0.04] backdrop-blur-sm shadow-paper group-hover:shadow-paper-hover transition-all duration-500">
               <img
-                src="/images/profile.avif" alt="Profile"
-                width={224} height={224}
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                style={{ transform: `${scale(0.9)} translateY(6%)` }}
+                src="/images/profile.png" alt="Profile"
+                width={448} height={448}
+                className="w-full h-full object-cover object-[center_18%] scale-[1.18] transition-all duration-700"
               />
             </div>
 
