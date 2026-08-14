@@ -17,9 +17,9 @@ import DrawText from '@/components/DrawText';
 import { useReveal } from '@/lib/motion';
 
 const contactSchema = z.object({
-  name: z.string().min(2, "name is too short"),
-  email: z.string().email("invalid email"),
-  message: z.string().min(10, "message is too short"),
+  name: z.string().min(2, "Name is too short."),
+  email: z.string().email("Please enter a valid email."),
+  message: z.string().min(10, "Message is too short."),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
@@ -70,22 +70,22 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
       if (res.status === 429) {
-        toast({ variant: "destructive", title: "slow down", description: "too many requests — wait a few minutes and try again." });
+        toast({ variant: "destructive", title: "Slow Down", description: "Too many requests. Give it a minute, then try again." });
         return;
       }
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
         if (body?.code === 'SMTP_TIMEOUT') {
-          toast({ variant: "destructive", title: "connection failed", description: "couldn't reach the mail server — gmail may be blocking the connection from vercel's servers. try again or reach me via the links below." });
+          toast({ variant: "destructive", title: "Connection Failed", description: "I couldn't reach the mail server. Try again, or use one of my social links below." });
         } else {
-          toast({ variant: "destructive", title: "error", description: "something went wrong. try again or reach me via the links below." });
+          toast({ variant: "destructive", title: "Something Went Wrong", description: "Try again, or reach out through one of my social links below." });
         }
         return;
       }
       setSent(true);
       form.reset();
     } catch {
-      toast({ variant: "destructive", title: "error", description: "something went wrong. try again or reach me via the links below." });
+      toast({ variant: "destructive", title: "Something Went Wrong", description: "Try again, or reach out through one of my social links below." });
     } finally {
       setIsSubmitting(false);
     }
@@ -106,7 +106,7 @@ export default function Contact() {
         <Surface variant="elevated" className="p-8 md:p-12 relative border-rose/20">
           <h2 className="text-5xl font-marker text-center mb-8">
             <ScribbleText color="text-highlighter-yellow">
-              <DrawText text="say hi" fontUrl="/fonts/PermanentMarker.woff" />
+              <DrawText text="Say Hi" fontUrl="/fonts/PermanentMarker.woff" />
             </ScribbleText>
           </h2>
 
@@ -121,13 +121,13 @@ export default function Contact() {
                 className="flex flex-col items-center gap-4 py-8 text-center"
               >
                 <SendIcon />
-                <p className="font-marker text-2xl text-ink">message sent!</p>
+                <p className="font-marker text-2xl text-ink">Message Sent!</p>
                 <p className="font-hand text-lg text-pencil/70 max-w-xs">
-                  got it. i'll get back to you within 24 hours — usually sooner.
+                  Thanks for reaching out. I usually reply within a day.
                 </p>
                 <button onClick={() => setSent(false)}
                   className="mt-2 font-hand text-sm text-pencil/50 underline decoration-dashed hover:text-ink transition-colors">
-                  send another?
+                  Send another?
                 </button>
               </m.div>
             ) : (
@@ -139,19 +139,19 @@ export default function Contact() {
                 transition={{ duration: 0.2 }}
                 onSubmit={form.handleSubmit(onSubmit)} className="space-y-6"
               >
-                <FormField label="name" error={form.formState.errors.name}>
-                  <Input {...form.register('name')} variant="sketch" placeholder="john doe" />
+                <FormField label="Name" error={form.formState.errors.name}>
+                  <Input {...form.register('name')} variant="sketch" placeholder="Your name" />
                 </FormField>
-                <FormField label="email" error={form.formState.errors.email}>
-                  <Input {...form.register('email')} variant="sketch" placeholder="john@example.com" />
+                <FormField label="Email" error={form.formState.errors.email}>
+                  <Input {...form.register('email')} variant="sketch" placeholder="you@example.com" />
                 </FormField>
-                <FormField label="message" error={form.formState.errors.message}>
-                  <Textarea {...form.register('message')} variant="sketch" placeholder="write something nice..." />
+                <FormField label="Message" error={form.formState.errors.message}>
+                  <Textarea {...form.register('message')} variant="sketch" placeholder="What are you building?" />
                 </FormField>
 
                 <Button type="submit" variant="paper" size="lg" disabled={isSubmitting}
                   className="w-full font-hand text-lg hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                  {isSubmitting ? "sending..." : "send"}
+                  {isSubmitting ? "Sending..." : "Send"}
                 </Button>
               </m.form>
             )}
@@ -159,7 +159,7 @@ export default function Contact() {
         </Surface>
 
         <div className="mt-12 text-center font-hand text-lg text-pencil">
-          <p>or just find me elsewhere</p>
+          <p>Prefer social? Find me here.</p>
           <div className="flex items-center justify-center gap-6 mt-4">
             {SOCIAL_LINKS.map(({ key, href, label, path }) => href && (
               <a key={key} href={href} target="_blank" rel="noreferrer" aria-label={label}

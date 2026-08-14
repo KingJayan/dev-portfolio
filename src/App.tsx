@@ -26,7 +26,7 @@ import { Route, Switch, useLocation } from "wouter";
 import NotFound from "@/pages/NotFound";
 import TerminalPage from "@/terminal/index";
 
-const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">loading...</div>;
+const Fallback = () => <div className="min-h-screen flex items-center justify-center text-pencil font-amatic text-2xl animate-pulse">Loading...</div>;
 
 function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: boolean }) {
   return (

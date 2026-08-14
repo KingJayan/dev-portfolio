@@ -32,9 +32,9 @@ export default class SectionErrorBoundary extends React.Component<Props, State> 
       return (
         <div className="min-h-[50vh] flex items-center justify-center px-4">
           <div className="paper-card p-6 text-center max-w-md w-full">
-            <p className="font-marker text-2xl text-ink mb-2">could not load this section</p>
-            <p className="font-hand text-pencil mb-5">please try again.</p>
-            <Button variant="paper" onClick={this.handleRetry}>retry</Button>
+            <p className="font-marker text-2xl text-ink mb-2">Could Not Load This Section</p>
+            <p className="font-hand text-pencil mb-5">Please try again.</p>
+            <Button variant="paper" onClick={this.handleRetry}>Retry</Button>
           </div>
         </div>
       );

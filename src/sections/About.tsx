@@ -68,12 +68,12 @@ export default function About() {
 
             <h2 className="text-6xl font-marker text-center mb-8 relative">
               <ScribbleText color="text-highlighter-yellow">
-                <DrawText text="about" fontUrl="/fonts/PermanentMarker.woff" />
+                <DrawText text="About" fontUrl="/fonts/PermanentMarker.woff" />
               </ScribbleText>
             </h2>
 
             <div className="font-hand text-lg text-ink leading-relaxed space-y-6">
-              <p>Hi! I'm <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.</p>
+              <p>Hi! I’m <ScribbleText color="text-highlighter-yellow" className="font-bold rotate-1 px-1">{personal.name}</ScribbleText>.</p>
               {about.bio?.map((paragraph: string, idx: number) => <p key={idx}>{paragraph}</p>)}
             </div>
           </Surface>
@@ -89,7 +89,7 @@ export default function About() {
           <Surface variant="elevated" className="p-8 relative h-full flex flex-col">
             <h3 className="relative text-3xl font-amatic font-bold mb-8 pb-3 flex items-center gap-3">
               <Star className="w-8 h-8 text-highlighter-yellow" />
-              skills
+              Skills
               <Underline className="absolute bottom-0 left-0 w-full h-2 text-pencil/40" />
             </h3>
             <div className="flex flex-col gap-5 flex-1 justify-around">
@@ -111,7 +111,7 @@ export default function About() {
         <Surface variant="elevated" className="p-10 relative">
           <h3 className="relative text-3xl font-amatic font-bold mb-10 pb-5 flex items-center gap-4 text-pencil justify-center">
             <Box className="w-10 h-10 text-highlighter-yellow" />
-            toolkit
+            Toolkit
             <Underline className="absolute bottom-0 left-0 w-full h-2 text-pencil/40" />
           </h3>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-6 px-4 justify-items-center">

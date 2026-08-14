@@ -15,10 +15,10 @@ export default function ScrollProgress() {
             style={{ zIndex: Z_INDEX.floating }}
         >
             {/* track */}
-            <div className="relative w-[2px] h-full bg-pencil/10 rounded-full">
+            <div className="relative w-[3px] h-full bg-pencil/20 dark:bg-ink/25 rounded-full">
                 {/* filled portion */}
                 <m.div
-                    className="absolute top-0 left-0 w-full origin-top rounded-full bg-pencil/30"
+                    className="absolute top-0 left-0 w-full origin-top rounded-full bg-pencil/45 dark:bg-highlighter-yellow"
                     style={{ scaleY: smoothProgress }}
                 />
 
@@ -28,7 +28,7 @@ export default function ScrollProgress() {
                     return (
                         <div
                             key={i}
-                            className="absolute -left-[3px] w-2 h-[1px] bg-pencil/20"
+                            className="absolute -left-[3px] w-2 h-[1px] bg-pencil/30 dark:bg-ink/45"
                             style={{ top: `${pct}%` }}
                         />
                     );
@@ -36,7 +36,7 @@ export default function ScrollProgress() {
 
                 {/* travelling marker — small circle that rides the track */}
                 <m.div
-                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-highlighter-yellow border border-pencil/30 shadow-sm"
+                    className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-highlighter-yellow border border-pencil/50 dark:border-ink/70 shadow-[0_0_0_2px_rgb(var(--color-paper-ch)/0.7)]"
                     style={{ top: markerY }}
                 />
             </div>

@@ -22,16 +22,16 @@ export default function NotFound() {
                 </div>
 
                 <h1 className="text-8xl font-marker mb-4 text-ink">404</h1>
-                <h2 className="text-4xl font-amatic font-bold mb-6">page not found</h2>
+                <h2 className="text-4xl font-amatic font-bold mb-6">Page Not Found</h2>
 
                 <p className="font-hand text-xl text-pencil mb-8 leading-relaxed">
-                    this page isn't here.
-                    head back home and keep browsing.
+                    This page isn’t here.
+                    Head back home and keep browsing.
                 </p>
 
                 <Link href="/">
                     <Button variant="paper" size="lg" className="font-marker text-xl hover:scale-105 transition-all">
-                        go home
+                        Go Home
                     </Button>
                 </Link>
             </m.div>

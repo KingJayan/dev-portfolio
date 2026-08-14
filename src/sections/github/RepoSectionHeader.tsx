@@ -13,7 +13,7 @@ export function RepoSectionHeader({ subtitle, withArrow = false, className = 'mb
     <div className={`flex flex-col items-center relative ${className}`}>
       <h2 className="text-5xl md:text-6xl font-marker text-center relative">
         <ScribbleText color="text-highlighter-yellow">
-          <DrawText text="repos" fontUrl="/fonts/PermanentMarker.woff" />
+          <DrawText text="Repos" fontUrl="/fonts/PermanentMarker.woff" />
         </ScribbleText>
       </h2>
       {withArrow && (

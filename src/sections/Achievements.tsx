@@ -2,7 +2,7 @@ import { m, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { portfolioConfig } from '@/portfolio.config';
 import { Underline, Circle } from '@/components/Doodles';
-import { Award, Trophy, Star as StarIcon, FileText, X } from 'lucide-react';
+import { Award, Trophy, Star as StarIcon, Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import PaperCard from '@/components/ui/PaperCard';
 import { Surface } from '@/components/ui/surface';
@@ -63,28 +63,33 @@ export default function Achievements() {
                         className="text-5xl font-marker text-center relative inline-block px-8"
                     >
                         <ScribbleText color="text-pencil/40">
-                          <DrawText text="extras" fontUrl="/fonts/PermanentMarker.woff" />
+                                                    <DrawText text="Extras" fontUrl="/fonts/PermanentMarker.woff" />
                         </ScribbleText>
                         <Circle className="absolute -inset-y-2 -inset-x-1 w-[calc(100%+8px)] h-[calc(100%+16px)] text-pencil/25 pointer-events-none" />
                     </m.h2>
-                    <p className="font-hand text-xl text-pencil/60 mt-4 max-w-md mx-auto">stuff i do outside code.</p>
+                    <p className="font-hand text-xl text-pencil/60 mt-4 max-w-md mx-auto">Stuff I Do Outside Code.</p>
                 </div>
 
                 <m.div
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}
                     onClick={() => setIsFolioOpen(true)}
                     onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsFolioOpen(true); } }}
-                    tabIndex={0} role="button" aria-label="open extras"
+                    tabIndex={0} role="button" aria-label="Open extras"
                     className="cursor-pointer relative mt-8 group inline-block focus:outline-none focus:ring-4 focus:ring-highlighter-yellow/50 rounded-xl"
                 >
                     <PaperCard rotate={0} showTape={false}
-                        className="w-56 h-72 mx-auto flex flex-col items-center justify-center border-t-2 border-t-highlighter-yellow/50 bg-paper/70 backdrop-blur-sm shadow-paper overflow-hidden group-hover:shadow-paper-hover transition-shadow"
+                        className="w-64 h-72 mx-auto flex flex-col items-center justify-center border-t-2 border-t-highlighter-yellow/50 bg-paper/70 backdrop-blur-sm shadow-paper overflow-hidden group-hover:shadow-paper-hover transition-shadow"
                     >
-                        <FileText className="w-16 h-16 text-pencil/40 mb-4 group-hover:text-highlighter-yellow transition-colors duration-300" />
-                        <h3 className="font-marker text-2xl text-ink/60">extracurriculars</h3>
-                        <p className="font-hand text-sm text-pencil/40 mt-1">click to browse</p>
+                        <div className="relative mb-4">
+                            <div className="w-16 h-16 rounded-full bg-highlighter-yellow/25 border border-pencil/20 flex items-center justify-center transition-colors duration-300 group-hover:bg-highlighter-yellow/40">
+                                <Trophy className="w-8 h-8 text-pencil/70 group-hover:text-ink transition-colors duration-300" />
+                            </div>
+                            <Sparkles className="absolute -top-2 -right-2 w-4 h-4 text-highlighter-yellow" />
+                        </div>
+                        <h3 className="font-marker text-3xl text-ink/75">Beyond Code</h3>
+                        <p className="font-hand text-sm text-pencil/50 mt-1">Robotics, Debate, Choir, Piano</p>
                         <div className="mt-4 px-3 py-1 glass-panel rounded group-hover:bg-highlighter-yellow/30 group-hover:border-highlighter-yellow/50 transition-all duration-300">
-                            <span className="font-hand text-sm text-ink/60">open →</span>
+                            <span className="font-hand text-sm text-ink/60">Open Folio →</span>
                         </div>
                     </PaperCard>
                 </m.div>
@@ -114,8 +119,8 @@ export default function Achievements() {
                                             <X className="w-6 h-6 text-pencil" />
                                         </Button>
                                         <div className="flex flex-col items-center justify-center">
-                                            <h2 className="text-4xl font-marker text-ink">extras</h2>
-                                            <p className="font-hand text-lg text-pencil/60 italic mt-1 leading-none opacity-80">from robotics to debate.</p>
+                                            <h2 className="text-4xl font-marker text-ink">Extras</h2>
+                                            <p className="font-hand text-lg text-pencil/60 italic mt-1 leading-none opacity-80">The work that shaped how I compete, perform, and lead.</p>
                                         </div>
                                     </div>
 
@@ -143,7 +148,7 @@ export default function Achievements() {
                                         </div>
                                         <div className="mt-20 flex flex-col items-center opacity-20 pointer-events-none">
                                             <Underline className="w-40 h-4 text-pencil" />
-                                            <p className="mt-4 font-hand text-sm">more soon.</p>
+                                            <p className="mt-4 font-hand text-sm">More soon.</p>
                                         </div>
                                     </div>
                                 </Surface>

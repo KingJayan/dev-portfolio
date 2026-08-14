@@ -22,13 +22,13 @@ const SECTION_ICONS = {
 } as const;
 
 const NAV_ITEMS = [
-  { name: 'home', href: '#home', id: 'home' },
-  { name: 'projects', href: '#projects', id: 'projects' },
-  { name: 'github', href: '#github', id: 'github' },
-  { name: 'about', href: '#about', id: 'about' },
-  { name: 'extras', href: '#achievements', id: 'achievements' },
-  { name: 'life', href: '#outside', id: 'outside' },
-  { name: 'contact', href: '#contact', id: 'contact' },
+  { name: 'Home', href: '#home', id: 'home' },
+  { name: 'Projects', href: '#projects', id: 'projects' },
+  { name: 'GitHub', href: '#github', id: 'github' },
+  { name: 'About', href: '#about', id: 'about' },
+  { name: 'Extras', href: '#achievements', id: 'achievements' },
+  { name: 'Life', href: '#outside', id: 'outside' },
+  { name: 'Contact', href: '#contact', id: 'contact' },
 ] as const;
 
 const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
@@ -109,7 +109,7 @@ function NavTools({ compact = false }: { compact?: boolean }) {
   return (
     <div className={cn('pt-3 border-t border-dashed border-pencil/30', compact ? 'mt-4 border-pencil/25' : 'mt-4')}>
       <p className={cn('px-1 mb-2.5 text-[10px] uppercase font-sans text-pencil/60', compact ? 'tracking-[0.14em] mb-2 text-pencil/55' : 'tracking-[0.18em]')}>
-        tools
+        Tools
       </p>
       <div className="flex items-center justify-center gap-3">
         {tools.map(({ id, icon: Icon, onClick, active, label }) => (
@@ -274,7 +274,7 @@ export default function Navigation() {
                 exit="exit"
               >
                 <m.div variants={rowVariants} className="flex items-center justify-between mb-3.5">
-                  <span className="px-1 text-[10px] uppercase font-sans text-pencil/50 tracking-[0.18em]">nav</span>
+                  <span className="px-1 text-[10px] uppercase font-sans text-pencil/50 tracking-[0.18em]">Nav</span>
                   <button
                     onClick={handleToggle}
                     aria-label="collapse navigation"

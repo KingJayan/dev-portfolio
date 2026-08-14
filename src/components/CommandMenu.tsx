@@ -72,9 +72,9 @@ export default function CommandMenu() {
     const copyEmail = useCallback(() => run(async () => {
         try {
             await navigator.clipboard.writeText(portfolioConfig.personal.email);
-            toast({ description: "email copied" });
+            toast({ description: "Email copied" });
         } catch {
-            toast({ description: "could not copy" });
+            toast({ description: "Could not copy" });
         }
     }), [run]);
 
@@ -84,7 +84,7 @@ export default function CommandMenu() {
             await navigator.share({ title: portfolioConfig.personal.name, url }).catch(() => null);
         } else {
             await navigator.clipboard.writeText(url).catch(() => null);
-            toast({ description: "link copied" });
+            toast({ description: "Link copied" });
         }
     }), [run]);
 
@@ -99,29 +99,29 @@ export default function CommandMenu() {
     const quickActions: QuickAction[] = [
         {
             icon: theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />,
-            label: theme === "dark" ? "light" : "dark",
+            label: theme === "dark" ? "Light" : "Dark",
             onSelect: () => run(toggleTheme),
         },
         {
             icon: <BookOpen className="w-4 h-4" />,
-            label: "zen",
+            label: "Zen",
             active: isZenMode,
             onSelect: () => run(toggleZenMode),
         },
         {
             icon: <Pencil className="w-4 h-4" />,
-            label: "draw",
+            label: "Draw",
             active: isDrawingMode,
             onSelect: () => run(toggleDrawingMode),
         },
         {
             icon: <Copy className="w-4 h-4" />,
-            label: "email",
+            label: "Email",
             onSelect: copyEmail,
         },
         {
             icon: <Share2 className="w-4 h-4" />,
-            label: "share",
+            label: "Share",
             onSelect: shareSite,
         },
     ];
@@ -130,18 +130,18 @@ export default function CommandMenu() {
 
     const groups: CommandGroup[] = [
         {
-            heading: "go",
+            heading: "Go",
             items: [
-                { id: "home", label: "home", icon: <Home className="w-4 h-4" />, onSelect: () => scrollTo("home") },
-                { id: "projects", label: "projects", icon: <FileCode className="w-4 h-4" />, onSelect: () => scrollTo("projects") },
-                { id: "about", label: "about", icon: <User className="w-4 h-4" />, onSelect: () => scrollTo("about") },
-                { id: "achievements", label: "extras", icon: <Trophy className="w-4 h-4" />, onSelect: () => scrollTo("achievements") },
-                { id: "outside", label: "life", icon: <Smile className="w-4 h-4" />, onSelect: () => scrollTo("outside") },
-                { id: "contact", label: "contact", icon: <Mail className="w-4 h-4" />, onSelect: () => scrollTo("contact") },
+                { id: "home", label: "Home", icon: <Home className="w-4 h-4" />, onSelect: () => scrollTo("home") },
+                { id: "projects", label: "Projects", icon: <FileCode className="w-4 h-4" />, onSelect: () => scrollTo("projects") },
+                { id: "about", label: "About", icon: <User className="w-4 h-4" />, onSelect: () => scrollTo("about") },
+                { id: "achievements", label: "Extras", icon: <Trophy className="w-4 h-4" />, onSelect: () => scrollTo("achievements") },
+                { id: "outside", label: "Life", icon: <Smile className="w-4 h-4" />, onSelect: () => scrollTo("outside") },
+                { id: "contact", label: "Contact", icon: <Mail className="w-4 h-4" />, onSelect: () => scrollTo("contact") },
             ],
         },
         {
-            heading: "work",
+            heading: "Work",
             items: portfolioConfig.projects.items.map(p => ({
                 id: p.id,
                 label: p.title,
@@ -154,19 +154,19 @@ export default function CommandMenu() {
             })),
         },
         {
-            heading: "power",
+            heading: "Power",
             items: [
-                { id: "surprise", label: "surprise me", icon: <Shuffle className="w-4 h-4" />, onSelect: surpriseMe },
-                { id: "top", label: "scroll to top", icon: <ArrowUp className="w-4 h-4" />, onSelect: () => scrollTo("home") },
-                { id: "share", label: "share this site", icon: <Share2 className="w-4 h-4" />, onSelect: shareSite },
-                { id: "terminal", label: "> open terminal", icon: <Terminal className="w-4 h-4" />, onSelect: () => { setOpen(false); navigate("/terminal"); } },
+                { id: "surprise", label: "Surprise Me", icon: <Shuffle className="w-4 h-4" />, onSelect: surpriseMe },
+                { id: "top", label: "Scroll to Top", icon: <ArrowUp className="w-4 h-4" />, onSelect: () => scrollTo("home") },
+                { id: "share", label: "Share This Site", icon: <Share2 className="w-4 h-4" />, onSelect: shareSite },
+                { id: "terminal", label: "> Open Terminal", icon: <Terminal className="w-4 h-4" />, onSelect: () => { setOpen(false); navigate("/terminal"); } },
             ],
         },
         {
-            heading: "connect",
+            heading: "Connect",
             items: [
-                { id: "github", label: "github", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.github, "_blank")) },
-                { id: "linkedin", label: "linkedin", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.linkedin, "_blank")) },
+                { id: "github", label: "GitHub", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.github, "_blank")) },
+                { id: "linkedin", label: "LinkedIn", icon: <ArrowUpRight className="w-4 h-4" />, onSelect: () => run(() => window.open(portfolioConfig.social.linkedin, "_blank")) },
             ],
         },
     ];
@@ -185,7 +185,7 @@ export default function CommandMenu() {
                         transition={{ duration: MOTION_TIMING.micro, ease: MOTION_EASE.standard }}
                     >
                         <CommandIcon className="w-4 h-4 text-pencil group-hover:text-highlighter-pink transition-colors" />
-                        <span className="text-ink/80 group-hover:text-ink">menu</span>
+                        <span className="text-ink/80 group-hover:text-ink">Menu</span>
                         <span className="ml-2 text-xs bg-black/5 px-2 py-0.5 rounded text-ink/50 font-sans">shift+p</span>
                     </m.button>
                 </Button>
@@ -231,14 +231,14 @@ export default function CommandMenu() {
                                 <Search className="mr-3 h-5 w-5 shrink-0 opacity-30 text-ink" />
                                 <Command.Input
                                     className="flex h-16 w-full bg-transparent text-[22px] outline-none placeholder:text-ink/25 font-hand text-ink"
-                                    placeholder="type a command..."
+                                    placeholder="Type a command..."
                                     autoFocus
                                 />
                             </div>
 
                             <Command.List className="max-h-[400px] overflow-y-auto overflow-x-hidden px-2 py-2">
                                 <Command.Empty className="py-12 text-center text-ink/35 font-hand text-xl">
-                                    nothing found.
+                                    Nothing found.
                                 </Command.Empty>
 
                                 {groups.map((group, i) => (

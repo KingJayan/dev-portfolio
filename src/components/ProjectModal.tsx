@@ -80,13 +80,13 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                             <div className="p-8 md:p-12 flex flex-col gap-6">
                                 <div>
                                     <h2 className="font-marker text-4xl text-ink">{project.title}</h2>
-                                    <p className="font-hand text-base text-pencil/60 mt-1">{project.startDate} — {project.endDate || "present"}</p>
+                                    <p className="font-hand text-base text-pencil/60 mt-1">{project.startDate} — {project.endDate || "Present"}</p>
                                 </div>
 
                                 <p className="font-hand text-lg text-ink/80 leading-relaxed">{project.description}</p>
 
                                 <div className="pt-6 border-t border-dashed border-ink/10">
-                                    <span className="font-hand text-sm text-pencil/60 uppercase tracking-widest">stack</span>
+                                    <span className="font-hand text-sm text-pencil/60 uppercase tracking-widest">Stack</span>
                                     <div className="flex flex-wrap gap-2 mt-3">
                                         {project.technologies.map(tech => (
                                             <span key={tech} className="px-3 py-1 bg-paper border border-ink/20 rounded-full font-hand text-sm shadow-sm">
@@ -99,12 +99,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                 <div className="flex gap-4 mt-auto">
                                     {hasUrl(project, "githubUrl") && project.githubUrl && (
                                         <a href={project.githubUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-pink transition-colors">
-                                            <GitHubIcon /> source
+                                            <GitHubIcon /> Source
                                         </a>
                                     )}
                                     {hasUrl(project, "liveUrl") && project.liveUrl && (
                                         <a href={project.liveUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-hand text-lg hover:text-highlighter-yellow transition-colors">
-                                            <ExternalLink className="w-5 h-5" /> live
+                                            <ExternalLink className="w-5 h-5" /> Live
                                         </a>
                                     )}
                                 </div>

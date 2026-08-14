@@ -31,7 +31,7 @@ export default function Projects() {
       <div className="flex flex-col items-center mb-16 relative">
         <h2 className="text-5xl md:text-6xl font-marker text-center relative">
           <ScribbleText color="text-highlighter-yellow">
-            <DrawText text="my work" fontUrl="/fonts/PermanentMarker.woff" />
+            <DrawText text="My Work" fontUrl="/fonts/PermanentMarker.woff" />
           </ScribbleText>
         </h2>
         <Arrow className="absolute -right-12 -bottom-4 w-16 h-8 text-pencil/30 rotate-12" />
