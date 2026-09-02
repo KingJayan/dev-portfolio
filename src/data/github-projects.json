@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-09-02T03:06:34.473Z",
+  "generatedAt": "2026-09-02T03:13:41.053Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "dev-portfolio",
+      "title": "Dev Portfolio",
+      "description": "my dev portfolio",
+      "technologies": [
+        "Dev Portfolio",
+        "Framer Motion",
+        "Portfolio",
+        "TypeScript",
+        "CSS",
+        "HTML"
+      ],
+      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
+      "liveUrl": "https://jayanpatel.vercel.app",
+      "startDate": "07/25",
+      "endDate": "07/26",
+      "lastUpdated": "2026-09-02T03:12:23.000Z",
+      "stars": 1,
+      "commitCount": 151,
+      "source": "github"
+    },
     {
       "id": "mousecape-cursors",
       "title": "Mousecape Cursors",
@@ -96,27 +117,6 @@
       "lastUpdated": "2026-08-15T05:48:57.000Z",
       "stars": 1,
       "commitCount": 17,
-      "source": "github"
-    },
-    {
-      "id": "dev-portfolio",
-      "title": "Dev Portfolio",
-      "description": "my dev portfolio",
-      "technologies": [
-        "Dev Portfolio",
-        "Framer Motion",
-        "Portfolio",
-        "TypeScript",
-        "CSS",
-        "HTML"
-      ],
-      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
-      "liveUrl": "https://jayanpatel.vercel.app",
-      "startDate": "07/25",
-      "endDate": "07/26",
-      "lastUpdated": "2026-08-14T03:50:39.000Z",
-      "stars": 1,
-      "commitCount": 149,
       "source": "github"
     },
     {
