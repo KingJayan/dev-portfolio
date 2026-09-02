@@ -58,19 +58,24 @@ async function fetchRepos(user: string): Promise<Repo[]> {
   return all;
 }
 
-async function fetchCommitDates(fullName: string): Promise<number[] > {
-  const dates: number[] = [];
+interface CommitRef {
+  sha: string;
+  date: number;
+}
+
+async function fetchCommits(fullName: string): Promise<CommitRef[]> {
+  const commits: CommitRef[] = [];
   for (let page = 1; page <= MAX_COMMIT_PAGES; page++) {
-    const batch = await api<Array<{ commit: { author?: { date?: string }; committer?: { date?: string } } }>>(
+    const batch = await api<Array<{ sha: string; commit: { author?: { date?: string }; committer?: { date?: string } } }>>(
       `/repos/${fullName}/commits?per_page=100&page=${page}`
     );
     for (const c of batch) {
       const iso = c.commit.author?.date ?? c.commit.committer?.date;
-      if (iso) dates.push(new Date(iso).getTime());
+      if (iso) commits.push({ sha: c.sha, date: new Date(iso).getTime() });
     }
     if (batch.length < 100) break;
   }
-  return dates.sort((a, b) => a - b);
+  return commits.sort((a, b) => a.date - b.date);
 }
 
 const monthYear = (ms: number) => {
@@ -78,14 +83,92 @@ const monthYear = (ms: number) => {
   return `${String(d.getUTCMonth() + 1).padStart(2, "0")}/${String(d.getUTCFullYear() % 100).padStart(2, "0")}`;
 };
 
-function findBurstEnd(dates: number[]): number {
-  const n = gh.burstSize;
-  const window = gh.burstWindowDays * DAY_MS;
-  let end = dates[dates.length - 1];
-  for (let i = n - 1; i < dates.length; i++) {
-    if (dates[i] - dates[i - n + 1] <= window) end = dates[i];
+interface Session {
+  start: number;
+  end: number;
+  shas: string[];
+}
+
+function buildSessions(commits: readonly CommitRef[], gapMs: number): Session[] {
+  const sessions: Session[] = [];
+  for (const c of commits) {
+    const current = sessions[sessions.length - 1];
+    if (current && c.date - current.end <= gapMs) {
+      current.end = c.date;
+      current.shas.push(c.sha);
+    } else {
+      sessions.push({ start: c.date, end: c.date, shas: [c.sha] });
+    }
   }
-  return end;
+  return sessions;
+}
+
+const TRIVIAL_FILE_PATTERNS = [
+  /^readme(\.[a-z0-9]+)?$/i,
+  /^license(\.[a-z0-9]+)?$/i,
+  /^changelog(\.[a-z0-9]+)?$/i,
+  /^\.gitignore$/i,
+  /package-lock\.json$/i,
+  /^yarn\.lock$/i,
+  /^bun\.lock(b)?$/i,
+  /^\.gitattributes$/i,
+];
+
+interface SessionStats {
+  changedLines: number;
+  allTrivialFiles: boolean;
+}
+
+async function fetchSessionStats(fullName: string, session: Session): Promise<SessionStats> {
+  const sha = session.shas[session.shas.length - 1];
+  const detail = await api<{
+    stats?: { additions?: number; deletions?: number };
+    files?: Array<{ filename: string }>;
+  }>(`/repos/${fullName}/commits/${sha}`).catch(() => ({}) as { stats?: never; files?: never });
+
+  const changedLines = (detail.stats?.additions ?? 0) + (detail.stats?.deletions ?? 0);
+  const files = detail.files ?? [];
+  const allTrivialFiles =
+    files.length > 0 && files.every((f) => TRIVIAL_FILE_PATTERNS.some((re) => re.test(f.filename)));
+
+  return { changedLines, allTrivialFiles };
+}
+
+function isTrivialSession(stats: SessionStats): boolean {
+  return stats.allTrivialFiles || stats.changedLines < gh.minSessionChangeLines;
+}
+
+function median(nums: readonly number[]): number | undefined {
+  if (nums.length === 0) return undefined;
+  const sorted = [...nums].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 0 ? (sorted[mid - 1] + sorted[mid]) / 2 : sorted[mid];
+}
+
+interface ContinuationResult {
+  endDate: number;
+  isActive: boolean;
+}
+
+async function resolveContinuation(fullName: string, sessions: readonly Session[]): Promise<ContinuationResult> {
+  const realSessions: Session[] = [];
+  for (const session of sessions) {
+    const stats = await fetchSessionStats(fullName, session);
+    if (!isTrivialSession(stats)) realSessions.push(session);
+  }
+
+  const effective = realSessions.length > 0 ? realSessions : [...sessions];
+  const lastReal = effective[effective.length - 1];
+
+  const gaps: number[] = [];
+  for (let i = 1; i < effective.length; i++) gaps.push(effective[i].start - effective[i - 1].end);
+  const medianGap = median(gaps);
+
+  const floor = gh.activeWithinDays * DAY_MS;
+  const threshold = medianGap !== undefined ? Math.max(floor, medianGap * gh.activeMultiplier) : floor;
+  const isActive = Date.now() - lastReal.end <= threshold;
+
+  return { endDate: lastReal.end, isActive };
 }
 
 function titleize(name: string): string {
@@ -136,13 +219,13 @@ async function main() {
 
   const projects: GeneratedProject[] = [];
   for (const repo of repos) {
-    let dates: number[] = [];
+    let commits: CommitRef[] = [];
     try {
-      dates = await fetchCommitDates(repo.full_name);
+      commits = await fetchCommits(repo.full_name);
     } catch (err) {
       console.warn(`  ~ ${repo.name}: could not read commits (${(err as Error).message})`);
     }
-    if (dates.length === 0) {
+    if (commits.length === 0) {
       console.warn(`  - ${repo.name}: skipped (no commits)`);
       continue;
     }
@@ -159,10 +242,9 @@ async function main() {
       new Set([...(repo.topics ?? []).map(labelTopic), ...topLanguages])
     ).slice(0, gh.maxTechnologies);
 
-    const lastCommit = dates[dates.length - 1];
-    const burstEnd = findBurstEnd(dates);
-    const isActive =
-      burstEnd === lastCommit && Date.now() - lastCommit <= gh.activeWithinDays * DAY_MS;
+    const lastCommit = commits[commits.length - 1].date;
+    const sessions = buildSessions(commits, gh.sessionGapHours * 60 * 60 * 1000);
+    const { endDate: continuationEnd, isActive } = await resolveContinuation(repo.full_name, sessions);
 
     projects.push({
       id: repo.name.toLowerCase(),
@@ -171,16 +253,16 @@ async function main() {
       technologies,
       githubUrl: repo.html_url,
       liveUrl: repo.homepage?.trim() ? repo.homepage.trim() : undefined,
-      startDate: monthYear(dates[0]),
-      endDate: isActive ? "" : monthYear(burstEnd),
+      startDate: monthYear(commits[0].date),
+      endDate: isActive ? "" : monthYear(continuationEnd),
       lastUpdated: new Date(lastCommit).toISOString(),
       stars: repo.stargazers_count,
-      commitCount: dates.length,
+      commitCount: commits.length,
       source: "github",
     });
 
     console.log(
-      `  + ${repo.name}: ${monthYear(dates[0])} → ${isActive ? "present" : monthYear(burstEnd)} (${dates.length} commits)`
+      `  + ${repo.name}: ${monthYear(commits[0].date)} → ${isActive ? "present" : monthYear(continuationEnd)} (${commits.length} commits, ${sessions.length} sessions)`
     );
   }
 
