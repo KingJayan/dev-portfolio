@@ -222,7 +222,7 @@ export const portfolioConfig = {
     github: {
       username: "KingJayan",
 
-      exclude: ["KingJayan"] as string[],
+      exclude: ["KingJayan", "\\stest"] as Array<string>,
       excludeForks: true,
       excludeArchived: false,
       burstSize: 4,

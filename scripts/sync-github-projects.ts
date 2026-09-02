@@ -106,12 +106,29 @@ const TOPIC_LABELS: Record<string, string> = {
 };
 const labelTopic = (t: string) => TOPIC_LABELS[t.toLowerCase()] ?? titleize(t);
 
+/**
+ * Supports exact names, `*` wildcards (e.g. "*-test"), and a `\s` prefix for a
+ * substring match anywhere in the name (e.g. "\stest" matches "lemlibtest").
+ */
+function matchesExclude(name: string, patterns: readonly string[]): boolean {
+  const lower = name.toLowerCase();
+  return patterns.some((p) => {
+    if (p.startsWith("\\s")) return lower.includes(p.slice(2).toLowerCase());
+    if (!p.includes("*")) return p.toLowerCase() === lower;
+    const re = new RegExp(`^${p.toLowerCase().split("*").map(escapeRegExp).join(".*")}$`);
+    return re.test(lower);
+  });
+}
+function escapeRegExp(s: string): string {
+  return s.replace(/[.+?^${}()|[\]\\]/g, "\\$&");
+}
+
 async function main() {
   const repos = (await fetchRepos(gh.username)).filter((repo) => {
     if (repo.private) return false;
     if (gh.excludeForks && repo.fork) return false;
     if (gh.excludeArchived && repo.archived) return false;
-    if ((gh.exclude as readonly string[]).includes(repo.name)) return false;
+    if (matchesExclude(repo.name, gh.exclude as readonly string[])) return false;
     return true;
   });
 
