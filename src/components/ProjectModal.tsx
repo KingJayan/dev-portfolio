@@ -1,6 +1,6 @@
 import { m, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { X, ExternalLink } from "lucide-react";
+import { X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 
 const GitHubIcon = () => (
     <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
@@ -18,6 +18,10 @@ type ProjectItem = PortfolioConfig["projects"]["items"][number];
 interface ProjectModalProps {
     project: ProjectItem | null;
     onClose: () => void;
+    showNavigation?: boolean;
+    onPrevious?: () => void;
+    onNext?: () => void;
+    navigationLabel?: string;
 }
 
 function hasUrl<K extends string>(obj: object, key: K): obj is Record<K, string> {
@@ -41,7 +45,14 @@ function PreviewImage({ project }: { project: ProjectItem }) {
     );
 }
 
-export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+export default function ProjectModal({
+    project,
+    onClose,
+    showNavigation = false,
+    onPrevious,
+    onNext,
+    navigationLabel,
+}: ProjectModalProps) {
     const MOTION_TIMING = useMotionTiming();
     return createPortal(
         <AnimatePresence>
@@ -81,6 +92,29 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                                 <div>
                                     <h2 className="font-marker text-4xl text-ink">{project.title}</h2>
                                     <p className="font-hand text-base text-pencil/60 mt-1">{project.startDate} — {project.endDate || "Present"}</p>
+                                    {showNavigation && (
+                                        <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-pencil/25 bg-paper/70 px-2 py-1">
+                                            <Button
+                                                variant="iconSoft"
+                                                size="icon"
+                                                onClick={onPrevious}
+                                                className="h-8 w-8"
+                                                aria-label="previous library project"
+                                            >
+                                                <ChevronLeft className="h-4 w-4" />
+                                            </Button>
+                                            <span className="font-hand text-sm text-pencil/75 min-w-14 text-center">{navigationLabel || "Library"}</span>
+                                            <Button
+                                                variant="iconSoft"
+                                                size="icon"
+                                                onClick={onNext}
+                                                className="h-8 w-8"
+                                                aria-label="next library project"
+                                            >
+                                                <ChevronRight className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <p className="font-hand text-lg text-ink/80 leading-relaxed">{project.description}</p>
