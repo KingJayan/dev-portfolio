@@ -1,5 +1,6 @@
 import { portfolioConfig } from "@/portfolio.config";
 import type { VFSNode, VirtualDir, OutputNode } from "./types";
+import { allProjects } from "@/data/projects";
 
 function text(content: string, color?: "fg" | "dim" | "muted" | "accent" | "green" | "amber" | "red"): OutputNode {
   return { type: "text", content, color };
@@ -43,11 +44,7 @@ const socialFile = (): OutputNode[] => [
 ];
 
 function projectFile(id: string): () => OutputNode[] {
-  const p = cfg.projects.items.find((item) => item.id === id)! as {
-    id: string; title: string; description: string;
-    technologies: readonly string[]; liveUrl?: string; githubUrl?: string;
-    startDate: string; endDate: string;
-  };
+  const p = allProjects.find((item) => item.id === id)!;
   return () => [
     text(`─── ${p.title} ${"─".repeat(Math.max(0, 46 - p.title.length))}`, "dim"),
     text(p.description, "fg"),
@@ -55,7 +52,8 @@ function projectFile(id: string): () => OutputNode[] {
     text(`tech      ${p.technologies.join(", ")}`, "muted"),
     p.liveUrl ? text(`live      ${p.liveUrl}`, "accent") : null,
     p.githubUrl ? text(`github    ${p.githubUrl}`, "accent") : null,
-    text(`dates     ${p.startDate} → ${p.endDate}`, "muted"),
+    text(`dates     ${p.startDate} → ${p.endDate || "present"}`, "muted"),
+    p.lastUpdated ? text(`updated   ${p.lastUpdated.slice(0, 10)}`, "muted") : null,
   ].filter((x): x is OutputNode => x !== null);
 }
 
@@ -82,7 +80,7 @@ export function buildVFS(): VirtualDir {
     kind: "dir",
     name: "projects",
     children: Object.fromEntries(
-      cfg.projects.items.map((p) => [
+      allProjects.map((p) => [
         p.id,
         { kind: "file", name: p.id, content: projectFile(p.id) },
       ])
@@ -151,8 +149,6 @@ export function listDir(path: string): string[] {
 }
 
 export function getProjectUrl(id: string): string | null {
-  const p = cfg.projects.items.find((item) => item.id === id) as
-    | { liveUrl?: string; githubUrl?: string }
-    | undefined;
+  const p = allProjects.find((item) => item.id === id);
   return p?.liveUrl ?? p?.githubUrl ?? null;
 }

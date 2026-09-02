@@ -1,6 +1,7 @@
 import { portfolioConfig } from "@/portfolio.config";
 import { getNode, listDir, resolveAbsPath, getProjectUrl } from "./terminalFs";
 import type { Command, CommandResult, OutputNode } from "./types";
+import { allProjects } from "@/data/projects";
 
 function t(content: string, color?: "fg" | "dim" | "muted" | "accent" | "green" | "amber" | "red"): OutputNode {
   return { type: "text", content, color };
@@ -197,7 +198,7 @@ const COMMANDS: Command[] = [
           ["host",     cfg.personal.name],
           ["location", cfg.personal.location],
           ["role",     cfg.personal.title],
-          ["projects", String(cfg.projects.items.length)],
+          ["projects", String(allProjects.length)],
           ["skills",   String(cfg.about.skills.length)],
           ["status",   cfg.hero.status],
           ["uptime",   "always"],

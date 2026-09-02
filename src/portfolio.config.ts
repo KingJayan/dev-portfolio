@@ -218,6 +218,22 @@ export const portfolioConfig = {
 
   projects: {
     showFilter: false,
+
+    github: {
+      username: "KingJayan",
+
+      exclude: ["KingJayan"] as string[],
+      excludeForks: true,
+      excludeArchived: false,
+      burstSize: 4,
+      burstWindowDays: 2,
+      activeWithinDays: 45,
+      maxLanguages: 3,
+      maxTechnologies: 6,
+    },
+
+    // manual entries.
+    // conflicting `id` or `githubUrl` will override sync
     items: [
       {
         id: "portfolio-website",

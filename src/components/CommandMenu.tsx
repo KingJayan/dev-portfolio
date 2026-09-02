@@ -16,6 +16,7 @@ import { MOTION_EASE, useMotionTiming } from "@/lib/motion";
 import { Z_INDEX } from "@/lib/z-index";
 import { cn } from "@/lib/utils";
 import { useLocation } from "wouter";
+import { allProjects } from "@/data/projects";
 
 // types
 
@@ -142,14 +143,14 @@ export default function CommandMenu() {
         },
         {
             heading: "Work",
-            items: portfolioConfig.projects.items.map(p => ({
+            items: allProjects.map(p => ({
                 id: p.id,
                 label: p.title,
                 icon: <ArrowUpRight className="w-4 h-4 text-highlighter-pink" />,
                 badge: p.technologies[0],
                 onSelect: () => run(() => {
-                    const url = (p as Record<string, unknown>)["liveUrl"] ?? (p as Record<string, unknown>)["githubUrl"];
-                    if (url) window.open(url as string, "_blank");
+                    const url = p.liveUrl ?? p.githubUrl;
+                    if (url) window.open(url, "_blank");
                 }),
             })),
         },

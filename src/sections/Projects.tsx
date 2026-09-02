@@ -1,7 +1,7 @@
 import { m, AnimatePresence } from 'framer-motion';
 import { useMemo, useState } from "react";
 import { useReveal } from '@/lib/motion';
-import { portfolioConfig, type PortfolioConfig } from "@/portfolio.config";
+import { allProjects, type Project } from "@/data/projects";
 import ProjectModal from "@/components/ProjectModal";
 import { Surface } from '@/components/ui/surface';
 import ScribbleText from '@/components/ScribbleText';
@@ -13,10 +13,20 @@ import { Button } from '@/components/ui/button';
 import { createPortal } from 'react-dom';
 import { Z_INDEX } from '@/lib/z-index';
 
-type ProjectItem = PortfolioConfig["projects"]["items"][number];
+type ProjectItem = Project;
+
+/** "3 days ago" / "Mar 2026" — the newest commit, which is not always the end date. */
+function formatLastUpdated(iso: string): string {
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return '';
+  const days = Math.floor((Date.now() - then) / 86_400_000);
+  if (days <= 0) return 'today';
+  if (days === 1) return 'yesterday';
+  if (days < 30) return `${days} days ago`;
+  return new Date(then).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+}
 
 export default function Projects() {
-  const { projects } = portfolioConfig;
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [librarySelectionIndex, setLibrarySelectionIndex] = useState<number | null>(null);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
@@ -24,7 +34,7 @@ export default function Projects() {
   const [activeTechFilter, setActiveTechFilter] = useState('All');
   const [showAllTechFilters, setShowAllTechFilters] = useState(false);
   const [sortMode, setSortMode] = useState<'recent' | 'alpha'>('recent');
-  const libraryProjects = projects.items;
+  const libraryProjects = allProjects;
   const hasProjects = libraryProjects.length > 0;
   const reveal = useReveal({ opacity: 0, y: 50 }, { opacity: 1, y: 0 }, { viewport: { once: true, margin: "-100px" } });
 
@@ -351,6 +361,9 @@ export default function Projects() {
                                 <div>
                                   <h3 className="font-marker text-2xl text-ink leading-tight">{project.title}</h3>
                                   <p className="font-hand text-xs text-pencil/65 mt-1">{project.startDate} - {project.endDate || 'present'}</p>
+                                  {project.lastUpdated && (
+                                    <p className="font-hand text-[11px] text-pencil/50 mt-0.5">Last updated {formatLastUpdated(project.lastUpdated)}</p>
+                                  )}
                                 </div>
                                 {recent && (
                                   <span className="rounded-full border border-highlighter-pink/40 bg-highlighter-pink/20 px-2 py-0.5 font-marker text-[10px] uppercase tracking-wide text-ink/80">New</span>
