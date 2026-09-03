@@ -32,7 +32,7 @@ export const portfolioConfig = {
   seo: {
     title: "Jayan Patel - Portfolio",
     description:
-      "Full Stack Developer building expressive, high-performance web experiences with React, TypeScript, and Node.js.",
+      "Full Stack Developer building expressive, innovative web experiences with React, TypeScript, and Node.js.",
     keywords: [
       "Full Stack Developer",
       "React",
@@ -52,7 +52,7 @@ export const portfolioConfig = {
 
   hero: {
     tagline: "Building interfaces that feel alive.",
-    status: "Open to Work",
+    status: "Busy",
   },
 
   navigation: {
@@ -69,30 +69,30 @@ export const portfolioConfig = {
 
   about: {
     bio: [
-      "I like shipping things that are playful on the surface and disciplined under the hood.",
+      "I like shipping projects that are well-disciplined under the hood, and present a unique experience to users.",
       "Most of my work lives at the intersection of interaction design, frontend engineering, and product thinking.",
       "Based in Austin, I enjoy collaborating with people who care about craft and clear outcomes."
     ],
     skills: [
       { name: "HTML/CSS/JS", level: 95, color: "from-blue-400 to-blue-600" },
-      { name: "React & TS", level: 80, color: "from-indigo-400 to-indigo-600" },
-      { name: "UX/UI Design", level: 65, color: "from-orange-400 to-orange-600" },
+      { name: "Typescript", level: 80, color: "from-indigo-400 to-indigo-600" },
+      { name: "UI/UX Design", level: 70, color: "from-orange-400 to-orange-600" },
       { name: "PostgreSQL", level: 60, color: "from-orange-400 to-orange-600" },
-      { name: "Java", level: 45, color: "from-green-400 to-green-600" },
-      { name: "R", level: 40, color: "from-black-400 to-black-600" },
-      { name: "Python", level: 35, color: "from-red-400 to-red-600" },
+      { name: "Java", level: 50, color: "from-green-400 to-green-600" },
+      { name: "Python", level: 45, color: "from-red-400 to-red-600" },
+      { name: "Swift", level: 35, color: "from-black-400 to-black-600" },
     ],
     tools: [
-      { name: "GitHub", icon: "github" },
-      { name: "Git", icon: "git" },
-      { name: "npm", icon: "npm" },
-      { name: "Vercel", icon: "vercel" },
-      { name: "Firebase", icon: "firebase" },
-      { name: "WordPress", icon: "wordpress" },
-      { name: "Replit", icon: "replit" },
-      { name: "VS Code", icon: "vscode" },
-      { name: "Framer Motion", icon: "framer-motion" },
-      { name: "Tailwind", icon: "tailwind" },
+    { name: "Svelte & SvelteKit", icon: "svelte" },
+    { name: "Next.js", icon: "next.js" },
+    { name: "TypeScript", icon: "typescript" },
+    { name: "Tailwind CSS", icon: "tailwind" },
+    { name: "Framer Motion", icon: "framer-motion" },
+    { name: "PostgreSQL", icon: "postgresql" },
+    { name: "Vercel", icon: "vercel" },
+    { name: "Docker", icon: "docker" },
+    { name: "Bun", icon: "bun" },
+    { name: "Git", icon: "git" },
     ],
   },
 
@@ -105,14 +105,21 @@ export const portfolioConfig = {
           title: "VEX Robotics",
           organization: "VEX Robotics Team 70709X",
           date: "2023-2025",
-          description: "Two-time Texas Region 4 champion; earned the Create Award in our division at VEX Worlds.",
+          description: "Two-time Texas R4 champion; earned divisional Create Award at VEX Worlds.",
           icon: "trophy"
         },
         {
           title: "FTC Robotics",
-          organization: "WWHS FTC Team #18886 AtlAtl",
+          organization: "FTC Team #18886 AtlAtl",
           date: "2025-2026",
-          description: "Competitor, lead software developer, presenter, and driver in FiT-Central GEMS League meets.",
+          description: "Lead software, competitor, pres-team, and driver for FiT-Central GEMS League meets.",
+          icon: "award"
+        },
+        {
+          title: "FTC Robotics",
+          organization: "FTC Team #17113 Hunga Munga",
+          date: "2026-",
+          description: "",
           icon: "award"
         }
       ]
@@ -122,12 +129,12 @@ export const portfolioConfig = {
       icon: "comments",
       items: [
         {
-          title: "LD Novice Debate",
-          organization: "WWHS LD Novice Debate",
-          date: "2025-2026",
-          description: "LD competitor focused on argument structure, refutation, and clean delivery.",
+          title: "LD Debate",
+          organization: "WWHS Debate",
+          date: "2025-",
+          description: "LD competitor focused on philosophical reasoning and critical thinking.",
           icon: "comments"
-        }
+        },
       ]
     },
     {
@@ -137,21 +144,21 @@ export const portfolioConfig = {
         {
           title: "WWHS Choir",
           organization: "WWHS Choir",
-          date: "2024-2026",
+          date: "2025-",
           description: "",
           icon: "music"
         },
         {
-          title: "TMEA",
+          title: "TMEA Middle School",
           organization: "Texas Music Educators Association",
           date: "2024-2025",
-          description: "Selected for TMEA All-Region Choir and advanced as a regional qualifier.",
+          description: "Selected for TMEA All-Region Choir",
           icon: "music"
         },
         {
           title: "UIL Concert & Soloist",
           organization: "University Interscholastic League",
-          date: "2024-2025",
+          date: "2024-",
           description: "First Division ratings in UIL Concert & Sightreading plus Solo & Ensemble performances.",
           icon: "music"
         }
@@ -181,8 +188,8 @@ export const portfolioConfig = {
         },
         {
           title: "Piano",
-          organization: "",
-          date: "2015-present",
+          organization: "Russian Overtones, Orozco Piano Studio",
+          date: "2015-",
           description: "Ten-plus years of lessons, recitals, and ensemble performances.",
           icon: "piano"
         }

@@ -40,7 +40,10 @@ import {
     SiXcode,
     SiWebassembly,
     SiJetbrains,
-    SiReplit
+    SiReplit,
+    SiFigma,
+    SiGo,
+    SiBun
 } from "react-icons/si";
 
 interface IconProps {
@@ -91,7 +94,8 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'react': return <SiReact className={className} />;
         case 'next.js': return <SiNextdotjs className={className} />;
         case 'node.js': return <SiNodedotjs className={className} />;
-        case 'tailwind': return <SiTailwindcss className={className} />;
+        case 'tailwind':
+        case 'tailwind css': return <SiTailwindcss className={className} />;
         case 'framer-motion': return <SiFramer className={className} />;
         case 'angular': return <SiAngular className={className} />;
         case 'svelte': return <SiSvelte className={className} />;
@@ -101,9 +105,12 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'js': return <SiJavascript className={className} />;
         case 'typescript':
         case 'ts': return <SiTypescript className={className} />;
-        case 'html': return <SiHtml5 className={className} />;
-        case 'css': return <SiCss className={className} />;
-        case 'postgres': return <SiPostgresql className={className} />;
+        case 'html':
+        case 'html5': return <SiHtml5 className={className} />;
+        case 'css':
+        case 'css3': return <SiCss className={className} />;
+        case 'postgres':
+        case 'postgresql': return <SiPostgresql className={className} />;
         case 'mysql': return <SiMysql className={className} />;
         case 'mongodb': return <SiMongodb className={className} />;
         case 'redis': return <SiRedis className={className} />;
@@ -115,11 +122,16 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'prettier': return <SiPrettier className={className} />;
         case 'jest': return <SiJest className={className} />;
         case 'cypress': return <SiCypress className={className} />;
-        case 'github actions': return <SiGithubactions className={className} />;
+        case 'github actions':
+        case 'githubactions': return <SiGithubactions className={className} />;
         case 'swift': return <SiSwift className={className} />;
         case 'xcode': return <SiXcode className={className} />;
         case 'jetbrains': return <SiJetbrains className={className} />;
         case 'webassembly': return <SiWebassembly className={className} />;
+        case 'figma': return <SiFigma className={className} />;
+        case 'go':
+        case 'golang': return <SiGo className={className} />;
+        case 'bun': return <SiBun className={className} />;
 
         default:
             return (
