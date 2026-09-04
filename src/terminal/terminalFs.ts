@@ -18,11 +18,13 @@ const aboutFile = (): OutputNode[] => [
   text("bio", "amber"),
   ...cfg.about.bio.map((b) => text(`  ${b}`, "fg")),
   text(""),
-  text("skills", "amber"),
-  ...cfg.about.skills.map((s) => text(`  ${s.name.padEnd(18)} ${s.level}%`, "fg")),
-  text(""),
-  text("tools", "amber"),
-  text(`  ${cfg.about.tools.map((t) => t.name).join(", ")}`, "muted"),
+  ...cfg.about.toolkit.flatMap((group) => [
+    text(group.group.toLowerCase(), "amber"),
+    ...("since" in group.items[0]
+      ? group.items.map((item) => text(`  ${item.name.padEnd(18)} since ${(item as { since: number }).since}`, "fg"))
+      : [text(`  ${group.items.map((item) => item.name).join(", ")}`, "muted")]),
+    text(""),
+  ]),
 ];
 
 const contactFile = (): OutputNode[] => [

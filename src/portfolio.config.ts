@@ -73,26 +73,41 @@ export const portfolioConfig = {
       "Most of my work lives at the intersection of interaction design, frontend engineering, and product thinking.",
       "Based in Austin, I enjoy collaborating with people who care about craft and clear outcomes."
     ],
-    skills: [
-      { name: "HTML/CSS/JS", level: 95, color: "from-blue-400 to-blue-600" },
-      { name: "Typescript", level: 80, color: "from-indigo-400 to-indigo-600" },
-      { name: "UI/UX Design", level: 70, color: "from-orange-400 to-orange-600" },
-      { name: "PostgreSQL", level: 60, color: "from-orange-400 to-orange-600" },
-      { name: "Java", level: 50, color: "from-green-400 to-green-600" },
-      { name: "Python", level: 45, color: "from-red-400 to-red-600" },
-      { name: "Swift", level: 35, color: "from-black-400 to-black-600" },
-    ],
-    tools: [
-    { name: "Svelte & SvelteKit", icon: "svelte" },
-    { name: "Next.js", icon: "next.js" },
-    { name: "TypeScript", icon: "typescript" },
-    { name: "Tailwind CSS", icon: "tailwind" },
-    { name: "Framer Motion", icon: "framer-motion" },
-    { name: "PostgreSQL", icon: "postgresql" },
-    { name: "Vercel", icon: "vercel" },
-    { name: "Docker", icon: "docker" },
-    { name: "Bun", icon: "bun" },
-    { name: "Git", icon: "git" },
+    toolkit: [
+      {
+        group: "Langs",
+        items: [
+          { name: "HTML/CSS/JS", icon: "javascript", since: 2018 },
+          { name: "TypeScript", icon: "typescript", since: 2023 },
+          { name: "UI/UX Design", icon: "figma", since: 2023 },
+          { name: "PostgreSQL", icon: "postgresql", since: 2018 },
+          { name: "Java", icon: "openjdk", since: 2023 },
+          { name: "Python", icon: "python", since: 2020 },
+          { name: "Swift", icon: "swift", since: 2026 },
+          { name: "Arduino", icon: "arduino", since: 2025 },
+        ],
+      },
+      {
+        group: "Frameworks",
+        items: [
+          { name: "React", icon: "react", since: 2022 },
+          { name: "Next.js", icon: "next.js", since: 2023 },
+          { name: "Tailwind CSS", icon: "tailwind", since: 2023 },
+          { name: "Framer Motion", icon: "framer-motion", since: 2023 },
+          { name: "Svelte & SvelteKit", icon: "svelte", since: 2025 },
+        ],
+      },
+      {
+        group: "Tools",
+        items: [
+          { name: "Bun", icon: "bun" },
+          { name: "Vercel", icon: "vercel" },
+          { name: "Supabase", icon: "supabase" },
+          { name: "Cloudflare", icon: "cloudflare" },
+          { name: "Docker", icon: "docker" },
+          { name: "Git", icon: "git" },
+        ],
+      },
     ],
   },
 

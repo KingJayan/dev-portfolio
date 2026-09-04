@@ -43,7 +43,11 @@ import {
     SiReplit,
     SiFigma,
     SiGo,
-    SiBun
+    SiBun,
+    SiCloudflare,
+    SiSupabase,
+    SiOpenjdk,
+    SiArduino
 } from "react-icons/si";
 
 interface IconProps {
@@ -72,12 +76,7 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'replit': return <SiReplit className={className} />;
         case 'express':
         case 'express.js': return <SiExpress className={className} />;
-        case 'java':
-            return (
-                <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg" aria-label="Java">
-                    <path d="M12 2c-2 0-4 1.5-4 4 0 2.2 4 5 4 5s4-2.8 4-5c0-2.5-2-4-4-4zm0 7c-1 0-2-.8-2-2 0-1.2 1-2 2-2s2 .8 2 2c0 1.2-1 2-2 2zm-4 5c0 0 1 1 4 1s4-1 4-1-1 3-4 3-4-3-4-3z" />
-                </svg>
-            );
+        case 'java': return
         case 'vscode':
             return (
                 <svg
@@ -132,7 +131,10 @@ export default function TechIcon({ name, className = "w-6 h-6" }: IconProps) {
         case 'go':
         case 'golang': return <SiGo className={className} />;
         case 'bun': return <SiBun className={className} />;
-
+        case 'cloudflare': return <SiCloudflare className={className} />;
+        case 'supabase': return <SiSupabase className={className} />;
+        case 'openjdk': return <SiOpenjdk className={className} />;
+        case 'arduino': return <SiArduino className={className} />;
         default:
             return (
                 <svg viewBox="0 0 24 24" fill="currentColor" className={className}>

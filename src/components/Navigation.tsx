@@ -102,6 +102,9 @@ function useNavTools() {
   ];
 }
 
+const TOOL_TILTS = ['-rotate-[3deg]', 'rotate-[2deg]', '-rotate-[2deg]'];
+const TOOL_RADIUS = '60% 40% 55% 45% / 45% 55% 40% 60%';
+
 function NavTools({ compact = false }: { compact?: boolean }) {
   const tools = useNavTools();
   const btnCls = cn('h-9 w-9', !compact && 'border-[1.5px]');
@@ -112,10 +115,12 @@ function NavTools({ compact = false }: { compact?: boolean }) {
         Tools
       </p>
       <div className="flex items-center justify-center gap-3">
-        {tools.map(({ id, icon: Icon, onClick, active, label }) => (
+        {tools.map(({ id, icon: Icon, onClick, active, label }, idx) => (
           <div key={id} className="relative flex flex-col items-center gap-1">
             <Button onClick={onClick} variant={active ? 'iconSoftActive' : 'iconSoft'}
-              size="icon" className={btnCls} title={label} aria-label={label}>
+              size="icon" className={cn(btnCls, TOOL_TILTS[idx % TOOL_TILTS.length], 'hover:rotate-0 transition-transform')}
+              style={{ borderRadius: TOOL_RADIUS }}
+              title={label} aria-label={label}>
               <Icon className="w-4 h-4 text-ink" />
             </Button>
             {!compact && (

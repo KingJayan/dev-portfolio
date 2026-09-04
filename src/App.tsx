@@ -30,7 +30,7 @@ const Fallback = () => <div className="min-h-screen flex items-center justify-ce
 
 function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: boolean }) {
   return (
-    <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500">
+    <div className="min-h-screen relative flex flex-col bg-paper overflow-x-hidden transition-colors duration-500 md:pr-24 lg:pr-[336px]">
       <section id="home" className="relative z-10">
         <ParallaxHero isLoading={isLoading} />
       </section>

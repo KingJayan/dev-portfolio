@@ -12,7 +12,6 @@
 
 @layer base {
   :root {
-    /*light*/
     --color-paper: #f6f3ec;
     --color-paper-ch: 246 243 236;
     --color-ink: #25221f;
@@ -25,7 +24,6 @@
     --color-highlight-pink:   hsla(334, 27%, 65%, 0.3);
     --color-highlight-blue:   hsla(206, 23%, 59%, 0.27);
 
-    /* accent palette */
     --color-amber-ch: 188 130 62;
     --color-rose-ch:  185 108 120;
     --color-sage-ch:  95  140 118;
@@ -35,7 +33,6 @@
   }
 
   .dark {
-    /*dark*/
     --color-paper: #15181d;
     --color-paper-ch: 21 24 29;
     --color-ink: #e8edf3;
@@ -262,6 +259,13 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .doodle-layer {
+      display: block;
+    }
   }
 
   .glass-panel {
@@ -352,7 +356,6 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 hsla(0,0%,100%,0.07);
   }
 
-  /*grain texture*/
   .grain-overlay {
     @apply fixed inset-0 pointer-events-none z-[9999] opacity-[0.03] mix-blend-multiply;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
