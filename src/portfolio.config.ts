@@ -62,7 +62,7 @@ export const portfolioConfig = {
       { name: "Projects", href: "#projects" },
       { name: "About", href: "#about" },
       { name: "Extras", href: "#achievements" },
-      { name: "Life", href: "#outside" },
+      // { name: "Life", href: "#outside" }, // disabled
       { name: "Contact", href: "#contact" },
     ],
   },
@@ -211,33 +211,31 @@ export const portfolioConfig = {
       ]
     }
   ],
-
   outsideProgramming: {
     title: "When I'm Not Coding...",
     hobbies: [
       {
         name: "School Robotics",
-        description: "I build, test, and iterate bots for FTC after previously qualifying for VEX Worlds twice.",
+        description: "I build, program, test, and iterate on competition robots for my school FTC team.",
         image: "/images/life/robotics.png"
       },
       {
         name: "Gaming",
-        description: "I play mostly strategy and co-op titles, and I nerd out over game systems.",
+        description: "I play mostly strategy and co-op titles, and enjoy the occasional Minecraft.",
         image: "/images/life/gaming.png"
       },
       {
         name: "Baking",
-        description: "I use baking as a reset: precise, creative, and surprisingly technical.",
+        description: "Baking is surprisingly precise, creative, and technically demanding.",
         image: "/images/life/baking.png"
       },
       {
         name: "Debate",
-        description: "Debate keeps my thinking sharp and my communication clear under pressure.",
+        description: "Debate helps critical thinking as well as improving my communication skills under pressure.",
         image: "/images/life/debate.png"
       }
     ]
   },
-
   projects: {
     showFilter: false,
 

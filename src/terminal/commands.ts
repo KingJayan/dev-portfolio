@@ -199,7 +199,7 @@ const COMMANDS: Command[] = [
           ["location", cfg.personal.location],
           ["role",     cfg.personal.title],
           ["projects", String(allProjects.length)],
-          ["skills",   String(cfg.about.toolkit.find((g) => g.group === "Skills")?.items.length ?? 0)],
+          ["skills",   String(cfg.about.toolkit.reduce((n, g) => n + g.items.length, 0))],
           ["status",   cfg.hero.status],
           ["uptime",   "always"],
         ]},

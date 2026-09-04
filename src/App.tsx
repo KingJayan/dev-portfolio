@@ -17,7 +17,8 @@ const Projects = lazy(() => import("@/sections/Projects"));
 const GithubRepos = lazy(() => import("@/sections/GithubRepos"));
 const About = lazy(() => import("@/sections/About"));
 const Achievements = lazy(() => import("@/sections/Achievements"));
-const OutsideWork = lazy(() => import("@/sections/OutsideWork"));
+// temporarily disabled — see #outside section below
+// const OutsideWork = lazy(() => import("@/sections/OutsideWork"));
 const Contact = lazy(() => import("@/sections/Contact"));
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -67,6 +68,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
         </SectionErrorBoundary>
       </section>
 
+      {/* disabled outside/Life section
       {!isZenMode && <SectionDivider />}
 
       <section id="outside" className="relative z-[37] bg-paper min-h-screen flex flex-col justify-center">
@@ -74,6 +76,7 @@ function Portfolio({ isZenMode, isLoading }: { isZenMode: boolean; isLoading: bo
           <Suspense fallback={<Fallback />}><OutsideWork /></Suspense>
         </SectionErrorBoundary>
       </section>
+      */}
 
       {!isZenMode && <SectionDivider />}
 
