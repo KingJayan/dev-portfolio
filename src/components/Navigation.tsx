@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   { name: 'GitHub', href: '#github', id: 'github' },
   { name: 'About', href: '#about', id: 'about' },
   { name: 'Extras', href: '#achievements', id: 'achievements' },
-  { name: 'Life', href: '#outside', id: 'outside' },
+  // { name: 'Life', href: '#outside', id: 'outside' }, // temporarily disabled with the outside/Life section
   { name: 'Contact', href: '#contact', id: 'contact' },
 ] as const;
 
