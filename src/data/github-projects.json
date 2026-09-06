@@ -1,46 +1,7 @@
 {
-  "generatedAt": "2026-09-05T11:12:34.749Z",
+  "generatedAt": "2026-09-06T11:35:18.223Z",
   "username": "KingJayan",
   "projects": [
-    {
-      "id": "dev-portfolio",
-      "title": "Dev Portfolio",
-      "description": "my dev portfolio",
-      "technologies": [
-        "Dev Portfolio",
-        "Framer Motion",
-        "Portfolio",
-        "TypeScript",
-        "CSS",
-        "HTML"
-      ],
-      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
-      "liveUrl": "https://jayanpatel.vercel.app",
-      "startDate": "07/25",
-      "endDate": "",
-      "lastUpdated": "2026-09-04T12:02:51.000Z",
-      "stars": 1,
-      "commitCount": 162,
-      "source": "github"
-    },
-    {
-      "id": "mousecape-cursors",
-      "title": "Mousecape Cursors",
-      "description": "A small collection of my own mousecape cursors",
-      "technologies": [
-        "Cursor Pack",
-        "Cursors",
-        "Macos",
-        "Mousecape"
-      ],
-      "githubUrl": "https://github.com/KingJayan/mousecape-cursors",
-      "startDate": "08/26",
-      "endDate": "",
-      "lastUpdated": "2026-09-02T02:52:13.000Z",
-      "stars": 1,
-      "commitCount": 14,
-      "source": "github"
-    },
     {
       "id": "homebrew-dsmx",
       "title": "Homebrew Dsmx",
@@ -53,9 +14,9 @@
       "githubUrl": "https://github.com/KingJayan/homebrew-dsmx",
       "startDate": "08/26",
       "endDate": "",
-      "lastUpdated": "2026-08-30T05:26:11.000Z",
+      "lastUpdated": "2026-09-05T16:48:44.000Z",
       "stars": 0,
-      "commitCount": 13,
+      "commitCount": 14,
       "source": "github"
     },
     {
@@ -74,9 +35,48 @@
       "liveUrl": "https://desmos-ide.vercel.app",
       "startDate": "04/26",
       "endDate": "",
-      "lastUpdated": "2026-08-30T05:20:43.000Z",
+      "lastUpdated": "2026-09-05T16:45:26.000Z",
       "stars": 2,
-      "commitCount": 179,
+      "commitCount": 182,
+      "source": "github"
+    },
+    {
+      "id": "dev-portfolio",
+      "title": "Dev Portfolio",
+      "description": "my dev portfolio",
+      "technologies": [
+        "Dev Portfolio",
+        "Framer Motion",
+        "Portfolio",
+        "TypeScript",
+        "CSS",
+        "HTML"
+      ],
+      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
+      "liveUrl": "https://jayanpatel.vercel.app",
+      "startDate": "07/25",
+      "endDate": "",
+      "lastUpdated": "2026-09-05T11:12:34.000Z",
+      "stars": 1,
+      "commitCount": 163,
+      "source": "github"
+    },
+    {
+      "id": "mousecape-cursors",
+      "title": "Mousecape Cursors",
+      "description": "A small collection of my own mousecape cursors",
+      "technologies": [
+        "Cursor Pack",
+        "Cursors",
+        "Macos",
+        "Mousecape"
+      ],
+      "githubUrl": "https://github.com/KingJayan/mousecape-cursors",
+      "startDate": "08/26",
+      "endDate": "",
+      "lastUpdated": "2026-09-02T02:52:13.000Z",
+      "stars": 1,
+      "commitCount": 14,
       "source": "github"
     },
     {
