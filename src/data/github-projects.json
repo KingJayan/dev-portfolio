@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-06T11:35:18.223Z",
+  "generatedAt": "2026-09-07T13:22:46.399Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -14,9 +14,9 @@
       "githubUrl": "https://github.com/KingJayan/homebrew-dsmx",
       "startDate": "08/26",
       "endDate": "",
-      "lastUpdated": "2026-09-05T16:48:44.000Z",
+      "lastUpdated": "2026-09-06T14:10:06.000Z",
       "stars": 0,
-      "commitCount": 14,
+      "commitCount": 15,
       "source": "github"
     },
     {
@@ -35,9 +35,9 @@
       "liveUrl": "https://desmos-ide.vercel.app",
       "startDate": "04/26",
       "endDate": "",
-      "lastUpdated": "2026-09-05T16:45:26.000Z",
+      "lastUpdated": "2026-09-06T14:07:28.000Z",
       "stars": 2,
-      "commitCount": 182,
+      "commitCount": 184,
       "source": "github"
     },
     {
@@ -45,20 +45,20 @@
       "title": "Dev Portfolio",
       "description": "my dev portfolio",
       "technologies": [
-        "Dev Portfolio",
         "Framer Motion",
+        "Github Api",
         "Portfolio",
+        "Portfolio Website",
         "TypeScript",
-        "CSS",
-        "HTML"
+        "CSS"
       ],
       "githubUrl": "https://github.com/KingJayan/dev-portfolio",
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-09-05T11:12:34.000Z",
+      "lastUpdated": "2026-09-06T11:35:18.000Z",
       "stars": 1,
-      "commitCount": 163,
+      "commitCount": 164,
       "source": "github"
     },
     {
@@ -201,7 +201,7 @@
       ],
       "githubUrl": "https://github.com/KingJayan/gradient",
       "startDate": "05/26",
-      "endDate": "",
+      "endDate": "07/26",
       "lastUpdated": "2026-07-24T04:04:06.000Z",
       "stars": 0,
       "commitCount": 72,
