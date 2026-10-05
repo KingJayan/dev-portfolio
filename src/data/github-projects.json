@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-04T13:06:48.005Z",
+  "generatedAt": "2026-10-05T15:41:45.783Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -18,9 +18,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-10-03T12:20:04.000Z",
+      "lastUpdated": "2026-10-04T13:06:48.000Z",
       "stars": 1,
-      "commitCount": 191,
+      "commitCount": 192,
       "source": "github"
     },
     {
@@ -90,7 +90,7 @@
       ],
       "githubUrl": "https://github.com/KingJayan/dsmx-registry",
       "startDate": "08/26",
-      "endDate": "",
+      "endDate": "08/26",
       "lastUpdated": "2026-08-21T04:18:56.000Z",
       "stars": 0,
       "commitCount": 4,
