@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T12:11:10.188Z",
+  "generatedAt": "2026-10-17T11:30:14.378Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -18,9 +18,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-10-15T12:33:06.000Z",
+      "lastUpdated": "2026-10-16T12:11:10.000Z",
       "stars": 1,
-      "commitCount": 203,
+      "commitCount": 204,
       "source": "github"
     },
     {
@@ -73,7 +73,7 @@
       ],
       "githubUrl": "https://github.com/KingJayan/mousecape-cursors",
       "startDate": "08/26",
-      "endDate": "",
+      "endDate": "09/26",
       "lastUpdated": "2026-09-02T02:52:13.000Z",
       "stars": 1,
       "commitCount": 14,
