@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T12:49:12.054Z",
+  "generatedAt": "2026-10-22T12:52:24.763Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -18,9 +18,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-10-20T12:37:37.000Z",
+      "lastUpdated": "2026-10-21T12:49:12.000Z",
       "stars": 1,
-      "commitCount": 208,
+      "commitCount": 209,
       "source": "github"
     },
     {
@@ -34,7 +34,7 @@
       ],
       "githubUrl": "https://github.com/KingJayan/homebrew-dsmx",
       "startDate": "08/26",
-      "endDate": "",
+      "endDate": "09/26",
       "lastUpdated": "2026-09-06T14:10:06.000Z",
       "stars": 0,
       "commitCount": 15,
@@ -55,7 +55,7 @@
       "githubUrl": "https://github.com/KingJayan/desmos-ide",
       "liveUrl": "https://desmos-ide.vercel.app",
       "startDate": "04/26",
-      "endDate": "",
+      "endDate": "09/26",
       "lastUpdated": "2026-09-06T14:07:28.000Z",
       "stars": 2,
       "commitCount": 184,
@@ -181,7 +181,7 @@
       "githubUrl": "https://github.com/KingJayan/gradient-hac-api",
       "liveUrl": "https://gradient-hac-api.vercel.app",
       "startDate": "05/23",
-      "endDate": "",
+      "endDate": "07/26",
       "lastUpdated": "2026-07-25T16:28:20.000Z",
       "stars": 0,
       "commitCount": 62,
