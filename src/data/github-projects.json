@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-10-25T12:26:00.325Z",
+  "generatedAt": "2026-10-26T14:02:50.341Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "snips",
+      "title": "Snips",
+      "description": "",
+      "technologies": [
+        "Code",
+        "Full Stack",
+        "Notes",
+        "Snippet",
+        "Snippets Manager",
+        "TypeScript"
+      ],
+      "githubUrl": "https://github.com/KingJayan/snips",
+      "liveUrl": "https://snips0.vercel.app",
+      "startDate": "03/26",
+      "endDate": "05/26",
+      "lastUpdated": "2026-10-25T15:46:07.000Z",
+      "stars": 1,
+      "commitCount": 53,
+      "source": "github"
+    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -18,9 +39,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-10-24T11:55:37.000Z",
+      "lastUpdated": "2026-10-25T12:26:00.000Z",
       "stars": 1,
-      "commitCount": 212,
+      "commitCount": 213,
       "source": "github"
     },
     {
@@ -129,27 +150,6 @@
       "lastUpdated": "2026-08-15T05:48:57.000Z",
       "stars": 1,
       "commitCount": 17,
-      "source": "github"
-    },
-    {
-      "id": "snips",
-      "title": "Snips",
-      "description": "",
-      "technologies": [
-        "Code",
-        "Full Stack",
-        "Notes",
-        "Snippet",
-        "Snippets Manager",
-        "TypeScript"
-      ],
-      "githubUrl": "https://github.com/KingJayan/snips",
-      "liveUrl": "https://snips0.vercel.app",
-      "startDate": "03/26",
-      "endDate": "05/26",
-      "lastUpdated": "2026-07-31T04:57:43.000Z",
-      "stars": 1,
-      "commitCount": 52,
       "source": "github"
     },
     {
