@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-10-26T14:02:50.341Z",
+  "generatedAt": "2026-10-27T13:04:54.067Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "dev-portfolio",
+      "title": "Dev Portfolio",
+      "description": "my dev portfolio",
+      "technologies": [
+        "Framer Motion",
+        "Github Api",
+        "Portfolio",
+        "Portfolio Website",
+        "TypeScript",
+        "CSS"
+      ],
+      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
+      "liveUrl": "https://jayanpatel.vercel.app",
+      "startDate": "07/25",
+      "endDate": "",
+      "lastUpdated": "2026-10-26T14:02:50.000Z",
+      "stars": 1,
+      "commitCount": 214,
+      "source": "github"
+    },
     {
       "id": "snips",
       "title": "Snips",
@@ -21,27 +42,6 @@
       "lastUpdated": "2026-10-25T15:46:07.000Z",
       "stars": 1,
       "commitCount": 53,
-      "source": "github"
-    },
-    {
-      "id": "dev-portfolio",
-      "title": "Dev Portfolio",
-      "description": "my dev portfolio",
-      "technologies": [
-        "Framer Motion",
-        "Github Api",
-        "Portfolio",
-        "Portfolio Website",
-        "TypeScript",
-        "CSS"
-      ],
-      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
-      "liveUrl": "https://jayanpatel.vercel.app",
-      "startDate": "07/25",
-      "endDate": "",
-      "lastUpdated": "2026-10-25T12:26:00.000Z",
-      "stars": 1,
-      "commitCount": 213,
       "source": "github"
     },
     {
