@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T14:56:26.628Z",
+  "generatedAt": "2026-11-04T15:16:00.815Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -18,9 +18,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-02T16:55:55.000Z",
+      "lastUpdated": "2026-11-03T14:56:26.000Z",
       "stars": 1,
-      "commitCount": 221,
+      "commitCount": 222,
       "source": "github"
     },
     {
@@ -155,9 +155,13 @@
     {
       "id": "keybinds",
       "title": "Keybinds",
-      "description": "",
+      "description": "Fully-featured macro mod for Minecraft Java Edition",
       "technologies": [
-        "Java"
+        "Fabricmc",
+        "Java",
+        "Macros",
+        "Minecraft",
+        "Minecraft Modding Community"
       ],
       "githubUrl": "https://github.com/KingJayan/keybinds",
       "startDate": "07/26",
