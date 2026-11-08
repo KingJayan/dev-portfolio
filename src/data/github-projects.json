@@ -1,7 +1,24 @@
 {
-  "generatedAt": "2026-11-07T13:49:28.692Z",
+  "generatedAt": "2026-11-08T14:09:49.613Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "rev-hardware-client-mac",
+      "title": "Rev Hardware Client Mac",
+      "description": "macOS & Linux compatible REV Hardware Client (with cool ui)",
+      "technologies": [
+        "Swift",
+        "JavaScript",
+        "Shell"
+      ],
+      "githubUrl": "https://github.com/KingJayan/rev-hardware-client-mac",
+      "startDate": "10/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-08T05:58:25.000Z",
+      "stars": 0,
+      "commitCount": 9,
+      "source": "github"
+    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -18,9 +35,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-06T14:53:22.000Z",
+      "lastUpdated": "2026-11-07T13:49:28.000Z",
       "stars": 1,
-      "commitCount": 225,
+      "commitCount": 226,
       "source": "github"
     },
     {
