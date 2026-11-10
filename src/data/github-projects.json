@@ -1,24 +1,7 @@
 {
-  "generatedAt": "2026-11-08T14:09:49.613Z",
+  "generatedAt": "2026-11-10T15:30:38.790Z",
   "username": "KingJayan",
   "projects": [
-    {
-      "id": "rev-hardware-client-mac",
-      "title": "Rev Hardware Client Mac",
-      "description": "macOS & Linux compatible REV Hardware Client (with cool ui)",
-      "technologies": [
-        "Swift",
-        "JavaScript",
-        "Shell"
-      ],
-      "githubUrl": "https://github.com/KingJayan/rev-hardware-client-mac",
-      "startDate": "10/26",
-      "endDate": "",
-      "lastUpdated": "2026-11-08T05:58:25.000Z",
-      "stars": 0,
-      "commitCount": 9,
-      "source": "github"
-    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -35,9 +18,29 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-07T13:49:28.000Z",
+      "lastUpdated": "2026-11-08T14:09:49.000Z",
       "stars": 1,
-      "commitCount": 226,
+      "commitCount": 227,
+      "source": "github"
+    },
+    {
+      "id": "rev-hardware-client-mac",
+      "title": "Rev Hardware Client Mac",
+      "description": "macOS & Linux compatible REV Hardware Client (with cool ui)",
+      "technologies": [
+        "Ftc",
+        "Macos",
+        "Rev Robotics",
+        "Swift",
+        "JavaScript",
+        "Shell"
+      ],
+      "githubUrl": "https://github.com/KingJayan/rev-hardware-client-mac",
+      "startDate": "10/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-08T05:58:25.000Z",
+      "stars": 1,
+      "commitCount": 9,
       "source": "github"
     },
     {
@@ -159,6 +162,8 @@
       "title": "Cosmocamp Ftc",
       "description": "cosmo x hunga camp (pedro)",
       "technologies": [
+        "Ftc",
+        "Robotics",
         "Java"
       ],
       "githubUrl": "https://github.com/KingJayan/cosmocamp-ftc",
@@ -645,7 +650,7 @@
       "startDate": "05/25",
       "endDate": "05/25",
       "lastUpdated": "2025-05-07T22:57:40.000Z",
-      "stars": 1,
+      "stars": 0,
       "commitCount": 12,
       "source": "github"
     }
