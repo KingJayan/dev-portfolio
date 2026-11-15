@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-11-14T14:01:12.807Z",
+  "generatedAt": "2026-11-15T14:37:03.694Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "doodle-board",
+      "title": "Doodle Board",
+      "description": " A playful, sketched collaborative knowledge board.",
+      "technologies": [
+        "Angular",
+        "Drawing",
+        "Notes",
+        "Whiteboard",
+        "TypeScript",
+        "CSS"
+      ],
+      "githubUrl": "https://github.com/KingJayan/Doodle-Board",
+      "liveUrl": "https://doodle-board-rust.vercel.app",
+      "startDate": "01/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-15T02:13:18.000Z",
+      "stars": 1,
+      "commitCount": 152,
+      "source": "github"
+    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -18,9 +39,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-13T15:13:21.000Z",
+      "lastUpdated": "2026-11-14T14:01:12.000Z",
       "stars": 1,
-      "commitCount": 231,
+      "commitCount": 232,
       "source": "github"
     },
     {
@@ -249,27 +270,6 @@
       "lastUpdated": "2026-07-21T02:15:16.000Z",
       "stars": 0,
       "commitCount": 18,
-      "source": "github"
-    },
-    {
-      "id": "doodle-board",
-      "title": "Doodle Board",
-      "description": " A playful, sketched collaborative knowledge board.",
-      "technologies": [
-        "Angular",
-        "Art",
-        "Notes",
-        "Notes App",
-        "TypeScript",
-        "CSS"
-      ],
-      "githubUrl": "https://github.com/KingJayan/Doodle-Board",
-      "liveUrl": "https://doodle-board-rust.vercel.app",
-      "startDate": "01/26",
-      "endDate": "07/26",
-      "lastUpdated": "2026-07-16T03:14:15.000Z",
-      "stars": 0,
-      "commitCount": 147,
       "source": "github"
     },
     {
@@ -524,7 +524,7 @@
     {
       "id": "pfp",
       "title": "Pfp",
-      "description": "my gh pfp in css bec im bad at graphics design",
+      "description": "[OLD] my gh pfp in css bec im bad at graphics design",
       "technologies": [
         "HTML"
       ],
