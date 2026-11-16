@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-11-15T14:37:03.694Z",
+  "generatedAt": "2026-11-16T16:52:30.460Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "dev-portfolio",
+      "title": "Dev Portfolio",
+      "description": "my dev portfolio",
+      "technologies": [
+        "Framer Motion",
+        "Github Api",
+        "Portfolio",
+        "Portfolio Website",
+        "TypeScript",
+        "CSS"
+      ],
+      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
+      "liveUrl": "https://jayanpatel.vercel.app",
+      "startDate": "07/25",
+      "endDate": "",
+      "lastUpdated": "2026-11-15T14:37:03.000Z",
+      "stars": 1,
+      "commitCount": 233,
+      "source": "github"
+    },
     {
       "id": "doodle-board",
       "title": "Doodle Board",
@@ -21,27 +42,6 @@
       "lastUpdated": "2026-11-15T02:13:18.000Z",
       "stars": 1,
       "commitCount": 152,
-      "source": "github"
-    },
-    {
-      "id": "dev-portfolio",
-      "title": "Dev Portfolio",
-      "description": "my dev portfolio",
-      "technologies": [
-        "Framer Motion",
-        "Github Api",
-        "Portfolio",
-        "Portfolio Website",
-        "TypeScript",
-        "CSS"
-      ],
-      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
-      "liveUrl": "https://jayanpatel.vercel.app",
-      "startDate": "07/25",
-      "endDate": "",
-      "lastUpdated": "2026-11-14T14:01:12.000Z",
-      "stars": 1,
-      "commitCount": 232,
       "source": "github"
     },
     {
@@ -548,7 +548,7 @@
       "githubUrl": "https://github.com/KingJayan/ui-library",
       "liveUrl": "https://ui-library-123.vercel.app",
       "startDate": "10/25",
-      "endDate": "",
+      "endDate": "02/26",
       "lastUpdated": "2026-02-01T19:01:07.000Z",
       "stars": 0,
       "commitCount": 5,
