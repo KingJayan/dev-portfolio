@@ -1,7 +1,45 @@
 {
-  "generatedAt": "2026-11-16T16:52:30.460Z",
+  "generatedAt": "2026-11-17T16:47:24.871Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "glass-fox",
+      "title": "Glass Fox",
+      "description": "dark minimalist UI for Firefox",
+      "technologies": [
+        "CSS",
+        "TypeScript",
+        "JavaScript"
+      ],
+      "githubUrl": "https://github.com/KingJayan/glass-fox",
+      "startDate": "11/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-17T05:03:58.000Z",
+      "stars": 1,
+      "commitCount": 10,
+      "source": "github"
+    },
+    {
+      "id": "snips",
+      "title": "Snips",
+      "description": "",
+      "technologies": [
+        "Code",
+        "Full Stack",
+        "Notes",
+        "Snippet",
+        "Snippets Manager",
+        "TypeScript"
+      ],
+      "githubUrl": "https://github.com/KingJayan/snips",
+      "liveUrl": "https://snips0.vercel.app",
+      "startDate": "03/26",
+      "endDate": "05/26",
+      "lastUpdated": "2026-11-17T04:30:44.000Z",
+      "stars": 1,
+      "commitCount": 54,
+      "source": "github"
+    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -18,9 +56,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-15T14:37:03.000Z",
+      "lastUpdated": "2026-11-16T16:52:30.000Z",
       "stars": 1,
-      "commitCount": 233,
+      "commitCount": 234,
       "source": "github"
     },
     {
@@ -62,27 +100,6 @@
       "lastUpdated": "2026-11-08T05:58:25.000Z",
       "stars": 1,
       "commitCount": 9,
-      "source": "github"
-    },
-    {
-      "id": "snips",
-      "title": "Snips",
-      "description": "",
-      "technologies": [
-        "Code",
-        "Full Stack",
-        "Notes",
-        "Snippet",
-        "Snippets Manager",
-        "TypeScript"
-      ],
-      "githubUrl": "https://github.com/KingJayan/snips",
-      "liveUrl": "https://snips0.vercel.app",
-      "startDate": "03/26",
-      "endDate": "05/26",
-      "lastUpdated": "2026-10-25T15:46:07.000Z",
-      "stars": 1,
-      "commitCount": 53,
       "source": "github"
     },
     {
