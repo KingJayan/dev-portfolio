@@ -1,24 +1,7 @@
 {
-  "generatedAt": "2026-11-17T16:47:24.871Z",
+  "generatedAt": "2026-11-18T16:19:05.285Z",
   "username": "KingJayan",
   "projects": [
-    {
-      "id": "glass-fox",
-      "title": "Glass Fox",
-      "description": "dark minimalist UI for Firefox",
-      "technologies": [
-        "CSS",
-        "TypeScript",
-        "JavaScript"
-      ],
-      "githubUrl": "https://github.com/KingJayan/glass-fox",
-      "startDate": "11/26",
-      "endDate": "",
-      "lastUpdated": "2026-11-17T05:03:58.000Z",
-      "stars": 1,
-      "commitCount": 10,
-      "source": "github"
-    },
     {
       "id": "snips",
       "title": "Snips",
@@ -34,10 +17,10 @@
       "githubUrl": "https://github.com/KingJayan/snips",
       "liveUrl": "https://snips0.vercel.app",
       "startDate": "03/26",
-      "endDate": "05/26",
-      "lastUpdated": "2026-11-17T04:30:44.000Z",
+      "endDate": "",
+      "lastUpdated": "2026-11-18T06:10:30.000Z",
       "stars": 1,
-      "commitCount": 54,
+      "commitCount": 86,
       "source": "github"
     },
     {
@@ -56,9 +39,26 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-16T16:52:30.000Z",
+      "lastUpdated": "2026-11-17T16:47:24.000Z",
       "stars": 1,
-      "commitCount": 234,
+      "commitCount": 235,
+      "source": "github"
+    },
+    {
+      "id": "glass-fox",
+      "title": "Glass Fox",
+      "description": "dark minimalist UI for Firefox",
+      "technologies": [
+        "CSS",
+        "TypeScript",
+        "JavaScript"
+      ],
+      "githubUrl": "https://github.com/KingJayan/glass-fox",
+      "startDate": "11/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-17T05:03:58.000Z",
+      "stars": 1,
+      "commitCount": 10,
       "source": "github"
     },
     {
