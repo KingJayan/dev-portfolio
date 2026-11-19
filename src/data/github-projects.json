@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T16:19:05.285Z",
+  "generatedAt": "2026-11-19T16:27:11.636Z",
   "username": "KingJayan",
   "projects": [
     {
@@ -17,10 +17,10 @@
       "githubUrl": "https://github.com/KingJayan/snips",
       "liveUrl": "https://snips0.vercel.app",
       "startDate": "03/26",
-      "endDate": "",
-      "lastUpdated": "2026-11-18T06:10:30.000Z",
+      "endDate": "05/26",
+      "lastUpdated": "2026-11-19T04:13:02.000Z",
       "stars": 1,
-      "commitCount": 86,
+      "commitCount": 113,
       "source": "github"
     },
     {
@@ -39,9 +39,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-17T16:47:24.000Z",
+      "lastUpdated": "2026-11-18T16:19:05.000Z",
       "stars": 1,
-      "commitCount": 235,
+      "commitCount": 236,
       "source": "github"
     },
     {
