@@ -1,7 +1,28 @@
 {
-  "generatedAt": "2026-11-21T15:11:32.582Z",
+  "generatedAt": "2026-11-22T15:09:02.672Z",
   "username": "KingJayan",
   "projects": [
+    {
+      "id": "flagon",
+      "title": "Flagon",
+      "description": "Run unmodified desktop Java/LWJGL applications directly in your browser.",
+      "technologies": [
+        "Aot Compiler",
+        "Browser",
+        "Compatibility Layer",
+        "Eaglercraft",
+        "Lwjgl",
+        "Minecraft"
+      ],
+      "githubUrl": "https://github.com/KingJayan/flagon",
+      "liveUrl": "https://flagon-nu.vercel.app",
+      "startDate": "07/26",
+      "endDate": "",
+      "lastUpdated": "2026-11-22T07:50:15.000Z",
+      "stars": 1,
+      "commitCount": 280,
+      "source": "github"
+    },
     {
       "id": "dev-portfolio",
       "title": "Dev Portfolio",
@@ -18,9 +39,9 @@
       "liveUrl": "https://jayanpatel.vercel.app",
       "startDate": "07/25",
       "endDate": "",
-      "lastUpdated": "2026-11-20T15:59:34.000Z",
+      "lastUpdated": "2026-11-21T15:11:32.000Z",
       "stars": 1,
-      "commitCount": 238,
+      "commitCount": 239,
       "source": "github"
     },
     {
