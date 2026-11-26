@@ -1,28 +1,7 @@
 {
-  "generatedAt": "2026-11-25T17:54:21.197Z",
+  "generatedAt": "2026-11-26T17:38:07.745Z",
   "username": "KingJayan",
   "projects": [
-    {
-      "id": "dev-portfolio",
-      "title": "Dev Portfolio",
-      "description": "my dev portfolio",
-      "technologies": [
-        "Framer Motion",
-        "Github Api",
-        "Portfolio",
-        "Portfolio Website",
-        "TypeScript",
-        "CSS"
-      ],
-      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
-      "liveUrl": "https://jayanpatel.vercel.app",
-      "startDate": "07/25",
-      "endDate": "",
-      "lastUpdated": "2026-11-24T18:45:57.000Z",
-      "stars": 1,
-      "commitCount": 242,
-      "source": "github"
-    },
     {
       "id": "flagon",
       "title": "Flagon",
@@ -39,9 +18,30 @@
       "liveUrl": "https://flagon-nu.vercel.app",
       "startDate": "07/26",
       "endDate": "",
-      "lastUpdated": "2026-11-22T19:29:05.000Z",
+      "lastUpdated": "2026-11-26T17:12:44.000Z",
       "stars": 1,
-      "commitCount": 282,
+      "commitCount": 290,
+      "source": "github"
+    },
+    {
+      "id": "dev-portfolio",
+      "title": "Dev Portfolio",
+      "description": "my dev portfolio",
+      "technologies": [
+        "Framer Motion",
+        "Github Api",
+        "Portfolio",
+        "Portfolio Website",
+        "TypeScript",
+        "CSS"
+      ],
+      "githubUrl": "https://github.com/KingJayan/dev-portfolio",
+      "liveUrl": "https://jayanpatel.vercel.app",
+      "startDate": "07/25",
+      "endDate": "",
+      "lastUpdated": "2026-11-25T17:54:21.000Z",
+      "stars": 1,
+      "commitCount": 243,
       "source": "github"
     },
     {
